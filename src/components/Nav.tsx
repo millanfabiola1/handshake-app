@@ -46,7 +46,7 @@ export default function Nav() {
     <nav
       className={`fixed top-[32px] left-0 right-0 z-50 h-[72px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
         visible
-          ? `bg-white border-b ${open ? 'border-transparent' : 'border-black/5'} shadow-sm`
+          ? `bg-white border-b ${open ? 'border-transparent' : 'border-black/5'}`
           : 'bg-transparent border-b border-transparent'
       }`}
       onMouseEnter={() => setHovered(true)}
@@ -72,7 +72,7 @@ export default function Nav() {
         item.children ? (
           <div
             key={item.label}
-            className={`absolute top-full left-0 right-0 bg-white shadow-lg transition-all duration-300 ease-out origin-top ${
+            className={`absolute top-full left-0 right-0 bg-white transition-all duration-300 ease-out origin-top ${
               open === item.label
                 ? 'opacity-100 translate-y-0 scale-y-100 pointer-events-auto'
                 : 'opacity-0 -translate-y-2 scale-y-95 pointer-events-none'

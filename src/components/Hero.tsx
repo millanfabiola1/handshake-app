@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { ArrowRight } from '@phosphor-icons/react'
 import ScrollReveal from './ScrollReveal'
 
 function DotGrid({ sectionRef }: { sectionRef: React.RefObject<HTMLElement | null> }) {
@@ -160,7 +161,7 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
   )
 }
 
-function AnimatedCounter({ end, suffix = '', duration = 2000 }: { end: number; suffix?: string; duration?: number }) {
+function AnimatedCounter({ end, suffix = '', prefix = '', duration = 2000, key: counterKey }: { end: number; suffix?: string; prefix?: string; duration?: number; key?: string }) {
   const [count, setCount] = useState(0)
   const [started, setStarted] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
@@ -175,6 +176,7 @@ function AnimatedCounter({ end, suffix = '', duration = 2000 }: { end: number; s
 
   useEffect(() => {
     if (!started) return
+    setCount(0)
     const startTime = Date.now()
     const animate = () => {
       const elapsed = Date.now() - startTime
@@ -186,7 +188,7 @@ function AnimatedCounter({ end, suffix = '', duration = 2000 }: { end: number; s
     requestAnimationFrame(animate)
   }, [started, end, duration])
 
-  return <span ref={ref} className="mono">{count.toLocaleString()}{suffix}</span>
+  return <span ref={ref} className="mono">{prefix}{count.toLocaleString()}{suffix}</span>
 }
 
 export default function Hero() {
@@ -194,56 +196,36 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen flex flex-col justify-center pt-[104px] bg-white relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-start pt-[160px] bg-white relative overflow-hidden"
       style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <DotGrid sectionRef={sectionRef} />
-      <div className="px-6 md:px-12 lg:px-20 xl:px-28 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <ScrollReveal>
-            <p className="mono text-[13px] text-black/50 mb-8 uppercase">The platform that pays</p>
-          </ScrollReveal>
 
-          <div>
-            <h1 className="font-light text-black leading-[0.95] tracking-[-0.045em]" style={{ fontSize: 'clamp(42px, 6vw, 76px)' }}>
-              <TypewriterText text="Where every" /><br />
-              <TypewriterText text="conversation has" delay={400} /><br />
-              <span className="text-black"><TypewriterText text="real value" delay={800} /></span>
-            </h1>
-          </div>
+      {/* Image positioned on the right, behind the text */}
+      <div className="absolute right-0 bottom-0 z-[2] hidden lg:block pointer-events-none">
+        <img src="/image.png" alt="Handshake app" className="w-[45vw] max-w-[700px] rounded-tl-2xl opacity-90" />
+      </div>
 
-          <ScrollReveal delay={200}>
-            <p className="text-[17px] font-light text-black/60 leading-[1.6] max-w-[480px] mt-10">
-              Handshake embeds payments directly into messaging. Tips, paid content, and scheduled calls — all inside the thread.
-            </p>
-          </ScrollReveal>
+      <div className="px-4 md:px-8 lg:px-10 xl:px-12 w-full relative z-10">
+        <ScrollReveal>
+          <p className="mono text-[13px] text-black/50 mb-8 uppercase">The platform that pays</p>
+        </ScrollReveal>
 
-          <ScrollReveal delay={300}>
-            <div className="flex items-center gap-4 mt-10">
-              <a href="#" className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-[#2DE86A] transition-colors">Join the waitlist</a>
-              <a href="#product" className="text-[14px] font-light text-black px-7 py-3.5 rounded-lg border border-black/20 hover:border-black/40 transition-colors">See the product</a>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={400}>
-            <div className="flex gap-16 mt-20 pb-20">
-              {[
-                { value: 0, label: 'Platform fee', suffix: '%' },
-                { value: 50000, label: 'Waitlist signups', suffix: '+' },
-                { value: 100, label: 'Payment methods', suffix: '+' },
-              ].map((m) => (
-                <div key={m.label}>
-                  <div className="text-[36px] font-light text-black tracking-[-0.03em]"><AnimatedCounter end={m.value} suffix={m.suffix} /></div>
-                  <div className="mono text-[12px] text-black/40 mt-1 uppercase">{m.label}</div>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
+        <h1 className="font-light text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 140px)' }}>
+          <TypewriterText text="Where every conversation" /><br />
+          <TypewriterText text="has real value" delay={600} />
+        </h1>
 
         <ScrollReveal delay={200}>
-          <div className="hidden lg:flex items-center justify-center">
-            <img src="/image.png" alt="Handshake app" className="w-full max-w-[520px] rounded-2xl" />
+          <p className="text-[17px] font-light text-black/60 leading-[1.6] max-w-[480px] mt-12">
+            Handshake embeds payments directly into messaging. Tips, paid content, and scheduled calls — all inside the thread.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={300}>
+          <div className="flex items-center gap-4 mt-8">
+            <a href="#" className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-[#2DE86A] transition-colors inline-flex items-center gap-2">Join the waitlist <ArrowRight size={16} weight="bold" /></a>
+            <a href="#product" className="text-[14px] font-light text-black px-7 py-3.5 rounded-lg border border-black/20 hover:border-black/40 transition-colors">See the product</a>
           </div>
         </ScrollReveal>
       </div>

@@ -1,56 +1,115 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { CurrencyDollar, LockSimple, PhoneCall, Megaphone } from '@phosphor-icons/react'
 
 const features = [
-  { label: '01 — Tips', title: 'One tap. Instant gratitude.', desc: 'Let your community show appreciation with one-tap payments mid-conversation. No links, no redirects — just seamless value exchange.', img: 'Tips interface' },
-  { label: '02 — Locked Content', title: 'Gate it. Earn from it.', desc: 'Photos, videos, or messages behind a paywall — fans unlock what they want, you earn what you deserve.', img: 'Content paywall' },
-  { label: '03 — Paid Calls', title: 'Your time. Your rate.', desc: '1-on-1 voice or video sessions billed per minute or flat rate. Booked, confirmed, and paid — all inside the thread.', img: 'Call scheduling' },
-  { label: '04 — Mass Messaging', title: 'Blast it. Make it personal.', desc: 'Reach your entire client book with messages that never feel automated. Every message feels one-to-one, even at scale.', img: 'Campaign dashboard' },
+  { label: '01 — Tips', title: 'One tap. Instant gratitude.', desc: 'Let your community show appreciation with one-tap payments mid-conversation. No links, no redirects — just seamless value exchange.', img: 'Tips interface', icon: CurrencyDollar },
+  { label: '02 — Locked Content', title: 'Gate it. Earn from it.', desc: 'Photos, videos, or messages behind a paywall — fans unlock what they want, you earn what you deserve.', img: 'Content paywall', icon: LockSimple },
+  { label: '03 — Paid Calls', title: 'Your time. Your rate.', desc: '1-on-1 voice or video sessions billed per minute or flat rate. Booked, confirmed, and paid — all inside the thread.', img: 'Call scheduling', icon: PhoneCall },
+  { label: '04 — Mass Messaging', title: 'Blast it. Make it personal.', desc: 'Reach your entire client book with messages that never feel automated. Every message feels one-to-one, even at scale.', img: 'Campaign dashboard', icon: Megaphone },
 ]
 
 export default function StickyFeatures() {
   const [activeIndex, setActiveIndex] = useState(0)
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [userClicked, setUserClicked] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
-    const observers = features.map((_, i) => {
-      const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setActiveIndex(i) }, { threshold: 0.5, rootMargin: '-104px 0px -30% 0px' })
-      const el = sectionRefs.current[i]
-      if (el) obs.observe(el)
-      return obs
-    })
-    return () => observers.forEach((obs) => obs.disconnect())
-  }, [])
+    const container = containerRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      if (userClicked) return
+      const rect = container.getBoundingClientRect()
+      const scrollableHeight = container.scrollHeight - window.innerHeight
+      const scrolled = -rect.top
+      const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight))
+      const index = Math.min(features.length - 1, Math.floor(progress * features.length))
+      setActiveIndex(index)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [userClicked])
+
+  const handleTabClick = (i: number) => {
+    setActiveIndex(i)
+    setUserClicked(true)
+    if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current)
+    clickTimeoutRef.current = setTimeout(() => setUserClicked(false), 2000)
+  }
 
   return (
-    <section className="bg-white relative" id="product">
-      <div className="px-6 md:px-12 lg:px-20 xl:px-28 pt-[120px] pb-20">
-        <p className="mono text-[11px] text-black/40 uppercase mb-5">Product</p>
-        <h2 className="font-light text-black tracking-[-0.04em] leading-[1.05] max-w-[700px]" style={{ fontSize: 'clamp(36px, 5vw, 56px)' }}>
-          Built for the conversation economy
-        </h2>
-      </div>
+    <section id="product" className="relative z-[3]">
+      <div ref={containerRef} style={{ height: `${features.length * 100}vh` }} className="relative">
+        <div className="sticky top-0 h-screen bg-white overflow-hidden">
+          <div className="h-full flex flex-col justify-center px-4 md:px-8 lg:px-10 xl:px-12">
+            <div className="mb-12">
+              <p className="mono text-[11px] text-black/40 uppercase mb-5">Product</p>
+              <h2 className="font-light text-black tracking-[-0.04em] leading-[1.05] max-w-[700px]" style={{ fontSize: 'clamp(36px, 5vw, 56px)' }}>
+                Built for the conversation economy
+              </h2>
+            </div>
 
-      <div className="px-6 md:px-12 lg:px-20 xl:px-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-          <div className="flex flex-col">
-            {features.map((f, i) => (
-              <div key={f.label} ref={(el) => { sectionRefs.current[i] = el }} className="min-h-[70vh] flex flex-col justify-center py-12">
-                <p className="mono text-[12px] uppercase mb-6 transition-colors duration-500" style={{ color: activeIndex === i ? '#39FF78' : '#D4D4D8' }}>{f.label}</p>
-                <h3 className="text-[32px] md:text-[40px] font-light tracking-[-0.03em] leading-[1.1] mb-5 transition-colors duration-500" style={{ color: activeIndex === i ? '#000000' : '#D4D4D8' }}>{f.title}</h3>
-                <p className="text-[16px] font-light leading-[1.65] max-w-[440px] transition-colors duration-500" style={{ color: activeIndex === i ? '#71717A' : '#D4D4D8' }}>{f.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="hidden lg:block">
-            <div className="sticky top-[104px] h-[calc(100vh-104px)] flex items-center">
-              <div className="w-full rounded-2xl img-placeholder-light relative" style={{ aspectRatio: '4 / 3' }}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 flex-1 max-h-[60vh]">
+              <div className="flex flex-col justify-center relative">
                 {features.map((f, i) => (
-                  <div key={f.label} className="absolute inset-0 flex items-center justify-center transition-opacity duration-700" style={{ opacity: activeIndex === i ? 1 : 0 }}>
-                    <span className="mono text-[14px] text-black/40">{f.img}</span>
+                  <div
+                    key={f.label}
+                    className="absolute inset-0 flex flex-col justify-center transition-all duration-700"
+                    style={{
+                      opacity: activeIndex === i ? 1 : 0,
+                      transform: activeIndex === i ? 'translateY(0)' : activeIndex > i ? 'translateY(-40px)' : 'translateY(40px)',
+                    }}
+                  >
+                    <div className="flex items-center gap-3 mb-6">
+                      <f.icon size={20} weight="fill" className="text-[#39FF78]" />
+                      <p className="mono text-[12px] text-[#39FF78] uppercase">{f.label}</p>
+                    </div>
+                    <h3 className="text-[32px] md:text-[40px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5">{f.title}</h3>
+                    <p className="text-[16px] font-light text-[#71717A] leading-[1.65] max-w-[440px]">{f.desc}</p>
                   </div>
                 ))}
               </div>
+
+              <div className="hidden lg:flex items-center">
+                <div className="w-full rounded-2xl img-placeholder-light relative" style={{ aspectRatio: '4 / 3' }}>
+                  {features.map((f, i) => (
+                    <div
+                      key={f.label}
+                      className="absolute inset-0 flex items-center justify-center transition-all duration-700"
+                      style={{
+                        opacity: activeIndex === i ? 1 : 0,
+                        transform: activeIndex === i ? 'scale(1)' : 'scale(0.95)',
+                      }}
+                    >
+                      <div className="flex flex-col items-center gap-3">
+                        <f.icon size={48} weight="thin" className="text-black/20" />
+                        <span className="mono text-[14px] text-black/40">{f.img}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Clickable tab pills */}
+            <div className="flex gap-2 mt-8">
+              {features.map((f, i) => (
+                <button
+                  key={f.label}
+                  onClick={() => handleTabClick(i)}
+                  className={`mono text-[11px] px-4 py-2 rounded-full transition-all duration-400 cursor-pointer inline-flex items-center gap-1.5 ${
+                    activeIndex === i
+                      ? 'bg-[#39FF78] text-black'
+                      : 'bg-black/5 text-black/30 hover:text-black/60 hover:bg-black/10'
+                  }`}
+                >
+                  <f.icon size={13} weight={activeIndex === i ? 'fill' : 'regular'} />
+                  {f.label.split(' — ')[1]}
+                </button>
+              ))}
             </div>
           </div>
         </div>

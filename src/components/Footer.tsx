@@ -1,13 +1,22 @@
+'use client'
+import { XLogo, InstagramLogo, LinkedinLogo } from '@phosphor-icons/react'
+
+const socialLinks = [
+  { label: 'Twitter', icon: XLogo, href: '#' },
+  { label: 'Instagram', icon: InstagramLogo, href: '#' },
+  { label: 'LinkedIn', icon: LinkedinLogo, href: '#' },
+]
+
 export default function Footer() {
   return (
-    <footer className="bg-[#39FF78] pt-24 pb-12 px-6 md:px-12 lg:px-20 xl:px-28">
+    <footer className="bg-[#1A1A1D] relative z-[8]">
+      <div className="bg-[#39FF78] rounded-t-[24px] pt-24 pb-12 px-4 md:px-8 lg:px-10 xl:px-12">
       <div >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-24">
           {[
             { title: 'Product', items: ['Tips', 'Locked Content', 'Paid Calls', 'Mass Messaging'] },
             { title: 'Company', items: ['About', 'Blog', 'Careers', 'Press'] },
             { title: 'Legal', items: ['Privacy', 'Terms', 'Security'] },
-            { title: 'Connect', items: ['Twitter', 'Instagram', 'LinkedIn'] },
           ].map((col) => (
             <div key={col.title}>
               <p className="mono text-[11px] text-black uppercase mb-5">{col.title}</p>
@@ -18,6 +27,17 @@ export default function Footer() {
               </div>
             </div>
           ))}
+          <div>
+            <p className="mono text-[11px] text-black uppercase mb-5">Connect</p>
+            <div className="flex flex-col gap-3">
+              {socialLinks.map((link) => (
+                <a key={link.label} href={link.href} className="text-[14px] font-light text-black no-underline hover:underline transition-all inline-flex items-center gap-2">
+                  <link.icon size={16} weight="regular" />
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="w-full">
@@ -30,6 +50,7 @@ export default function Footer() {
           <span className="mono text-[12px] text-black">&copy; 2026 Handshake</span>
           <span className="mono text-[12px] text-black">Message &middot; Monetize &middot; Move Money</span>
         </div>
+      </div>
       </div>
     </footer>
   )
