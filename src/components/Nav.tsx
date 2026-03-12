@@ -39,26 +39,24 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const dark = scrolled || hovered || open !== null
+  const visible = scrolled || hovered || open !== null
 
   return (
     <nav
       className={`fixed top-[32px] left-0 right-0 z-50 h-[72px] flex items-center justify-between px-6 md:px-12 lg:px-20 xl:px-28 transition-all duration-300 ${
-        dark
-          ? 'bg-black/90 backdrop-blur-xl border-b border-white/10'
+        visible
+          ? `bg-white border-b ${open ? 'border-transparent' : 'border-black/5'} shadow-sm`
           : 'bg-transparent border-b border-transparent'
       }`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false); setOpen(null) }}
     >
-      <a href="#" className={`text-[16px] font-light tracking-[-0.3px] transition-colors duration-300 ${dark ? 'text-white' : 'text-black'}`}>Handshake</a>
+      <a href="#" className="text-[16px] font-light tracking-[-0.3px] text-black transition-colors duration-300">Handshake</a>
 
       <div className="hidden md:flex items-center gap-8">
         {menuItems.map((item) => (
           <div key={item.label} onMouseEnter={() => setOpen(item.children ? item.label : null)}>
-            <a href={item.href} className={`mono text-[13px] transition-colors duration-300 py-6 inline-flex items-center gap-1 ${
-              dark ? 'text-white/60 hover:text-white' : 'text-black/50 hover:text-black'
-            }`}>
+            <a href={item.href} className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 py-6 inline-flex items-center gap-1">
               {item.label}
               {item.children && (
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="6 9 12 15 18 9" /></svg>
@@ -71,17 +69,17 @@ export default function Nav() {
       {/* Full-width megamenu */}
       {menuItems.map((item) =>
         item.children && open === item.label ? (
-          <div key={item.label} className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-t border-white/10">
+          <div key={item.label} className="absolute top-full left-0 right-0 bg-white shadow-lg">
             <div className={`px-6 md:px-12 lg:px-20 xl:px-28 py-8 grid gap-4 ${item.children.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'}`}>
               {item.children.map((child) => (
-                <a key={child.label} href={child.href} className="group block rounded-xl overflow-hidden hover:ring-1 hover:ring-white/20 transition-all">
+                <a key={child.label} href={child.href} className="group block rounded-lg hover:ring-1 hover:ring-black/10 transition-all">
                   <div
-                    className="h-[120px] bg-cover bg-center"
+                    className="h-[120px] bg-cover bg-center rounded-lg"
                     style={{ backgroundImage: 'url(/hologram-light.png)' }}
                   />
                   <div className="px-4 py-4">
-                    <div className="text-[14px] font-light text-white group-hover:text-[#39FF78] transition-colors">{child.label}</div>
-                    <div className="mono text-[11px] text-white/40 mt-1">{child.desc}</div>
+                    <div className="text-[14px] font-light text-black group-hover:text-[#39FF78] transition-colors">{child.label}</div>
+                    <div className="mono text-[11px] text-black/40 mt-1">{child.desc}</div>
                   </div>
                 </a>
               ))}
@@ -91,9 +89,7 @@ export default function Nav() {
       )}
 
       <div className="flex items-center gap-4">
-        <a href="#" className={`mono text-[13px] transition-colors duration-300 hidden sm:block ${
-          dark ? 'text-white/60 hover:text-white' : 'text-black/50 hover:text-black'
-        }`}>Sign in</a>
+        <a href="#" className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 hidden sm:block">Sign in</a>
         <a href="#" className="text-[13px] font-medium text-black px-5 py-2 rounded-lg bg-[#39FF78] hover:bg-[#2DE86A] transition-colors">Join waitlist</a>
       </div>
     </nav>

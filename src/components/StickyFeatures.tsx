@@ -23,10 +23,10 @@ export default function StickyFeatures() {
   }, [])
 
   return (
-    <section className="bg-[#1A1A1D] relative" id="product">
+    <section className="bg-white relative" id="product">
       <div className="px-6 md:px-12 lg:px-20 xl:px-28 pt-[120px] pb-20">
-        <p className="mono text-[11px] text-[#39FF78] uppercase mb-5">Product</p>
-        <h2 className="font-light text-white tracking-[-0.04em] leading-[1.05] max-w-[700px]" style={{ fontSize: 'clamp(36px, 5vw, 56px)' }}>
+        <p className="mono text-[11px] text-black/40 uppercase mb-5">Product</p>
+        <h2 className="font-light text-black tracking-[-0.04em] leading-[1.05] max-w-[700px]" style={{ fontSize: 'clamp(36px, 5vw, 56px)' }}>
           Built for the conversation economy
         </h2>
       </div>
@@ -36,18 +36,18 @@ export default function StickyFeatures() {
           <div className="flex flex-col">
             {features.map((f, i) => (
               <div key={f.label} ref={(el) => { sectionRefs.current[i] = el }} className="min-h-[70vh] flex flex-col justify-center py-12">
-                <p className="mono text-[12px] uppercase mb-6 transition-colors duration-500" style={{ color: activeIndex === i ? '#39FF78' : '#3F3F46' }}>{f.label}</p>
-                <h3 className="text-[32px] md:text-[40px] font-light tracking-[-0.03em] leading-[1.1] mb-5 transition-colors duration-500" style={{ color: activeIndex === i ? '#FFFFFF' : '#3F3F46' }}>{f.title}</h3>
-                <p className="text-[16px] font-light leading-[1.65] max-w-[440px] transition-colors duration-500" style={{ color: activeIndex === i ? '#71717A' : '#2A2A2E' }}>{f.desc}</p>
+                <p className="mono text-[12px] uppercase mb-6 transition-colors duration-500" style={{ color: activeIndex === i ? '#39FF78' : '#D4D4D8' }}>{f.label}</p>
+                <h3 className="text-[32px] md:text-[40px] font-light tracking-[-0.03em] leading-[1.1] mb-5 transition-colors duration-500" style={{ color: activeIndex === i ? '#000000' : '#D4D4D8' }}>{f.title}</h3>
+                <p className="text-[16px] font-light leading-[1.65] max-w-[440px] transition-colors duration-500" style={{ color: activeIndex === i ? '#71717A' : '#D4D4D8' }}>{f.desc}</p>
               </div>
             ))}
           </div>
           <div className="hidden lg:block">
             <div className="sticky top-[104px] h-[calc(100vh-104px)] flex items-center">
-              <div className="w-full rounded-2xl img-placeholder relative" style={{ aspectRatio: '4 / 3' }}>
+              <div className="w-full rounded-2xl img-placeholder-light relative" style={{ aspectRatio: '4 / 3' }}>
                 {features.map((f, i) => (
                   <div key={f.label} className="absolute inset-0 flex items-center justify-center transition-opacity duration-700" style={{ opacity: activeIndex === i ? 1 : 0 }}>
-                    <span className="mono text-[14px] text-[#52525B]">{f.img}</span>
+                    <span className="mono text-[14px] text-black/40">{f.img}</span>
                   </div>
                 ))}
               </div>
