@@ -27,11 +27,7 @@ export default function ScrollReveal({ children, delay = 0, className = '' }: Sc
   }, [])
 
   return (
-    <div
-      ref={ref}
-      className={`reveal ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
+    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   )

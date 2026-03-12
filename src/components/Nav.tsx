@@ -1,44 +1,100 @@
+'use client'
+import { useState, useEffect } from 'react'
+
+const menuItems = [
+  {
+    label: 'Product',
+    href: '#product',
+    children: [
+      { label: 'Tips', desc: 'One-tap payments in-thread', href: '#product' },
+      { label: 'Locked Content', desc: 'Gate your best work', href: '#product' },
+      { label: 'Paid Calls', desc: 'Billed sessions, your rate', href: '#product' },
+      { label: 'Mass Messaging', desc: 'Reach everyone at once', href: '#product' },
+    ],
+  },
+  {
+    label: 'Use Cases',
+    href: '#use-cases',
+    children: [
+      { label: 'Creators', desc: 'Turn followers into revenue', href: '#use-cases' },
+      { label: 'Service Providers', desc: 'Quote, confirm, collect', href: '#use-cases' },
+      { label: 'Coaches', desc: 'Premium sessions, no overhead', href: '#use-cases' },
+    ],
+  },
+  { label: 'Pricing', href: '#pricing', children: null },
+]
+
 export default function Nav() {
+  const [open, setOpen] = useState<string | null>(null)
+  const [scrolled, setScrolled] = useState(false)
+  const [hovered, setHovered] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
+      setScrolled(window.scrollY > heroHeight - 120)
+    }
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const dark = scrolled || hovered || open !== null
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[400] h-16 flex items-center justify-between px-8 bg-white/95 backdrop-blur-[12px] border-b border-[#EBEBEA]">
-      {/* Brand */}
-      <div className="flex items-center gap-[10px]">
-        <div
-          className="w-8 h-8 flex items-center justify-center flex-shrink-0 bg-[#00C566] text-black font-black text-[15px] leading-none"
-          style={{ borderRadius: '8px' }}
-        >
-          H
-        </div>
-        <span className="text-[17px] font-extrabold text-[#0D0D0D] tracking-[-0.5px]">andshake</span>
+    <nav
+      className={`fixed top-[32px] left-0 right-0 z-50 h-[72px] flex items-center justify-between px-6 md:px-12 lg:px-20 xl:px-28 transition-all duration-300 ${
+        dark
+          ? 'bg-black/90 backdrop-blur-xl border-b border-white/10'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => { setHovered(false); setOpen(null) }}
+    >
+      <a href="#" className={`text-[16px] font-light tracking-[-0.3px] transition-colors duration-300 ${dark ? 'text-white' : 'text-black'}`}>Handshake</a>
+
+      <div className="hidden md:flex items-center gap-8">
+        {menuItems.map((item) => (
+          <div key={item.label} onMouseEnter={() => setOpen(item.children ? item.label : null)}>
+            <a href={item.href} className={`mono text-[13px] transition-colors duration-300 py-6 inline-flex items-center gap-1 ${
+              dark ? 'text-white/60 hover:text-white' : 'text-black/50 hover:text-black'
+            }`}>
+              {item.label}
+              {item.children && (
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="6 9 12 15 18 9" /></svg>
+              )}
+            </a>
+          </div>
+        ))}
       </div>
 
-      {/* Centered links */}
-      <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex gap-2">
-        <a href="#features" className="text-[14px] font-medium text-[#6B7280] px-[14px] py-[6px] rounded-full hover:bg-[#FAFAF8] hover:text-[#0D0D0D] transition-colors">
-          Product
-        </a>
-        <a href="#who" className="text-[14px] font-medium text-[#6B7280] px-[14px] py-[6px] rounded-full hover:bg-[#FAFAF8] hover:text-[#0D0D0D] transition-colors">
-          For Business
-        </a>
-        <a href="#tools" className="text-[14px] font-medium text-[#6B7280] px-[14px] py-[6px] rounded-full hover:bg-[#FAFAF8] hover:text-[#0D0D0D] transition-colors">
-          Pricing
-        </a>
-      </div>
+      {/* Full-width megamenu */}
+      {menuItems.map((item) =>
+        item.children && open === item.label ? (
+          <div key={item.label} className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-t border-white/10">
+            <div className={`px-6 md:px-12 lg:px-20 xl:px-28 py-8 grid gap-4 ${item.children.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'}`}>
+              {item.children.map((child) => (
+                <a key={child.label} href={child.href} className="group block rounded-xl overflow-hidden hover:ring-1 hover:ring-white/20 transition-all">
+                  <div
+                    className="h-[120px] bg-cover bg-center"
+                    style={{ backgroundImage: 'url(/hologram-light.png)' }}
+                  />
+                  <div className="px-4 py-4">
+                    <div className="text-[14px] font-light text-white group-hover:text-[#39FF78] transition-colors">{child.label}</div>
+                    <div className="mono text-[11px] text-white/40 mt-1">{child.desc}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : null
+      )}
 
-      {/* Actions */}
-      <div className="flex items-center gap-2">
-        <a
-          href="#"
-          className="text-[14px] font-semibold text-[#0D0D0D] px-[18px] py-[7px] rounded-full border border-[#EBEBEA] bg-white hover:border-[#CCC] hover:bg-[#FAFAF8] transition-colors"
-        >
-          Log in
-        </a>
-        <a
-          href="#"
-          className="text-[14px] font-bold text-black px-[18px] py-[7px] rounded-full bg-[#00C566] hover:bg-[#009E52] transition-colors flex items-center gap-[6px]"
-        >
-          Join waitlist →
-        </a>
+      <div className="flex items-center gap-4">
+        <a href="#" className={`mono text-[13px] transition-colors duration-300 hidden sm:block ${
+          dark ? 'text-white/60 hover:text-white' : 'text-black/50 hover:text-black'
+        }`}>Sign in</a>
+        <a href="#" className="text-[13px] font-medium text-black px-5 py-2 rounded-lg bg-[#39FF78] hover:bg-[#2DE86A] transition-colors">Join waitlist</a>
       </div>
     </nav>
   )
