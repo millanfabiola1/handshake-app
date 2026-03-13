@@ -47,8 +47,8 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center justify-between flex-wrap gap-4 mt-12 pt-8 border-t border-black/10">
-          <span className="mono text-[12px] text-black">&copy; 2026 Handshake</span>
-          <span className="mono text-[12px] text-black">Message &middot; Monetize &middot; Move Money</span>
+          <span className="mono text-[12px] font-normal text-black">&copy; 2026 Handshake</span>
+          <span className="mono text-[12px] font-normal text-black">Message &middot; Monetize &middot; Move Money</span>
         </div>
       </div>
       </div>

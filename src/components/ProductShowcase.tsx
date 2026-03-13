@@ -68,18 +68,18 @@ export default function ProductShowcase() {
   const active = steps[activeIndex]
 
   return (
-    <section className="bg-[#39FF78] text-black relative z-[4] rounded-t-[24px]">
+    <section className="bg-[#3A3A3F] text-white relative z-[4] rounded-t-[24px]">
       <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12">
         {/* Header */}
         <div className="pt-[120px] pb-16">
-          <p className="mono text-[11px] text-black/50 uppercase mb-5">How it works</p>
-          <h2 className="font-light text-black tracking-[-0.035em] leading-[1.1]" style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}>
+          <p className="mono text-[11px] text-white/40 uppercase mb-5">How it works</p>
+          <h2 className="font-light text-[#39FF78] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
             Text like iMessage.<br />Earn like a business.
           </h2>
         </div>
 
         {/* Scrolling content + sticky image */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 pb-[120px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 pb-[500px]">
           {/* Left: scrolling text steps */}
           <div className="flex flex-col">
             {steps.map((s, i) => (
@@ -89,14 +89,11 @@ export default function ProductShowcase() {
                 className="min-h-[60vh] flex flex-col justify-center py-12 transition-opacity duration-500"
                 style={{ opacity: activeIndex === i ? 1 : 0.25 }}
               >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center flex-shrink-0">
-                    <s.icon size={20} weight={activeIndex === i ? 'fill' : 'regular'} className="text-black/60" />
-                  </div>
-                  <span className="mono text-[11px] text-black/40 uppercase">Step {s.step}</span>
+                <div className="mb-6">
+                  <span className="mono text-[11px] text-white/40 uppercase">Step {s.step}</span>
                 </div>
-                <h3 className="text-[28px] md:text-[36px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5">{s.title}</h3>
-                <p className="text-[16px] font-light text-black/60 leading-[1.65] max-w-[440px]">{s.desc}</p>
+                <h3 className="text-[28px] md:text-[36px] font-light text-white tracking-[-0.03em] leading-[0.95] mb-5">{s.title}</h3>
+                <p className="mono text-[14px] font-normal text-white/60 leading-[1.75] max-w-[440px]">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -104,7 +101,7 @@ export default function ProductShowcase() {
           {/* Right: sticky image */}
           <div className="hidden lg:block">
             <div className="sticky top-[50vh] -translate-y-1/2">
-              <div className="w-full rounded-2xl img-placeholder-light relative" style={{ aspectRatio: '4 / 3' }}>
+              <div className="w-full rounded-lg img-placeholder relative" style={{ aspectRatio: '4 / 3' }}>
                 {steps.map((s, i) => (
                   <div
                     key={s.step}
@@ -114,8 +111,7 @@ export default function ProductShowcase() {
                       transform: activeIndex === i ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.97)',
                     }}
                   >
-                    <s.icon size={48} weight="thin" className="text-black/20" />
-                    <span className="mono text-[14px] text-black/40">{s.img}</span>
+                    <span className="mono text-[14px] text-white/40">{s.img}</span>
                   </div>
                 ))}
               </div>
@@ -128,7 +124,7 @@ export default function ProductShowcase() {
                     className="h-[3px] rounded-full transition-all duration-400"
                     style={{
                       width: activeIndex === i ? 28 : 10,
-                      backgroundColor: activeIndex === i ? '#000' : 'rgba(0,0,0,0.15)',
+                      backgroundColor: activeIndex === i ? '#39FF78' : 'rgba(255,255,255,0.15)',
                     }}
                   />
                 ))}

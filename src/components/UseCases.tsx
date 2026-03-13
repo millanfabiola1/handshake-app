@@ -2,6 +2,7 @@
 import { useRef } from 'react'
 import { Eye, Wrench, PaintBrush, ShieldCheck, Storefront, ArrowRight, ArrowLeft } from '@phosphor-icons/react'
 import ScrollReveal from './ScrollReveal'
+import { useWaitlist } from './WaitlistContext'
 
 const cases = [
   {
@@ -43,6 +44,7 @@ const cases = [
 
 export default function UseCases() {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const showWaitlist = useWaitlist()
 
   const scroll = (dir: 'left' | 'right') => {
     if (!scrollRef.current) return
@@ -51,21 +53,21 @@ export default function UseCases() {
   }
 
   return (
-    <section className="py-[140px] bg-[#39FF78] sticky top-0 z-[5]" id="use-cases">
-      <div className="bg-white rounded-t-[24px] py-[140px] -my-[140px]" style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'bottom center' }}>
+    <section className="bg-white sticky top-0 z-[5] rounded-t-[24px] relative" id="use-cases">
+      <div className="py-[140px]" style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'bottom center' }}>
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 flex items-end justify-between mb-14">
         <ScrollReveal>
           <p className="mono text-[11px] text-[#18181B]/40 uppercase mb-5">Who it&apos;s for</p>
-          <h2 className="font-light text-[#18181B] tracking-[-0.035em] leading-[1.1] max-w-[500px]" style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}>
+          <h2 className="font-light text-[#18181B] tracking-[-0.035em] leading-[0.95] max-w-[500px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
             Built for the new economy
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={100}>
           <div className="flex gap-2">
-            <button onClick={() => scroll('left')} className="w-14 h-14 rounded-full border border-black/10 hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black/40">
+            <button onClick={() => scroll('left')} className="w-14 h-14 rounded-full border border-black hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black/40">
               <ArrowLeft size={22} weight="bold" />
             </button>
-            <button onClick={() => scroll('right')} className="w-14 h-14 rounded-full border border-black/10 hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black/40">
+            <button onClick={() => scroll('right')} className="w-14 h-14 rounded-full border border-black hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black/40">
               <ArrowRight size={22} weight="bold" />
             </button>
           </div>
@@ -80,7 +82,7 @@ export default function UseCases() {
         {cases.map((item) => (
           <div
             key={item.label}
-            className="group bg-white border border-black/5 rounded-2xl overflow-hidden hover:bg-black hover:border-transparent transition-all duration-300 cursor-pointer flex flex-col snap-start flex-shrink-0"
+            className="group bg-white border border-black/5 rounded-lg overflow-hidden hover:bg-black hover:border-transparent transition-all duration-300 cursor-pointer flex flex-col snap-start flex-shrink-0"
             style={{ width: 'min(380px, 80vw)' }}
           >
             <div className="h-[180px] img-placeholder-light group-hover:img-placeholder flex items-center justify-center transition-all duration-300">
@@ -88,9 +90,7 @@ export default function UseCases() {
             </div>
             <div className="p-8 flex flex-col flex-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-black/5 group-hover:bg-white/10 flex items-center justify-center transition-colors duration-300">
-                <item.icon size={20} weight="light" className="text-black/40 group-hover:text-white transition-colors duration-300" />
-              </div>
+              <item.icon size={20} weight="light" className="text-black/40 group-hover:text-white transition-colors duration-300" />
               <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase transition-colors duration-300">{item.label}</p>
             </div>
             <h3 className="text-[22px] font-light text-[#18181B] group-hover:text-white tracking-[-0.02em] leading-[1.2] mb-3 transition-colors duration-300">{item.title}</h3>
@@ -105,16 +105,16 @@ export default function UseCases() {
 
         {/* CTA card */}
         <div
-          className="bg-[#39FF78] rounded-2xl p-8 flex flex-col justify-between snap-start flex-shrink-0"
+          className="bg-[#39FF78] rounded-lg p-8 flex flex-col justify-between snap-start flex-shrink-0"
           style={{ width: 'min(380px, 80vw)' }}
         >
           <div>
             <p className="mono text-[11px] text-black/40 uppercase mb-3">The platform</p>
             <h3 className="text-[22px] font-light text-black tracking-[-0.02em] leading-[1.2]">A handshake seals every deal.</h3>
           </div>
-          <a href="#" className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-black text-white hover:bg-black/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8">
-            Get early access <ArrowRight size={14} weight="bold" />
-          </a>
+          <button onClick={showWaitlist} className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-black text-white hover:bg-black/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8 cursor-pointer">
+            Get early access <span className="text-[14px]">&#x2197;</span>
+          </button>
         </div>
       </div>
       </div>

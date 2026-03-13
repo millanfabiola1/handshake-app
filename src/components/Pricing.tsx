@@ -72,7 +72,7 @@ export default function Pricing() {
   const active = paymentTabs[activeTab]
 
   return (
-    <section className="py-[180px] px-4 md:px-8 lg:px-10 xl:px-12 bg-white text-[#18181B] sticky top-0 z-[6]" id="pricing">
+    <section className="py-[180px] px-4 md:px-8 lg:px-10 xl:px-12 bg-white text-[#18181B] sticky top-0 z-[6] rounded-t-[24px] relative" id="pricing">
       <div className="text-center">
         <ScrollReveal><p className="mono text-[11px] text-[#39FF78] uppercase mb-10">Pricing</p></ScrollReveal>
         <div className="mono leading-[0.85] tracking-[-0.06em] text-[#18181B] transition-all duration-500" style={{ fontSize: 'clamp(100px, 20vw, 280px)' }}>
@@ -91,7 +91,7 @@ export default function Pricing() {
               <button
                 key={tab.label}
                 onClick={() => setActiveTab(i)}
-                className={`mono text-[12px] px-5 py-2.5 rounded-full transition-all duration-300 cursor-pointer inline-flex items-center gap-2 ${
+                className={`mono text-[12px] px-5 py-2.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 ${
                   activeTab === i
                     ? 'bg-[#18181B] text-white'
                     : 'bg-[#F4F4F5] text-[#A1A1AA] hover:text-[#71717A] hover:bg-[#E4E4E7]'

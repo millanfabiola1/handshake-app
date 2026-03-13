@@ -1,25 +1,25 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { CaretDown, CurrencyDollar, LockSimple, PhoneCall, Megaphone, PaintBrush, Wrench, UserCircle, ArrowRight } from '@phosphor-icons/react'
+import { useWaitlist } from './WaitlistContext'
 
 const menuItems = [
   {
     label: 'Product',
     href: '#product',
     children: [
-      { label: 'Tips', desc: 'One-tap payments in-thread', href: '#product', icon: CurrencyDollar },
-      { label: 'Locked Content', desc: 'Gate your best work', href: '#product', icon: LockSimple },
-      { label: 'Paid Calls', desc: 'Billed sessions, your rate', href: '#product', icon: PhoneCall },
-      { label: 'Mass Messaging', desc: 'Reach everyone at once', href: '#product', icon: Megaphone },
+      { label: 'Tips', desc: 'One-tap payments in-thread', href: '#product', icon: CurrencyDollar, img: '/image.png' },
+      { label: 'Locked Content', desc: 'Gate your best work', href: '#product', icon: LockSimple, img: '/image.png' },
+      { label: 'Paid Calls', desc: 'Billed sessions, your rate', href: '#product', icon: PhoneCall, img: '/image.png' },
     ],
   },
   {
     label: 'Use Cases',
     href: '#use-cases',
     children: [
-      { label: 'Creators', desc: 'Turn followers into revenue', href: '#use-cases', icon: PaintBrush },
-      { label: 'Service Providers', desc: 'Quote, confirm, collect', href: '#use-cases', icon: Wrench },
-      { label: 'Coaches', desc: 'Premium sessions, no overhead', href: '#use-cases', icon: UserCircle },
+      { label: 'Creators', desc: 'Turn followers into revenue', href: '#use-cases', icon: PaintBrush, img: '/image.png' },
+      { label: 'Service Providers', desc: 'Quote, confirm, collect', href: '#use-cases', icon: Wrench, img: '/image.png' },
+      { label: 'Coaches', desc: 'Premium sessions, no overhead', href: '#use-cases', icon: UserCircle, img: '/image.png' },
     ],
   },
   { label: 'Pricing', href: '#pricing', children: null },
@@ -29,6 +29,7 @@ export default function Nav() {
   const [open, setOpen] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [hovered, setHovered] = useState(false)
+  const showWaitlist = useWaitlist()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,11 +45,12 @@ export default function Nav() {
 
   return (
     <nav
-      className={`fixed top-[32px] left-0 right-0 z-50 h-[72px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-50 h-[72px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
         visible
           ? `bg-white border-b ${open ? 'border-transparent' : 'border-black/5'}`
           : 'bg-transparent border-b border-transparent'
       }`}
+      style={{ top: scrolled ? 0 : 32 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false); setOpen(null) }}
     >
@@ -78,18 +80,18 @@ export default function Nav() {
                 : 'opacity-0 -translate-y-2 scale-y-95 pointer-events-none'
             }`}
           >
-            <div className={`px-4 md:px-8 lg:px-10 xl:px-12 py-8 grid gap-4 ${item.children.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'}`}>
+            <div className="grid gap-3 p-3 grid-cols-1 md:grid-cols-3">
               {item.children.map((child) => (
-                <a key={child.label} href={child.href} className="group block p-3 rounded-xl transition-all duration-300 hover:bg-black">
-                  <div
-                    className="h-[120px] bg-cover bg-center rounded-lg flex items-center justify-center overflow-hidden"
-                    style={{ backgroundImage: 'url(/hologram-light.png)' }}
-                  >
-                    {child.icon && <child.icon size={32} weight="light" className="text-black/30 group-hover:text-black transition-colors" />}
-                  </div>
-                  <div className="px-4 py-4">
-                    <div className="text-[14px] font-light text-black group-hover:text-white transition-colors">{child.label}</div>
-                    <div className="mono text-[11px] text-black/40 group-hover:text-white/50 mt-1">{child.desc}</div>
+                <a
+                  key={child.label}
+                  href={child.href}
+                  className="group relative h-[280px] bg-cover bg-center flex items-end transition-all duration-300 overflow-hidden rounded-sm"
+                  style={{ backgroundImage: `url(${child.img})` }}
+                >
+                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black transition-all duration-300" />
+                  <div className="relative z-10 p-6">
+                    <div className="text-[32px] font-medium text-white uppercase tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-white transition-colors duration-300">&#x2197;</span></div>
+                    <div className="mono text-[15px] text-white/50 group-hover:text-white/70 mt-0.5 uppercase transition-colors duration-300">{child.desc}</div>
                   </div>
                 </a>
               ))}
@@ -100,7 +102,7 @@ export default function Nav() {
 
       <div className="flex items-center gap-4">
         <a href="#" className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 hidden sm:block">Sign in</a>
-        <a href="#" className="text-[13px] font-medium text-black px-5 py-2 rounded-lg bg-[#39FF78] hover:bg-[#2DE86A] transition-colors inline-flex items-center gap-1.5">Join waitlist <ArrowRight size={14} weight="bold" /></a>
+        <button onClick={showWaitlist} className="text-[13px] font-medium text-black px-5 py-2 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-1.5 cursor-pointer">Join waitlist <span className="text-[14px]">&#x2197;</span></button>
       </div>
     </nav>
   )

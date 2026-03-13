@@ -42,12 +42,12 @@ export default function StickyFeatures() {
 
   return (
     <section id="product" className="relative z-[3]">
-      <div ref={containerRef} style={{ height: `${features.length * 100}vh` }} className="relative">
+      <div ref={containerRef} style={{ height: `${features.length * 100 + 50}vh` }} className="relative">
         <div className="sticky top-0 h-screen bg-white overflow-hidden">
           <div className="h-full flex flex-col justify-center px-4 md:px-8 lg:px-10 xl:px-12">
             <div className="mb-12">
               <p className="mono text-[11px] text-black/40 uppercase mb-5">Product</p>
-              <h2 className="font-light text-black tracking-[-0.04em] leading-[1.05] max-w-[700px]" style={{ fontSize: 'clamp(36px, 5vw, 56px)' }}>
+              <h2 className="font-light text-black tracking-[-0.04em] leading-[0.95] max-w-[700px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
                 Built for the conversation economy
               </h2>
             </div>
@@ -64,7 +64,7 @@ export default function StickyFeatures() {
                     }}
                   >
                     <div className="flex items-center gap-3 mb-6">
-                      <f.icon size={20} weight="fill" className="text-[#39FF78]" />
+                      <f.icon size={20} weight="light" className="text-[#39FF78]" />
                       <p className="mono text-[12px] text-[#39FF78] uppercase">{f.label}</p>
                     </div>
                     <h3 className="text-[32px] md:text-[40px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5">{f.title}</h3>
@@ -74,22 +74,15 @@ export default function StickyFeatures() {
               </div>
 
               <div className="hidden lg:flex items-center">
-                <div className="w-full rounded-2xl img-placeholder-light relative" style={{ aspectRatio: '4 / 3' }}>
-                  {features.map((f, i) => (
-                    <div
-                      key={f.label}
-                      className="absolute inset-0 flex items-center justify-center transition-all duration-700"
-                      style={{
-                        opacity: activeIndex === i ? 1 : 0,
-                        transform: activeIndex === i ? 'scale(1)' : 'scale(0.95)',
-                      }}
-                    >
-                      <div className="flex flex-col items-center gap-3">
-                        <f.icon size={48} weight="thin" className="text-black/20" />
-                        <span className="mono text-[14px] text-black/40">{f.img}</span>
-                      </div>
-                    </div>
-                  ))}
+                <div className="w-full rounded-lg overflow-hidden relative" style={{ aspectRatio: '4 / 3' }}>
+                  <video
+                    src="/a5964603cb2e4a249ac8a336c1a0239d.HD-1080p-7.2Mbps-14082701.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
@@ -100,13 +93,13 @@ export default function StickyFeatures() {
                 <button
                   key={f.label}
                   onClick={() => handleTabClick(i)}
-                  className={`mono text-[11px] px-4 py-2 rounded-full transition-all duration-400 cursor-pointer inline-flex items-center gap-1.5 ${
+                  className={`mono text-[11px] px-4 py-2 rounded-lg transition-all duration-400 cursor-pointer inline-flex items-center gap-1.5 ${
                     activeIndex === i
                       ? 'bg-[#39FF78] text-black'
                       : 'bg-black/5 text-black/30 hover:text-black/60 hover:bg-black/10'
                   }`}
                 >
-                  <f.icon size={13} weight={activeIndex === i ? 'fill' : 'regular'} />
+                  <f.icon size={13} weight="light" />
                   {f.label.split(' — ')[1]}
                 </button>
               ))}

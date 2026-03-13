@@ -8,10 +8,11 @@ import UseCases from '@/components/UseCases'
 import Pricing from '@/components/Pricing'
 import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
+import WaitlistProvider from '@/components/WaitlistContext'
 
 export default function Home() {
   return (
-    <>
+    <WaitlistProvider>
       <MarqueeBanner />
       <Nav />
       <main>
@@ -24,6 +25,6 @@ export default function Home() {
         <CTASection />
       </main>
       <Footer />
-    </>
+    </WaitlistProvider>
   )
 }

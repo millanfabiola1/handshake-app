@@ -1,136 +1,19 @@
 'use client'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowRight } from '@phosphor-icons/react'
 import ScrollReveal from './ScrollReveal'
+import DotGrid from './DotGrid'
+import { useWaitlist } from './WaitlistContext'
 
-function DotGrid({ sectionRef }: { sectionRef: React.RefObject<HTMLElement | null> }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const mouseRef = useRef({ x: -1000, y: -1000 })
-  const animRef = useRef<number>(0)
-
-  const draw = useCallback(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    const dpr = window.devicePixelRatio || 1
-    const w = canvas.clientWidth
-    const h = canvas.clientHeight
-
-    if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
-      canvas.width = w * dpr
-      canvas.height = h * dpr
-      ctx.scale(dpr, dpr)
-    }
-
-    ctx.clearRect(0, 0, w, h)
-
-    const spacing = 32
-    const cols = Math.ceil(w / spacing) + 1
-    const rows = Math.ceil(h / spacing) + 1
-    const time = Date.now() * 0.001
-    const mouse = mouseRef.current
-    const hoverRadius = 150
-
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const x = col * spacing
-        const y = row * spacing
-
-        const dx = x - mouse.x
-        const dy = y - mouse.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-
-        // Ambient wave
-        const wave = Math.sin(time * 0.8 + col * 0.3 + row * 0.2) * 0.5 + 0.5
-        const baseAlpha = 0.15 + wave * 0.1
-
-        let dotRadius = 1
-        let alpha = baseAlpha
-
-        if (dist < hoverRadius) {
-          const proximity = 1 - dist / hoverRadius
-          const ease = proximity * proximity
-          alpha = baseAlpha + ease * 0.45
-          dotRadius = 1 + ease * 2.5
-
-          const pushStrength = ease * 4
-          const angle = Math.atan2(dy, dx)
-          const px = x + Math.cos(angle) * pushStrength
-          const py = y + Math.sin(angle) * pushStrength
-
-          ctx.beginPath()
-          ctx.arc(px, py, dotRadius, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`
-          ctx.fill()
-
-          // Connection lines near cursor
-          if (proximity > 0.3) {
-            for (const [nc, nr] of [[col + 1, row], [col, row + 1], [col + 1, row + 1]] as const) {
-              const nx = nc * spacing
-              const ny = nr * spacing
-              const nd = Math.sqrt((nx - mouse.x) ** 2 + (ny - mouse.y) ** 2)
-              if (nd < hoverRadius) {
-                const np = 1 - nd / hoverRadius
-                ctx.beginPath()
-                ctx.moveTo(px, py)
-                ctx.lineTo(nx, ny)
-                ctx.strokeStyle = `rgba(0, 0, 0, ${proximity * np * 0.12})`
-                ctx.lineWidth = 0.5
-                ctx.stroke()
-              }
-            }
-          }
-          continue
-        }
-
-        ctx.beginPath()
-        ctx.arc(x, y, dotRadius, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`
-        ctx.fill()
-      }
-    }
-
-    animRef.current = requestAnimationFrame(draw)
-  }, [])
-
-  useEffect(() => {
-    animRef.current = requestAnimationFrame(draw)
-    return () => cancelAnimationFrame(animRef.current)
-  }, [draw])
-
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const handleMove = (e: MouseEvent) => {
-      const rect = section.getBoundingClientRect()
-      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
-    }
-    const handleLeave = () => {
-      mouseRef.current = { x: -1000, y: -1000 }
-    }
-
-    section.addEventListener('mousemove', handleMove)
-    section.addEventListener('mouseleave', handleLeave)
-    return () => {
-      section.removeEventListener('mousemove', handleMove)
-      section.removeEventListener('mouseleave', handleLeave)
-    }
-  }, [sectionRef])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full z-[1] pointer-events-none"
-    />
-  )
-}
+const pixelFonts = [
+  'var(--font-geist-pixel-square)',
+]
 
 function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
   const [displayed, setDisplayed] = useState('')
   const [started, setStarted] = useState(false)
+  const [settled, setSettled] = useState(false)
+  const [charFonts, setCharFonts] = useState<(string | null)[]>([])
   const ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
@@ -141,20 +24,125 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
     return () => obs.disconnect()
   }, [])
 
+  // Typewriter + per-character random pixel font
   useEffect(() => {
     if (!started) return
     const timeout = setTimeout(() => {
       let i = 0
-      const interval = setInterval(() => { setDisplayed(text.slice(0, i + 1)); i++; if (i >= text.length) clearInterval(interval) }, 35)
+      const fonts: (string | null)[] = []
+      const interval = setInterval(() => {
+        fonts[i] = pixelFonts[Math.floor(Math.random() * pixelFonts.length)]
+        i++
+        setDisplayed(text.slice(0, i))
+        setCharFonts([...fonts])
+        if (i >= text.length) clearInterval(interval)
+      }, 35)
       return () => clearInterval(interval)
     }, delay)
     return () => clearTimeout(timeout)
   }, [started, text, delay])
 
+  // After typing completes, cycle each letter through random pixel fonts then settle to Geist Sans
+  useEffect(() => {
+    if (!started || displayed.length < text.length) return
+    let tick = 0
+    const totalCycles = 6
+    const interval = setInterval(() => {
+      tick++
+      if (tick >= totalCycles) {
+        setSettled(true)
+        clearInterval(interval)
+      } else {
+        setCharFonts(
+          Array.from({ length: text.length }, () =>
+            pixelFonts[Math.floor(Math.random() * pixelFonts.length)]
+          )
+        )
+      }
+    }, 100)
+    return () => clearInterval(interval)
+  }, [started, displayed, text])
+
   return (
     <span ref={ref}>
-      {displayed}
+      {displayed.split('').map((char, i) => (
+        <span
+          key={i}
+          style={!settled && charFonts[i] ? { fontFamily: charFonts[i]! } : undefined}
+          className={!settled && charFonts[i] ? 'transition-none' : 'transition-[font-family] duration-300'}
+        >
+          {char}
+        </span>
+      ))}
       {displayed.length < text.length && started && (
+        <span className="inline-block w-[2px] h-[0.85em] bg-black ml-[2px] animate-pulse align-baseline" />
+      )}
+    </span>
+  )
+}
+
+function MorphText({ initial, final, delay = 0 }: { initial: string; final: string; delay?: number }) {
+  const [phase, setPhase] = useState<'waiting' | 'initial' | 'morphing' | 'final'>('waiting')
+  const [displayed, setDisplayed] = useState('')
+  const ref = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setPhase('initial'); obs.unobserve(el) }
+    }, { threshold: 0.1 })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  // Type out the initial text (e.g. "$$$")
+  useEffect(() => {
+    if (phase !== 'initial') return
+    const timeout = setTimeout(() => {
+      let i = 0
+      const interval = setInterval(() => {
+        i++
+        setDisplayed(initial.slice(0, i))
+        if (i >= initial.length) {
+          clearInterval(interval)
+          setTimeout(() => setPhase('morphing'), 600)
+        }
+      }, 35)
+      return () => clearInterval(interval)
+    }, delay)
+    return () => clearTimeout(timeout)
+  }, [phase, initial, delay])
+
+  // Morph to final text
+  useEffect(() => {
+    if (phase !== 'morphing') return
+    let tick = 0
+    const maxTicks = 8
+    const interval = setInterval(() => {
+      tick++
+      if (tick >= maxTicks) {
+        setDisplayed(final)
+        setPhase('final')
+        clearInterval(interval)
+      } else {
+        // Scramble between initial and final characters
+        const progress = tick / maxTicks
+        setDisplayed(
+          Array.from({ length: Math.max(initial.length, final.length) }, (_, i) => {
+            if (progress > (i + 1) / final.length) return final[i] || ''
+            return initial[i] || final[i] || ''
+          }).join('')
+        )
+      }
+    }, 80)
+    return () => clearInterval(interval)
+  }, [phase, initial, final])
+
+  return (
+    <span ref={ref} style={phase !== 'final' ? { fontFamily: 'var(--font-geist-pixel-square)' } : undefined}>
+      {displayed}
+      {phase === 'initial' && displayed.length < initial.length && (
         <span className="inline-block w-[2px] h-[0.85em] bg-black ml-[2px] animate-pulse align-baseline" />
       )}
     </span>
@@ -193,17 +181,18 @@ function AnimatedCounter({ end, suffix = '', prefix = '', duration = 2000, key: 
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
+  const showWaitlist = useWaitlist()
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen flex flex-col justify-start pt-[160px] bg-white relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-start pt-[160px] bg-white relative overflow-hidden z-[2]"
       style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <DotGrid sectionRef={sectionRef} />
 
       {/* Image positioned on the right, behind the text */}
       <div className="absolute right-0 bottom-0 z-[2] hidden lg:block pointer-events-none">
-        <img src="/image.png" alt="Handshake app" className="w-[45vw] max-w-[700px] rounded-tl-2xl opacity-90" />
+        <img src="/image.png" alt="Handshake app" className="w-[45vw] max-w-[700px] rounded-tl-lg opacity-90" />
       </div>
 
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 w-full relative z-10">
@@ -211,9 +200,9 @@ export default function Hero() {
           <p className="mono text-[13px] text-black/50 mb-8 uppercase">The platform that pays</p>
         </ScrollReveal>
 
-        <h1 className="font-light text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 140px)' }}>
+        <h1 className="font-light text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(40px, 8vw, 110px)' }}>
           <TypewriterText text="Where every conversation" /><br />
-          <TypewriterText text="has real value" delay={600} />
+          <TypewriterText text="has real " delay={600} /><MorphText initial="$$$" final="value" delay={1100} />
         </h1>
 
         <ScrollReveal delay={200}>
@@ -224,8 +213,8 @@ export default function Hero() {
 
         <ScrollReveal delay={300}>
           <div className="flex items-center gap-4 mt-8">
-            <a href="#" className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-[#2DE86A] transition-colors inline-flex items-center gap-2">Join the waitlist <ArrowRight size={16} weight="bold" /></a>
-            <a href="#product" className="text-[14px] font-light text-black px-7 py-3.5 rounded-lg border border-black/20 hover:border-black/40 transition-colors">See the product</a>
+            <button onClick={showWaitlist} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer">Join the waitlist <span className="text-[16px]">&#x2197;</span></button>
+            <a href="#product" className="text-[14px] font-light text-black px-7 py-3.5 rounded-lg border border-black hover:bg-black hover:text-white transition-colors">See the product</a>
           </div>
         </ScrollReveal>
       </div>
