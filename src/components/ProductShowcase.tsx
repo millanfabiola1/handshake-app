@@ -65,6 +65,7 @@ export default function ProductShowcase() {
     return () => observers.forEach((obs) => obs.disconnect())
   }, [])
 
+
   const active = steps[activeIndex]
 
   return (
@@ -72,8 +73,8 @@ export default function ProductShowcase() {
       <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[500px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">
-          <p className="mono text-[11px] text-white/40 uppercase mb-5">How it works</p>
-          <h2 className="font-light text-[#39FF78] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
+          <p className="mono text-[13px] text-white/40 uppercase mb-5">How it works</p>
+          <h2 className="font-light text-[#39FF78] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
             Text like iMessage.<br />Earn like a business.
           </h2>
         </div>
@@ -81,19 +82,32 @@ export default function ProductShowcase() {
         {/* Scrolling content + sticky image */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left: scrolling text steps */}
-          <div className="flex flex-col">
+          <div className="flex flex-col relative">
             {steps.map((s, i) => (
-              <div
-                key={s.step}
-                ref={(el) => { stepRefs.current[i] = el }}
-                className="min-h-[60vh] flex flex-col justify-center py-12 transition-opacity duration-500"
-                style={{ opacity: activeIndex === i ? 1 : 0.25 }}
-              >
-                <div className="mb-6">
-                  <span className="mono text-[11px] text-white/40 uppercase">Step {s.step}</span>
+              <div key={s.step}>
+                <div
+                  ref={(el) => { stepRefs.current[i] = el }}
+                  className="min-h-[60vh] flex items-center gap-8 md:gap-12 py-12 transition-opacity duration-500"
+                  style={{ opacity: activeIndex === i ? 1 : 0.25 }}
+                >
+                  <span className="mono text-[14px] font-normal text-white/30 leading-none tracking-[-0.03em] shrink-0">{s.step}</span>
+                  <div>
+                    <h3 className="text-[36px] md:text-[48px] font-light text-white tracking-[-0.03em] leading-[0.95] mb-6 text-balance">{s.title}</h3>
+                    <p className="mono text-[16px] font-normal text-white/60 leading-[1.75] max-w-[480px]">{s.desc}</p>
+                  </div>
                 </div>
-                <h3 className="text-[28px] md:text-[36px] font-light text-white tracking-[-0.03em] leading-[0.95] mb-5">{s.title}</h3>
-                <p className="mono text-[14px] font-normal text-white/60 leading-[1.75] max-w-[440px]">{s.desc}</p>
+                {/* Divider line between steps */}
+                {i < steps.length - 1 && (
+                  <div className="flex justify-center">
+                    <div className="relative w-px h-[200px]">
+                      <div className="absolute inset-0 bg-white/10" />
+                      <div className="absolute top-0 left-0 w-full bg-[#39FF78] origin-top transition-all duration-500" style={{ height: '100%', transform: `scaleY(${activeIndex > i ? 1 : 0})` }} />
+                      <div
+                        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition-all duration-500 ${activeIndex > i ? 'bg-[#39FF78] shadow-[0_0_12px_rgba(57,255,120,0.5)]' : 'bg-white/20'}`}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -101,18 +115,18 @@ export default function ProductShowcase() {
           {/* Right: sticky image */}
           <div className="hidden lg:block">
             <div className="sticky top-[50vh] -translate-y-1/2">
-              <div className="w-full rounded-lg img-placeholder relative" style={{ aspectRatio: '4 / 3' }}>
+              <div className="w-full rounded-lg overflow-hidden relative" style={{ aspectRatio: '4 / 3' }}>
                 {steps.map((s, i) => (
-                  <div
+                  <img
                     key={s.step}
-                    className="absolute inset-0 flex flex-col items-center justify-center gap-3 transition-all duration-600"
+                    src={`/image%20${(i % 3) + 1}.png`}
+                    alt={s.img}
+                    className="absolute inset-0 w-full h-full object-cover transition-all duration-600"
                     style={{
                       opacity: activeIndex === i ? 1 : 0,
                       transform: activeIndex === i ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.97)',
                     }}
-                  >
-                    <span className="mono text-[14px] text-white/40">{s.img}</span>
-                  </div>
+                  />
                 ))}
               </div>
 

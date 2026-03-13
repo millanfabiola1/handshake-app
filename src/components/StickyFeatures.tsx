@@ -64,8 +64,8 @@ export default function StickyFeatures() {
                     }}
                   >
                     <div className="flex items-center gap-3 mb-6">
-                      <f.icon size={20} weight="light" className="text-[#39FF78]" />
-                      <p className="mono text-[12px] text-[#39FF78] uppercase">{f.label}</p>
+                      <f.icon size={20} weight="light" className="text-black" />
+                      <p className="mono text-[12px] text-black uppercase">{f.label}</p>
                     </div>
                     <h3 className="text-[32px] md:text-[40px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5">{f.title}</h3>
                     <p className="text-[16px] font-light text-[#71717A] leading-[1.65] max-w-[440px]">{f.desc}</p>
@@ -96,7 +96,7 @@ export default function StickyFeatures() {
                   className={`mono text-[11px] px-4 py-2 rounded-lg transition-all duration-400 cursor-pointer inline-flex items-center gap-1.5 ${
                     activeIndex === i
                       ? 'bg-[#39FF78] text-black'
-                      : 'bg-black/5 text-black/30 hover:text-black/60 hover:bg-black/10'
+                      : 'border border-black text-black hover:bg-black hover:text-white'
                   }`}
                 >
                   <f.icon size={13} weight="light" />

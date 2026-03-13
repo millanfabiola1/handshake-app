@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { CaretDown, CurrencyDollar, LockSimple, PhoneCall, Megaphone, PaintBrush, Wrench, UserCircle, ArrowRight } from '@phosphor-icons/react'
+import { CaretDown, List, X, CurrencyDollar, LockSimple, PhoneCall, Megaphone, PaintBrush, Wrench, UserCircle, ArrowRight } from '@phosphor-icons/react'
 import { useWaitlist } from './WaitlistContext'
 
 const menuItems = [
@@ -8,18 +8,18 @@ const menuItems = [
     label: 'Product',
     href: '#product',
     children: [
-      { label: 'Tips', desc: 'One-tap payments in-thread', href: '#product', icon: CurrencyDollar, img: '/image.png' },
-      { label: 'Locked Content', desc: 'Gate your best work', href: '#product', icon: LockSimple, img: '/image.png' },
-      { label: 'Paid Calls', desc: 'Billed sessions, your rate', href: '#product', icon: PhoneCall, img: '/image.png' },
+      { label: 'Tips', desc: 'One-tap payments in-thread', href: '#product', icon: CurrencyDollar, img: '/image%201.png' },
+      { label: 'Locked Content', desc: 'Gate your best work', href: '#product', icon: LockSimple, img: '/image%202.png' },
+      { label: 'Paid Calls', desc: 'Billed sessions, your rate', href: '#product', icon: PhoneCall, img: '/image%203.png' },
     ],
   },
   {
     label: 'Use Cases',
     href: '#use-cases',
     children: [
-      { label: 'Creators', desc: 'Turn followers into revenue', href: '#use-cases', icon: PaintBrush, img: '/image.png' },
-      { label: 'Service Providers', desc: 'Quote, confirm, collect', href: '#use-cases', icon: Wrench, img: '/image.png' },
-      { label: 'Coaches', desc: 'Premium sessions, no overhead', href: '#use-cases', icon: UserCircle, img: '/image.png' },
+      { label: 'Creators', desc: 'Turn followers into revenue', href: '#use-cases', icon: PaintBrush, img: '/image%201.png' },
+      { label: 'Service Providers', desc: 'Quote, confirm, collect', href: '#use-cases', icon: Wrench, img: '/image%202.png' },
+      { label: 'Coaches', desc: 'Premium sessions, no overhead', href: '#use-cases', icon: UserCircle, img: '/image%203.png' },
     ],
   },
   { label: 'Pricing', href: '#pricing', children: null },
@@ -27,6 +27,8 @@ const menuItems = [
 
 export default function Nav() {
   const [open, setOpen] = useState<string | null>(null)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [hovered, setHovered] = useState(false)
   const showWaitlist = useWaitlist()
@@ -41,69 +43,149 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
   const visible = scrolled || hovered || open !== null
 
   return (
-    <nav
-      className={`fixed left-0 right-0 z-50 h-[72px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
-        visible
-          ? `bg-white border-b ${open ? 'border-transparent' : 'border-black/5'}`
-          : 'bg-transparent border-b border-transparent'
-      }`}
-      style={{ top: scrolled ? 0 : 32 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => { setHovered(false); setOpen(null) }}
-    >
-      <a href="#" className="text-[16px] font-light tracking-[-0.3px] text-black transition-colors duration-300">Handshake</a>
+    <>
+      <nav
+        className={`fixed left-0 right-0 z-50 h-[72px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
+          visible || mobileOpen
+            ? `bg-white border-b ${open ? 'border-transparent' : 'border-black/5'}`
+            : 'bg-transparent border-b border-transparent'
+        }`}
+        style={{ top: 32 }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => { setHovered(false); setOpen(null) }}
+      >
+        <a href="#" className="text-[16px] font-light tracking-[-0.3px] text-black transition-colors duration-300">Handshake</a>
 
-      <div className="hidden md:flex items-center gap-8">
-        {menuItems.map((item) => (
-          <div key={item.label} onMouseEnter={() => setOpen(item.children ? item.label : null)}>
-            <a href={item.href} className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 py-6 inline-flex items-center gap-1">
-              {item.label}
-              {item.children && (
-                <CaretDown size={12} weight="bold" />
-              )}
-            </a>
-          </div>
-        ))}
-      </div>
+        {/* Desktop menu */}
+        <div className="hidden md:flex items-center gap-8">
+          {menuItems.map((item) => (
+            <div key={item.label} onMouseEnter={() => setOpen(item.children ? item.label : null)}>
+              <a href={item.href} className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 py-6 inline-flex items-center gap-1">
+                {item.label}
+                {item.children && (
+                  <CaretDown size={12} weight="bold" />
+                )}
+              </a>
+            </div>
+          ))}
+        </div>
 
-      {/* Full-width megamenu */}
-      {menuItems.map((item) =>
-        item.children ? (
-          <div
-            key={item.label}
-            className={`absolute top-full left-0 right-0 bg-white transition-all duration-300 ease-out origin-top ${
-              open === item.label
-                ? 'opacity-100 translate-y-0 scale-y-100 pointer-events-auto'
-                : 'opacity-0 -translate-y-2 scale-y-95 pointer-events-none'
-            }`}
+        {/* Full-width megamenu (desktop) */}
+        {menuItems.map((item) =>
+          item.children ? (
+            <div
+              key={item.label}
+              className={`absolute top-full left-0 right-0 bg-white transition-all duration-300 ease-out origin-top hidden md:block ${
+                open === item.label
+                  ? 'opacity-100 translate-y-0 scale-y-100 pointer-events-auto'
+                  : 'opacity-0 -translate-y-2 scale-y-95 pointer-events-none'
+              }`}
+            >
+              <div className="grid gap-3 p-3 grid-cols-3">
+                {item.children.map((child) => (
+                  <a
+                    key={child.label}
+                    href={child.href}
+                    className="group relative h-[280px] bg-cover bg-center flex items-end transition-all duration-300 overflow-hidden rounded-sm"
+                    style={{ backgroundImage: `url(${child.img})` }}
+                  >
+                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black transition-all duration-300" />
+                    <div className="relative z-10 p-6">
+                      <div className="text-[32px] font-medium text-white uppercase tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-white transition-colors duration-300">&#x2197;</span></div>
+                      <div className="mono text-[15px] text-white/50 group-hover:text-white/70 mt-0.5 uppercase transition-colors duration-300">{child.desc}</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : null
+        )}
+
+        <div className="flex items-center gap-4">
+          <a href="#" className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 hidden sm:block">Sign in</a>
+          <button onClick={showWaitlist} className="text-[13px] font-medium text-black px-5 py-2 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-1.5 cursor-pointer hidden sm:inline-flex">Join waitlist <span className="text-[14px]">&#x2197;</span></button>
+          {/* Hamburger button (mobile) */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden w-10 h-10 flex items-center justify-center text-black cursor-pointer"
           >
-            <div className="grid gap-3 p-3 grid-cols-1 md:grid-cols-3">
-              {item.children.map((child) => (
-                <a
-                  key={child.label}
-                  href={child.href}
-                  className="group relative h-[280px] bg-cover bg-center flex items-end transition-all duration-300 overflow-hidden rounded-sm"
-                  style={{ backgroundImage: `url(${child.img})` }}
-                >
-                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black transition-all duration-300" />
-                  <div className="relative z-10 p-6">
-                    <div className="text-[32px] font-medium text-white uppercase tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-white transition-colors duration-300">&#x2197;</span></div>
-                    <div className="mono text-[15px] text-white/50 group-hover:text-white/70 mt-0.5 uppercase transition-colors duration-300">{child.desc}</div>
-                  </div>
-                </a>
-              ))}
+            {mobileOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile menu overlay */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-white md:hidden overflow-y-auto"
+          style={{ paddingTop: scrolled ? 72 : 104 }}
+        >
+          <div className="px-6 py-8 flex flex-col gap-2">
+            {menuItems.map((item) => (
+              <div key={item.label}>
+                {item.children ? (
+                  <>
+                    <button
+                      onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
+                      className="w-full flex items-center justify-between py-4 border-b border-black/5 cursor-pointer"
+                    >
+                      <span className="text-[24px] font-light text-black tracking-[-0.02em]">{item.label}</span>
+                      <CaretDown
+                        size={20}
+                        weight="bold"
+                        className={`text-black/40 transition-transform duration-300 ${mobileExpanded === item.label ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                    <div className={`overflow-hidden transition-all duration-300 ${mobileExpanded === item.label ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                      <div className="flex flex-col gap-1 py-3 pl-4">
+                        {item.children.map((child) => (
+                          <a
+                            key={child.label}
+                            href={child.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="flex items-center gap-3 py-3"
+                          >
+                            <span className="text-[18px] font-light text-black">{child.label}</span>
+                            <span className="text-black/40 text-[14px]">&#x2197;</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <a
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center justify-between py-4 border-b border-black/5"
+                  >
+                    <span className="text-[24px] font-light text-black tracking-[-0.02em]">{item.label}</span>
+                    <span className="text-black/40 text-[14px]">&#x2197;</span>
+                  </a>
+                )}
+              </div>
+            ))}
+
+            <div className="flex flex-col gap-4 mt-8">
+              <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center justify-center gap-2 cursor-pointer w-full">
+                Join waitlist <span className="text-[16px]">&#x2197;</span>
+              </button>
+              <a href="#" className="mono text-[14px] text-black/50 text-center py-3">Sign in</a>
             </div>
           </div>
-        ) : null
+        </div>
       )}
-
-      <div className="flex items-center gap-4">
-        <a href="#" className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 hidden sm:block">Sign in</a>
-        <button onClick={showWaitlist} className="text-[13px] font-medium text-black px-5 py-2 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-1.5 cursor-pointer">Join waitlist <span className="text-[14px]">&#x2197;</span></button>
-      </div>
-    </nav>
+    </>
   )
 }

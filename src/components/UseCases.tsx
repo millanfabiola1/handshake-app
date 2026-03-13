@@ -4,6 +4,8 @@ import { Eye, Wrench, PaintBrush, ShieldCheck, Storefront, ArrowRight, ArrowLeft
 import ScrollReveal from './ScrollReveal'
 import { useWaitlist } from './WaitlistContext'
 
+const cardImages = ['/image%201.png', '/image%202.png', '/image%203.png']
+
 const cases = [
   {
     label: 'Psychics & Coaches',
@@ -79,13 +81,13 @@ export default function UseCases() {
         className="flex gap-5 overflow-x-auto pl-8 md:pl-12 lg:pl-16 xl:pl-20 pr-4 md:pr-8 pb-4 snap-x snap-mandatory scrollbar-hide scroll-pl-8 md:scroll-pl-12 lg:scroll-pl-16 xl:scroll-pl-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        {cases.map((item) => (
+        {cases.map((item, i) => (
           <div
             key={item.label}
             className="group bg-white border border-black/5 rounded-lg overflow-hidden hover:bg-black hover:border-transparent transition-all duration-300 cursor-pointer flex flex-col snap-start flex-shrink-0"
             style={{ width: 'min(380px, 80vw)' }}
           >
-            <div className="h-[180px] bg-cover bg-center transition-all duration-300" style={{ backgroundImage: 'url(/image.png)' }} />
+            <div className="h-[180px] bg-cover bg-center transition-all duration-300" style={{ backgroundImage: `url(${cardImages[i % cardImages.length]})` }} />
             <div className="p-8 flex flex-col flex-1">
             <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase transition-colors duration-300 mb-6">{item.label}</p>
             <h3 className="text-[22px] font-light text-[#18181B] group-hover:text-white tracking-[-0.02em] leading-[1.2] mb-3 transition-colors duration-300">{item.title}</h3>
