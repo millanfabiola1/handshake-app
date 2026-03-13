@@ -159,7 +159,7 @@ export default function Hero() {
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 w-full relative z-10">
         <h1 className="font-light text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 110px)' }}>
           <TypewriterText text="Where every conversation" /><br />
-          <TypewriterText text="has real " delay={600} /><MorphText initial="$$$" final="value" delay={1100} />
+          <TypewriterText text="has real value" delay={600} />
         </h1>
 
         <ScrollReveal delay={200}>
