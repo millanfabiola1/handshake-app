@@ -41,9 +41,7 @@ export default function Footer() {
         </div>
 
         <div className="w-full">
-          <div className="font-light text-black tracking-[-0.06em] leading-[1] select-none" style={{ fontSize: 'clamp(60px, 15vw, 220px)' }}>
-            Handshake
-          </div>
+          <img src="/handshake-2.svg" alt="Handshake" className="w-full h-auto select-none" />
         </div>
 
         <div className="flex items-center justify-between flex-wrap gap-4 mt-12 pt-8 border-t border-black/10">

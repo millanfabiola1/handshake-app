@@ -66,7 +66,9 @@ export default function Nav() {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => { setHovered(false); setOpen(null) }}
       >
-        <a href="#" className="text-[22px] font-light tracking-[-0.3px] text-black transition-colors duration-300">Handshake</a>
+        <a href="#" className="transition-opacity duration-300 hover:opacity-70">
+          <img src="/handshake-2.svg" alt="Handshake" className="h-[22px] w-auto" />
+        </a>
 
         {/* Desktop menu */}
         <div className="hidden lg:flex items-center gap-8">
