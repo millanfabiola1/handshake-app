@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { CaretDown, List, X, CurrencyDollar, LockSimple, PhoneCall, Megaphone, PaintBrush, Wrench, UserCircle, ArrowRight } from '@phosphor-icons/react'
+import { CaretDown, List, X, CurrencyDollar, LockSimple, PhoneCall, Megaphone, PaintBrush, Wrench, UserCircle, ArrowRight, XLogo, InstagramLogo, TiktokLogo, LinkedinLogo } from '@phosphor-icons/react'
 import { useWaitlist } from './WaitlistContext'
 
 const menuItems = [
@@ -112,8 +112,8 @@ export default function Nav() {
         )}
 
         <div className="flex items-center gap-4">
-          <a href="#" className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 hidden sm:block">Sign in</a>
-          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer hidden sm:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
+          <a href="#" className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 hidden md:block">Sign in</a>
+          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer hidden md:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
           {/* Hamburger button (mobile) */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -162,11 +162,11 @@ export default function Nav() {
                             key={child.label}
                             href={child.href}
                             onClick={() => setMobileOpen(false)}
-                            className="group h-[140px] rounded-lg overflow-hidden flex items-end bg-white hover:bg-black transition-all duration-300"
+                            className="h-[140px] rounded-lg overflow-hidden flex items-end bg-black transition-all duration-300"
                           >
                             <div className="p-4">
-                              <div className="text-[20px] font-medium text-[#18181B] group-hover:text-white tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-[#18181B] group-hover:text-white transition-colors duration-300 text-[14px]">&#x2197;</span></div>
-                              <div className="text-[13px] text-[#71717A] group-hover:text-white/70 transition-colors duration-300">{child.desc}</div>
+                              <div className="text-[20px] font-medium text-white tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-white transition-colors duration-300 text-[14px]">&#x2197;</span></div>
+                              <div className="text-[13px] text-white/50 transition-colors duration-300">{child.desc}</div>
                             </div>
                           </a>
                         ))}
@@ -190,7 +190,13 @@ export default function Nav() {
               <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center justify-center gap-2 cursor-pointer w-full">
                 Join waitlist <span className="text-[16px]">&#x2197;</span>
               </button>
-              <a href="#" className="mono text-[14px] text-black/50 text-center py-3">Sign in</a>
+              <a href="#" className="text-[14px] text-black/50 text-center py-3">Sign in</a>
+              <div className="flex items-center justify-center gap-5 mt-4">
+                <a href="#" className="text-black/40 hover:text-black transition-colors"><XLogo size={22} weight="regular" /></a>
+                <a href="#" className="text-black/40 hover:text-black transition-colors"><InstagramLogo size={22} weight="regular" /></a>
+                <a href="#" className="text-black/40 hover:text-black transition-colors"><TiktokLogo size={22} weight="regular" /></a>
+                <a href="#" className="text-black/40 hover:text-black transition-colors"><LinkedinLogo size={22} weight="regular" /></a>
+              </div>
             </div>
           </div>
       </div>
