@@ -148,17 +148,21 @@ export default function Nav() {
                         className={`text-black/40 transition-transform duration-300 ${mobileExpanded === item.label ? 'rotate-180' : ''}`}
                       />
                     </button>
-                    <div className={`overflow-hidden transition-all duration-300 ${mobileExpanded === item.label ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                      <div className="flex flex-col gap-1 py-3 pl-4">
+                    <div className={`overflow-hidden transition-all duration-300 ${mobileExpanded === item.label ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                      <div className="flex flex-col gap-3 py-3">
                         {item.children.map((child) => (
                           <a
                             key={child.label}
                             href={child.href}
                             onClick={() => setMobileOpen(false)}
-                            className="flex items-center gap-3 py-3"
+                            className="relative h-[140px] rounded-lg overflow-hidden flex items-end bg-cover bg-center"
+                            style={{ backgroundImage: `url(${child.img})` }}
                           >
-                            <span className="text-[18px] font-light text-black">{child.label}</span>
-                            <span className="text-black/40 text-[14px]">&#x2197;</span>
+                            <div className="absolute inset-0 bg-black/50" />
+                            <div className="relative z-10 p-4 flex items-center gap-2">
+                              <span className="text-[20px] font-medium text-white uppercase">{child.label}</span>
+                              <span className="text-white text-[14px]">&#x2197;</span>
+                            </div>
                           </a>
                         ))}
                       </div>

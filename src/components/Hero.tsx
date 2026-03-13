@@ -191,8 +191,8 @@ export default function Hero() {
       <DotGrid sectionRef={sectionRef} />
 
       {/* Image positioned on the right, behind the text */}
-      <div className="absolute right-0 bottom-0 z-[2] hidden lg:block pointer-events-none">
-        <img src="/image.png" alt="Handshake app" className="w-[45vw] max-w-[700px] rounded-tl-lg opacity-90" />
+      <div className="absolute right-0 bottom-0 z-[2] pointer-events-none">
+        <img src="/image.png" alt="Handshake app" className="w-[70vw] lg:w-[45vw] max-w-[700px] rounded-tl-lg opacity-90" />
       </div>
 
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 w-full relative z-10">

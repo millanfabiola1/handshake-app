@@ -109,9 +109,9 @@ export default function ProductShowcase() {
             ))}
           </div>
 
-          {/* Right: sticky image */}
-          <div className="hidden lg:block">
-            <div className="sticky top-[50vh] -translate-y-1/2">
+          {/* Right: sticky image (mobile: top, desktop: side) */}
+          <div className="lg:block">
+            <div className="sticky top-24 lg:top-[50vh] lg:-translate-y-1/2">
               <div className="w-full rounded-lg overflow-hidden relative" style={{ aspectRatio: '4 / 3' }}>
                 {steps.map((s, i) => (
                   <img

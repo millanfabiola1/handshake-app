@@ -9,7 +9,7 @@ export default function CTASection() {
   const sectionRef = useRef<HTMLElement>(null)
   const showWaitlist = useWaitlist()
   return (
-    <section ref={sectionRef} className="py-[180px] px-4 md:px-8 lg:px-10 xl:px-12 bg-[#1A1A1D] sticky top-0 z-[9] rounded-t-[24px] relative overflow-hidden">
+    <section ref={sectionRef} className="py-[180px] px-4 md:px-8 lg:px-10 xl:px-12 bg-[#1A1A1D] sticky top-0 z-[8] rounded-t-[24px] relative overflow-hidden">
       <DotGrid sectionRef={sectionRef} color="255, 255, 255" />
       <div className="text-center relative z-10">
         <ScrollReveal>

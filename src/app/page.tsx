@@ -6,7 +6,6 @@ import StickyFeatures from '@/components/StickyFeatures'
 import ProductShowcase from '@/components/ProductShowcase'
 import UseCases from '@/components/UseCases'
 import Pricing from '@/components/Pricing'
-import PaymentMethods from '@/components/PaymentMethods'
 import QuoteSection from '@/components/QuoteSection'
 import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
@@ -24,7 +23,6 @@ export default function Home() {
         <ProductShowcase />
         <UseCases />
         <Pricing />
-        <PaymentMethods />
         <QuoteSection />
         <CTASection />
       </main>

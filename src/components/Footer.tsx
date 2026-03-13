@@ -9,7 +9,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1A1A1D] relative z-[10]">
+    <footer className="bg-[#1A1A1D] relative z-[9]">
       <div className="bg-[#39FF78] rounded-t-[24px] pt-24 pb-12 px-4 md:px-8 lg:px-10 xl:px-12">
       <div >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-24">

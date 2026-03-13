@@ -63,12 +63,12 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
           transform: visible ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',
         }}
       >
-        {/* Left: Image */}
-        <div className="hidden lg:block relative h-full min-h-[480px]">
+        {/* Left/Top: Image */}
+        <div className="relative h-[200px] lg:h-full lg:min-h-[480px]">
           <img src="/image.png" alt="Handshake" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/30" />
-          <div className="absolute bottom-8 left-8 right-8 z-10">
-            <p className="text-[28px] font-light text-white leading-[1.1] tracking-[-0.03em]">
+          <div className="absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-8 z-10">
+            <p className="text-[20px] lg:text-[28px] font-light text-white leading-[1.1] tracking-[-0.03em]">
               Where every conversation has real value
             </p>
           </div>

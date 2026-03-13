@@ -73,7 +73,7 @@ export default function StickyFeatures() {
                 ))}
               </div>
 
-              <div className="hidden lg:flex items-center">
+              <div className="flex items-center">
                 <div className="w-full rounded-lg overflow-hidden relative" style={{ aspectRatio: '4 / 3' }}>
                   <video
                     src="/a5964603cb2e4a249ac8a336c1a0239d.HD-1080p-7.2Mbps-14082701.mp4"
