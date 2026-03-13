@@ -69,7 +69,7 @@ export default function ProductShowcase() {
   const active = steps[activeIndex]
 
   return (
-    <section className="bg-[#F4F4F5] text-[#18181B] relative lg:sticky lg:top-0 z-[6] rounded-t-[24px]">
+    <section className="bg-[#F4F4F5] text-[#18181B] relative z-[6] rounded-t-[24px]">
       <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[120px] lg:pb-[200px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">
@@ -86,7 +86,7 @@ export default function ProductShowcase() {
               <div key={s.step}>
                 <div
                   ref={(el) => { stepRefs.current[i] = el }}
-                  className={`lg:min-h-[60vh] flex flex-col justify-center py-10 lg:py-12 transition-opacity duration-500 ${activeIndex === i ? '' : 'lg:opacity-[0.25]'}`}
+                  className={`lg:min-h-[50vh] flex flex-col justify-center py-10 lg:py-12 transition-opacity duration-500 ${activeIndex === i ? '' : 'lg:opacity-[0.25]'}`}
                 >
                   <h3 className="text-[36px] md:text-[48px] font-light text-[#18181B] tracking-[-0.03em] leading-[0.95] text-balance mb-6">{s.title}</h3>
                   <p className="text-[16px] font-normal text-[#71717A] leading-[1.75] max-w-[480px]">{s.desc}</p>
