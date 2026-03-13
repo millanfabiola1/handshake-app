@@ -90,14 +90,9 @@ export default function ProductShowcase() {
                 >
                   <h3 className="text-[36px] md:text-[48px] font-light text-[#18181B] tracking-[-0.03em] leading-[0.95] text-balance mb-6">{s.title}</h3>
                   <p className="text-[16px] font-normal text-[#71717A] leading-[1.75] max-w-[480px]">{s.desc}</p>
-                  {/* Inline image between steps */}
-                  <div className="mt-8 rounded-lg overflow-hidden">
-                    <img
-                      src={`/image%20${(i % 3) + 1}.png`}
-                      alt={s.img}
-                      className="w-full h-auto object-cover"
-                      style={{ aspectRatio: '4 / 3' }}
-                    />
+                  {/* Placeholder image */}
+                  <div className="mt-8 rounded-lg bg-[#E4E4E7] flex items-center justify-center" style={{ aspectRatio: '4 / 3' }}>
+                    <span className="text-[80px] md:text-[120px] font-light text-[#A1A1AA]/50 tracking-[-0.03em]">{i + 1}</span>
                   </div>
                 </div>
                 {/* Divider line between steps */}
