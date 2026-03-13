@@ -32,7 +32,7 @@ export default function StickyFeatures() {
                 <button
                   key={f.label}
                   onClick={() => setActiveIndex(i)}
-                  className={`text-[13px] lg:text-[15px] font-normal px-5 lg:px-7 py-2.5 lg:py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
+                  className={`text-[14px] lg:text-[15px] font-normal px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
                     activeIndex === i
                       ? 'bg-[#39FF78] text-black'
                       : 'bg-[#F4F4F5] text-[#71717A] hover:bg-[#E4E4E7] hover:text-black'
