@@ -86,7 +86,7 @@ export default function Pricing() {
                 className={`mono text-[14px] px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2.5 ${
                   activeTab === i
                     ? 'bg-[#18181B] text-white'
-                    : 'border border-black text-black hover:bg-black hover:text-white'
+                    : 'bg-[#F4F4F5] text-[#71717A] hover:bg-[#E4E4E7] hover:text-black'
                 }`}
               >
                 <tab.icon size={18} weight={activeTab === i ? 'fill' : 'regular'} />

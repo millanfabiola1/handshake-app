@@ -100,14 +100,14 @@ export default function UseCases() {
 
         {/* CTA card */}
         <div
-          className="bg-[#39FF78] rounded-lg p-8 flex flex-col justify-between snap-start flex-shrink-0"
+          className="bg-black rounded-lg p-8 flex flex-col justify-between snap-start flex-shrink-0"
           style={{ width: 'min(380px, 80vw)' }}
         >
           <div>
-            <p className="mono text-[11px] text-black/40 uppercase mb-3">The platform</p>
-            <h3 className="text-[22px] font-light text-black tracking-[-0.02em] leading-[1.2]">A handshake seals every deal.</h3>
+            <p className="mono text-[11px] text-white/40 uppercase mb-3">The platform</p>
+            <h3 className="text-[22px] font-light text-white tracking-[-0.02em] leading-[1.2]">A handshake seals every deal.</h3>
           </div>
-          <button onClick={showWaitlist} className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-black text-white hover:bg-black/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8 cursor-pointer">
+          <button onClick={showWaitlist} className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-[#39FF78] text-black hover:bg-[#39FF78]/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8 cursor-pointer">
             Get early access <span className="text-[14px]">&#x2197;</span>
           </button>
         </div>

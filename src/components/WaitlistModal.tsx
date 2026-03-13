@@ -68,7 +68,7 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
           <img src="/image.png" alt="Handshake" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/30" />
           <div className="absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-8 z-10">
-            <p className="text-[24px] lg:text-[28px] font-light text-white leading-[1.1] tracking-[-0.03em]">
+            <p className="text-[36px] lg:text-[44px] font-light text-white leading-[1.05] tracking-[-0.03em]">
               Where every conversation<br className="lg:hidden" /> has real value
             </p>
           </div>

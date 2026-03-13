@@ -98,11 +98,11 @@ export default function Nav() {
                   <a
                     key={child.label}
                     href={child.href}
-                    className="group h-[280px] flex items-end transition-all duration-300 overflow-hidden rounded-sm bg-white hover:bg-[#F4F4F5]"
+                    className="group h-[280px] flex items-end transition-all duration-300 overflow-hidden rounded-sm bg-white hover:bg-black"
                   >
                     <div className="p-6">
-                      <div className="text-[32px] font-medium text-[#18181B] tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-[#18181B] transition-colors duration-300">&#x2197;</span></div>
-                      <div className="text-[15px] text-[#71717A] group-hover:text-[#18181B] mt-0.5 transition-colors duration-300">{child.desc}</div>
+                      <div className="text-[32px] font-medium text-[#18181B] group-hover:text-white tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-[#18181B] group-hover:text-white transition-colors duration-300">&#x2197;</span></div>
+                      <div className="text-[15px] text-[#71717A] group-hover:text-white/70 mt-0.5 transition-colors duration-300">{child.desc}</div>
                     </div>
                   </a>
                 ))}
