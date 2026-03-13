@@ -146,7 +146,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen flex flex-col justify-start pt-[100px] lg:pt-[160px] bg-white relative overflow-hidden sticky top-0 z-[1]"
+      className="min-h-screen flex flex-col justify-center bg-white relative overflow-hidden sticky top-0 z-[1]"
       style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <DotGrid sectionRef={sectionRef} />
