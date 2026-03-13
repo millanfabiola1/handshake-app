@@ -69,7 +69,7 @@ export default function Nav() {
         <a href="#" className="text-[22px] font-light tracking-[-0.3px] text-black transition-colors duration-300">Handshake</a>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-8">
           {menuItems.map((item) => (
             <div key={item.label} onMouseEnter={() => setOpen(item.children ? item.label : null)}>
               <a href={item.href} className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 py-6 inline-flex items-center gap-1.5">
@@ -87,7 +87,7 @@ export default function Nav() {
           item.children ? (
             <div
               key={item.label}
-              className={`absolute top-full left-0 right-0 bg-[#39FF78] transition-all duration-300 ease-out origin-top hidden md:block ${
+              className={`absolute top-full left-0 right-0 bg-[#39FF78] transition-all duration-300 ease-out origin-top hidden lg:block ${
                 open === item.label
                   ? 'opacity-100 translate-y-0 scale-y-100 pointer-events-auto'
                   : 'opacity-0 -translate-y-2 scale-y-95 pointer-events-none'
@@ -112,12 +112,12 @@ export default function Nav() {
         )}
 
         <div className="flex items-center gap-4">
-          <a href="#" className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 hidden md:block">Sign in</a>
-          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer hidden md:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
+          <a href="#" className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 hidden lg:block">Sign in</a>
+          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer hidden lg:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
           {/* Hamburger button (mobile) */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden w-10 h-10 flex items-center justify-center text-black cursor-pointer"
+            className="lg:hidden w-10 h-10 flex items-center justify-center text-black cursor-pointer"
           >
             {mobileOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
           </button>
@@ -126,7 +126,7 @@ export default function Nav() {
 
       {/* Blur overlay when megamenu is open */}
       <div
-        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-all duration-300 hidden md:block ${
+        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-all duration-300 hidden lg:block ${
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onMouseEnter={() => { setHovered(false); setOpen(null) }}
@@ -134,7 +134,7 @@ export default function Nav() {
 
       {/* Mobile menu overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-white md:hidden overflow-y-auto transition-all duration-500 ease-out ${
+        className={`fixed inset-0 z-40 bg-white lg:hidden overflow-y-auto transition-all duration-500 ease-out ${
           mobileOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
         style={{ paddingTop: scrolled ? 72 : 104 }}
