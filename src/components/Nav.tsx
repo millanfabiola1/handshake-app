@@ -162,13 +162,11 @@ export default function Nav() {
                             key={child.label}
                             href={child.href}
                             onClick={() => setMobileOpen(false)}
-                            className="relative h-[140px] rounded-lg overflow-hidden flex items-end bg-cover bg-center"
-                            style={{ backgroundImage: `url(${child.img})` }}
+                            className="group h-[140px] rounded-lg overflow-hidden flex items-end bg-white hover:bg-black transition-all duration-300"
                           >
-                            <div className="absolute inset-0 bg-black/50" />
-                            <div className="relative z-10 p-4 flex items-center gap-2">
-                              <span className="text-[20px] font-medium text-white uppercase">{child.label}</span>
-                              <span className="text-white text-[14px]">&#x2197;</span>
+                            <div className="p-4">
+                              <div className="text-[20px] font-medium text-[#18181B] group-hover:text-white tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-[#18181B] group-hover:text-white transition-colors duration-300 text-[14px]">&#x2197;</span></div>
+                              <div className="text-[13px] text-[#71717A] group-hover:text-white/70 transition-colors duration-300">{child.desc}</div>
                             </div>
                           </a>
                         ))}

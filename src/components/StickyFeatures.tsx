@@ -16,7 +16,7 @@ export default function StickyFeatures() {
 
   return (
     <section id="product" className="relative z-[3] rounded-t-[24px] bg-white sticky top-0">
-      <div className="py-[120px] lg:py-[180px] px-4 md:px-8 lg:px-10 xl:px-12">
+      <div className="pt-[60px] pb-[80px] lg:py-[180px] px-4 md:px-8 lg:px-10 xl:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
           {/* Left: headline + tabs + feature text */}
           <div>

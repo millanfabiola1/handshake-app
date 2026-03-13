@@ -73,16 +73,14 @@ export default function ProductShowcase() {
       <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[200px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">
-          <p className="mono text-[13px] text-[#18181B]/40 uppercase mb-5">How it works</p>
           <h2 className="font-light text-[#18181B] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
             Text like iMessage.<br />Earn like a business.
           </h2>
         </div>
 
-        {/* Scrolling content + sticky image */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          {/* Left: scrolling text steps */}
-          <div className="flex flex-col relative">
+        {/* Scrolling content */}
+        <div>
+          <div className="flex flex-col relative max-w-[720px]">
             {steps.map((s, i) => (
               <div key={s.step}>
                 <div
@@ -92,6 +90,15 @@ export default function ProductShowcase() {
                 >
                   <h3 className="text-[36px] md:text-[48px] font-light text-[#18181B] tracking-[-0.03em] leading-[0.95] text-balance mb-6">{s.title}</h3>
                   <p className="text-[16px] font-normal text-[#71717A] leading-[1.75] max-w-[480px]">{s.desc}</p>
+                  {/* Inline image between steps */}
+                  <div className="mt-8 rounded-lg overflow-hidden">
+                    <img
+                      src={`/image%20${(i % 3) + 1}.png`}
+                      alt={s.img}
+                      className="w-full h-auto object-cover"
+                      style={{ aspectRatio: '4 / 3' }}
+                    />
+                  </div>
                 </div>
                 {/* Divider line between steps */}
                 {i < steps.length - 1 && (
@@ -104,40 +111,6 @@ export default function ProductShowcase() {
                 )}
               </div>
             ))}
-          </div>
-
-          {/* Right: sticky image (mobile: top, desktop: side) */}
-          <div className="lg:block">
-            <div className="sticky top-24 lg:top-[50vh] lg:-translate-y-1/2">
-              <div className="w-full rounded-lg overflow-hidden relative" style={{ aspectRatio: '4 / 3' }}>
-                {steps.map((s, i) => (
-                  <img
-                    key={s.step}
-                    src={`/image%20${(i % 3) + 1}.png`}
-                    alt={s.img}
-                    className="absolute inset-0 w-full h-full object-cover transition-all duration-600"
-                    style={{
-                      opacity: activeIndex === i ? 1 : 0,
-                      transform: activeIndex === i ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.97)',
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* Step indicators */}
-              <div className="flex gap-2.5 mt-8 justify-center">
-                {steps.map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-[5px] rounded-full transition-all duration-400"
-                    style={{
-                      width: activeIndex === i ? 48 : 16,
-                      backgroundColor: activeIndex === i ? '#18181B' : 'rgba(0,0,0,0.1)',
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>
