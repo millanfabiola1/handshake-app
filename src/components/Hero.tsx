@@ -214,7 +214,7 @@ export default function Hero() {
         <ScrollReveal delay={300}>
           <div className="flex items-center gap-4 mt-8">
             <button onClick={showWaitlist} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer">Join the waitlist <span className="text-[16px]">&#x2197;</span></button>
-            <a href="#product" className="text-[14px] font-light text-black px-7 py-3.5 rounded-lg border border-black hover:bg-black hover:text-white transition-colors">See the product</a>
+            <a href="#product" className="text-[14px] font-normal text-black px-7 py-3.5 rounded-lg border border-black hover:bg-black hover:text-white transition-colors">See the product</a>
           </div>
         </ScrollReveal>
       </div>

@@ -6,6 +6,7 @@ import StickyFeatures from '@/components/StickyFeatures'
 import ProductShowcase from '@/components/ProductShowcase'
 import UseCases from '@/components/UseCases'
 import Pricing from '@/components/Pricing'
+import PaymentMethods from '@/components/PaymentMethods'
 import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
 import WaitlistProvider from '@/components/WaitlistContext'
@@ -22,6 +23,7 @@ export default function Home() {
         <ProductShowcase />
         <UseCases />
         <Pricing />
+        <PaymentMethods />
         <CTASection />
       </main>
       <Footer />

@@ -44,8 +44,8 @@ export default function StickyFeatures() {
     <section id="product" className="relative z-[3]">
       <div ref={containerRef} style={{ height: `${features.length * 100 + 50}vh` }} className="relative">
         <div className="sticky top-0 h-screen bg-white overflow-hidden">
-          <div className="h-full flex flex-col justify-center px-4 md:px-8 lg:px-10 xl:px-12">
-            <div className="mb-12">
+          <div className="h-full flex flex-col justify-end pb-12 px-4 md:px-8 lg:px-10 xl:px-12">
+            <div className="mb-8">
               <p className="mono text-[11px] text-black/40 uppercase mb-5">Product</p>
               <h2 className="font-light text-black tracking-[-0.04em] leading-[0.95] max-w-[700px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
                 Built for the conversation economy
@@ -88,7 +88,7 @@ export default function StickyFeatures() {
             </div>
 
             {/* Clickable tab pills */}
-            <div className="flex gap-2 mt-8">
+            <div className="flex gap-2 mt-4">
               {features.map((f, i) => (
                 <button
                   key={f.label}

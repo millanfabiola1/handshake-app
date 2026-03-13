@@ -69,7 +69,7 @@ export default function ProductShowcase() {
 
   return (
     <section className="bg-[#3A3A3F] text-white relative z-[4] rounded-t-[24px]">
-      <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12">
+      <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[500px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">
           <p className="mono text-[11px] text-white/40 uppercase mb-5">How it works</p>
@@ -79,7 +79,7 @@ export default function ProductShowcase() {
         </div>
 
         {/* Scrolling content + sticky image */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 pb-[500px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left: scrolling text steps */}
           <div className="flex flex-col">
             {steps.map((s, i) => (
@@ -117,13 +117,13 @@ export default function ProductShowcase() {
               </div>
 
               {/* Step indicators */}
-              <div className="flex gap-1.5 mt-6 justify-center">
+              <div className="flex gap-2.5 mt-8 justify-center">
                 {steps.map((_, i) => (
                   <div
                     key={i}
-                    className="h-[3px] rounded-full transition-all duration-400"
+                    className="h-[5px] rounded-full transition-all duration-400"
                     style={{
-                      width: activeIndex === i ? 28 : 10,
+                      width: activeIndex === i ? 48 : 16,
                       backgroundColor: activeIndex === i ? '#39FF78' : 'rgba(255,255,255,0.15)',
                     }}
                   />

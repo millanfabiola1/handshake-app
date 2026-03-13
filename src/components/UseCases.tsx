@@ -64,10 +64,10 @@ export default function UseCases() {
         </ScrollReveal>
         <ScrollReveal delay={100}>
           <div className="flex gap-2">
-            <button onClick={() => scroll('left')} className="w-14 h-14 rounded-full border border-black hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black/40">
+            <button onClick={() => scroll('left')} className="w-14 h-14 rounded-full border border-black hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black">
               <ArrowLeft size={22} weight="bold" />
             </button>
-            <button onClick={() => scroll('right')} className="w-14 h-14 rounded-full border border-black hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black/40">
+            <button onClick={() => scroll('right')} className="w-14 h-14 rounded-full border border-black hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black">
               <ArrowRight size={22} weight="bold" />
             </button>
           </div>
@@ -76,7 +76,7 @@ export default function UseCases() {
 
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto pl-4 md:pl-8 lg:pl-10 xl:pl-12 pr-4 md:pr-8 pb-4 snap-x snap-mandatory scrollbar-hide"
+        className="flex gap-5 overflow-x-auto pl-8 md:pl-12 lg:pl-16 xl:pl-20 pr-4 md:pr-8 pb-4 snap-x snap-mandatory scrollbar-hide scroll-pl-8 md:scroll-pl-12 lg:scroll-pl-16 xl:scroll-pl-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {cases.map((item) => (
@@ -85,14 +85,9 @@ export default function UseCases() {
             className="group bg-white border border-black/5 rounded-lg overflow-hidden hover:bg-black hover:border-transparent transition-all duration-300 cursor-pointer flex flex-col snap-start flex-shrink-0"
             style={{ width: 'min(380px, 80vw)' }}
           >
-            <div className="h-[180px] img-placeholder-light group-hover:img-placeholder flex items-center justify-center transition-all duration-300">
-              <item.icon size={40} weight="thin" className="text-black/15 group-hover:text-white/20 transition-colors duration-300" />
-            </div>
+            <div className="h-[180px] bg-cover bg-center transition-all duration-300" style={{ backgroundImage: 'url(/image.png)' }} />
             <div className="p-8 flex flex-col flex-1">
-            <div className="flex items-center gap-3 mb-6">
-              <item.icon size={20} weight="light" className="text-black/40 group-hover:text-white transition-colors duration-300" />
-              <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase transition-colors duration-300">{item.label}</p>
-            </div>
+            <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase transition-colors duration-300 mb-6">{item.label}</p>
             <h3 className="text-[22px] font-light text-[#18181B] group-hover:text-white tracking-[-0.02em] leading-[1.2] mb-3 transition-colors duration-300">{item.title}</h3>
             <p className="text-[15px] font-light text-[#71717A] group-hover:text-white/50 leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
             <div className="flex items-baseline gap-2 mt-auto">

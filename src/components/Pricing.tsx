@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { CurrencyDollar, LockSimple, PhoneCall, Megaphone, CreditCard, Bank, Money, CurrencyCircleDollar } from '@phosphor-icons/react'
+import { CurrencyDollar, LockSimple, PhoneCall, Megaphone } from '@phosphor-icons/react'
 import ScrollReveal from './ScrollReveal'
 
 const paymentTabs = [
@@ -36,13 +36,6 @@ const paymentTabs = [
     sublabel: 'Delivery rate',
     desc: 'Reach your entire client book at once. Every message feels one-to-one, even at scale.',
   },
-]
-
-const paymentMethods = [
-  { label: 'Credit cards', icon: CreditCard },
-  { label: 'Bank transfers', icon: Bank },
-  { label: 'Debit cards', icon: Money },
-  { label: 'P2P payments', icon: CurrencyCircleDollar },
 ]
 
 function AnimatedNumber({ value, suffix, duration = 1500 }: { value: number; suffix: string; duration?: number }) {
@@ -104,14 +97,6 @@ export default function Pricing() {
           </div>
         </ScrollReveal>
 
-        <div className="flex items-center justify-center gap-10 mt-16 flex-wrap">
-          {paymentMethods.map((m) => (
-            <div key={m.label} className="flex items-center gap-2">
-              <m.icon size={18} weight="regular" className="text-[#D4D4D8]" />
-              <span className="mono text-[12px] text-[#D4D4D8] uppercase">{m.label}</span>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   )
