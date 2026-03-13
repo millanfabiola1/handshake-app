@@ -68,15 +68,15 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
           <img src="/image.png" alt="Handshake" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/30" />
           <div className="absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-8 z-10">
-            <p className="text-[20px] lg:text-[28px] font-light text-white leading-[1.1] tracking-[-0.03em]">
-              Where every conversation has real value
+            <p className="text-[24px] lg:text-[28px] font-light text-white leading-[1.1] tracking-[-0.03em]">
+              Where every conversation<br className="lg:hidden" /> has real value
             </p>
           </div>
         </div>
 
         {/* Right: Form */}
         <div className="p-10 lg:p-12 flex flex-col justify-center">
-          <button onClick={onClose} className="absolute top-4 right-4 text-black/30 hover:text-black transition-colors cursor-pointer">
+          <button onClick={onClose} className="absolute top-4 right-4 text-white lg:text-black/30 hover:text-white/70 lg:hover:text-black transition-colors cursor-pointer z-20">
             <X size={20} weight="bold" />
           </button>
 

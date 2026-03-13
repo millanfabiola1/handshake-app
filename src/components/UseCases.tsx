@@ -55,11 +55,10 @@ export default function UseCases() {
   }
 
   return (
-    <section className="bg-white sticky top-0 z-[5] rounded-t-[24px] relative" id="use-cases">
-      <div className="py-[140px]" style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'bottom center' }}>
+    <section className="bg-[#39FF78] sticky top-0 z-[4] rounded-t-[24px] relative" id="use-cases">
+      <div className="py-[140px]">
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 flex items-end justify-between mb-14">
         <ScrollReveal>
-          <p className="mono text-[11px] text-[#18181B]/40 uppercase mb-5">Who it&apos;s for</p>
           <h2 className="font-light text-[#18181B] tracking-[-0.035em] leading-[0.95] max-w-[500px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
             Built for the new economy
           </h2>
@@ -84,17 +83,16 @@ export default function UseCases() {
         {cases.map((item, i) => (
           <div
             key={item.label}
-            className="group relative rounded-lg overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-end snap-start flex-shrink-0 bg-cover bg-center"
-            style={{ width: 'min(380px, 80vw)', minHeight: '480px', backgroundImage: `url(${cardImages[i % cardImages.length]})` }}
+            className="group rounded-lg overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-end snap-start flex-shrink-0 bg-white"
+            style={{ width: 'min(380px, 80vw)', minHeight: '480px' }}
           >
-            <div className="absolute inset-0 bg-black/50 group-hover:bg-black transition-all duration-300" />
-            <div className="relative z-10 p-8 flex flex-col flex-1 justify-end">
-            <p className="mono text-[11px] text-white/40 uppercase transition-colors duration-300 mb-6">{item.label}</p>
-            <h3 className="text-[22px] font-light text-white tracking-[-0.02em] leading-[1.2] mb-3 transition-colors duration-300">{item.title}</h3>
-            <p className="text-[15px] font-light text-white/50 leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
+            <div className="p-8 flex flex-col flex-1 justify-end">
+            <p className="mono text-[11px] text-black/40 uppercase transition-colors duration-300 mb-6">{item.label}</p>
+            <h3 className="text-[36px] font-light text-[#18181B] tracking-[-0.03em] leading-[1.1] mb-3 transition-colors duration-300">{item.title}</h3>
+            <p className="text-[15px] font-light text-[#71717A] leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
             <div className="flex items-baseline gap-2 mt-auto">
-              <span className="text-[32px] font-light text-[#39FF78] tracking-[-0.03em] transition-colors duration-300">{item.stat.value}</span>
-              <span className="mono text-[11px] text-white/40 uppercase transition-colors duration-300">{item.stat.label}</span>
+              <span className="text-[32px] font-light text-[#18181B] tracking-[-0.03em] transition-colors duration-300">{item.stat.value}</span>
+              <span className="mono text-[11px] text-black/40 uppercase transition-colors duration-300">{item.stat.label}</span>
             </div>
             </div>
           </div>

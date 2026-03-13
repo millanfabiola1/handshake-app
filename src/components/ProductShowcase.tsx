@@ -69,12 +69,12 @@ export default function ProductShowcase() {
   const active = steps[activeIndex]
 
   return (
-    <section className="bg-[#3A3A3F] text-white relative z-[4] rounded-t-[24px]">
+    <section className="bg-[#F4F4F5] text-[#18181B] sticky top-0 z-[6] rounded-t-[24px]">
       <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[200px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">
-          <p className="mono text-[13px] text-white/40 uppercase mb-5">How it works</p>
-          <h2 className="font-light text-[#39FF78] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
+          <p className="mono text-[13px] text-[#18181B]/40 uppercase mb-5">How it works</p>
+          <h2 className="font-light text-[#18181B] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
             Text like iMessage.<br />Earn like a business.
           </h2>
         </div>
@@ -90,18 +90,15 @@ export default function ProductShowcase() {
                   className="min-h-[60vh] flex flex-col justify-center py-12 transition-opacity duration-500"
                   style={{ opacity: activeIndex === i ? 1 : 0.25 }}
                 >
-                  <div className="flex items-baseline gap-4 mb-6">
-                    <span className="mono text-[36px] md:text-[48px] font-light text-white/30 leading-none tracking-[-0.03em] shrink-0">{s.step}</span>
-                    <h3 className="text-[36px] md:text-[48px] font-light text-white tracking-[-0.03em] leading-[0.95] text-balance">{s.title}</h3>
-                  </div>
-                  <p className="mono text-[16px] font-normal text-white/60 leading-[1.75] max-w-[480px]">{s.desc}</p>
+                  <h3 className="text-[36px] md:text-[48px] font-light text-[#18181B] tracking-[-0.03em] leading-[0.95] text-balance mb-6">{s.title}</h3>
+                  <p className="text-[16px] font-normal text-[#71717A] leading-[1.75] max-w-[480px]">{s.desc}</p>
                 </div>
                 {/* Divider line between steps */}
                 {i < steps.length - 1 && (
                   <div className="flex justify-center">
                     <div className="relative w-px h-[200px]">
-                      <div className="absolute inset-0 bg-white/10" />
-                      <div className="absolute top-0 left-0 w-full bg-[#39FF78] origin-top transition-all duration-500" style={{ height: '100%', transform: `scaleY(${activeIndex > i ? 1 : 0})` }} />
+                      <div className="absolute inset-0 bg-black/10" />
+                      <div className="absolute top-0 left-0 w-full bg-[#18181B] origin-top transition-all duration-500" style={{ height: '100%', transform: `scaleY(${activeIndex > i ? 1 : 0})` }} />
                     </div>
                   </div>
                 )}
@@ -135,7 +132,7 @@ export default function ProductShowcase() {
                     className="h-[5px] rounded-full transition-all duration-400"
                     style={{
                       width: activeIndex === i ? 48 : 16,
-                      backgroundColor: activeIndex === i ? '#39FF78' : 'rgba(255,255,255,0.15)',
+                      backgroundColor: activeIndex === i ? '#18181B' : 'rgba(0,0,0,0.1)',
                     }}
                   />
                 ))}

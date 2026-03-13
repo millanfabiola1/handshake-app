@@ -57,7 +57,7 @@ export default function Nav() {
   return (
     <>
       <nav
-        className={`fixed left-0 right-0 z-50 h-[72px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
           visible || mobileOpen
             ? `border-b ${open ? 'bg-[#39FF78] border-transparent' : 'bg-white border-black/5'}`
             : 'bg-transparent border-b border-transparent'
@@ -66,16 +66,16 @@ export default function Nav() {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => { setHovered(false); setOpen(null) }}
       >
-        <a href="#" className="text-[16px] font-light tracking-[-0.3px] text-black transition-colors duration-300">Handshake</a>
+        <a href="#" className="text-[22px] font-light tracking-[-0.3px] text-black transition-colors duration-300">Handshake</a>
 
         {/* Desktop menu */}
         <div className="hidden md:flex items-center gap-8">
           {menuItems.map((item) => (
             <div key={item.label} onMouseEnter={() => setOpen(item.children ? item.label : null)}>
-              <a href={item.href} className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 py-6 inline-flex items-center gap-1">
+              <a href={item.href} className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 py-6 inline-flex items-center gap-1.5">
                 {item.label}
                 {item.children && (
-                  <CaretDown size={12} weight="bold" />
+                  <CaretDown size={14} weight="bold" />
                 )}
               </a>
             </div>
@@ -98,13 +98,11 @@ export default function Nav() {
                   <a
                     key={child.label}
                     href={child.href}
-                    className="group relative h-[280px] bg-cover bg-center flex items-end transition-all duration-300 overflow-hidden rounded-sm"
-                    style={{ backgroundImage: `url(${child.img})` }}
+                    className="group h-[280px] flex items-end transition-all duration-300 overflow-hidden rounded-sm bg-white hover:bg-[#F4F4F5]"
                   >
-                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black transition-all duration-300" />
-                    <div className="relative z-10 p-6">
-                      <div className="text-[32px] font-medium text-white uppercase tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-white transition-colors duration-300">&#x2197;</span></div>
-                      <div className="mono text-[15px] text-white/50 group-hover:text-white/70 mt-0.5 uppercase transition-colors duration-300">{child.desc}</div>
+                    <div className="p-6">
+                      <div className="text-[32px] font-medium text-[#18181B] tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-[#18181B] transition-colors duration-300">&#x2197;</span></div>
+                      <div className="text-[15px] text-[#71717A] group-hover:text-[#18181B] mt-0.5 transition-colors duration-300">{child.desc}</div>
                     </div>
                   </a>
                 ))}
@@ -114,8 +112,8 @@ export default function Nav() {
         )}
 
         <div className="flex items-center gap-4">
-          <a href="#" className="mono text-[13px] text-black/50 hover:text-black transition-colors duration-300 hidden sm:block">Sign in</a>
-          <button onClick={showWaitlist} className="text-[13px] font-medium text-black px-5 py-2 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-1.5 cursor-pointer hidden sm:inline-flex">Join waitlist <span className="text-[14px]">&#x2197;</span></button>
+          <a href="#" className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 hidden sm:block">Sign in</a>
+          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer hidden sm:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
           {/* Hamburger button (mobile) */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -126,13 +124,22 @@ export default function Nav() {
         </div>
       </nav>
 
+      {/* Blur overlay when megamenu is open */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-all duration-300 hidden md:block ${
+          open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onMouseEnter={() => { setHovered(false); setOpen(null) }}
+      />
+
       {/* Mobile menu overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-white md:hidden overflow-y-auto"
-          style={{ paddingTop: scrolled ? 72 : 104 }}
-        >
-          <div className="px-6 py-8 flex flex-col gap-2">
+      <div
+        className={`fixed inset-0 z-40 bg-white md:hidden overflow-y-auto transition-all duration-500 ease-out ${
+          mobileOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+        style={{ paddingTop: scrolled ? 72 : 104 }}
+      >
+        <div className="px-6 py-8 flex flex-col gap-2">
             {menuItems.map((item) => (
               <div key={item.label}>
                 {item.children ? (
@@ -188,8 +195,7 @@ export default function Nav() {
               <a href="#" className="mono text-[14px] text-black/50 text-center py-3">Sign in</a>
             </div>
           </div>
-        </div>
-      )}
+      </div>
     </>
   )
 }

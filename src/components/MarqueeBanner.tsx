@@ -5,13 +5,14 @@ const items = ['Message', 'Monetize', 'Move Money', '0% Commission', 'Locked Con
 const doubled = [...items, ...items]
 
 export default function MarqueeBanner() {
-  const [hidden, setHidden] = useState(false)
+  const [hidden, setHidden] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
       const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
       setHidden(window.scrollY < heroHeight - 120)
     }
+    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])

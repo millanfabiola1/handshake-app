@@ -20,9 +20,9 @@ export default function Home() {
         <Hero />
         <LogoStrip />
         <StickyFeatures />
-        <ProductShowcase />
         <UseCases />
         <Pricing />
+        <ProductShowcase />
         <QuoteSection />
         <CTASection />
       </main>

@@ -5,15 +5,9 @@ import ScrollReveal from './ScrollReveal'
 import DotGrid from './DotGrid'
 import { useWaitlist } from './WaitlistContext'
 
-const pixelFonts = [
-  'var(--font-geist-pixel-square)',
-]
-
 function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
   const [displayed, setDisplayed] = useState('')
   const [started, setStarted] = useState(false)
-  const [settled, setSettled] = useState(false)
-  const [charFonts, setCharFonts] = useState<(string | null)[]>([])
   const ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
@@ -24,17 +18,13 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
     return () => obs.disconnect()
   }, [])
 
-  // Typewriter + per-character random pixel font
   useEffect(() => {
     if (!started) return
     const timeout = setTimeout(() => {
       let i = 0
-      const fonts: (string | null)[] = []
       const interval = setInterval(() => {
-        fonts[i] = pixelFonts[Math.floor(Math.random() * pixelFonts.length)]
         i++
         setDisplayed(text.slice(0, i))
-        setCharFonts([...fonts])
         if (i >= text.length) clearInterval(interval)
       }, 35)
       return () => clearInterval(interval)
@@ -42,38 +32,9 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
     return () => clearTimeout(timeout)
   }, [started, text, delay])
 
-  // After typing completes, cycle each letter through random pixel fonts then settle to Geist Sans
-  useEffect(() => {
-    if (!started || displayed.length < text.length) return
-    let tick = 0
-    const totalCycles = 6
-    const interval = setInterval(() => {
-      tick++
-      if (tick >= totalCycles) {
-        setSettled(true)
-        clearInterval(interval)
-      } else {
-        setCharFonts(
-          Array.from({ length: text.length }, () =>
-            pixelFonts[Math.floor(Math.random() * pixelFonts.length)]
-          )
-        )
-      }
-    }, 100)
-    return () => clearInterval(interval)
-  }, [started, displayed, text])
-
   return (
     <span ref={ref}>
-      {displayed.split('').map((char, i) => (
-        <span
-          key={i}
-          style={!settled && charFonts[i] ? { fontFamily: charFonts[i]! } : undefined}
-          className={!settled && charFonts[i] ? 'transition-none' : 'transition-[font-family] duration-300'}
-        >
-          {char}
-        </span>
-      ))}
+      {displayed}
       {displayed.length < text.length && started && (
         <span className="inline-block w-[2px] h-[0.85em] bg-black ml-[2px] animate-pulse align-baseline" />
       )}
@@ -140,7 +101,7 @@ function MorphText({ initial, final, delay = 0 }: { initial: string; final: stri
   }, [phase, initial, final])
 
   return (
-    <span ref={ref} style={phase !== 'final' ? { fontFamily: 'var(--font-geist-pixel-square)' } : undefined}>
+    <span ref={ref}>
       {displayed}
       {phase === 'initial' && displayed.length < initial.length && (
         <span className="inline-block w-[2px] h-[0.85em] bg-black ml-[2px] animate-pulse align-baseline" />
@@ -185,36 +146,32 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen flex flex-col justify-start pt-[160px] bg-white relative overflow-hidden z-[2]"
+      className="min-h-screen flex flex-col justify-start pt-[160px] bg-white relative overflow-hidden sticky top-0 z-[1]"
       style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <DotGrid sectionRef={sectionRef} />
 
       {/* Image positioned on the right, behind the text */}
-      <div className="absolute right-0 bottom-0 z-[2] pointer-events-none">
-        <img src="/image.png" alt="Handshake app" className="w-[70vw] lg:w-[45vw] max-w-[700px] rounded-tl-lg opacity-90" />
+      <div className="absolute right-6 bottom-8 lg:right-12 lg:bottom-12 z-[2] pointer-events-none">
+        <img src="/image.png" alt="Handshake app" className="w-[70vw] lg:w-[45vw] max-w-[700px] rounded-lg opacity-90" />
       </div>
 
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 w-full relative z-10">
-        <ScrollReveal>
-          <p className="mono text-[13px] text-black/50 mb-8 uppercase">The platform that pays</p>
-        </ScrollReveal>
-
-        <h1 className="font-light text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(40px, 8vw, 110px)' }}>
+        <h1 className="font-light text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 110px)' }}>
           <TypewriterText text="Where every conversation" /><br />
           <TypewriterText text="has real " delay={600} /><MorphText initial="$$$" final="value" delay={1100} />
         </h1>
 
         <ScrollReveal delay={200}>
-          <p className="text-[17px] font-light text-black/60 leading-[1.6] max-w-[480px] mt-12">
+          <p className="text-[20px] font-light text-black/60 leading-[1.6] max-w-[520px] mt-12">
             Handshake embeds payments directly into messaging. Tips, paid content, and scheduled calls — all inside the thread.
           </p>
         </ScrollReveal>
 
         <ScrollReveal delay={300}>
           <div className="flex items-center gap-4 mt-8">
-            <button onClick={showWaitlist} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer">Join the waitlist <span className="text-[16px]">&#x2197;</span></button>
-            <a href="#product" className="text-[14px] font-normal text-black px-7 py-3.5 rounded-lg border border-black hover:bg-black hover:text-white transition-colors">See the product</a>
+            <button onClick={showWaitlist} className="text-[15px] font-medium text-black px-8 py-4 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer">Join the waitlist <span className="text-[16px]">&#x2197;</span></button>
+            <a href="#product" className="text-[15px] font-medium text-white px-8 py-4 rounded-lg bg-black hover:bg-transparent hover:text-black hover:border hover:border-black transition-all">See the product</a>
           </div>
         </ScrollReveal>
       </div>
