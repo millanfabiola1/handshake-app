@@ -88,7 +88,7 @@ export default function StickyFeatures() {
             </div>
 
             {/* Clickable tab pills */}
-            <div className="flex gap-2 mt-4">
+            <div className="flex gap-2 mt-4 relative z-10">
               {features.map((f, i) => (
                 <button
                   key={f.label}
