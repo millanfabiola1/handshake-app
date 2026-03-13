@@ -70,7 +70,7 @@ export default function ProductShowcase() {
 
   return (
     <section className="bg-[#3A3A3F] text-white relative z-[4] rounded-t-[24px]">
-      <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[500px]">
+      <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[200px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">
           <p className="mono text-[13px] text-white/40 uppercase mb-5">How it works</p>

@@ -62,7 +62,7 @@ export default function Nav() {
             ? `border-b ${open ? 'bg-[#39FF78] border-transparent' : 'bg-white border-black/5'}`
             : 'bg-transparent border-b border-transparent'
         }`}
-        style={{ top: 32 }}
+        style={{ top: scrolled ? 32 : 0 }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => { setHovered(false); setOpen(null) }}
       >
