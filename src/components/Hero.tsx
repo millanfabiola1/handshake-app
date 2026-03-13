@@ -146,18 +146,14 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen flex flex-col justify-start pt-[160px] bg-white relative overflow-hidden sticky top-0 z-[1]"
+      className="min-h-screen flex flex-col justify-start pt-[100px] lg:pt-[160px] bg-white relative overflow-hidden sticky top-0 z-[1]"
       style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <DotGrid sectionRef={sectionRef} />
 
-      {/* Image positioned on the right, behind the text */}
-      <div className="absolute right-6 bottom-8 lg:right-12 lg:bottom-12 z-[2] pointer-events-none">
-        <img src="/image.png" alt="Handshake app" className="w-[70vw] lg:w-[45vw] max-w-[700px] rounded-lg opacity-90" />
-      </div>
 
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 w-full relative z-10">
-        <h1 className="font-light text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 110px)' }}>
+        <h1 className="font-normal text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 110px)' }}>
           <TypewriterText text="Where every conversation" /><br />
           <TypewriterText text="has real value" delay={600} />
         </h1>

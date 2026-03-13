@@ -17,22 +17,21 @@ export default function StickyFeatures() {
   return (
     <section id="product" className="relative z-[3] bg-white sticky top-0">
       <div className="pt-[60px] pb-[80px] lg:py-[180px] px-4 md:px-8 lg:px-10 xl:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
-          {/* Left: headline + tabs + feature text */}
+        {/* Desktop: 2-column layout */}
+        <div className="hidden lg:grid grid-cols-2 gap-20">
           <div>
             <ScrollReveal>
-              <h2 className="font-light text-black tracking-[-0.04em] leading-[0.95] mb-12" style={{ fontSize: 'clamp(36px, 6vw, 80px)' }}>
+              <h2 className="font-normal text-black tracking-[-0.04em] leading-[0.95] mb-12" style={{ fontSize: 'clamp(36px, 6vw, 80px)' }}>
                 Built for the<br />conversation economy
               </h2>
             </ScrollReveal>
 
-            {/* Tab pills */}
             <div className="flex gap-2 mb-10 flex-wrap">
               {features.map((f, i) => (
                 <button
                   key={f.label}
                   onClick={() => setActiveIndex(i)}
-                  className={`text-[14px] lg:text-[15px] font-normal px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
+                  className={`text-[15px] font-normal px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
                     activeIndex === i
                       ? 'bg-[#39FF78] text-black'
                       : 'bg-[#F4F4F5] text-[#71717A] hover:bg-[#E4E4E7] hover:text-black'
@@ -44,11 +43,10 @@ export default function StickyFeatures() {
               ))}
             </div>
 
-            <h3 className="text-[28px] md:text-[40px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
+            <h3 className="text-[40px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
             <p className="text-[19px] font-light text-black leading-[1.65] max-w-[480px] transition-all duration-300">{active.desc}</p>
           </div>
 
-          {/* Right: Video */}
           <ScrollReveal delay={150}>
             <div className="w-full rounded-lg overflow-hidden" style={{ aspectRatio: '4 / 3' }}>
               <video
@@ -61,6 +59,48 @@ export default function StickyFeatures() {
               />
             </div>
           </ScrollReveal>
+        </div>
+
+        {/* Mobile: stacked layout — headline, video, centered tabs, centered content */}
+        <div className="lg:hidden flex flex-col">
+          <ScrollReveal>
+            <h2 className="font-normal text-black tracking-[-0.04em] leading-[0.95] mb-8 text-center" style={{ fontSize: 'clamp(36px, 8vw, 80px)' }}>
+              Built for the<br />conversation economy
+            </h2>
+          </ScrollReveal>
+
+          <div className="w-full rounded-lg overflow-hidden mb-10" style={{ aspectRatio: '4 / 3' }}>
+            <video
+              src="/a5964603cb2e4a249ac8a336c1a0239d.HD-1080p-7.2Mbps-14082701.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="flex gap-2 mb-8 flex-wrap justify-center">
+            {features.map((f, i) => (
+              <button
+                key={f.label}
+                onClick={() => setActiveIndex(i)}
+                className={`text-[14px] font-normal px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
+                  activeIndex === i
+                    ? 'bg-[#39FF78] text-black'
+                    : 'bg-[#F4F4F5] text-[#71717A]'
+                }`}
+              >
+                <f.icon size={16} weight="light" />
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <h3 className="text-[28px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
+            <p className="text-[17px] font-light text-black leading-[1.65] max-w-[440px] mx-auto transition-all duration-300">{active.desc}</p>
+          </div>
         </div>
       </div>
     </section>

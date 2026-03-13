@@ -59,7 +59,7 @@ export default function UseCases() {
       <div className="py-[140px]">
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 flex items-end justify-between mb-14">
         <ScrollReveal>
-          <h2 className="font-light text-[#18181B] tracking-[-0.035em] leading-[0.95] max-w-[500px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
+          <h2 className="font-normal text-[#18181B] tracking-[-0.035em] leading-[0.95] max-w-[500px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
             Built for the new economy
           </h2>
         </ScrollReveal>

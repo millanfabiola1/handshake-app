@@ -13,7 +13,7 @@ export default function CTASection() {
       <DotGrid sectionRef={sectionRef} color="255, 255, 255" />
       <div className="text-center relative z-10">
         <ScrollReveal>
-          <h2 className="font-light text-white tracking-[-0.045em] leading-[0.95]" style={{ fontSize: 'clamp(48px, 8vw, 100px)' }}>
+          <h2 className="font-normal text-white tracking-[-0.045em] leading-[0.95]" style={{ fontSize: 'clamp(48px, 8vw, 100px)' }}>
             A handshake seals<br />every deal
           </h2>
         </ScrollReveal>
