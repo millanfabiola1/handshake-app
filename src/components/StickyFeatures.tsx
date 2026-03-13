@@ -93,13 +93,13 @@ export default function StickyFeatures() {
                 <button
                   key={f.label}
                   onClick={() => handleTabClick(i)}
-                  className={`mono text-[11px] px-4 py-2 rounded-lg transition-all duration-400 cursor-pointer inline-flex items-center gap-1.5 ${
+                  className={`mono text-[14px] px-7 py-3.5 rounded-lg transition-all duration-400 cursor-pointer inline-flex items-center gap-2.5 ${
                     activeIndex === i
                       ? 'bg-[#39FF78] text-black'
                       : 'border border-black text-black hover:bg-black hover:text-white'
                   }`}
                 >
-                  <f.icon size={13} weight="light" />
+                  <f.icon size={16} weight="light" />
                   {f.label.split(' — ')[1]}
                 </button>
               ))}

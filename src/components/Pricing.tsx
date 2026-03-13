@@ -84,13 +84,13 @@ export default function Pricing() {
               <button
                 key={tab.label}
                 onClick={() => setActiveTab(i)}
-                className={`mono text-[12px] px-5 py-2.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 ${
+                className={`mono text-[14px] px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2.5 ${
                   activeTab === i
                     ? 'bg-[#18181B] text-white'
                     : 'border border-black text-black hover:bg-black hover:text-white'
                 }`}
               >
-                <tab.icon size={15} weight={activeTab === i ? 'fill' : 'regular'} />
+                <tab.icon size={18} weight={activeTab === i ? 'fill' : 'regular'} />
                 {tab.label}
               </button>
             ))}

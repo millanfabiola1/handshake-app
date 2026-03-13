@@ -84,17 +84,17 @@ export default function UseCases() {
         {cases.map((item, i) => (
           <div
             key={item.label}
-            className="group bg-white border border-black/5 rounded-lg overflow-hidden hover:bg-black hover:border-transparent transition-all duration-300 cursor-pointer flex flex-col snap-start flex-shrink-0"
-            style={{ width: 'min(380px, 80vw)' }}
+            className="group relative rounded-lg overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-end snap-start flex-shrink-0 bg-cover bg-center"
+            style={{ width: 'min(380px, 80vw)', minHeight: '480px', backgroundImage: `url(${cardImages[i % cardImages.length]})` }}
           >
-            <div className="h-[180px] bg-cover bg-center transition-all duration-300" style={{ backgroundImage: `url(${cardImages[i % cardImages.length]})` }} />
-            <div className="p-8 flex flex-col flex-1">
-            <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase transition-colors duration-300 mb-6">{item.label}</p>
-            <h3 className="text-[22px] font-light text-[#18181B] group-hover:text-white tracking-[-0.02em] leading-[1.2] mb-3 transition-colors duration-300">{item.title}</h3>
-            <p className="text-[15px] font-light text-[#71717A] group-hover:text-white/50 leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
+            <div className="absolute inset-0 bg-black/50 group-hover:bg-black transition-all duration-300" />
+            <div className="relative z-10 p-8 flex flex-col flex-1 justify-end">
+            <p className="mono text-[11px] text-white/40 uppercase transition-colors duration-300 mb-6">{item.label}</p>
+            <h3 className="text-[22px] font-light text-white tracking-[-0.02em] leading-[1.2] mb-3 transition-colors duration-300">{item.title}</h3>
+            <p className="text-[15px] font-light text-white/50 leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
             <div className="flex items-baseline gap-2 mt-auto">
-              <span className="text-[32px] font-light text-[#18181B] group-hover:text-[#39FF78] tracking-[-0.03em] transition-colors duration-300">{item.stat.value}</span>
-              <span className="mono text-[11px] text-[#A1A1AA] group-hover:text-white/40 uppercase transition-colors duration-300">{item.stat.label}</span>
+              <span className="text-[32px] font-light text-[#39FF78] tracking-[-0.03em] transition-colors duration-300">{item.stat.value}</span>
+              <span className="mono text-[11px] text-white/40 uppercase transition-colors duration-300">{item.stat.label}</span>
             </div>
             </div>
           </div>

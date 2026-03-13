@@ -87,14 +87,14 @@ export default function ProductShowcase() {
               <div key={s.step}>
                 <div
                   ref={(el) => { stepRefs.current[i] = el }}
-                  className="min-h-[60vh] flex items-center gap-8 md:gap-12 py-12 transition-opacity duration-500"
+                  className="min-h-[60vh] flex flex-col justify-center py-12 transition-opacity duration-500"
                   style={{ opacity: activeIndex === i ? 1 : 0.25 }}
                 >
-                  <span className="mono text-[14px] font-normal text-white/30 leading-none tracking-[-0.03em] shrink-0">{s.step}</span>
-                  <div>
-                    <h3 className="text-[36px] md:text-[48px] font-light text-white tracking-[-0.03em] leading-[0.95] mb-6 text-balance">{s.title}</h3>
-                    <p className="mono text-[16px] font-normal text-white/60 leading-[1.75] max-w-[480px]">{s.desc}</p>
+                  <div className="flex items-baseline gap-4 mb-6">
+                    <span className="mono text-[36px] md:text-[48px] font-light text-white/30 leading-none tracking-[-0.03em] shrink-0">{s.step}</span>
+                    <h3 className="text-[36px] md:text-[48px] font-light text-white tracking-[-0.03em] leading-[0.95] text-balance">{s.title}</h3>
                   </div>
+                  <p className="mono text-[16px] font-normal text-white/60 leading-[1.75] max-w-[480px]">{s.desc}</p>
                 </div>
                 {/* Divider line between steps */}
                 {i < steps.length - 1 && (
@@ -102,9 +102,6 @@ export default function ProductShowcase() {
                     <div className="relative w-px h-[200px]">
                       <div className="absolute inset-0 bg-white/10" />
                       <div className="absolute top-0 left-0 w-full bg-[#39FF78] origin-top transition-all duration-500" style={{ height: '100%', transform: `scaleY(${activeIndex > i ? 1 : 0})` }} />
-                      <div
-                        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition-all duration-500 ${activeIndex > i ? 'bg-[#39FF78] shadow-[0_0_12px_rgba(57,255,120,0.5)]' : 'bg-white/20'}`}
-                      />
                     </div>
                   </div>
                 )}

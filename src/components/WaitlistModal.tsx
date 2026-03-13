@@ -57,7 +57,7 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
 
       {/* Modal */}
       <div
-        className="relative bg-white rounded-lg overflow-hidden w-full max-w-[900px] grid grid-cols-1 lg:grid-cols-2 shadow-2xl transition-all duration-400 ease-out"
+        className="relative bg-[#39FF78] rounded-lg overflow-hidden w-full max-w-[900px] grid grid-cols-1 lg:grid-cols-2 shadow-2xl transition-all duration-400 ease-out"
         style={{
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',
@@ -82,7 +82,7 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
 
           {!submitted ? (
             <>
-              <p className="mono text-[11px] text-[#39FF78] uppercase mb-4">Early Access</p>
+              <p className="mono text-[11px] text-black/40 uppercase mb-4">Early Access</p>
               <h3 className="text-[28px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-3">
                 Join the waitlist
               </h3>
@@ -98,23 +98,23 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
                   required
-                  className="w-full px-4 py-3.5 rounded-lg border border-black/10 text-[14px] font-light text-black placeholder:text-black/30 outline-none focus:border-[#39FF78] transition-colors"
+                  className="w-full px-4 py-3.5 rounded-lg border border-black/20 bg-white/50 text-[14px] font-light text-black placeholder:text-black/30 outline-none focus:border-black transition-colors"
                 />
                 <button
                   type="submit"
-                  className="w-full px-4 py-3.5 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white text-[14px] font-medium text-black transition-colors inline-flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full px-4 py-3.5 rounded-lg bg-black hover:bg-transparent hover:text-black border border-transparent hover:border-black text-[14px] font-medium text-white transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
                 >
                   Get early access <span className="text-[16px]">&#x2197;</span>
                 </button>
               </form>
 
-              <p className="mono text-[11px] text-black/30 mt-6">
+              <p className="mono text-[11px] text-black/40 mt-6">
                 50,000+ already on the list. No spam, ever.
               </p>
             </>
           ) : (
             <div className="text-center py-8">
-              <p className="mono text-[11px] text-[#39FF78] uppercase mb-4">You're in</p>
+              <p className="mono text-[11px] text-black/40 uppercase mb-4">You're in</p>
               <h3 className="text-[28px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-3">
                 Welcome to Handshake
               </h3>
