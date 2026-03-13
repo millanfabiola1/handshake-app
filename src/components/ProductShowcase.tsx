@@ -73,7 +73,7 @@ export default function ProductShowcase() {
       <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[120px] lg:pb-[200px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">
-          <h2 className="font-medium text-[#18181B] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
+          <h2 className="font-normal text-[#18181B] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
             Text like iMessage.<br />Earn like a business.
           </h2>
         </div>
