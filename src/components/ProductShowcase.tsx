@@ -86,8 +86,7 @@ export default function ProductShowcase() {
               <div key={s.step}>
                 <div
                   ref={(el) => { stepRefs.current[i] = el }}
-                  className="min-h-[60vh] flex flex-col justify-center py-12 transition-opacity duration-500"
-                  style={{ opacity: activeIndex === i ? 1 : 0.25 }}
+                  className={`lg:min-h-[60vh] flex flex-col justify-center py-10 lg:py-12 transition-opacity duration-500 ${activeIndex === i ? '' : 'lg:opacity-[0.25]'}`}
                 >
                   <h3 className="text-[36px] md:text-[48px] font-light text-[#18181B] tracking-[-0.03em] leading-[0.95] text-balance mb-6">{s.title}</h3>
                   <p className="text-[16px] font-normal text-[#71717A] leading-[1.75] max-w-[480px]">{s.desc}</p>
@@ -99,7 +98,7 @@ export default function ProductShowcase() {
                 {/* Divider line between steps */}
                 {i < steps.length - 1 && (
                   <div className="flex justify-center">
-                    <div className="relative w-px h-[200px]">
+                    <div className="relative w-px h-[80px] lg:h-[200px]">
                       <div className="absolute inset-0 bg-black/10" />
                       <div className="absolute top-0 left-0 w-full bg-[#18181B] origin-top transition-all duration-500" style={{ height: '100%', transform: `scaleY(${activeIndex > i ? 1 : 0})` }} />
                     </div>

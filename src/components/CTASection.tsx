@@ -1,16 +1,11 @@
 'use client'
-import { useRef } from 'react'
-import { ArrowRight } from '@phosphor-icons/react'
 import ScrollReveal from './ScrollReveal'
-import DotGrid from './DotGrid'
 import { useWaitlist } from './WaitlistContext'
 
 export default function CTASection() {
-  const sectionRef = useRef<HTMLElement>(null)
   const showWaitlist = useWaitlist()
   return (
-    <section ref={sectionRef} className="py-[180px] px-4 md:px-8 lg:px-10 xl:px-12 bg-[#1A1A1D] sticky top-0 z-[8] rounded-t-[24px] relative overflow-hidden">
-      <DotGrid sectionRef={sectionRef} color="255, 255, 255" />
+    <section className="py-[180px] px-4 md:px-8 lg:px-10 xl:px-12 bg-[#1A1A1D] sticky top-0 z-[8] rounded-t-[24px] relative overflow-hidden">
       <div className="text-center relative z-10">
         <ScrollReveal>
           <h2 className="font-normal text-white tracking-[-0.045em] leading-[0.95]" style={{ fontSize: 'clamp(48px, 8vw, 100px)' }}>
