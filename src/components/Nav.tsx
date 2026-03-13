@@ -113,8 +113,7 @@ export default function Nav() {
 
         <div className="flex items-center gap-4">
           <a href="#" className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 hidden lg:block">Sign in</a>
-          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer hidden lg:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
-          {/* Hamburger button (mobile) */}
+          {/* Hamburger button (mobile/tablet) */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden w-10 h-10 flex items-center justify-center text-black cursor-pointer"
