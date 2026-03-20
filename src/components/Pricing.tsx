@@ -72,7 +72,7 @@ export default function Pricing() {
         </div>
         <ScrollReveal delay={100}><p className="mono text-[12px] text-[#A1A1AA] uppercase mt-8 mb-10 transition-all duration-300">{active.sublabel}</p></ScrollReveal>
         <ScrollReveal delay={150}>
-          <p className="text-[18px] md:text-[20px] font-light text-[#71717A] leading-[1.55] max-w-[460px] mx-auto">
+          <p className="text-[18px] md:text-[20px] font-normal text-[#71717A] leading-[1.55] max-w-[460px] mx-auto">
             {active.desc}
           </p>
         </ScrollReveal>

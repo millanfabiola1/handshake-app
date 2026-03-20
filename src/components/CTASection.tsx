@@ -13,14 +13,14 @@ export default function CTASection() {
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={80}>
-          <p className="text-[18px] font-light text-white leading-[1.5] mt-8 max-w-[420px] mx-auto">
+          <p className="text-[18px] font-normal text-white leading-[1.5] mt-8 max-w-[420px] mx-auto">
             Join the platform that puts money in your pocket. Message, monetize, and move money — all in one place.
           </p>
         </ScrollReveal>
         <ScrollReveal delay={140}>
           <div className="flex items-center justify-center gap-4 mt-12">
             <button onClick={showWaitlist} className="text-[14px] font-medium text-black px-8 py-4 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer">Get early access <span className="text-[16px]">&#x2197;</span></button>
-            <a href="#product" className="text-[14px] font-normal text-black px-8 py-4 rounded-lg border border-black bg-white hover:bg-black hover:text-white transition-colors">See the product</a>
+            <a href="#product" className="text-[14px] font-medium text-black px-8 py-4 rounded-lg border border-black bg-white hover:bg-black hover:text-white transition-colors">See the product</a>
           </div>
         </ScrollReveal>
       </div>

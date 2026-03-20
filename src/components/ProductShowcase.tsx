@@ -88,8 +88,8 @@ export default function ProductShowcase() {
                   ref={(el) => { stepRefs.current[i] = el }}
                   className={`lg:min-h-[50vh] flex flex-col justify-center py-10 lg:py-12 transition-opacity duration-500 ${activeIndex === i ? '' : 'lg:opacity-[0.25]'}`}
                 >
-                  <h3 className="text-[36px] md:text-[48px] font-light text-[#18181B] tracking-[-0.03em] leading-[0.95] text-balance mb-6">{s.title}</h3>
-                  <p className="text-[16px] font-normal text-[#71717A] leading-[1.75] max-w-[480px]">{s.desc}</p>
+                  <h3 className="text-[36px] md:text-[48px] font-normal text-[#18181B] tracking-[-0.03em] leading-[0.95] text-balance mb-6">{s.title}</h3>
+                  <p className="text-[16px] font-medium text-[#71717A] leading-[1.75] max-w-[480px]">{s.desc}</p>
                   {/* Placeholder image - mobile only */}
                   <div className="mt-8 rounded-lg bg-[#E4E4E7] flex items-center justify-center lg:hidden" style={{ aspectRatio: '4 / 3' }}>
                     <span className="text-[80px] font-light text-[#A1A1AA]/50 tracking-[-0.03em]">{i + 1}</span>

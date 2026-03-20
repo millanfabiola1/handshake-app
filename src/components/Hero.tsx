@@ -159,7 +159,7 @@ export default function Hero() {
         </h1>
 
         <ScrollReveal delay={200}>
-          <p className="text-[20px] font-light text-black/60 leading-[1.6] max-w-[520px] mt-12">
+          <p className="text-[20px] font-normal text-black/60 leading-[1.6] max-w-[520px] mt-12">
             Handshake is a next-generation messaging platform built for the modern economy — where conversations lead to commerce, and every connection has real value. Person-to-person or business-to-client, all in one place.
           </p>
         </ScrollReveal>

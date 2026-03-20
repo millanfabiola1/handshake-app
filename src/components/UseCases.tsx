@@ -88,10 +88,10 @@ export default function UseCases() {
           >
             <div className="p-8 flex flex-col flex-1 justify-end">
             <p className="mono text-[11px] text-black/40 uppercase transition-colors duration-300 mb-6">{item.label}</p>
-            <h3 className="text-[36px] font-light text-[#18181B] tracking-[-0.03em] leading-[1.1] mb-3 transition-colors duration-300">{item.title}</h3>
-            <p className="text-[15px] font-light text-[#71717A] leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
+            <h3 className="text-[36px] font-normal text-[#18181B] tracking-[-0.03em] leading-[1.1] mb-3 transition-colors duration-300">{item.title}</h3>
+            <p className="text-[15px] font-normal text-[#71717A] leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
             <div className="flex items-baseline gap-2 mt-auto">
-              <span className="text-[32px] font-light text-[#18181B] tracking-[-0.03em] transition-colors duration-300">{item.stat.value}</span>
+              <span className="text-[32px] font-normal text-[#18181B] tracking-[-0.03em] transition-colors duration-300">{item.stat.value}</span>
               <span className="mono text-[11px] text-black/40 uppercase transition-colors duration-300">{item.stat.label}</span>
             </div>
             </div>
@@ -105,7 +105,7 @@ export default function UseCases() {
         >
           <div>
             <p className="mono text-[11px] text-white/40 uppercase mb-3">The platform</p>
-            <h3 className="text-[22px] font-light text-white tracking-[-0.02em] leading-[1.2]">A handshake seals every deal.</h3>
+            <h3 className="text-[22px] font-normal text-white tracking-[-0.02em] leading-[1.2]">A handshake seals every deal.</h3>
           </div>
           <button onClick={showWaitlist} className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-[#39FF78] text-black hover:bg-[#39FF78]/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8 cursor-pointer">
             Get early access <span className="text-[14px]">&#x2197;</span>

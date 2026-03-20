@@ -31,7 +31,7 @@ export default function StickyFeatures() {
                 <button
                   key={f.label}
                   onClick={() => setActiveIndex(i)}
-                  className={`text-[15px] font-normal px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
+                  className={`text-[15px] font-medium px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
                     activeIndex === i
                       ? 'bg-[#39FF78] text-black'
                       : 'bg-[#F4F4F5] text-[#71717A] hover:bg-[#E4E4E7] hover:text-black'
@@ -43,8 +43,8 @@ export default function StickyFeatures() {
               ))}
             </div>
 
-            <h3 className="text-[40px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
-            <p className="text-[19px] font-light text-black leading-[1.65] max-w-[480px] transition-all duration-300">{active.desc}</p>
+            <h3 className="text-[40px] font-normal text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
+            <p className="text-[19px] font-normal text-black leading-[1.65] max-w-[480px] transition-all duration-300">{active.desc}</p>
           </div>
 
           <ScrollReveal delay={150}>
@@ -85,7 +85,7 @@ export default function StickyFeatures() {
               <button
                 key={f.label}
                 onClick={() => setActiveIndex(i)}
-                className={`text-[14px] font-normal px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
+                className={`text-[14px] font-medium px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
                   activeIndex === i
                     ? 'bg-[#39FF78] text-black'
                     : 'bg-[#F4F4F5] text-[#71717A]'
@@ -98,8 +98,8 @@ export default function StickyFeatures() {
           </div>
 
           <div className="text-center">
-            <h3 className="text-[28px] font-light text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
-            <p className="text-[17px] font-light text-black leading-[1.65] max-w-[440px] mx-auto transition-all duration-300">{active.desc}</p>
+            <h3 className="text-[28px] font-normal text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
+            <p className="text-[17px] font-normal text-black leading-[1.65] max-w-[440px] mx-auto transition-all duration-300">{active.desc}</p>
           </div>
         </div>
       </div>
