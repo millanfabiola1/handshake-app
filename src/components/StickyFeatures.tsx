@@ -5,9 +5,9 @@ import ScrollReveal from './ScrollReveal'
 
 const features = [
   { label: 'Tips', title: 'One tap. Instant gratitude.', desc: 'Let your community show appreciation with one-tap payments mid-conversation. No links, no redirects — just seamless value exchange.', icon: CurrencyDollar },
-  { label: 'Locked Content', title: 'Gate it. Earn from it.', desc: 'Photos, videos, or messages behind a paywall — fans unlock what they want, you earn what you deserve.', icon: LockSimple },
-  { label: 'Paid Calls', title: 'Your time. Your rate.', desc: '1-on-1 voice or video sessions billed per minute or flat rate. Booked, confirmed, and paid — all inside the thread.', icon: PhoneCall },
-  { label: 'Mass Messaging', title: 'Blast it. Make it personal.', desc: 'Reach your entire client book with messages that never feel automated. Every message feels one-to-one, even at scale.', icon: Megaphone },
+  { label: 'Locked Content', title: 'Gate it. Earn from it.', desc: 'Gate photos, videos, or messages behind a paywall — clients unlock what they want, you earn what you deserve.', icon: LockSimple },
+  { label: 'Paid Calls', title: 'Your time. Your rate.', desc: 'Offer 1-on-1 voice or video sessions at your own rate, billed per minute or flat. Booked, confirmed, and paid — all inside the thread.', icon: PhoneCall },
+  { label: 'Mass Messaging', title: 'Blast it. Make it personal.', desc: 'Blast your entire client book with personalized messages that never feel like spam. Every message feels one-to-one, even at scale.', icon: Megaphone },
 ]
 
 export default function StickyFeatures() {
@@ -21,7 +21,7 @@ export default function StickyFeatures() {
         <div className="hidden lg:grid grid-cols-2 gap-20">
           <div>
             <ScrollReveal>
-              <h2 className="font-normal text-black tracking-[-0.04em] leading-[0.95] mb-12" style={{ fontSize: 'clamp(36px, 6vw, 80px)' }}>
+              <h2 className="font-medium text-black tracking-[-0.04em] leading-[0.95] mb-12" style={{ fontSize: 'clamp(36px, 6vw, 80px)' }}>
                 Built for the<br />conversation economy
               </h2>
             </ScrollReveal>
@@ -64,7 +64,7 @@ export default function StickyFeatures() {
         {/* Mobile: stacked layout — headline, video, centered tabs, centered content */}
         <div className="lg:hidden flex flex-col">
           <ScrollReveal>
-            <h2 className="font-normal text-black tracking-[-0.04em] leading-[0.95] mb-8 text-center" style={{ fontSize: 'clamp(36px, 8vw, 80px)' }}>
+            <h2 className="font-medium text-black tracking-[-0.04em] leading-[0.95] mb-8 text-center" style={{ fontSize: 'clamp(36px, 8vw, 80px)' }}>
               Built for the<br />conversation economy
             </h2>
           </ScrollReveal>

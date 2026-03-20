@@ -7,14 +7,14 @@ const steps = [
     step: '01',
     icon: ChatCircle,
     title: 'Start a conversation with anyone',
-    desc: 'Open a thread with a client, fan, or prospect. Every conversation is a potential revenue stream waiting to happen.',
+    desc: 'Open a thread with a client, customer, or contact. Every conversation is a potential transaction waiting to happen.',
     img: 'Conversation view',
   },
   {
     step: '02',
     icon: UserCircle,
     title: 'They engage on their terms',
-    desc: 'Your audience tips, unlocks content, or books a call — all without leaving the chat. Zero friction, maximum conversion.',
+    desc: 'Your clients tip, unlock content, or book a call — all without leaving the chat. Zero friction, maximum conversion.',
     img: 'Engagement flow',
   },
   {
@@ -28,7 +28,7 @@ const steps = [
     step: '04',
     icon: PaperPlaneTilt,
     title: 'Blast campaigns that feel personal',
-    desc: 'Reach your entire audience at once with messages that read like one-to-one texts. Scale without losing the human touch.',
+    desc: 'Reach your entire client book at once with messages that read like one-to-one texts. Scale without losing the human touch.',
     img: 'Campaign dashboard',
   },
   {
@@ -73,8 +73,8 @@ export default function ProductShowcase() {
       <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[120px] lg:pb-[200px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">
-          <h2 className="font-normal text-[#18181B] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
-            Text like iMessage.<br />Earn like a business.
+          <h2 className="font-medium text-[#18181B] tracking-[-0.035em] leading-[0.95]" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
+            How it works
           </h2>
         </div>
 

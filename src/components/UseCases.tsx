@@ -22,14 +22,14 @@ const cases = [
     stat: { value: '3x', label: 'Faster collections' },
   },
   {
-    label: 'Creators',
+    label: 'Creators & Independents',
     icon: PaintBrush,
     title: 'Every follower, a revenue source',
-    desc: 'Tips, locked drops, and paid access make every follower a potential revenue stream.',
+    desc: 'Tips, locked drops, and paid access make every follower a potential revenue source.',
     stat: { value: '47%', label: 'Higher conversion' },
   },
   {
-    label: 'Security Firms',
+    label: 'Security & Service Companies',
     icon: ShieldCheck,
     title: 'Real-time coordination',
     desc: 'Coordinate with clients in real-time and invoice instantly on job completion.',
@@ -39,7 +39,7 @@ const cases = [
     label: 'Sales & Retail',
     icon: Storefront,
     title: 'Human-feeling campaigns',
-    desc: 'Send personalized mass campaigns that drive return visits and feel human.',
+    desc: 'Send personalized mass campaigns that drive return visits and feel human — not automated.',
     stat: { value: '98%', label: 'Open rate' },
   },
 ]
@@ -59,7 +59,7 @@ export default function UseCases() {
       <div className="py-[140px]">
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 flex items-end justify-between mb-14">
         <ScrollReveal>
-          <h2 className="font-normal text-[#18181B] tracking-[-0.035em] leading-[0.95] max-w-[500px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
+          <h2 className="font-medium text-[#18181B] tracking-[-0.035em] leading-[0.95] max-w-[500px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
             Built for the new economy
           </h2>
         </ScrollReveal>

@@ -153,14 +153,14 @@ export default function Hero() {
 
 
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 w-full relative z-10">
-        <h1 className="font-normal text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 110px)' }}>
-          <TypewriterText text="Where every conversation" /><br />
-          <TypewriterText text="has real value" delay={600} />
+        <h1 className="font-medium text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 110px)' }}>
+          <TypewriterText text="Text like iMessage." /><br />
+          <TypewriterText text="Earn like a business." delay={600} />
         </h1>
 
         <ScrollReveal delay={200}>
           <p className="text-[20px] font-light text-black/60 leading-[1.6] max-w-[520px] mt-12">
-            Handshake embeds payments directly into messaging. Tips, paid content, and scheduled calls — all inside the thread.
+            Handshake is a next-generation messaging platform built for the modern economy — where conversations lead to commerce, and every connection has real value. Person-to-person or business-to-client, all in one place.
           </p>
         </ScrollReveal>
 

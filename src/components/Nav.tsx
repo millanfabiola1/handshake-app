@@ -74,7 +74,7 @@ export default function Nav() {
         <div className="hidden lg:flex items-center gap-8">
           {menuItems.map((item) => (
             <div key={item.label} onMouseEnter={() => setOpen(item.children ? item.label : null)}>
-              <a href={item.href} className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 py-6 inline-flex items-center gap-1.5">
+              <a href={item.href} className="text-[16px] font-medium text-black hover:text-black/60 transition-colors duration-300 py-6 inline-flex items-center gap-1.5">
                 {item.label}
                 {item.children && (
                   <CaretDown size={14} weight="bold" />
@@ -114,7 +114,7 @@ export default function Nav() {
         )}
 
         <div className="flex items-center gap-4">
-          <a href="#" className="text-[16px] font-normal text-black hover:text-black/60 transition-colors duration-300 hidden lg:block">Sign in</a>
+          <a href="#" className="text-[16px] font-medium text-black hover:text-black/60 transition-colors duration-300 hidden lg:block">Sign in</a>
           <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors items-center gap-2 cursor-pointer hidden lg:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
           {/* Hamburger button (mobile/tablet) */}
           <button
