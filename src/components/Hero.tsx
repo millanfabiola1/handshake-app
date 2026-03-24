@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowRight } from '@phosphor-icons/react'
 import ScrollReveal from './ScrollReveal'
 import DotGrid from './DotGrid'
+import MeshGradient from './MeshGradient'
 import { useWaitlist } from './WaitlistContext'
 
 function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
@@ -147,8 +148,8 @@ export default function Hero() {
     <section
       ref={sectionRef}
       className="min-h-screen flex flex-col justify-center bg-white relative overflow-hidden sticky top-0 z-[1]"
-      style={{ backgroundImage: 'url(/hologram-light.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
+      <MeshGradient />
       <DotGrid sectionRef={sectionRef} />
 
 
