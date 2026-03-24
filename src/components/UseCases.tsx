@@ -55,7 +55,7 @@ export default function UseCases() {
   }
 
   return (
-    <section className="bg-[#39FF78] sticky top-0 z-[4] rounded-t-[24px] relative" id="use-cases">
+    <section className="bg-[#A5F41F] sticky top-0 z-[4] rounded-t-[24px] relative" id="use-cases">
       <div className="py-[140px]">
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 flex items-end justify-between mb-14">
         <ScrollReveal>
@@ -107,7 +107,7 @@ export default function UseCases() {
             <p className="mono text-[11px] text-white/40 uppercase mb-3">The platform</p>
             <h3 className="text-[22px] font-normal text-white tracking-[-0.02em] leading-[1.2]">A handshake seals every deal.</h3>
           </div>
-          <button onClick={showWaitlist} className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-[#39FF78] text-black hover:bg-[#39FF78]/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8 cursor-pointer">
+          <button onClick={showWaitlist} className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-[#A5F41F] text-black hover:bg-[#A5F41F]/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8 cursor-pointer">
             Get early access <span className="text-[14px]">&#x2197;</span>
           </button>
         </div>

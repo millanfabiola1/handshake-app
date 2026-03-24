@@ -57,7 +57,7 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
 
       {/* Modal */}
       <div
-        className="relative bg-[#39FF78] rounded-lg overflow-hidden w-full max-w-[900px] grid grid-cols-1 lg:grid-cols-2 shadow-2xl transition-all duration-400 ease-out"
+        className="relative bg-[#A5F41F] rounded-lg overflow-hidden w-full max-w-[900px] grid grid-cols-1 lg:grid-cols-2 shadow-2xl transition-all duration-400 ease-out"
         style={{
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',

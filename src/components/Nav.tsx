@@ -59,7 +59,7 @@ export default function Nav() {
       <nav
         className={`fixed left-0 right-0 z-50 h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
           visible || mobileOpen
-            ? `border-b ${open ? 'bg-[#39FF78] border-transparent' : 'bg-white border-black/5'}`
+            ? `border-b ${open ? 'bg-[#A5F41F] border-transparent' : 'bg-white border-black/5'}`
             : 'bg-transparent border-b border-transparent'
         }`}
         style={{ top: scrolled ? 32 : 0 }}
@@ -89,7 +89,7 @@ export default function Nav() {
           item.children ? (
             <div
               key={item.label}
-              className={`absolute top-full left-0 right-0 bg-[#39FF78] transition-all duration-300 ease-out origin-top hidden lg:block ${
+              className={`absolute top-full left-0 right-0 bg-[#A5F41F] transition-all duration-300 ease-out origin-top hidden lg:block ${
                 open === item.label
                   ? 'opacity-100 translate-y-0 scale-y-100 pointer-events-auto'
                   : 'opacity-0 -translate-y-2 scale-y-95 pointer-events-none'
@@ -115,7 +115,7 @@ export default function Nav() {
 
         <div className="flex items-center gap-4">
           <a href="#" className="text-[16px] font-medium text-black hover:text-black/60 transition-colors duration-300 hidden lg:block">Sign in</a>
-          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors items-center gap-2 cursor-pointer hidden lg:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
+          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#A5F41F] hover:bg-black hover:text-white transition-colors items-center gap-2 cursor-pointer hidden lg:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
           {/* Hamburger button (mobile/tablet) */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -189,7 +189,7 @@ export default function Nav() {
             ))}
 
             <div className="flex flex-col gap-4 mt-8">
-              <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#39FF78] hover:bg-black hover:text-white transition-colors inline-flex items-center justify-center gap-2 cursor-pointer w-full">
+              <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#A5F41F] hover:bg-black hover:text-white transition-colors inline-flex items-center justify-center gap-2 cursor-pointer w-full">
                 Join waitlist <span className="text-[16px]">&#x2197;</span>
               </button>
               <a href="#" className="text-[14px] text-black/50 text-center py-3">Sign in</a>

@@ -33,7 +33,7 @@ export default function StickyFeatures() {
                   onClick={() => setActiveIndex(i)}
                   className={`text-[15px] font-medium px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
                     activeIndex === i
-                      ? 'bg-[#39FF78] text-black'
+                      ? 'bg-[#A5F41F] text-black'
                       : 'bg-[#F4F4F5] text-[#71717A] hover:bg-[#E4E4E7] hover:text-black'
                   }`}
                 >
@@ -87,7 +87,7 @@ export default function StickyFeatures() {
                 onClick={() => setActiveIndex(i)}
                 className={`text-[14px] font-medium px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
                   activeIndex === i
-                    ? 'bg-[#39FF78] text-black'
+                    ? 'bg-[#A5F41F] text-black'
                     : 'bg-[#F4F4F5] text-[#71717A]'
                 }`}
               >

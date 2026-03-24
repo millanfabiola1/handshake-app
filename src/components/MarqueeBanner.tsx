@@ -19,7 +19,7 @@ export default function MarqueeBanner() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-[60] bg-[#39FF78] h-[32px] flex items-center overflow-hidden transition-transform duration-300"
+      className="fixed top-0 left-0 right-0 z-[60] bg-[#A5F41F] h-[32px] flex items-center overflow-hidden transition-transform duration-300"
       style={{ transform: hidden ? 'translateY(-100%)' : 'translateY(0)' }}
     >
       <div
