@@ -67,7 +67,7 @@ export default function Nav() {
         onMouseLeave={() => { setHovered(false); setOpen(null) }}
       >
         <a href="#" className="transition-opacity duration-300 hover:opacity-70">
-          <img src="/handshake-1.svg" alt="Handshake" className="h-[28px] w-auto" />
+          <img src="/handshake-logo.svg" alt="Handshake" className="h-[28px] w-auto" />
         </a>
 
         {/* Desktop menu */}
