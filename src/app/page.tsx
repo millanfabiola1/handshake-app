@@ -1,32 +1,34 @@
-import MarqueeBanner from '@/components/MarqueeBanner'
-import Nav from '@/components/Nav'
-import Hero from '@/components/Hero'
-import LogoStrip from '@/components/LogoStrip'
-import StickyFeatures from '@/components/StickyFeatures'
-import ProductShowcase from '@/components/ProductShowcase'
-import UseCases from '@/components/UseCases'
-import Pricing from '@/components/Pricing'
-import QuoteSection from '@/components/QuoteSection'
-import CTASection from '@/components/CTASection'
-import Footer from '@/components/Footer'
-import WaitlistProvider from '@/components/WaitlistContext'
+import Image from 'next/image'
 
-export default function Home() {
+export const metadata = {
+  title: 'Handshake — Join the Waitlist',
+  description: 'Be the first to experience the messaging platform that turns every conversation into a transaction.',
+}
+
+export default function Waitlist() {
   return (
-    <WaitlistProvider>
-      <MarqueeBanner />
-      <Nav />
-      <main>
-        <Hero />
-        <LogoStrip />
-        <StickyFeatures />
-        <UseCases />
-        <Pricing />
-        <ProductShowcase />
-        <QuoteSection />
-        <CTASection />
-      </main>
-      <Footer />
-    </WaitlistProvider>
+    <div className="min-h-screen bg-[#A5F41F] flex flex-col items-center justify-center px-6">
+      <div className="flex flex-col items-center gap-10 w-full max-w-xl">
+        <Image
+          src="/handshake-logo.svg"
+          alt="Handshake"
+          width={260}
+          height={38}
+          priority
+        />
+
+        <div className="w-full rounded-2xl overflow-hidden bg-white shadow-lg" style={{ height: 500 }}>
+          <iframe
+            src="https://YOUR_TYPEFORM_ID.typeform.com/to/FORM_ID"
+            width="100%"
+            height="100%"
+            frameBorder={0}
+            allow="camera; microphone; autoplay; encrypted-media;"
+            style={{ border: 0 }}
+            title="Join the waitlist"
+          />
+        </div>
+      </div>
+    </div>
   )
 }
