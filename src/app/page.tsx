@@ -1,24 +1,32 @@
-import WaitlistForm from '@/components/WaitlistForm'
-import Image from 'next/image'
+import MarqueeBanner from '@/components/MarqueeBanner'
+import Nav from '@/components/Nav'
+import Hero from '@/components/Hero'
+import LogoStrip from '@/components/LogoStrip'
+import StickyFeatures from '@/components/StickyFeatures'
+import ProductShowcase from '@/components/ProductShowcase'
+import UseCases from '@/components/UseCases'
+import Pricing from '@/components/Pricing'
+import QuoteSection from '@/components/QuoteSection'
+import CTASection from '@/components/CTASection'
+import Footer from '@/components/Footer'
+import WaitlistProvider from '@/components/WaitlistContext'
 
-export const metadata = {
-  title: 'Handshake — Join the Waitlist',
-  description: 'Be the first to experience the messaging platform that turns every conversation into a transaction.',
-}
-
-export default function Waitlist() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-[#A5F41F] flex flex-col items-center justify-center px-6">
-      <div className="flex flex-col items-center gap-10 w-full max-w-md">
-        <Image
-          src="/handshake-logo.svg"
-          alt="Handshake"
-          width={260}
-          height={38}
-          priority
-        />
-        <WaitlistForm />
-      </div>
-    </div>
+    <WaitlistProvider>
+      <MarqueeBanner />
+      <Nav />
+      <main>
+        <Hero />
+        <LogoStrip />
+        <StickyFeatures />
+        <UseCases />
+        <Pricing />
+        <ProductShowcase />
+        <QuoteSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </WaitlistProvider>
   )
 }
