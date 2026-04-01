@@ -81,7 +81,65 @@ export default function Nav() {
         }`}
         style={{ paddingTop: scrolled ? 72 : 104 }}
       >
-        <div className="px-6 py-8 flex flex-col gap-2">
+        {/* Desktop: multi-column mega-menu */}
+        <div className="hidden lg:block px-8 xl:px-12 py-10">
+          <div className="grid grid-cols-3 gap-8">
+            {menuItems.map((item) => (
+              <div key={item.label}>
+                <h3 className="text-[13px] font-semibold text-black/40 uppercase tracking-widest mb-5">{item.label}</h3>
+                {item.children ? (
+                  <div className="flex flex-col gap-2">
+                    {item.children.map((child) => (
+                      <a
+                        key={child.label}
+                        href={child.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex items-end h-[200px] rounded-lg overflow-hidden bg-black hover:bg-black/80 transition-colors"
+                      >
+                        <div className="p-5">
+                          <div className="text-[24px] font-medium text-white tracking-[-0.02em] inline-flex items-center gap-2">
+                            {child.label} <span className="text-white/50 group-hover:text-white transition-colors text-[14px]">&#x2197;</span>
+                          </div>
+                          <div className="text-[14px] text-white/50 mt-1">{child.desc}</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <a
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="group flex items-end h-[200px] rounded-lg overflow-hidden bg-black hover:bg-black/80 transition-colors"
+                  >
+                    <div className="p-5">
+                      <div className="text-[24px] font-medium text-white tracking-[-0.02em] inline-flex items-center gap-2">
+                        {item.label} <span className="text-white/50 group-hover:text-white transition-colors text-[14px]">&#x2197;</span>
+                      </div>
+                    </div>
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between mt-10 pt-8 border-t border-black/5">
+            <div className="flex items-center gap-5">
+              <a href="#" className="text-black/40 hover:text-black transition-colors"><XLogo size={22} weight="regular" /></a>
+              <a href="#" className="text-black/40 hover:text-black transition-colors"><InstagramLogo size={22} weight="regular" /></a>
+              <a href="#" className="text-black/40 hover:text-black transition-colors"><TiktokLogo size={22} weight="regular" /></a>
+              <a href="#" className="text-black/40 hover:text-black transition-colors"><LinkedinLogo size={22} weight="regular" /></a>
+            </div>
+            <div className="flex items-center gap-4">
+              <a href="#" className="text-[14px] text-black/50 hover:text-black transition-colors">Sign in</a>
+              <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#A5F41F] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer">
+                Join waitlist <span className="text-[16px]">&#x2197;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile: stacked accordion */}
+        <div className="lg:hidden px-6 py-8 flex flex-col gap-2">
             {menuItems.map((item) => (
               <div key={item.label}>
                 {item.children ? (

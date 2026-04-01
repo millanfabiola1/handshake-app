@@ -12,14 +12,14 @@ export default function Hero() {
       className="min-h-screen flex flex-col justify-center bg-[#A5F41F] relative overflow-hidden sticky top-0 z-[1]"
     >
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 pt-24 w-full relative z-10">
-        <h1 className="font-medium text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 110px)' }}>
+        <h1 className="font-medium text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(36px, 7vw, 80px)' }}>
           Text like iMessage.<br />
           Earn like a business.
         </h1>
 
         <ScrollReveal delay={200}>
-          <p className="text-[20px] font-normal text-black/60 leading-[1.6] max-w-[520px] mt-12">
-            Handshake is a next-generation messaging platform built for the modern economy — where conversations lead to commerce, and every connection has real value. Person-to-person or business-to-client, all in one place.
+          <p className="text-[18px] font-normal text-black/60 leading-[1.5] max-w-[460px] mt-10">
+            The messaging platform where every conversation can become a transaction.
           </p>
         </ScrollReveal>
 
