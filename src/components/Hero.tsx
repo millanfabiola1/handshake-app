@@ -11,7 +11,7 @@ export default function Hero() {
       ref={sectionRef}
       className="min-h-screen flex flex-col justify-center bg-[#A5F41F] relative overflow-hidden sticky top-0 z-[1]"
     >
-      <div className="px-4 md:px-8 lg:px-10 xl:px-12 w-full relative z-10">
+      <div className="px-4 md:px-8 lg:px-10 xl:px-12 pt-24 w-full relative z-10">
         <h1 className="font-medium text-black leading-[0.95] tracking-[-0.05em]" style={{ fontSize: 'clamp(48px, 10vw, 110px)' }}>
           Text like iMessage.<br />
           Earn like a business.
