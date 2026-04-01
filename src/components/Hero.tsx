@@ -30,6 +30,21 @@ export default function Hero() {
           </div>
         </ScrollReveal>
       </div>
+
+      <ScrollReveal delay={400}>
+        <div className="flex justify-center mt-16 px-4">
+          <div className="w-[280px] rounded-[2.5rem] overflow-hidden shadow-2xl">
+            <video
+              src="/demo.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-auto block"
+            />
+          </div>
+        </div>
+      </ScrollReveal>
     </section>
   )
 }
