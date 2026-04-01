@@ -16,11 +16,11 @@ export default function QuoteSection() {
       <div className="relative z-10 px-4 md:px-8 lg:px-10 xl:px-12 text-center max-w-[900px]">
         <ScrollReveal>
           <blockquote className="font-normal text-white tracking-[-0.035em] leading-[1.1]" style={{ fontSize: 'clamp(32px, 5vw, 64px)' }}>
-            &ldquo;The best deals aren&apos;t closed in boardrooms. They&apos;re sealed with a handshake.&rdquo;
+            &ldquo;Other apps take a cut. We don&apos;t. That&apos;s the whole pitch.&rdquo;
           </blockquote>
         </ScrollReveal>
         <ScrollReveal delay={100}>
-          <p className="mono text-[13px] text-white/50 uppercase mt-10">The Handshake Philosophy</p>
+          <p className="mono text-[13px] text-white/50 uppercase mt-10">Zero percent. Zero catches.</p>
         </ScrollReveal>
       </div>
     </section>

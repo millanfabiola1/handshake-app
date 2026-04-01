@@ -63,7 +63,7 @@ export default function Nav() {
         style={{ top: scrolled ? 32 : 0 }}
       >
         <a href="#" className="transition-opacity duration-300 hover:opacity-70">
-          <img src="/handshake-logo.svg" alt="Handshake" className="h-[28px] w-auto" />
+          <img src="/handshake-logo.svg" alt="Tapp'd" className="h-[28px] w-auto" />
         </a>
 
         <button
@@ -134,7 +134,7 @@ export default function Nav() {
             <div className="flex items-center gap-4">
               <a href="#" className="text-[14px] text-black/50 hover:text-black transition-colors">Sign in</a>
               <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#A5F41F] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer">
-                Join waitlist <span className="text-[16px]">&#x2197;</span>
+                Get Tapp'd <span className="text-[16px]">&#x2197;</span>
               </button>
             </div>
           </div>
@@ -190,7 +190,7 @@ export default function Nav() {
 
             <div className="flex flex-col gap-4 mt-8">
               <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#A5F41F] hover:bg-black hover:text-white transition-colors inline-flex items-center justify-center gap-2 cursor-pointer w-full">
-                Join waitlist <span className="text-[16px]">&#x2197;</span>
+                Get Tapp'd <span className="text-[16px]">&#x2197;</span>
               </button>
               <a href="#" className="text-[14px] text-black/50 text-center py-3">Sign in</a>
               <div className="flex items-center justify-center gap-5 mt-4">

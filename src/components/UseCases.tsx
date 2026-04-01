@@ -10,36 +10,36 @@ const cases = [
   {
     label: 'Psychics & Coaches',
     icon: Eye,
-    title: 'Premium readings & sessions',
-    desc: 'Charge per message, lock premium readings, schedule paid call sessions — all from one thread.',
+    title: 'Lock premium readings',
+    desc: 'Charge per message. Lock premium sessions. Schedule paid calls. One app does it all.',
     stat: { value: '$120', label: 'Avg session revenue' },
   },
   {
     label: 'Home Services',
     icon: Wrench,
     title: 'Quote, confirm, collect',
-    desc: 'Quote, confirm, and collect payment without ever leaving the chat.',
+    desc: 'Your clients already text you. Now those texts make you money.',
     stat: { value: '3x', label: 'Faster collections' },
   },
   {
     label: 'Creators & Independents',
     icon: PaintBrush,
-    title: 'Every follower, a revenue source',
-    desc: 'Tips, locked drops, and paid access make every follower a potential revenue source.',
+    title: 'Tips. Locked drops. Keep 100%.',
+    desc: 'Every DM is a potential payday. Every follower is a potential revenue source.',
     stat: { value: '47%', label: 'Higher conversion' },
   },
   {
     label: 'Security & Service Companies',
     icon: ShieldCheck,
-    title: 'Real-time coordination',
-    desc: 'Coordinate with clients in real-time and invoice instantly on job completion.',
+    title: 'Coordinate and invoice instantly',
+    desc: 'Ditch the invoicing software. Bill clients the second the job is done.',
     stat: { value: '90%', label: 'Faster invoicing' },
   },
   {
     label: 'Sales & Retail',
     icon: Storefront,
-    title: 'Human-feeling campaigns',
-    desc: 'Send personalized mass campaigns that drive return visits and feel human — not automated.',
+    title: 'Revenue on autopilot',
+    desc: 'Send personalized campaigns that drive return visits and feel human, not automated.',
     stat: { value: '98%', label: 'Open rate' },
   },
 ]
@@ -105,10 +105,10 @@ export default function UseCases() {
         >
           <div>
             <p className="mono text-[11px] text-white/40 uppercase mb-3">The platform</p>
-            <h3 className="text-[22px] font-normal text-white tracking-[-0.02em] leading-[1.2]">A handshake seals every deal.</h3>
+            <h3 className="text-[22px] font-normal text-white tracking-[-0.02em] leading-[1.2]">0% fees. 100% yours.</h3>
           </div>
           <button onClick={showWaitlist} className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-[#A5F41F] text-black hover:bg-[#A5F41F]/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8 cursor-pointer">
-            Get early access <span className="text-[14px]">&#x2197;</span>
+            Get Tapp'd <span className="text-[14px]">&#x2197;</span>
           </button>
         </div>
       </div>

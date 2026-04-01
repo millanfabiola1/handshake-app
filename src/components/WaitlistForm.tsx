@@ -77,8 +77,8 @@ export default function WaitlistForm() {
     return (
       <div className="w-full text-center animate-[fadeUp_0.5s_ease-out]">
         <div className="text-5xl mb-4">&#x1F91D;</div>
-        <h2 className="text-2xl font-semibold text-ink mb-2">You&apos;re on the list!</h2>
-        <p className="text-ink/70 text-base">We&apos;ll be in touch soon.</p>
+        <h2 className="text-2xl font-semibold text-ink mb-2">You&apos;re in. Check your inbox.</h2>
+        <p className="text-ink/70 text-base">Tapp&apos;d. Now go get paid.</p>
       </div>
     )
   }
@@ -138,7 +138,7 @@ export default function WaitlistForm() {
           disabled={!values[current.id].trim() || submitting}
           className="bg-ink text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-ink/85 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          {submitting ? 'Submitting...' : isLast ? 'Join Waitlist' : 'Next →'}
+          {submitting ? 'Getting tapp\'d...' : isLast ? 'Tapp Me In' : 'Next →'}
         </button>
       </div>
     </div>

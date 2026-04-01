@@ -10,7 +10,7 @@ const paymentTabs = [
     value: 0,
     suffix: '%',
     sublabel: 'Platform fee',
-    desc: 'One-tap payments inside the conversation. Your community shows appreciation, you get paid instantly.',
+    desc: 'Your community shows love with one-tap payments. You keep 100%. Zero fees taken.',
   },
   {
     label: 'Locked Content',
@@ -18,7 +18,7 @@ const paymentTabs = [
     value: 85,
     suffix: '%',
     sublabel: 'Unlock rate',
-    desc: 'Gate photos, videos, or messages behind a paywall. Clients unlock what they want, you earn what you deserve.',
+    desc: 'Photos, videos, messages. Lock them behind a paywall. Fans unlock, you earn.',
   },
   {
     label: 'Paid Calls',
@@ -26,7 +26,7 @@ const paymentTabs = [
     value: 8500,
     suffix: '+',
     sublabel: 'Calls booked',
-    desc: 'Offer 1-on-1 voice or video sessions at your own rate, billed per minute or flat. Booked, confirmed, and paid — all in-thread.',
+    desc: 'Schedule a call. Set your price. The money hits before the conversation starts.',
   },
   {
     label: 'Mass Messaging',
@@ -34,7 +34,7 @@ const paymentTabs = [
     value: 98,
     suffix: '%',
     sublabel: 'Delivery rate',
-    desc: 'Reach your entire client book at once. Every message feels one-to-one, even at scale.',
+    desc: 'Hit your entire list at once. Every message feels personal. Every reply is a revenue opportunity.',
   },
 ]
 

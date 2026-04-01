@@ -41,12 +41,12 @@ export default function Footer() {
         </div>
 
         <div className="w-full">
-          <img src="/handshake-logo.svg" alt="Handshake" className="w-full h-auto select-none" />
+          <img src="/handshake-logo.svg" alt="Tapp'd" className="w-full h-auto select-none" />
         </div>
 
         <div className="flex items-center justify-between flex-wrap gap-4 mt-12 pt-8 border-t border-black/10">
-          <span className="mono text-[12px] font-normal text-black">&copy; 2026 Handshake</span>
-          <span className="mono text-[12px] font-normal text-black">Message &middot; Monetize &middot; Move Money</span>
+          <span className="mono text-[12px] font-normal text-black">&copy; 2026 Tapp&apos;d. All rights reserved.</span>
+          <span className="mono text-[12px] font-normal text-black">Tap &middot; Text &middot; Get Paid</span>
         </div>
       </div>
       </div>

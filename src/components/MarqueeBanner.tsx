@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-const items = ['Message', 'Monetize', 'Move Money', '0% Commission', 'Locked Content', 'Paid Calls', 'Mass Messaging', 'In-Thread Commerce']
+const items = ['0% Fees', 'Tips', 'Locked Content', 'Paid Calls', 'Mass Messaging', 'Keep 100%', 'Messages Meet Money', 'Get Tapp\'d']
 const doubled = [...items, ...items]
 
 export default function MarqueeBanner() {

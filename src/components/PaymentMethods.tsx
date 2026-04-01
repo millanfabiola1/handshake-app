@@ -4,13 +4,13 @@ import { CreditCard, Bank, Money, CurrencyCircleDollar } from '@phosphor-icons/r
 import ScrollReveal from './ScrollReveal'
 
 const methods = [
-  { label: 'Credit cards', icon: CreditCard, heading: 'Swipe, tap,\nor insert' },
-  { label: 'Bank transfers', icon: Bank, heading: 'Direct from\nthe source' },
-  { label: 'Debit cards', icon: Money, heading: 'Instant from\nany account' },
-  { label: 'P2P payments', icon: CurrencyCircleDollar, heading: 'Send it\npeer to peer' },
+  { label: 'Credit cards', icon: CreditCard, heading: 'All major\nnetworks. 0%.' },
+  { label: 'Bank transfers', icon: Bank, heading: 'ACH and\ndirect. 0%.' },
+  { label: 'Debit cards', icon: Money, heading: 'Instant\naccess. 0%.' },
+  { label: 'International', icon: CurrencyCircleDollar, heading: 'Global\npayouts. 0%.' },
 ]
 
-const defaultHeading = 'Every way\nto pay'
+const defaultHeading = 'All cards.\nAll banks.\n0%.'
 
 export default function PaymentMethods() {
   const [hovered, setHovered] = useState<number | null>(null)

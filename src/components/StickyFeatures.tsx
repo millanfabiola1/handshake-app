@@ -4,10 +4,10 @@ import { CurrencyDollar, LockSimple, PhoneCall, Megaphone } from '@phosphor-icon
 import ScrollReveal from './ScrollReveal'
 
 const features = [
-  { label: 'Tips', title: 'One tap. Instant gratitude.', desc: 'Let your community show appreciation with one-tap payments mid-conversation. No links, no redirects — just seamless value exchange.', icon: CurrencyDollar },
-  { label: 'Locked Content', title: 'Gate it. Earn from it.', desc: 'Gate photos, videos, or messages behind a paywall — clients unlock what they want, you earn what you deserve.', icon: LockSimple },
-  { label: 'Paid Calls', title: 'Your time. Your rate.', desc: 'Offer 1-on-1 voice or video sessions at your own rate, billed per minute or flat. Booked, confirmed, and paid — all inside the thread.', icon: PhoneCall },
-  { label: 'Mass Messaging', title: 'Blast it. Make it personal.', desc: 'Blast your entire client book with personalized messages that never feel like spam. Every message feels one-to-one, even at scale.', icon: Megaphone },
+  { label: 'Tips', title: 'Get tipped mid-convo.', desc: 'Tips flow in while you\'re still talking. No awkward payment requests. One tap, instant appreciation, zero fees.', icon: CurrencyDollar },
+  { label: 'Locked Content', title: 'Lock it. Earn it.', desc: 'Your premium content stays locked until they pay. Simple as that. You set the price, you keep the money.', icon: LockSimple },
+  { label: 'Paid Calls', title: 'Talk money.', desc: 'Your time has value. Now your phone calls do too. Bill per minute or flat — get paid before you pick up.', icon: PhoneCall },
+  { label: 'Mass Messaging', title: 'Blast without the spam.', desc: 'Text your entire client book. Personalized. Human. Revenue-driving. Every message feels like it was written just for them.', icon: Megaphone },
 ]
 
 export default function StickyFeatures() {
