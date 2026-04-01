@@ -35,7 +35,7 @@ export default function Hero() {
 
         {/* Right: video */}
         <ScrollReveal delay={400}>
-          <div className="flex justify-center mt-12 lg:mt-0 lg:mr-12 xl:mr-20">
+          <div className="flex justify-center mt-12 lg:mt-0 lg:mr-24 xl:mr-40">
             <div className="w-[280px] rounded-[2.5rem] overflow-hidden shadow-2xl">
               <video
                 src="/demo.mp4"
