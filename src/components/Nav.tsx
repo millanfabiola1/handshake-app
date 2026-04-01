@@ -26,11 +26,9 @@ const menuItems = [
 ]
 
 export default function Nav() {
-  const [open, setOpen] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
-  const [hovered, setHovered] = useState(false)
   const showWaitlist = useWaitlist()
 
   useEffect(() => {
@@ -52,91 +50,33 @@ export default function Nav() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
-  const visible = scrolled || hovered || open !== null
+  const visible = scrolled
 
   return (
     <>
       <nav
         className={`fixed left-0 right-0 z-50 h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
           visible || mobileOpen
-            ? `border-b ${open ? 'bg-[#A5F41F] border-transparent' : 'bg-white border-black/5'}`
+            ? 'border-b bg-white border-black/5'
             : 'bg-transparent border-b border-transparent'
         }`}
         style={{ top: scrolled ? 32 : 0 }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => { setHovered(false); setOpen(null) }}
       >
         <a href="#" className="transition-opacity duration-300 hover:opacity-70">
           <img src="/handshake-logo.svg" alt="Handshake" className="h-[28px] w-auto" />
         </a>
 
-        {/* Desktop menu */}
-        <div className="hidden lg:flex items-center gap-8">
-          {menuItems.map((item) => (
-            <div key={item.label} onMouseEnter={() => setOpen(item.children ? item.label : null)}>
-              <a href={item.href} className="text-[16px] font-medium text-black hover:text-black/60 transition-colors duration-300 py-6 inline-flex items-center gap-1.5">
-                {item.label}
-                {item.children && (
-                  <CaretDown size={14} weight="bold" />
-                )}
-              </a>
-            </div>
-          ))}
-        </div>
-
-        {/* Full-width megamenu (desktop) */}
-        {menuItems.map((item) =>
-          item.children ? (
-            <div
-              key={item.label}
-              className={`absolute top-full left-0 right-0 bg-[#A5F41F] transition-all duration-300 ease-out origin-top hidden lg:block ${
-                open === item.label
-                  ? 'opacity-100 translate-y-0 scale-y-100 pointer-events-auto'
-                  : 'opacity-0 -translate-y-2 scale-y-95 pointer-events-none'
-              }`}
-            >
-              <div className="grid gap-3 p-3 grid-cols-3">
-                {item.children.map((child) => (
-                  <a
-                    key={child.label}
-                    href={child.href}
-                    className="group h-[280px] flex items-end transition-all duration-300 overflow-hidden rounded-sm bg-white hover:bg-black"
-                  >
-                    <div className="p-6">
-                      <div className="text-[32px] font-medium text-[#18181B] group-hover:text-white tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-[#18181B] group-hover:text-white transition-colors duration-300">&#x2197;</span></div>
-                      <div className="text-[15px] text-[#71717A] group-hover:text-white/70 mt-0.5 transition-colors duration-300">{child.desc}</div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ) : null
-        )}
-
-        <div className="flex items-center gap-4">
-          <a href="#" className="text-[16px] font-medium text-black hover:text-black/60 transition-colors duration-300 hidden lg:block">Sign in</a>
-          <button onClick={showWaitlist} className="text-[16px] font-medium text-black px-7 py-3 rounded-lg bg-[#A5F41F] hover:bg-black hover:text-white transition-colors items-center gap-2 cursor-pointer hidden lg:inline-flex">Join waitlist <span className="text-[16px]">&#x2197;</span></button>
-          {/* Hamburger button (mobile/tablet) */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden w-10 h-10 flex items-center justify-center text-black cursor-pointer"
-          >
-            {mobileOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
-          </button>
-        </div>
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="w-10 h-10 flex items-center justify-center text-black cursor-pointer"
+        >
+          {mobileOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
+        </button>
       </nav>
 
-      {/* Blur overlay when megamenu is open */}
+      {/* Menu overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-all duration-300 hidden lg:block ${
-          open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        onMouseEnter={() => { setHovered(false); setOpen(null) }}
-      />
-
-      {/* Mobile menu overlay */}
-      <div
-        className={`fixed inset-0 z-40 bg-white lg:hidden overflow-y-auto transition-all duration-500 ease-out ${
+        className={`fixed inset-0 z-40 bg-white overflow-y-auto transition-all duration-500 ease-out ${
           mobileOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
         style={{ paddingTop: scrolled ? 72 : 104 }}

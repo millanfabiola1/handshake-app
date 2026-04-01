@@ -17,6 +17,9 @@ export default function Waitlist() {
           height={38}
           priority
         />
+        <h1 className="text-[28px] md:text-[36px] font-light text-black tracking-[-0.03em] leading-[1.1] text-center">
+          Join the waitlist for early access
+        </h1>
         <WaitlistForm />
       </div>
     </div>
