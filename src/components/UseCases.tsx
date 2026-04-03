@@ -1,5 +1,5 @@
 'use client'
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Eye, Wrench, PaintBrush, ShieldCheck, Storefront, ArrowRight, ArrowLeft } from '@phosphor-icons/react'
 import ScrollReveal from './ScrollReveal'
 import { useWaitlist } from './WaitlistContext'
@@ -47,12 +47,39 @@ const cases = [
 export default function UseCases() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const showWaitlist = useWaitlist()
+  const [paused, setPaused] = useState(false)
+  const animRef = useRef<number>(0)
 
   const scroll = (dir: 'left' | 'right') => {
     if (!scrollRef.current) return
     const cardWidth = scrollRef.current.querySelector('div')?.offsetWidth ?? 400
     scrollRef.current.scrollBy({ left: dir === 'left' ? -cardWidth - 20 : cardWidth + 20, behavior: 'smooth' })
+    setPaused(true)
+    setTimeout(() => setPaused(false), 3000)
   }
+
+  // Auto-scroll carousel
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    let lastTime = 0
+    const speed = 0.5 // pixels per frame
+
+    const animate = (time: number) => {
+      if (!paused && lastTime) {
+        const delta = time - lastTime
+        el.scrollLeft += speed * (delta / 16)
+        // Loop back when reaching the end
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 10) {
+          el.scrollLeft = 0
+        }
+      }
+      lastTime = time
+      animRef.current = requestAnimationFrame(animate)
+    }
+    animRef.current = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(animRef.current)
+  }, [paused])
 
   return (
     <div className="relative z-[10]" style={{ marginTop: '-100vh' }}>
@@ -78,22 +105,26 @@ export default function UseCases() {
 
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto pl-8 md:pl-12 lg:pl-16 xl:pl-20 pr-4 md:pr-8 pb-4 snap-x snap-mandatory scrollbar-hide scroll-pl-8 md:scroll-pl-12 lg:scroll-pl-16 xl:scroll-pl-20"
+        className="flex gap-5 overflow-x-auto pl-8 md:pl-12 lg:pl-16 xl:pl-20 pr-4 md:pr-8 pb-4 scrollbar-hide scroll-pl-8 md:scroll-pl-12 lg:scroll-pl-16 xl:scroll-pl-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onTouchStart={() => setPaused(true)}
+        onTouchEnd={() => setTimeout(() => setPaused(false), 3000)}
       >
         {cases.map((item, i) => (
           <div
             key={item.label}
-            className="group rounded-lg overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-end snap-start flex-shrink-0 bg-white"
+            className="group rounded-lg overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-end snap-start flex-shrink-0 bg-white hover:bg-black"
             style={{ width: 'min(380px, 80vw)', minHeight: '480px' }}
           >
             <div className="p-8 flex flex-col flex-1 justify-end">
-            <p className="mono text-[11px] text-black/40 uppercase transition-colors duration-300 mb-6">{item.label}</p>
-            <h3 className="text-[36px] font-normal text-[#18181B] tracking-[-0.03em] leading-[1.1] mb-3 transition-colors duration-300">{item.title}</h3>
-            <p className="text-[15px] font-normal text-[#71717A] leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
+            <p className="mono text-[11px] text-black/40 group-hover:text-white/50 uppercase transition-colors duration-300 mb-6">{item.label}</p>
+            <h3 className="text-[36px] font-normal text-[#18181B] group-hover:text-white tracking-[-0.03em] leading-[1.1] mb-3 transition-colors duration-300">{item.title}</h3>
+            <p className="text-[15px] font-normal text-[#71717A] group-hover:text-white/70 leading-[1.6] mb-8 transition-colors duration-300 flex-1">{item.desc}</p>
             <div className="flex items-baseline gap-2 mt-auto">
-              <span className="text-[32px] font-normal text-[#18181B] tracking-[-0.03em] transition-colors duration-300">{item.stat.value}</span>
-              <span className="mono text-[11px] text-black/40 uppercase transition-colors duration-300">{item.stat.label}</span>
+              <span className="text-[48px] font-semibold text-[#18181B] group-hover:text-[#A5F41F] tracking-[-0.04em] transition-colors duration-300">{item.stat.value}</span>
+              <span className="mono text-[11px] text-black/40 group-hover:text-white/50 uppercase transition-colors duration-300">{item.stat.label}</span>
             </div>
             </div>
           </div>
