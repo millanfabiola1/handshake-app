@@ -69,7 +69,7 @@ export default function ProductShowcase() {
   const active = steps[activeIndex]
 
   return (
-    <section className="bg-[#F4F4F5] text-[#18181B] relative z-[12] rounded-t-[24px]">
+    <section className="bg-[#F4F4F5] text-[#18181B] relative z-[58] rounded-t-[24px]">
       <div ref={containerRef} className="px-4 md:px-8 lg:px-10 xl:px-12 pb-[120px] lg:pb-[200px]">
         {/* Header */}
         <div className="pt-[120px] pb-16">

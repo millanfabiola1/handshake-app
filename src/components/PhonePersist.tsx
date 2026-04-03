@@ -4,15 +4,26 @@ import { useEffect, useRef, useState } from 'react'
 export default function PhonePersist() {
   const [opacity, setOpacity] = useState(1)
   const [visible, setVisible] = useState(true)
+  const [scale, setScale] = useState(1)
   const phoneRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const update = () => {
+      const wrapper = document.querySelector('#product')?.parentElement
       const useCases = document.querySelector('#use-cases')
+      const vh = window.innerHeight
+
+      // Scale up as section 2 scrolls in
+      if (wrapper) {
+        const wrapperTop = wrapper.getBoundingClientRect().top
+        const p = Math.min(Math.max((vh - wrapperTop) / vh * 3, 0), 1)
+        // Scale from 1 to 1.35 as section 2 arrives
+        setScale(1 + p * 0.35)
+      }
+
+      // Fade out as section 3 approaches
       if (useCases) {
         const rect = useCases.getBoundingClientRect()
-        const vh = window.innerHeight
-        // Fade out as section 3 approaches
         if (rect.top < vh) {
           const progress = Math.max(0, rect.top / vh)
           setOpacity(progress)
@@ -33,9 +44,12 @@ export default function PhonePersist() {
   return (
     <div
       ref={phoneRef}
-      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] pointer-events-none hidden lg:block"
+      className="fixed z-[55] pointer-events-none hidden lg:block"
       style={{
+        top: '50%',
+        left: '50%',
         opacity,
+        transform: `translate(-50%, -50%) scale(${scale})`,
         transition: 'opacity 0.1s ease-out',
       }}
     >

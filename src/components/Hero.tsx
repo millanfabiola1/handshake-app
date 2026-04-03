@@ -40,7 +40,7 @@ export default function Hero() {
           </div>
 
           {/* Desktop: invisible spacer matching phone width */}
-          <div className="hidden lg:block w-[clamp(180px,18vw,260px)] shrink-0" />
+          <div className="hidden lg:block w-[clamp(180px,20vw,280px)] shrink-0" />
 
           {/* Right text */}
           <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(56px, 14vw, 120px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>

@@ -127,7 +127,7 @@ export default function StickyFeatures() {
 
   // Gap widens from 0 to phone width as progress goes 0→1
   const gapWidth = progress * 100 // percentage of max gap
-  const phoneGap = `clamp(0px, ${gapWidth * 2.8}px, 280px)`
+  const phoneGap = `clamp(0px, ${gapWidth * 3.8}px, 380px)`
 
   return (
     <div className="relative z-[3]" style={{ height: '350vh', marginTop: '-100vh' }}>
