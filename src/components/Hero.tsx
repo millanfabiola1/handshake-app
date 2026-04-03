@@ -15,7 +15,7 @@ export default function Hero() {
         {/* Text — gap for phone — text */}
         <div className="flex flex-row items-center justify-center gap-2 md:gap-4 lg:gap-10 w-full flex-1">
           {/* Left text */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(56px, 14vw, 120px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] lg:rotate-0" style={{ fontSize: 'clamp(56px, 14vw, 120px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
             <span className="lg:hidden">Tap. Text.</span>
             <span className="hidden lg:inline">Tap.<br />Text.</span>
           </h1>
