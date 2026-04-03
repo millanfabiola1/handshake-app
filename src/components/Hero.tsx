@@ -17,12 +17,12 @@ export default function Hero() {
         {/* Text — phone — text */}
         <div className="flex flex-row items-center justify-center gap-3 md:gap-6 lg:gap-12 w-full">
           {/* Left text — rotated on mobile */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both' }}>
             Tap.<br />Text.
           </h1>
 
           {/* Center: phone mockup */}
-          <ScrollReveal delay={200}>
+          <div style={{ animation: 'hero-phone-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
             <div className="relative w-[clamp(200px,40vw,300px)] lg:w-[clamp(220px,22vw,300px)] shrink-0">
               <div className="relative bg-black rounded-[clamp(28px,5vw,52px)] p-[clamp(6px,1.2vw,14px)] shadow-2xl shadow-black/30">
                 <div className="absolute top-[clamp(8px,1.5vw,16px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,14vw,120px)] h-[clamp(18px,3vw,32px)] bg-black rounded-full" />
@@ -41,10 +41,10 @@ export default function Hero() {
               <div className="absolute -left-[3px] top-[20%] w-[3px] h-[35px] bg-[#2a2a2a] rounded-l-sm" />
               <div className="absolute -left-[3px] top-[30%] w-[3px] h-[55px] bg-[#2a2a2a] rounded-l-sm" />
             </div>
-          </ScrollReveal>
+          </div>
 
           {/* Right text — rotated on mobile */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both' }}>
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both' }}>
             Get<br />Paid.
           </h1>
         </div>
