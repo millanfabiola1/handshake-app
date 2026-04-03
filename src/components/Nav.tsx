@@ -63,7 +63,7 @@ export default function Nav() {
         style={{ top: scrolled ? 32 : 0 }}
       >
         <a href="#" className="transition-opacity duration-300 hover:opacity-70">
-          <img src="/handshake-logo.svg" alt="Tapp'd" className="h-[28px] w-auto" />
+          <img src="/tappd-logo.svg" alt="Tapp'd" className="h-[28px] w-auto" />
         </a>
 
         <button

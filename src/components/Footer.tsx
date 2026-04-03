@@ -41,7 +41,7 @@ export default function Footer() {
         </div>
 
         <div className="w-full">
-          <img src="/handshake-logo.svg" alt="Tapp'd" className="w-full h-auto select-none" />
+          <img src="/tappd-logo.svg" alt="Tapp'd" className="w-full h-auto select-none" />
         </div>
 
         <div className="flex items-center justify-between flex-wrap gap-4 mt-12 pt-8 border-t border-black/10">

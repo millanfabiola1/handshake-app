@@ -12,12 +12,6 @@ export default function Hero() {
       ref={sectionRef}
       className="h-screen flex flex-col justify-center bg-[#A5F41F] relative overflow-hidden sticky top-0 z-[1]"
     >
-      {/* Floating shapes */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-[#b8f74d] opacity-40 -top-20 -left-20" style={{ animation: 'v2-drift 20s ease-in-out infinite' }} />
-        <div className="absolute w-[200px] h-[200px] md:w-[400px] md:h-[400px] rounded-full bg-[#c4fa6a] opacity-30 top-1/3 -right-10" style={{ animation: 'v2-drift 25s ease-in-out infinite reverse' }} />
-        <div className="absolute w-[150px] h-[150px] md:w-[300px] md:h-[300px] rounded-full bg-[#b0f230] opacity-35 bottom-10 left-1/3" style={{ animation: 'v2-drift 18s ease-in-out infinite 3s' }} />
-      </div>
 
       <div className="relative z-10 px-4 md:px-8 lg:px-10 xl:px-12 pt-16 pb-20 flex flex-col items-center w-full">
         {/* Text — phone — text */}

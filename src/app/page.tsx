@@ -11,7 +11,7 @@ export default function Waitlist() {
     <div className="min-h-screen bg-[#A5F41F] flex flex-col items-center justify-center px-6">
       <div className="flex flex-col items-center gap-10 w-full max-w-md">
         <Image
-          src="/handshake-logo.svg"
+          src="/tappd-logo.svg"
           alt="Tapp'd"
           width={260}
           height={38}
