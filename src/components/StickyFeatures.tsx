@@ -42,14 +42,65 @@ const rightCards = [
 
 const allCards = [...leftCards, ...rightCards]
 
-function CardContent({ f }: { f: typeof leftCards[0] }) {
+function CardContent({ f, mobile = false }: { f: typeof leftCards[0]; mobile?: boolean }) {
   return (
-    <div className={`${f.bg} rounded-xl p-5 md:p-6 flex flex-col justify-between h-full group hover:scale-[1.03] transition-transform duration-300`}>
-      <f.Icon size={28} weight="light" className={`${f.textColor} opacity-30`} />
+    <div className={`${f.bg} rounded-xl ${mobile ? 'p-6' : 'p-5 md:p-6'} flex flex-col justify-between h-full group hover:scale-[1.03] transition-transform duration-300`}>
+      <f.Icon size={mobile ? 40 : 28} weight="light" className={`${f.textColor} opacity-30`} />
       <div>
-        <h3 className={`text-[16px] md:text-[20px] font-medium ${f.textColor} tracking-[-0.02em] leading-[1.1] mb-1`}>{f.title}</h3>
-        <p className={`text-[12px] md:text-[13px] ${f.textColor} opacity-50 leading-[1.4]`}>{f.desc}</p>
+        <h3 className={`${mobile ? 'text-[24px]' : 'text-[16px] md:text-[20px]'} font-medium ${f.textColor} tracking-[-0.02em] leading-[1.1] mb-2`}>{f.title}</h3>
+        <p className={`${mobile ? 'text-[15px]' : 'text-[12px] md:text-[13px]'} ${f.textColor} opacity-50 leading-[1.4]`}>{f.desc}</p>
       </div>
+    </div>
+  )
+}
+
+function MobileStackCards({ cards }: { cards: typeof allCards }) {
+  const [mobileProgress, setMobileProgress] = useState(0)
+
+  useEffect(() => {
+    const update = () => {
+      const wrapper = document.querySelector('#product')?.parentElement
+      if (!wrapper) return
+      const rect = wrapper.getBoundingClientRect()
+      const vh = window.innerHeight
+      const wrapperHeight = wrapper.offsetHeight
+      // How far through the wrapper scroll we are (0 to 1 over full 200vh)
+      const scrolled = -rect.top
+      const scrollRange = wrapperHeight - vh
+      const p = Math.min(Math.max(scrolled / scrollRange, 0), 1)
+      setMobileProgress(p)
+    }
+    window.addEventListener('scroll', update, { passive: true })
+    update()
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+
+  return (
+    <div className="lg:hidden relative mx-auto w-[90vw] max-w-[380px]" style={{ height: 'clamp(300px,55vh,420px)' }}>
+      {cards.map((f, i) => {
+        // Card 0: visible from 0%, Card 1: from 20%, Card 2: from 45%, Card 3: from 70%
+        const threshold = i * 0.23
+        const isVisible = i === 0 || mobileProgress >= threshold
+        const stackOffset = i * 8
+
+        return (
+          <div
+            key={f.label}
+            className="absolute inset-0 rounded-xl overflow-hidden"
+            style={{
+              zIndex: i + 1,
+              top: stackOffset,
+              transform: isVisible
+                ? `translateY(0) scale(${1 - i * 0.02})`
+                : `translateY(120%) scale(0.9)`,
+              opacity: isVisible ? 1 : 0,
+              transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out',
+            }}
+          >
+            <CardContent f={f} mobile />
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -79,7 +130,7 @@ export default function StickyFeatures() {
   const phoneGap = `clamp(0px, ${gapWidth * 2.8}px, 280px)`
 
   return (
-    <div className="relative z-[3]" style={{ height: '200vh', marginTop: '-100vh' }}>
+    <div className="relative z-[3]" style={{ height: '350vh', marginTop: '-100vh' }}>
       <section id="product" className="h-screen relative bg-white sticky top-0 rounded-t-[24px] overflow-hidden">
         <div className="h-full flex flex-col justify-center px-4 md:px-8 lg:px-10 xl:px-12 py-10">
 
@@ -107,14 +158,8 @@ export default function StickyFeatures() {
             </div>
           </div>
 
-          {/* Mobile: stacked grid */}
-          <div className="lg:hidden grid grid-cols-2 gap-3 max-w-[600px] mx-auto w-full">
-            {allCards.map((f) => (
-              <div key={f.label} className="h-[clamp(140px,22vh,200px)]">
-                <CardContent f={f} />
-              </div>
-            ))}
-          </div>
+          {/* Mobile: scroll-driven stacking cards */}
+          <MobileStackCards cards={allCards} />
         </div>
       </section>
     </div>

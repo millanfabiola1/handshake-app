@@ -15,16 +15,17 @@ export default function Hero() {
         {/* Text — gap for phone — text */}
         <div className="flex flex-row items-center justify-center gap-2 md:gap-4 lg:gap-10 w-full flex-1">
           {/* Left text */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(28px, 9vw, 120px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
-            Tap.<br />Text.
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(56px, 14vw, 120px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
+            <span className="lg:hidden">Tap. Text.</span>
+            <span className="hidden lg:inline">Tap.<br />Text.</span>
           </h1>
 
           {/* Center gap for fixed phone — mobile: show inline phone */}
           <div className="lg:hidden" style={{ animation: 'hero-phone-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
-            <div className="relative w-[clamp(160px,32vw,260px)] shrink-0">
-              <div className="relative bg-black rounded-[clamp(24px,4vw,44px)] p-[clamp(5px,1vw,12px)] shadow-2xl shadow-black/30">
-                <div className="absolute top-[clamp(7px,1.2vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(50px,12vw,100px)] h-[clamp(16px,2.5vw,28px)] bg-black rounded-full" />
-                <div className="relative rounded-[clamp(18px,3.5vw,36px)] overflow-hidden bg-white">
+            <div className="relative w-[clamp(200px,50vw,280px)] shrink-0">
+              <div className="relative bg-black rounded-[clamp(28px,6vw,44px)] p-[clamp(6px,1.5vw,12px)] shadow-2xl shadow-black/30">
+                <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,15vw,100px)] h-[clamp(18px,3vw,28px)] bg-black rounded-full" />
+                <div className="relative rounded-[clamp(22px,5vw,36px)] overflow-hidden bg-white">
                   <video
                     src="/demo.mp4"
                     autoPlay
@@ -42,8 +43,9 @@ export default function Hero() {
           <div className="hidden lg:block w-[clamp(180px,18vw,260px)] shrink-0" />
 
           {/* Right text */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(28px, 9vw, 120px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
-            Get<br />Paid.
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(56px, 14vw, 120px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
+            <span className="lg:hidden">Get Paid.</span>
+            <span className="hidden lg:inline">Get<br />Paid.</span>
           </h1>
         </div>
 
