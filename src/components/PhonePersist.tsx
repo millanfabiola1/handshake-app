@@ -66,14 +66,14 @@ export default function PhonePersist() {
       <div className="relative w-[clamp(180px,18vw,260px)]">
         <div className="relative bg-black rounded-[clamp(24px,4vw,44px)] p-[clamp(5px,1vw,12px)] shadow-2xl shadow-black/30">
           <div className="absolute top-[clamp(7px,1.2vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(50px,12vw,100px)] h-[clamp(16px,2.5vw,28px)] bg-black rounded-full" />
-          <div className="relative rounded-[clamp(18px,3.5vw,36px)] overflow-hidden bg-white">
+          <div className="relative rounded-[clamp(18px,3.5vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
             <video
               src="/demo.mp4"
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-auto block"
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
         </div>

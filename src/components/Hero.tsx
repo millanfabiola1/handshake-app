@@ -25,14 +25,14 @@ export default function Hero() {
             <div className="relative w-[clamp(200px,50vw,280px)] shrink-0">
               <div className="relative bg-black rounded-[clamp(28px,6vw,44px)] p-[clamp(6px,1.5vw,12px)] shadow-2xl shadow-black/30">
                 <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,15vw,100px)] h-[clamp(18px,3vw,28px)] bg-black rounded-full" />
-                <div className="relative rounded-[clamp(22px,5vw,36px)] overflow-hidden bg-white">
+                <div className="relative rounded-[clamp(22px,5vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
                   <video
                     src="/demo.mp4"
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className="w-full h-auto block"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 </div>
               </div>
