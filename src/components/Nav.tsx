@@ -76,10 +76,10 @@ export default function Nav() {
 
       {/* Menu overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-white overflow-y-auto transition-all duration-500 ease-out ${
+        className={`fixed inset-0 z-40 bg-white overflow-y-auto transition-transform duration-500 ease-out ${
           mobileOpen
-            ? 'opacity-100 translate-y-0 pointer-events-auto'
-            : 'opacity-0 -translate-y-4 pointer-events-none'
+            ? 'translate-y-0 pointer-events-auto'
+            : '-translate-y-full pointer-events-none'
         }`}
         style={{ paddingTop: scrolled ? 72 : 104 }}
       >
