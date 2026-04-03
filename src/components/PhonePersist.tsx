@@ -5,7 +5,17 @@ export default function PhonePersist() {
   const [opacity, setOpacity] = useState(1)
   const [visible, setVisible] = useState(true)
   const [scale, setScale] = useState(1)
+  const [menuOpen, setMenuOpen] = useState(false)
   const phoneRef = useRef<HTMLDivElement>(null)
+
+  // Detect menu open by watching body overflow
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setMenuOpen(document.body.style.overflow === 'hidden')
+    })
+    observer.observe(document.body, { attributes: true, attributeFilter: ['style'] })
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const update = () => {
@@ -39,7 +49,7 @@ export default function PhonePersist() {
     return () => window.removeEventListener('scroll', update)
   }, [])
 
-  if (!visible) return null
+  if (!visible || menuOpen) return null
 
   return (
     <div
