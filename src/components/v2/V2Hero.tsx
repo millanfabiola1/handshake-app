@@ -18,7 +18,7 @@ export default function V2Hero() {
         {/* Text — phone — text */}
         <div className="flex flex-row items-center justify-center gap-3 md:gap-6 lg:gap-12 w-full">
           {/* Left text — rotated on mobile */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both' }}>
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
             Tap.<br />Text.
           </h1>
 
@@ -45,28 +45,24 @@ export default function V2Hero() {
           </div>
 
           {/* Right text — rotated on mobile */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both' }}>
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
             Get<br />Paid.
           </h1>
         </div>
 
         {/* Bottom: subtext + CTAs */}
-        <ScrollReveal delay={150}>
-          <p className="font-normal text-black/55 leading-[1.5] max-w-[520px] mt-10 text-center mx-auto" style={{ fontSize: 'clamp(16px, 2vw, 22px)' }}>
-            Messages and payments in one app. 0% fees. Keep everything you earn.
-          </p>
-        </ScrollReveal>
+        <p className="font-normal text-black/55 leading-[1.5] max-w-[520px] mt-10 text-center mx-auto" style={{ fontSize: 'clamp(16px, 2vw, 22px)', animation: 'hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both' }}>
+          Messages and payments in one app. 0% fees. Keep everything you earn.
+        </p>
 
-        <ScrollReveal delay={250}>
-          <div className="flex items-center justify-center gap-4 mt-10">
-            <button onClick={showWaitlist} className="text-[16px] font-semibold text-white px-10 py-5 rounded-full bg-black hover:bg-black/80 transition-colors inline-flex items-center gap-2 cursor-pointer">
-              Get Tapp&apos;d
-            </button>
-            <a href="#features" className="text-[16px] font-semibold text-black px-10 py-5 rounded-full border-2 border-black hover:bg-black hover:text-white transition-all">
-              See the product
-            </a>
-          </div>
-        </ScrollReveal>
+        <div className="flex items-center justify-center gap-4 mt-10" style={{ animation: 'hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.6s both' }}>
+          <button onClick={showWaitlist} className="text-[16px] font-semibold text-white px-10 py-5 rounded-full bg-black hover:bg-black/80 transition-colors inline-flex items-center gap-2 cursor-pointer">
+            Get Tapp&apos;d
+          </button>
+          <a href="#features" className="text-[16px] font-semibold text-black px-10 py-5 rounded-full border-2 border-black hover:bg-black hover:text-white transition-all">
+            See the product
+          </a>
+        </div>
       </div>
     </section>
   )
