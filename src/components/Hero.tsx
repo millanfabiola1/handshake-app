@@ -21,18 +21,19 @@ export default function Hero() {
 
       <div className="relative z-10 px-4 md:px-8 lg:px-10 xl:px-12 pt-16 pb-20 flex flex-col items-center w-full">
         {/* Text — phone — text */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12 w-full">
-          {/* Left text */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right" style={{ fontSize: 'clamp(56px, 12vw, 140px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
-            Tap.<br />Text.
+        <div className="flex flex-row items-center justify-center gap-3 md:gap-6 lg:gap-12 w-full">
+          {/* Left text — rotated on mobile */}
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] lg:text-right" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) forwards', writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
+            <span className="lg:hidden">Tap. Text.</span>
+            <span className="hidden lg:inline">Tap.<br />Text.</span>
           </h1>
 
           {/* Center: phone mockup */}
           <ScrollReveal delay={200}>
-            <div className="relative w-[clamp(220px,22vw,300px)] shrink-0">
-              <div className="relative bg-black rounded-[clamp(32px,4vw,52px)] p-[clamp(8px,1vw,14px)] shadow-2xl shadow-black/30">
-                <div className="absolute top-[clamp(10px,1.2vw,16px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(80px,10vw,120px)] h-[clamp(22px,2.5vw,32px)] bg-black rounded-full" />
-                <div className="relative rounded-[clamp(24px,3.2vw,42px)] overflow-hidden bg-white">
+            <div className="relative w-[clamp(200px,40vw,300px)] lg:w-[clamp(220px,22vw,300px)] shrink-0">
+              <div className="relative bg-black rounded-[clamp(28px,5vw,52px)] p-[clamp(6px,1.2vw,14px)] shadow-2xl shadow-black/30">
+                <div className="absolute top-[clamp(8px,1.5vw,16px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,14vw,120px)] h-[clamp(18px,3vw,32px)] bg-black rounded-full" />
+                <div className="relative rounded-[clamp(20px,4vw,42px)] overflow-hidden bg-white">
                   <video
                     src="/demo.mp4"
                     autoPlay
@@ -49,9 +50,10 @@ export default function Hero() {
             </div>
           </ScrollReveal>
 
-          {/* Right text */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left" style={{ fontSize: 'clamp(56px, 12vw, 140px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both' }}>
-            Get<br />Paid.
+          {/* Right text — rotated on mobile */}
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] lg:text-left" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both', writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
+            <span className="lg:hidden">Get Paid.</span>
+            <span className="hidden lg:inline">Get<br />Paid.</span>
           </h1>
         </div>
 
