@@ -3,7 +3,7 @@ const doubled = [...logos, ...logos]
 
 export default function LogoStrip() {
   return (
-    <section className="pt-16 pb-16 lg:pb-32 bg-white overflow-hidden sticky top-0 z-[2] rounded-t-[24px]">
+    <section className="pt-16 pb-16 lg:pb-32 bg-white overflow-hidden relative z-[2] rounded-t-[24px]">
       <div className="relative">
         <div className="inline-flex gap-16 md:gap-24 whitespace-nowrap" style={{ animation: 'marquee 30s linear infinite' }}>
           {doubled.map((name, i) => (

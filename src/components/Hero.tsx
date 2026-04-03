@@ -1,32 +1,30 @@
 'use client'
 import { useRef } from 'react'
-import ScrollReveal from './ScrollReveal'
 import { useWaitlist } from './WaitlistContext'
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const showWaitlist = useWaitlist()
   return (
-    <div style={{ height: '200vh' }}>
+    <div className="relative z-[1]" style={{ height: '200vh' }}>
     <section
       ref={sectionRef}
-      className="h-screen flex flex-col justify-center bg-[#A5F41F] relative overflow-hidden sticky top-0 z-[1]"
+      className="h-screen flex flex-col justify-center bg-[#A5F41F] relative overflow-hidden sticky top-0"
     >
-
-      <div className="relative z-10 px-4 md:px-8 lg:px-10 xl:px-12 pt-16 pb-20 flex flex-col items-center w-full">
-        {/* Text — phone — text */}
-        <div className="flex flex-row items-center justify-center gap-3 md:gap-6 lg:gap-12 w-full">
-          {/* Left text — rotated on mobile */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
+      <div className="relative z-10 px-4 md:px-8 lg:px-10 xl:px-12 pt-20 pb-8 flex flex-col items-center justify-center w-full h-full">
+        {/* Text — gap for phone — text */}
+        <div className="flex flex-row items-center justify-center gap-2 md:gap-4 lg:gap-10 w-full flex-1">
+          {/* Left text */}
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb] rotate-180 lg:rotate-0" style={{ fontSize: 'clamp(28px, 9vw, 120px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
             Tap.<br />Text.
           </h1>
 
-          {/* Center: phone mockup */}
-          <div style={{ animation: 'hero-phone-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
-            <div className="relative w-[clamp(200px,40vw,300px)] lg:w-[clamp(220px,22vw,300px)] shrink-0">
-              <div className="relative bg-black rounded-[clamp(28px,5vw,52px)] p-[clamp(6px,1.2vw,14px)] shadow-2xl shadow-black/30">
-                <div className="absolute top-[clamp(8px,1.5vw,16px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,14vw,120px)] h-[clamp(18px,3vw,32px)] bg-black rounded-full" />
-                <div className="relative rounded-[clamp(20px,4vw,42px)] overflow-hidden bg-white">
+          {/* Center gap for fixed phone — mobile: show inline phone */}
+          <div className="lg:hidden" style={{ animation: 'hero-phone-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
+            <div className="relative w-[clamp(160px,32vw,260px)] shrink-0">
+              <div className="relative bg-black rounded-[clamp(24px,4vw,44px)] p-[clamp(5px,1vw,12px)] shadow-2xl shadow-black/30">
+                <div className="absolute top-[clamp(7px,1.2vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(50px,12vw,100px)] h-[clamp(16px,2.5vw,28px)] bg-black rounded-full" />
+                <div className="relative rounded-[clamp(18px,3.5vw,36px)] overflow-hidden bg-white">
                   <video
                     src="/demo.mp4"
                     autoPlay
@@ -37,30 +35,32 @@ export default function Hero() {
                   />
                 </div>
               </div>
-              <div className="absolute -right-[3px] top-[25%] w-[3px] h-[60px] bg-[#2a2a2a] rounded-r-sm" />
-              <div className="absolute -left-[3px] top-[20%] w-[3px] h-[35px] bg-[#2a2a2a] rounded-l-sm" />
-              <div className="absolute -left-[3px] top-[30%] w-[3px] h-[55px] bg-[#2a2a2a] rounded-l-sm" />
             </div>
           </div>
 
-          {/* Right text — rotated on mobile */}
-          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(36px, 12vw, 140px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
+          {/* Desktop: invisible spacer matching phone width */}
+          <div className="hidden lg:block w-[clamp(180px,18vw,260px)] shrink-0" />
+
+          {/* Right text */}
+          <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-left [writing-mode:vertical-rl] lg:[writing-mode:horizontal-tb]" style={{ fontSize: 'clamp(28px, 9vw, 120px)', animation: 'hero-text-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}>
             Get<br />Paid.
           </h1>
         </div>
 
         {/* Bottom: subtext + CTAs */}
-        <p className="font-normal text-black/55 leading-[1.5] max-w-[520px] mt-10 text-center mx-auto" style={{ fontSize: 'clamp(16px, 2vw, 22px)', animation: 'hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both' }}>
-          Messages and payments in one app. 0% fees. Keep everything you earn.
-        </p>
+        <div className="mt-auto">
+          <p className="font-normal text-black/55 leading-[1.4] max-w-[480px] text-center mx-auto" style={{ fontSize: 'clamp(14px, 1.6vw, 18px)', animation: 'hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both' }}>
+            Messages and payments in one app. 0% fees. Keep everything you earn.
+          </p>
 
-        <div className="flex items-center justify-center gap-4 mt-10" style={{ animation: 'hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.6s both' }}>
-          <button onClick={showWaitlist} className="text-[16px] font-semibold text-white px-10 py-5 rounded-full bg-black hover:bg-black/80 transition-colors inline-flex items-center gap-2 cursor-pointer">
-            Get Tapp&apos;d
-          </button>
-          <a href="#product" className="text-[16px] font-semibold text-black px-10 py-5 rounded-full border-2 border-black hover:bg-black hover:text-white transition-all">
-            See the product
-          </a>
+          <div className="flex items-center justify-center gap-3 mt-6" style={{ animation: 'hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.6s both' }}>
+            <button onClick={showWaitlist} className="text-[14px] font-semibold text-white px-8 py-4 rounded-full bg-black hover:bg-black/80 transition-colors inline-flex items-center gap-2 cursor-pointer">
+              Get Tapp&apos;d
+            </button>
+            <a href="#product" className="text-[14px] font-semibold text-black px-8 py-4 rounded-full border-2 border-black hover:bg-black hover:text-white transition-all">
+              See the product
+            </a>
+          </div>
         </div>
       </div>
     </section>

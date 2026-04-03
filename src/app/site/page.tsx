@@ -1,7 +1,7 @@
 import MarqueeBanner from '@/components/MarqueeBanner'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
-import LogoStrip from '@/components/LogoStrip'
+import PhonePersist from '@/components/PhonePersist'
 import StickyFeatures from '@/components/StickyFeatures'
 import ProductShowcase from '@/components/ProductShowcase'
 import UseCases from '@/components/UseCases'
@@ -16,9 +16,9 @@ export default function Home() {
     <WaitlistProvider>
       <MarqueeBanner />
       <Nav />
+      <PhonePersist />
       <main>
         <Hero />
-        <LogoStrip />
         <StickyFeatures />
         <UseCases />
         <Pricing />

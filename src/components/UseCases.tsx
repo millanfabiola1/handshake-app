@@ -55,7 +55,8 @@ export default function UseCases() {
   }
 
   return (
-    <section className="bg-[#A5F41F] sticky top-0 z-[4] rounded-t-[24px] relative" id="use-cases">
+    <div className="relative z-[10]" style={{ marginTop: '-100vh' }}>
+    <section className="bg-[#A5F41F] sticky top-0 rounded-t-[24px] relative" id="use-cases">
       <div className="py-[140px]">
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 flex items-end justify-between mb-14">
         <ScrollReveal>
@@ -114,5 +115,6 @@ export default function UseCases() {
       </div>
       </div>
     </section>
+    </div>
   )
 }

@@ -9,8 +9,14 @@ export default function MarqueeBanner() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
-      setHidden(window.scrollY < heroHeight - 120)
+      const productSection = document.querySelector('#product')
+      if (productSection) {
+        const rect = productSection.getBoundingClientRect()
+        setHidden(rect.top > 80)
+      } else {
+        const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
+        setHidden(window.scrollY < heroHeight - 120)
+      }
     }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })

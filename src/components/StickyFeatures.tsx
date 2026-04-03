@@ -1,108 +1,121 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CurrencyDollar, LockSimple, PhoneCall, Megaphone } from '@phosphor-icons/react'
-import ScrollReveal from './ScrollReveal'
 
-const features = [
-  { label: 'Tips', title: 'Get tipped mid-convo.', desc: 'Tips flow in while you\'re still talking. No awkward payment requests. One tap, instant appreciation, zero fees.', icon: CurrencyDollar },
-  { label: 'Locked Content', title: 'Lock it. Earn it.', desc: 'Your premium content stays locked until they pay. Simple as that. You set the price, you keep the money.', icon: LockSimple },
-  { label: 'Paid Calls', title: 'Talk money.', desc: 'Your time has value. Now your phone calls do too. Bill per minute or flat — get paid before you pick up.', icon: PhoneCall },
-  { label: 'Mass Messaging', title: 'Blast without the spam.', desc: 'Text your entire client book. Personalized. Human. Revenue-driving. Every message feels like it was written just for them.', icon: Megaphone },
+const leftCards = [
+  {
+    label: 'Tips',
+    title: 'Get tipped mid-convo.',
+    desc: 'One tap. Instant appreciation. Zero fees.',
+    Icon: CurrencyDollar,
+    bg: 'bg-[#A5F41F]',
+    textColor: 'text-black',
+  },
+  {
+    label: 'Paid Calls',
+    title: 'Talk money.',
+    desc: 'Bill per minute or flat. Get paid before you pick up.',
+    Icon: PhoneCall,
+    bg: 'bg-[#F4F4F5]',
+    textColor: 'text-black',
+  },
 ]
 
+const rightCards = [
+  {
+    label: 'Locked Content',
+    title: 'Lock it. Earn it.',
+    desc: 'Premium content stays locked until they pay.',
+    Icon: LockSimple,
+    bg: 'bg-[#0A0A0B]',
+    textColor: 'text-white',
+  },
+  {
+    label: 'Mass Messaging',
+    title: 'Blast without the spam.',
+    desc: 'Personalized. Human. Revenue-driving.',
+    Icon: Megaphone,
+    bg: 'bg-[#1A1A1D]',
+    textColor: 'text-white',
+  },
+]
+
+const allCards = [...leftCards, ...rightCards]
+
+function CardContent({ f }: { f: typeof leftCards[0] }) {
+  return (
+    <div className={`${f.bg} rounded-xl p-5 md:p-6 flex flex-col justify-between h-full group hover:scale-[1.03] transition-transform duration-300`}>
+      <f.Icon size={28} weight="light" className={`${f.textColor} opacity-30`} />
+      <div>
+        <h3 className={`text-[16px] md:text-[20px] font-medium ${f.textColor} tracking-[-0.02em] leading-[1.1] mb-1`}>{f.title}</h3>
+        <p className={`text-[12px] md:text-[13px] ${f.textColor} opacity-50 leading-[1.4]`}>{f.desc}</p>
+      </div>
+    </div>
+  )
+}
+
 export default function StickyFeatures() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const active = features[activeIndex]
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const update = () => {
+      const section = document.querySelector('#product')
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const vh = window.innerHeight
+      // progress 0 = section just arriving at bottom, 1 = fully in view
+      // Multiply by 6 so it reaches final position almost immediately
+      const p = Math.min(Math.max((1 - rect.top / vh) * 6, 0), 1)
+      setProgress(p)
+    }
+    window.addEventListener('scroll', update, { passive: true })
+    update()
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+
+  // Gap widens from 0 to phone width as progress goes 0→1
+  const gapWidth = progress * 100 // percentage of max gap
+  const phoneGap = `clamp(0px, ${gapWidth * 2.8}px, 280px)`
 
   return (
-    <section id="product" className="relative z-[3] bg-white sticky top-0">
-      <div className="pt-[60px] pb-[80px] lg:py-[180px] px-4 md:px-8 lg:px-10 xl:px-12">
-        {/* Desktop: 2-column layout */}
-        <div className="hidden lg:grid grid-cols-2 gap-20">
-          <div>
-            <ScrollReveal>
-              <h2 className="font-medium text-black tracking-[-0.04em] leading-[0.95] mb-12" style={{ fontSize: 'clamp(36px, 6vw, 80px)' }}>
-                Built for the<br />conversation economy
-              </h2>
-            </ScrollReveal>
+    <div className="relative z-[3]" style={{ height: '200vh', marginTop: '-100vh' }}>
+      <section id="product" className="h-screen relative bg-white sticky top-0 rounded-t-[24px] overflow-hidden">
+        <div className="h-full flex flex-col justify-center px-4 md:px-8 lg:px-10 xl:px-12 py-10">
 
-            <div className="flex gap-2 mb-10 flex-wrap">
-              {features.map((f, i) => (
-                <button
-                  key={f.label}
-                  onClick={() => setActiveIndex(i)}
-                  className={`text-[15px] font-medium px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
-                    activeIndex === i
-                      ? 'bg-[#A5F41F] text-black'
-                      : 'bg-[#F4F4F5] text-[#71717A] hover:bg-[#E4E4E7] hover:text-black'
-                  }`}
-                >
-                  <f.icon size={16} weight="light" />
-                  {f.label}
-                </button>
+          {/* Desktop: cards split apart for phone */}
+          <div className="hidden lg:flex items-center justify-center gap-4 max-w-[1000px] mx-auto w-full" style={{ height: '55vh' }}>
+            {/* Left column */}
+            <div className="flex flex-col gap-4 flex-1 h-full transition-all duration-100">
+              {leftCards.map((f) => (
+                <div key={f.label} className="flex-1">
+                  <CardContent f={f} />
+                </div>
               ))}
             </div>
 
-            <h3 className="text-[40px] font-normal text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
-            <p className="text-[19px] font-normal text-black leading-[1.65] max-w-[480px] transition-all duration-300">{active.desc}</p>
-          </div>
+            {/* Center gap — grows as you scroll */}
+            <div className="shrink-0 transition-all duration-100" style={{ width: phoneGap }} />
 
-          <ScrollReveal delay={150}>
-            <div className="w-full rounded-lg overflow-hidden" style={{ aspectRatio: '4 / 3' }}>
-              <video
-                src="/a5964603cb2e4a249ac8a336c1a0239d.HD-1080p-7.2Mbps-14082701.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
+            {/* Right column */}
+            <div className="flex flex-col gap-4 flex-1 h-full transition-all duration-100">
+              {rightCards.map((f) => (
+                <div key={f.label} className="flex-1">
+                  <CardContent f={f} />
+                </div>
+              ))}
             </div>
-          </ScrollReveal>
-        </div>
-
-        {/* Mobile: stacked layout — headline, video, centered tabs, centered content */}
-        <div className="lg:hidden flex flex-col">
-          <ScrollReveal>
-            <h2 className="font-medium text-black tracking-[-0.04em] leading-[0.95] mb-8 text-center" style={{ fontSize: 'clamp(36px, 8vw, 80px)' }}>
-              Built for the<br />conversation economy
-            </h2>
-          </ScrollReveal>
-
-          <div className="w-full rounded-lg overflow-hidden mb-10" style={{ aspectRatio: '4 / 3' }}>
-            <video
-              src="/a5964603cb2e4a249ac8a336c1a0239d.HD-1080p-7.2Mbps-14082701.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            />
           </div>
 
-          <div className="flex gap-2 mb-8 flex-wrap justify-center">
-            {features.map((f, i) => (
-              <button
-                key={f.label}
-                onClick={() => setActiveIndex(i)}
-                className={`text-[14px] font-medium px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2 shrink-0 ${
-                  activeIndex === i
-                    ? 'bg-[#A5F41F] text-black'
-                    : 'bg-[#F4F4F5] text-[#71717A]'
-                }`}
-              >
-                <f.icon size={16} weight="light" />
-                {f.label}
-              </button>
+          {/* Mobile: stacked grid */}
+          <div className="lg:hidden grid grid-cols-2 gap-3 max-w-[600px] mx-auto w-full">
+            {allCards.map((f) => (
+              <div key={f.label} className="h-[clamp(140px,22vh,200px)]">
+                <CardContent f={f} />
+              </div>
             ))}
           </div>
-
-          <div className="text-center">
-            <h3 className="text-[28px] font-normal text-black tracking-[-0.03em] leading-[1.1] mb-5 transition-all duration-300">{active.title}</h3>
-            <p className="text-[17px] font-normal text-black leading-[1.65] max-w-[440px] mx-auto transition-all duration-300">{active.desc}</p>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   )
 }

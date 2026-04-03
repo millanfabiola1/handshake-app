@@ -33,8 +33,14 @@ export default function Nav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
-      setScrolled(window.scrollY > heroHeight - 120)
+      const productSection = document.querySelector('#product')
+      if (productSection) {
+        const rect = productSection.getBoundingClientRect()
+        setScrolled(rect.top <= 80)
+      } else {
+        const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
+        setScrolled(window.scrollY > heroHeight - 120)
+      }
     }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })

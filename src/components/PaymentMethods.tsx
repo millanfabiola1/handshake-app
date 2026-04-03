@@ -17,7 +17,7 @@ export default function PaymentMethods() {
   const activeHeading = hovered !== null ? methods[hovered].heading : defaultHeading
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-[#F4F4F5] sticky top-0 z-[7] rounded-t-[24px] relative px-4 md:px-8 lg:px-10 xl:px-12">
+    <section className="min-h-screen flex items-center justify-center bg-[#F4F4F5] sticky top-0 z-[13] rounded-t-[24px] relative px-4 md:px-8 lg:px-10 xl:px-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 w-full">
         <div>
           <ScrollReveal>
