@@ -59,13 +59,14 @@ export default function StickyFeatures() {
 
   useEffect(() => {
     const update = () => {
-      const section = document.querySelector('#product')
-      if (!section) return
-      const rect = section.getBoundingClientRect()
+      // Use the wrapper div's position, not the sticky section
+      const wrapper = document.querySelector('#product')?.parentElement
+      if (!wrapper) return
+      const wrapperTop = wrapper.getBoundingClientRect().top
       const vh = window.innerHeight
-      // progress 0 = section just arriving at bottom, 1 = fully in view
-      // Multiply by 6 so it reaches final position almost immediately
-      const p = Math.min(Math.max((1 - rect.top / vh) * 6, 0), 1)
+      // progress based on how far the wrapper has scrolled up
+      // wrapper starts below viewport, scrolls up past it
+      const p = Math.min(Math.max((vh - wrapperTop) / vh * 3, 0), 1)
       setProgress(p)
     }
     window.addEventListener('scroll', update, { passive: true })

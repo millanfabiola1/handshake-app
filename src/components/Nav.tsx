@@ -74,41 +74,44 @@ export default function Nav() {
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="w-10 h-10 flex items-center justify-center text-black cursor-pointer"
+          className="w-10 h-10 flex flex-col items-center justify-center gap-[6px] cursor-pointer group"
+          aria-label="Toggle menu"
         >
-          {mobileOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
+          <span className={`block w-6 h-[2px] bg-black transition-all duration-300 origin-center ${mobileOpen ? 'rotate-45 translate-y-[8px]' : ''}`} />
+          <span className={`block w-6 h-[2px] bg-black transition-all duration-300 ${mobileOpen ? 'opacity-0 scale-x-0' : ''}`} />
+          <span className={`block w-6 h-[2px] bg-black transition-all duration-300 origin-center ${mobileOpen ? '-rotate-45 -translate-y-[8px]' : ''}`} />
         </button>
       </nav>
 
       {/* Menu overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-white overflow-y-auto transition-transform duration-500 ease-out ${
+        className={`fixed inset-0 z-40 bg-white transition-transform duration-500 ease-out lg:overflow-hidden ${
           mobileOpen
             ? 'translate-y-0 pointer-events-auto'
             : '-translate-y-full pointer-events-none'
         }`}
         style={{ paddingTop: scrolled ? 72 : 104 }}
       >
-        {/* Desktop: multi-column mega-menu */}
-        <div className="hidden lg:block px-8 xl:px-12 py-10">
-          <div className="grid grid-cols-3 gap-8">
+        {/* Desktop: multi-column mega-menu — full height, no scroll */}
+        <div className="hidden lg:flex lg:flex-col lg:h-full px-8 xl:px-12 py-6">
+          <div className="grid grid-cols-3 gap-6 flex-1">
             {menuItems.map((item) => (
-              <div key={item.label}>
-                <h3 className="text-[13px] font-semibold text-black/40 uppercase tracking-widest mb-5">{item.label}</h3>
+              <div key={item.label} className="flex flex-col">
+                <h3 className="text-[13px] font-semibold text-black/40 uppercase tracking-widest mb-4">{item.label}</h3>
                 {item.children ? (
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 flex-1">
                     {item.children.map((child) => (
                       <a
                         key={child.label}
                         href={child.href}
                         onClick={() => setMobileOpen(false)}
-                        className="group flex items-end h-[200px] rounded-lg overflow-hidden bg-black hover:bg-black/80 transition-colors"
+                        className="group flex items-end flex-1 rounded-lg overflow-hidden bg-black hover:bg-black/80 transition-colors"
                       >
-                        <div className="p-5">
-                          <div className="text-[24px] font-medium text-white tracking-[-0.02em] inline-flex items-center gap-2">
+                        <div className="p-4">
+                          <div className="text-[20px] font-medium text-white tracking-[-0.02em] inline-flex items-center gap-2">
                             {child.label} <span className="text-white/50 group-hover:text-white transition-colors text-[14px]">&#x2197;</span>
                           </div>
-                          <div className="text-[14px] text-white/50 mt-1">{child.desc}</div>
+                          <div className="text-[13px] text-white/50 mt-1">{child.desc}</div>
                         </div>
                       </a>
                     ))}
@@ -117,10 +120,10 @@ export default function Nav() {
                   <a
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="group flex items-end h-[200px] rounded-lg overflow-hidden bg-black hover:bg-black/80 transition-colors"
+                    className="group flex items-end flex-1 rounded-lg overflow-hidden bg-black hover:bg-black/80 transition-colors"
                   >
-                    <div className="p-5">
-                      <div className="text-[24px] font-medium text-white tracking-[-0.02em] inline-flex items-center gap-2">
+                    <div className="p-4">
+                      <div className="text-[20px] font-medium text-white tracking-[-0.02em] inline-flex items-center gap-2">
                         {item.label} <span className="text-white/50 group-hover:text-white transition-colors text-[14px]">&#x2197;</span>
                       </div>
                     </div>
@@ -130,7 +133,7 @@ export default function Nav() {
             ))}
           </div>
 
-          <div className="flex items-center justify-between mt-10 pt-8 border-t border-black/5">
+          <div className="flex items-center justify-between pt-6 border-t border-black/5">
             <div className="flex items-center gap-5">
               <a href="#" className="text-black/40 hover:text-black transition-colors"><XLogo size={22} weight="regular" /></a>
               <a href="#" className="text-black/40 hover:text-black transition-colors"><InstagramLogo size={22} weight="regular" /></a>
