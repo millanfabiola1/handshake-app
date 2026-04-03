@@ -1,17 +1,12 @@
 'use client'
-import { useRef } from 'react'
-import ScrollReveal from './ScrollReveal'
-import { useWaitlist } from './WaitlistContext'
+import { useWaitlist } from '../WaitlistContext'
+import ScrollReveal from '../ScrollReveal'
 
-export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null)
+export default function V2Hero() {
   const showWaitlist = useWaitlist()
+
   return (
-    <div style={{ height: '200vh' }}>
-    <section
-      ref={sectionRef}
-      className="h-screen flex flex-col justify-center bg-[#A5F41F] relative overflow-hidden sticky top-0 z-[1]"
-    >
+    <section className="min-h-screen flex flex-col justify-center bg-[#A5F41F] relative overflow-hidden">
       {/* Floating shapes */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-[#b8f74d] opacity-40 -top-20 -left-20" style={{ animation: 'v2-drift 20s ease-in-out infinite' }} />
@@ -20,7 +15,7 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 px-4 md:px-8 lg:px-10 xl:px-12 pt-16 pb-20 flex flex-col items-center w-full">
-        {/* Text — phone — text */}
+        {/* Middle: text — phone — text */}
         <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12 w-full">
           {/* Left text */}
           <h1 className="font-medium text-black leading-[0.85] tracking-[-0.06em] text-center lg:text-right" style={{ fontSize: 'clamp(56px, 12vw, 140px)', animation: 'hero-text-in-left 1s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
@@ -67,13 +62,12 @@ export default function Hero() {
             <button onClick={showWaitlist} className="text-[16px] font-semibold text-white px-10 py-5 rounded-full bg-black hover:bg-black/80 transition-colors inline-flex items-center gap-2 cursor-pointer">
               Get Tapp&apos;d
             </button>
-            <a href="#product" className="text-[16px] font-semibold text-black px-10 py-5 rounded-full border-2 border-black hover:bg-black hover:text-white transition-all">
+            <a href="#features" className="text-[16px] font-semibold text-black px-10 py-5 rounded-full border-2 border-black hover:bg-black hover:text-white transition-all">
               See the product
             </a>
           </div>
         </ScrollReveal>
       </div>
     </section>
-    </div>
   )
 }
