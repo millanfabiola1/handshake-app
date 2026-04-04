@@ -3,7 +3,8 @@ import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import PhonePersist from '@/components/PhonePersist'
 import StickyFeatures from '@/components/StickyFeatures'
-import ProductShowcase from '@/components/ProductShowcase'
+import BentoGrid from '@/components/BentoGrid'
+import FloatingUI from '@/components/FloatingUI'
 import UseCases from '@/components/UseCases'
 import Pricing from '@/components/Pricing'
 import QuoteSection from '@/components/QuoteSection'
@@ -22,7 +23,8 @@ export default function Home() {
         <StickyFeatures />
         <UseCases />
         <Pricing />
-        <ProductShowcase />
+        <BentoGrid />
+        <FloatingUI />
         <QuoteSection />
         <CTASection />
       </main>

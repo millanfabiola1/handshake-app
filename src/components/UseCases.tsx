@@ -13,6 +13,7 @@ const cases = [
     title: 'Lock premium readings',
     desc: 'Charge per message. Lock premium sessions. Schedule paid calls. One app does it all.',
     stat: { value: '$120', label: 'Avg session revenue' },
+    img: '/usecase-psychics.webp',
   },
   {
     label: 'Home Services',
@@ -20,6 +21,7 @@ const cases = [
     title: 'Quote, confirm, collect',
     desc: 'Your clients already text you. Now those texts make you money.',
     stat: { value: '3x', label: 'Faster collections' },
+    img: '/usecase-homeservices.webp',
   },
   {
     label: 'Creators & Independents',
@@ -27,6 +29,7 @@ const cases = [
     title: 'Tips. Locked drops. Keep 100%.',
     desc: 'Every DM is a potential payday. Every follower is a potential revenue source.',
     stat: { value: '47%', label: 'Higher conversion' },
+    img: '/usecase-creators.webp',
   },
   {
     label: 'Security & Service Companies',
@@ -115,7 +118,7 @@ export default function UseCases() {
         {cases.map((item, i) => (
           <div
             key={item.label}
-            className="group rounded-lg overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-end snap-start flex-shrink-0 bg-white hover:bg-black"
+            className="group rounded-lg overflow-hidden transition-all duration-300 cursor-pointer flex flex-col snap-start flex-shrink-0 bg-white hover:bg-black"
             style={{ width: 'min(380px, 80vw)', minHeight: '480px' }}
           >
             <div className="p-8 flex flex-col flex-1 justify-end">

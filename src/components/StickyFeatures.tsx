@@ -44,8 +44,10 @@ const allCards = [...leftCards, ...rightCards]
 
 function CardContent({ f, mobile = false }: { f: typeof leftCards[0]; mobile?: boolean }) {
   return (
-    <div className={`${f.bg} rounded-xl ${mobile ? 'p-6' : 'p-5 md:p-6'} flex flex-col justify-between h-full group hover:scale-[1.03] transition-transform duration-300`}>
-      <f.Icon size={mobile ? 40 : 28} weight="light" className={`${f.textColor} opacity-30`} />
+    <div className={`${f.bg} rounded-xl ${mobile ? 'p-6' : 'p-5 md:p-6'} flex flex-col justify-between h-full hover:scale-[1.03] hover:-rotate-1 transition-transform duration-300 cursor-pointer`}>
+      <div>
+        <f.Icon size={mobile ? 40 : 28} weight="light" className={`${f.textColor} opacity-30`} />
+      </div>
       <div>
         <h3 className={`${mobile ? 'text-[24px]' : 'text-[16px] md:text-[20px]'} font-medium ${f.textColor} tracking-[-0.02em] leading-[1.1] mb-2`}>{f.title}</h3>
         <p className={`${mobile ? 'text-[15px]' : 'text-[12px] md:text-[13px]'} ${f.textColor} opacity-50 leading-[1.4]`}>{f.desc}</p>
@@ -125,19 +127,26 @@ export default function StickyFeatures() {
     return () => window.removeEventListener('scroll', update)
   }, [])
 
-  // Gap widens from 0 to phone width as progress goes 0→1
-  const gapWidth = progress * 100 // percentage of max gap
-  const phoneGap = `clamp(0px, ${gapWidth * 3.8}px, 380px)`
+  // Cards slide in from sides once section 2 is in view
+  // progress 0 = section not visible, 1 = fully scrolled in
+  const slideAmount = Math.max(0, 1 - progress) * 100 // percentage to translate off-screen
 
   return (
     <div className="relative z-[3]" style={{ height: '350vh', marginTop: '-100vh' }}>
       <section id="product" className="h-screen relative bg-white sticky top-0 rounded-t-[24px] overflow-hidden">
         <div className="h-full flex flex-col justify-center px-4 md:px-8 lg:px-10 xl:px-12 py-10">
 
-          {/* Desktop: cards split apart for phone */}
-          <div className="hidden lg:flex items-center justify-center gap-4 max-w-[1000px] mx-auto w-full" style={{ height: '55vh' }}>
-            {/* Left column */}
-            <div className="flex flex-col gap-4 flex-1 h-full transition-all duration-100">
+          {/* Desktop: cards slide in from sides of phone */}
+          <div className="hidden lg:flex items-center justify-center max-w-[1200px] mx-auto w-full" style={{ height: '55vh' }}>
+            {/* Left column — starts at center, slides out to the left */}
+            <div
+              className="flex flex-col gap-4 flex-1 h-full"
+              style={{
+                transform: `translateX(${(1 - progress) * 50}%)`,
+                opacity: progress,
+                transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+              }}
+            >
               {leftCards.map((f) => (
                 <div key={f.label} className="flex-1">
                   <CardContent f={f} />
@@ -145,11 +154,18 @@ export default function StickyFeatures() {
               ))}
             </div>
 
-            {/* Center gap — grows as you scroll */}
-            <div className="shrink-0 transition-all duration-100" style={{ width: phoneGap }} />
+            {/* Center gap for phone */}
+            <div className="shrink-0 w-[clamp(300px,30vw,420px)]" />
 
-            {/* Right column */}
-            <div className="flex flex-col gap-4 flex-1 h-full transition-all duration-100">
+            {/* Right column — starts at center, slides out to the right */}
+            <div
+              className="flex flex-col gap-4 flex-1 h-full"
+              style={{
+                transform: `translateX(-${(1 - progress) * 50}%)`,
+                opacity: progress,
+                transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+              }}
+            >
               {rightCards.map((f) => (
                 <div key={f.label} className="flex-1">
                   <CardContent f={f} />

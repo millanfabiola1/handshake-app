@@ -63,8 +63,8 @@ export default function Nav() {
       <nav
         className={`fixed left-0 right-0 z-50 h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
           visible || mobileOpen
-            ? 'border-b bg-white border-black/5'
-            : 'bg-transparent border-b border-transparent'
+            ? 'bg-white'
+            : 'bg-transparent'
         }`}
         style={{ top: scrolled ? 32 : 0 }}
       >
@@ -105,13 +105,13 @@ export default function Nav() {
                         key={child.label}
                         href={child.href}
                         onClick={() => setMobileOpen(false)}
-                        className="group flex items-end flex-1 rounded-lg overflow-hidden bg-black hover:bg-black/80 transition-colors"
+                        className="group flex items-end flex-1 rounded-lg overflow-hidden bg-[#A5F41F] hover:bg-[#94DC1B] transition-colors"
                       >
                         <div className="p-4">
-                          <div className="text-[20px] font-medium text-white tracking-[-0.02em] inline-flex items-center gap-2">
-                            {child.label} <span className="text-white/50 group-hover:text-white transition-colors text-[14px]">&#x2197;</span>
+                          <div className="text-[20px] font-medium text-black tracking-[-0.02em] inline-flex items-center gap-2">
+                            {child.label} <span className="text-black/40 group-hover:text-black transition-colors text-[14px]">&#x2197;</span>
                           </div>
-                          <div className="text-[13px] text-white/50 mt-1">{child.desc}</div>
+                          <div className="text-[13px] text-black/50 mt-1">{child.desc}</div>
                         </div>
                       </a>
                     ))}
@@ -120,11 +120,11 @@ export default function Nav() {
                   <a
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="group flex items-end flex-1 rounded-lg overflow-hidden bg-black hover:bg-black/80 transition-colors"
+                    className="group flex items-end flex-1 rounded-lg overflow-hidden bg-[#A5F41F] hover:bg-[#94DC1B] transition-colors"
                   >
                     <div className="p-4">
-                      <div className="text-[20px] font-medium text-white tracking-[-0.02em] inline-flex items-center gap-2">
-                        {item.label} <span className="text-white/50 group-hover:text-white transition-colors text-[14px]">&#x2197;</span>
+                      <div className="text-[20px] font-medium text-black tracking-[-0.02em] inline-flex items-center gap-2">
+                        {item.label} <span className="text-black/40 group-hover:text-black transition-colors text-[14px]">&#x2197;</span>
                       </div>
                     </div>
                   </a>

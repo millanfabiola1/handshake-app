@@ -98,6 +98,13 @@ a:not(:hover) { text-decoration: none; }
   to { opacity: 1; transform: scale(1); }
 }
 
+/* FloatingUI idle animation utilities */
+.float-slow    { animation: v2-float 6s ease-in-out infinite; }
+.float-medium  { animation: v2-float 5s ease-in-out infinite; }
+.float-fast    { animation: v2-float 4s ease-in-out infinite; }
+.drift-slow    { animation: v2-drift 8s ease-in-out infinite; }
+.drift-medium  { animation: v2-drift 6s ease-in-out infinite; }
+
 @keyframes hero-text-in-left {
   from { opacity: 0; transform: translateX(40px); }
   to { opacity: 1; transform: translateX(0); }
