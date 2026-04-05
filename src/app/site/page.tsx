@@ -22,9 +22,9 @@ export default function Home() {
         <Hero />
         <StickyFeatures />
         <UseCases />
-        <Pricing />
         <BentoGrid />
         <FloatingUI />
+        <Pricing />
         <QuoteSection />
         <CTASection />
       </main>

@@ -45,7 +45,7 @@ function FallingTags() {
 
 export default function BentoGrid() {
   return (
-    <section className="bg-[#F4F4F5] relative z-[58] rounded-t-[24px] py-[100px] lg:py-[140px] px-4 md:px-8 lg:px-10 xl:px-12">
+    <section className="relative z-[58] rounded-t-[24px] py-[100px] lg:py-[140px] px-4 md:px-8 lg:px-10 xl:px-12" style={{ background: 'linear-gradient(to bottom, #F4F4F5 0%, #F4F4F5 70%, #F7F5ED 100%)' }}>
       <div className="max-w-[1300px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[340px]">
 
         {/* All-in-one */}
