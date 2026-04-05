@@ -1,84 +1,51 @@
 'use client'
+import { useEffect, useState, useRef } from 'react'
 import ScrollReveal from './ScrollReveal'
-import { Lock, Play, CurrencyDollar, Image, Microphone, PaperPlaneTilt } from '@phosphor-icons/react'
+import { Lock, Play, CurrencyDollar, Image, Microphone, PaperPlaneTilt, Check } from '@phosphor-icons/react'
 
 /* ------------------------------------------------------------------ */
 /*  Card sub-components                                                */
 /* ------------------------------------------------------------------ */
 
-function ChatListCard() {
-  return (
-    <div className="bg-white rounded-2xl shadow-lg p-4 w-[260px] lg:w-[300px] hover:scale-[1.03] transition-transform duration-300">
-      <p className="text-[20px] font-bold text-[#0A0A0B] mb-3">Chats</p>
-      <div className="flex items-center gap-3 pb-3 border-b border-[#E4E4E7]">
-        <div className="w-10 h-10 rounded-full bg-[#0A0A0B] shrink-0 flex items-center justify-center text-[#A5F41F] text-[14px] font-semibold">JC</div>
-        <div className="flex-1 min-w-0">
-          <div className="flex justify-between items-baseline">
-            <span className="text-[13px] font-semibold text-[#0A0A0B]">Jordan Carter</span>
-            <span className="text-[11px] font-medium text-[#A5F41F]">Now</span>
-          </div>
-          <p className="text-[11px] text-[#71717A] truncate">Just dropped something exclusive...</p>
-        </div>
-      </div>
-      <div className="flex items-center gap-3 pt-3">
-        <div className="w-10 h-10 rounded-full bg-[#0A0A0B] shrink-0 flex items-center justify-center text-[#A5F41F] text-[14px] font-semibold">MR</div>
-        <div className="flex-1 min-w-0">
-          <div className="flex justify-between items-baseline">
-            <span className="text-[13px] font-semibold text-[#0A0A0B]">Maria Rodriguez</span>
-            <span className="text-[11px] font-medium text-[#71717A]">2h</span>
-          </div>
-          <p className="text-[11px] text-[#71717A] truncate">Thanks for the quick response!</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 function ReceivedBubble({ text }: { text: string }) {
   return (
-    <div className="bg-[#F4F4F5] rounded-[20px] rounded-bl-[4px] px-4 py-3 max-w-[300px] shadow-md hover:scale-[1.03] transition-transform duration-300">
-      <p className="text-[13px] text-[#0A0A0B] leading-[1.4]">{text}</p>
+    <div className="bg-[#F4F4F5] rounded-[20px] rounded-bl-[4px] px-4 py-3 max-w-[340px] shadow-md hover:scale-[1.04] hover:-rotate-1 transition-transform duration-300 cursor-default">
+      <p className="text-[14px] text-[#0A0A0B] leading-[1.4]">{text}</p>
     </div>
   )
 }
 
 function SentBubble({ text }: { text: string }) {
   return (
-    <div className="bg-[#0A0A0B] rounded-[20px] rounded-br-[4px] px-4 py-3 max-w-[300px] shadow-lg hover:scale-[1.03] transition-transform duration-300">
-      <p className="text-[13px] text-white leading-[1.4]">{text}</p>
+    <div className="bg-[#0A0A0B] rounded-[20px] rounded-br-[4px] px-4 py-3 max-w-[340px] shadow-lg hover:scale-[1.04] hover:rotate-1 transition-transform duration-300 cursor-default">
+      <p className="text-[14px] text-white leading-[1.4]">{text}</p>
     </div>
   )
 }
 
-function LockedContentCard() {
+function LockedContentCard({ pressing }: { pressing: boolean }) {
   return (
-    <div className="w-[240px] rounded-2xl overflow-hidden shadow-lg hover:scale-[1.03] transition-transform duration-300" style={{ background: 'linear-gradient(135deg, rgba(139,100,255,0.35), rgba(80,140,255,0.35))' }}>
-      <div className="backdrop-blur-md p-6 flex flex-col items-center gap-2 rounded-2xl">
-        <div className="w-11 h-11 rounded-full bg-white/30 flex items-center justify-center">
-          <Lock size={20} weight="bold" className="text-white/80" />
+    <div className="w-[320px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300" style={{ background: 'linear-gradient(135deg, rgba(139,100,255,0.35), rgba(80,140,255,0.35))' }}>
+      <div className="backdrop-blur-md p-8 flex flex-col items-center gap-3 rounded-2xl">
+        <div className="w-14 h-14 rounded-full bg-white/30 flex items-center justify-center">
+          <Lock size={24} weight="bold" className="text-white/80" />
         </div>
-        <p className="text-[15px] font-semibold text-white/90">Exclusive Content</p>
-        <p className="text-[11px] text-white/60">1 image</p>
-        <button className="mt-2 w-full bg-white rounded-xl py-2.5 text-[13px] font-semibold text-[#0A0A0B]">
+        <p className="text-[18px] font-semibold text-white/90">Exclusive Content</p>
+        <p className="text-[12px] text-white/60">1 image</p>
+        <div
+          className="mt-3 w-full bg-white rounded-xl py-3 text-[14px] font-semibold text-[#0A0A0B] text-center transition-transform duration-150"
+          style={{ transform: pressing ? 'scale(0.93)' : 'scale(1)' }}
+        >
           Unlock for $4.00
-        </button>
+        </div>
       </div>
     </div>
   )
 }
 
-function TipBadge() {
+function PaymentSheet({ confirmed }: { confirmed: boolean }) {
   return (
-    <div className="bg-[#A5F41F] rounded-full px-4 py-2 shadow-md inline-flex items-center gap-1.5 hover:scale-[1.05] transition-transform duration-300">
-      <span className="text-[14px]">💰</span>
-      <span className="text-[13px] font-semibold text-[#0A0A0B]">Tipped $25</span>
-    </div>
-  )
-}
-
-function PaymentSheet() {
-  return (
-    <div className="bg-white rounded-2xl shadow-xl p-5 w-[240px] lg:w-[270px] hover:scale-[1.03] transition-transform duration-300">
+    <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 p-6 w-[320px]">
       <div className="flex justify-between items-start mb-3">
         <p className="text-[16px] font-semibold text-[#0A0A0B]">Unlock Content</p>
         <span className="text-[14px] text-[#71717A]">✕</span>
@@ -99,9 +66,37 @@ function PaymentSheet() {
           <span className="text-[13px] text-[#0A0A0B]">•••• 4242</span>
         </div>
       </div>
-      <button className="mt-4 w-full bg-[#0A0A0B] text-white rounded-lg py-2.5 text-[13px] font-semibold">
-        Purchase
-      </button>
+      <div
+        className="mt-4 w-full rounded-lg py-2.5 text-[13px] font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2"
+        style={{
+          backgroundColor: confirmed ? '#A5F41F' : '#0A0A0B',
+          color: confirmed ? '#0A0A0B' : '#FFFFFF',
+          transform: confirmed ? 'scale(0.97)' : 'scale(1)',
+        }}
+      >
+        {confirmed ? (
+          <>
+            <Check size={16} weight="bold" />
+            Purchased
+          </>
+        ) : (
+          'Purchase'
+        )}
+      </div>
+      {confirmed && (
+        <p className="text-[11px] text-[#71717A] text-center mt-2">
+          Content unlocked instantly
+        </p>
+      )}
+    </div>
+  )
+}
+
+function TipBadge() {
+  return (
+    <div className="bg-[#A5F41F] rounded-full px-5 py-2.5 shadow-md inline-flex items-center gap-2 hover:scale-[1.08] hover:-rotate-2 transition-transform duration-300 cursor-default">
+      <span className="text-[15px]">💰</span>
+      <span className="text-[14px] font-semibold text-[#0A0A0B]">Tipped $25</span>
     </div>
   )
 }
@@ -109,7 +104,7 @@ function PaymentSheet() {
 function VoiceMessage() {
   const bars = [8, 14, 20, 12, 18, 24, 10, 16, 22, 8, 14, 20, 16, 10, 18, 24, 12, 8]
   return (
-    <div className="bg-[#F4F4F5] rounded-full px-3 py-2.5 flex items-center gap-2.5 shadow-md border border-[#E4E4E7] hover:scale-[1.03] transition-transform duration-300">
+    <div className="bg-[#F4F4F5] rounded-full px-3 py-2.5 flex items-center gap-2.5 shadow-md border border-[#E4E4E7] hover:scale-[1.04] transition-transform duration-300 cursor-default">
       <div className="w-8 h-8 rounded-full bg-[#A5F41F] flex items-center justify-center shrink-0">
         <Play size={14} weight="fill" className="text-[#0A0A0B] ml-0.5" />
       </div>
@@ -123,31 +118,89 @@ function VoiceMessage() {
   )
 }
 
-function InputBar() {
+/* ------------------------------------------------------------------ */
+/*  Animated element wrapper                                           */
+/* ------------------------------------------------------------------ */
+
+function AnimStep({ children, active, pop = false, className = '' }: { children: React.ReactNode; active: boolean; pop?: boolean; className?: string }) {
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-[#E4E4E7] p-3 w-[320px] lg:w-[360px] hover:scale-[1.02] transition-transform duration-300">
-      <p className="text-[13px] text-[#A1A1AA] mb-2 pl-1">Type a message</p>
-      <div className="flex items-center justify-between">
-        <div className="flex gap-2">
-          {[CurrencyDollar, Image, Microphone].map((Icon, i) => (
-            <div key={i} className="w-8 h-8 rounded-full bg-[#F4F4F5] border border-[#E4E4E7] flex items-center justify-center">
-              <Icon size={16} weight="regular" className="text-[#71717A]" />
-            </div>
-          ))}
-        </div>
-        <div className="w-9 h-9 rounded-full bg-[#0A0A0B] flex items-center justify-center">
-          <PaperPlaneTilt size={16} weight="fill" className="text-[#A5F41F]" />
-        </div>
-      </div>
+    <div
+      className={`transition-all ease-out ${className}`}
+      style={{
+        opacity: active ? 1 : 0,
+        transform: active
+          ? 'translateY(0) scale(1)'
+          : pop
+            ? 'translateY(0) scale(0.7)'
+            : 'translateY(16px) scale(0.97)',
+        transitionDuration: pop ? '500ms' : '600ms',
+        transitionTimingFunction: pop ? 'cubic-bezier(0.34, 1.56, 0.64, 1)' : undefined,
+        pointerEvents: active ? 'auto' : 'none',
+      }}
+    >
+      {children}
     </div>
   )
 }
 
 /* ------------------------------------------------------------------ */
-/*  Main section — structured layout, no idle motion                   */
+/*  Main section                                                       */
 /* ------------------------------------------------------------------ */
 
 export default function FloatingUI() {
+  const [step, setStep] = useState(0)
+  const [hasStarted, setHasStarted] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) setHasStarted(true)
+      },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [hasStarted])
+
+  useEffect(() => {
+    if (!hasStarted) return
+
+    const delays = [
+      200,   // → 1: creator msg
+      700,   // → 2: locked content (pop)
+      600,   // → 3: fan reply
+      800,   // → 4: button press
+      300,   // → 5: crossfade to payment
+      800,   // → 6: purchase confirmed
+      600,   // → 7: tip badge
+      600,   // → 8: voice message
+      500,   // → 9: fan final reply
+    ]
+
+    let current = 0
+    let timeout: NodeJS.Timeout
+
+    function advance() {
+      if (current >= delays.length) return
+      timeout = setTimeout(() => {
+        current++
+        setStep(current)
+        advance()
+      }, delays[current])
+    }
+
+    advance()
+    return () => clearTimeout(timeout)
+  }, [hasStarted])
+
+  const showLocked = step >= 2 && step < 5
+  const showPayment = step >= 5
+  const buttonPressing = step === 4
+  const purchaseConfirmed = step >= 6
+
   return (
     <div className="relative z-[58]">
       <section className="relative bg-[#F7F5ED] sticky top-0 rounded-t-[24px] overflow-hidden py-[100px] lg:py-[140px]">
@@ -178,105 +231,106 @@ export default function FloatingUI() {
             </ScrollReveal>
           </div>
 
-          {/* Desktop: 3-column structured layout */}
-          <div className="hidden lg:grid grid-cols-3 gap-6 max-w-[1200px] mx-auto items-start">
+          {/* Conversation simulation */}
+          <div ref={sectionRef} className="max-w-[1100px] mx-auto">
 
-            {/* LEFT COLUMN — Chat & Messages */}
-            <div className="flex flex-col gap-5">
-              <ScrollReveal>
-                <div style={{ transform: 'rotate(-2deg)' }}>
-                  <ChatListCard />
+            {/* Mobile: stacked */}
+            <div className="lg:hidden flex flex-col items-center gap-4">
+              <AnimStep active={step >= 0} pop className="self-start">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#0A0A0B] flex items-center justify-center text-[#A5F41F] text-[14px] font-semibold hover:scale-110 transition-transform duration-300">JC</div>
+                  <div>
+                    <p className="text-[14px] font-semibold text-[#0A0A0B]">Jordan Carter</p>
+                    <p className="text-[11px] text-[#A5F41F]">Online</p>
+                  </div>
                 </div>
-              </ScrollReveal>
-              <ScrollReveal delay={150}>
-                <div style={{ transform: 'rotate(1deg)' }} className="ml-4">
-                  <ReceivedBubble text="Premium plans include priority support and additional tools" />
+              </AnimStep>
+              <AnimStep active={step >= 1} className="self-start"><ReceivedBubble text="Just dropped something exclusive for you 👀" /></AnimStep>
+              <AnimStep active={step >= 2} pop>
+                <div className="relative" style={{ minHeight: 300, width: 320 }}>
+                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out" style={{ opacity: showLocked ? 1 : 0, transform: showLocked ? 'scale(1)' : 'scale(0.95)', pointerEvents: showLocked ? 'auto' : 'none' }}>
+                    <LockedContentCard pressing={buttonPressing} />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out" style={{ opacity: showPayment ? 1 : 0, transform: showPayment ? 'scale(1)' : 'scale(0.95) translateY(8px)', pointerEvents: showPayment ? 'auto' : 'none' }}>
+                    <PaymentSheet confirmed={purchaseConfirmed} />
+                  </div>
                 </div>
-              </ScrollReveal>
-              <ScrollReveal delay={250}>
-                <div style={{ transform: 'rotate(-1deg)' }} className="ml-12">
-                  <SentBubble text="That sounds great! Sign me up" />
-                </div>
-              </ScrollReveal>
-              <ScrollReveal delay={350}>
-                <div className="ml-6">
+              </AnimStep>
+              <AnimStep active={step >= 3} className="self-end"><SentBubble text="This looks amazing! Let me unlock it" /></AnimStep>
+              <AnimStep active={step >= 7} className="self-end"><TipBadge /></AnimStep>
+              <AnimStep active={step >= 8} className="self-start"><VoiceMessage /></AnimStep>
+              <AnimStep active={step >= 9} className="self-end"><SentBubble text="Thanks for the exclusive! 🔥" /></AnimStep>
+            </div>
+
+            {/* Desktop: 3-column — left msgs | center modal | right msgs */}
+            <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-10 lg:items-center">
+
+              {/* LEFT — Jordan's messages */}
+              <div className="flex flex-col gap-4 items-start justify-center">
+                <AnimStep active={step >= 0} pop>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0A0A0B] flex items-center justify-center text-[#A5F41F] text-[14px] font-semibold hover:scale-110 transition-transform duration-300">JC</div>
+                    <div>
+                      <p className="text-[14px] font-semibold text-[#0A0A0B]">Jordan Carter</p>
+                      <p className="text-[11px] text-[#A5F41F]">Online</p>
+                    </div>
+                  </div>
+                </AnimStep>
+
+                <AnimStep active={step >= 1}>
+                  <ReceivedBubble text="Just dropped something exclusive for you 👀" />
+                </AnimStep>
+
+                <AnimStep active={step >= 8}>
                   <VoiceMessage />
-                </div>
-              </ScrollReveal>
-            </div>
+                </AnimStep>
+              </div>
 
-            {/* CENTER COLUMN — Locked Content + Tip */}
-            <div className="flex flex-col items-center gap-5 pt-8">
-              <ScrollReveal delay={100}>
-                <div style={{ transform: 'rotate(2deg)' }}>
-                  <LockedContentCard />
-                </div>
-              </ScrollReveal>
-              <ScrollReveal delay={200}>
-                <div style={{ transform: 'rotate(-3deg)' }}>
+              {/* CENTER — Locked content / Payment sheet */}
+              <div className="flex items-center justify-center">
+                <AnimStep active={step >= 2} pop>
+                  <div className="relative flex items-center justify-center" style={{ minHeight: 360, width: 320 }}>
+                    <div
+                      className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out"
+                      style={{
+                        opacity: showLocked ? 1 : 0,
+                        transform: showLocked ? 'scale(1)' : 'scale(0.95)',
+                        pointerEvents: showLocked ? 'auto' : 'none',
+                      }}
+                    >
+                      <LockedContentCard pressing={buttonPressing} />
+                    </div>
+                    <div
+                      className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out"
+                      style={{
+                        opacity: showPayment ? 1 : 0,
+                        transform: showPayment ? 'scale(1)' : 'scale(0.95) translateY(8px)',
+                        pointerEvents: showPayment ? 'auto' : 'none',
+                      }}
+                    >
+                      <PaymentSheet confirmed={purchaseConfirmed} />
+                    </div>
+                  </div>
+                </AnimStep>
+              </div>
+
+              {/* RIGHT — User's messages */}
+              <div className="flex flex-col gap-4 items-end justify-center">
+                <AnimStep active={step >= 3}>
+                  <SentBubble text="This looks amazing! Let me unlock it" />
+                </AnimStep>
+
+                <AnimStep active={step >= 7}>
                   <TipBadge />
-                </div>
-              </ScrollReveal>
-              <ScrollReveal delay={300}>
-                <div style={{ transform: 'rotate(1deg)' }}>
-                  <InputBar />
-                </div>
-              </ScrollReveal>
+                </AnimStep>
+
+                <AnimStep active={step >= 9}>
+                  <SentBubble text="Thanks for the exclusive! 🔥" />
+                </AnimStep>
+              </div>
+
             </div>
 
-            {/* RIGHT COLUMN — Payment */}
-            <div className="flex flex-col items-end gap-5 pt-4">
-              <ScrollReveal delay={180}>
-                <div style={{ transform: 'rotate(2.5deg)' }}>
-                  <PaymentSheet />
-                </div>
-              </ScrollReveal>
-              <ScrollReveal delay={280}>
-                <div style={{ transform: 'rotate(-1.5deg)' }} className="mr-8">
-                  <ReceivedBubble text="You're welcome! Anything else?" />
-                </div>
-              </ScrollReveal>
-              <ScrollReveal delay={380}>
-                <div style={{ transform: 'rotate(2deg)' }} className="mr-4">
-                  <SentBubble text="Thanks for your help! 🔥" />
-                </div>
-              </ScrollReveal>
-            </div>
-
-          </div>
-
-          {/* Mobile/Tablet: stacked layout */}
-          <div className="lg:hidden flex flex-col items-center gap-6 max-w-[340px] mx-auto">
-            <ScrollReveal>
-              <div style={{ transform: 'rotate(-1deg)' }}>
-                <ChatListCard />
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={100}>
-              <div style={{ transform: 'rotate(1deg)' }}>
-                <ReceivedBubble text="Premium plans include priority support" />
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={150}>
-              <div style={{ transform: 'rotate(2deg)' }}>
-                <LockedContentCard />
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={200}>
-              <div style={{ transform: 'rotate(-1deg)' }}>
-                <SentBubble text="That sounds great! Sign me up" />
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={250}>
-              <div style={{ transform: 'rotate(-2deg)' }}>
-                <TipBadge />
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={300}>
-              <div style={{ transform: 'rotate(1.5deg)' }}>
-                <PaymentSheet />
-              </div>
-            </ScrollReveal>
           </div>
 
         </div>

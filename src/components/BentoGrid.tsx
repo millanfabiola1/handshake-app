@@ -1,6 +1,47 @@
 'use client'
+import { useEffect, useState, useRef } from 'react'
 import { CurrencyDollar, Star, Globe } from '@phosphor-icons/react'
 import ScrollReveal from './ScrollReveal'
+
+const tags = ['Tips', 'Locked Content', 'Paid Calls', 'Mass Messaging', '0% Fees', 'In-Thread Payments', 'International', 'iOS & Android']
+const tagRotations = tags.map((_, i) => (i % 2 === 0 ? -1 : 1) * (2 + i * 0.5))
+
+function FallingTags() {
+  const [visible, setVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
+      { threshold: 0.4 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref} className="flex flex-wrap gap-2">
+      {tags.map((tag, i) => (
+        <span
+          key={tag}
+          className="text-[13px] font-medium text-white bg-black px-4 py-2 rounded-full transition-all duration-700 ease-out hover:scale-110 hover:rotate-0 cursor-default"
+          style={{
+            transform: visible
+              ? `rotate(${tagRotations[i]}deg) translateY(0)`
+              : `rotate(${tagRotations[i] * 3}deg) translateY(-80px)`,
+            opacity: visible ? 1 : 0,
+            transitionDelay: `${i * 80}ms`,
+            transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+          }}
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  )
+}
 
 export default function BentoGrid() {
   return (
@@ -84,11 +125,7 @@ export default function BentoGrid() {
         {/* Features cloud — dark pills */}
         <ScrollReveal delay={150}>
           <div className="bg-gradient-to-br from-[#A5F41F] via-[#8BD818] to-[#6BBF12] rounded-2xl p-8 h-full flex flex-col justify-between">
-            <div className="flex flex-wrap gap-2">
-              {['Tips', 'Locked Content', 'Paid Calls', 'Mass Messaging', '0% Fees', 'In-Thread Payments', 'International', 'iOS & Android'].map((tag, i) => (
-                <span key={tag} className="text-[13px] font-medium text-white bg-black px-4 py-2 rounded-full" style={{ transform: `rotate(${(i % 2 === 0 ? -1 : 1) * (2 + i * 0.5)}deg)` }}>{tag}</span>
-              ))}
-            </div>
+            <FallingTags />
             <div>
               <h3 className="text-[22px] font-semibold text-black tracking-[-0.02em] mb-2">
                 Everything You Need
