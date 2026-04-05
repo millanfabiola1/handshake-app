@@ -54,7 +54,7 @@ export default function PhonePersist() {
   return (
     <div
       ref={phoneRef}
-      className="fixed z-[55] pointer-events-none hidden lg:block"
+      className="fixed z-[101] pointer-events-none hidden lg:block"
       style={{
         top: '50%',
         left: '50%',
