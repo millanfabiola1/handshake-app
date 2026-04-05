@@ -22,8 +22,8 @@ export default function Home() {
         <Hero />
         <StickyFeatures />
         <UseCases />
-        <BentoGrid />
         <FloatingUI />
+        <BentoGrid />
         <Pricing />
         <QuoteSection />
         <CTASection />

@@ -203,7 +203,7 @@ export default function FloatingUI() {
 
   return (
     <div className="relative z-[58]">
-      <section className="relative bg-[#F7F5ED] sticky top-0 overflow-hidden py-[100px] lg:py-[140px]">
+      <section className="relative sticky top-0 rounded-t-[24px] overflow-hidden py-[100px] lg:py-[140px]" style={{ background: 'linear-gradient(to bottom, #F7F5ED 0%, #F7F5ED 70%, #F4F4F5 100%)' }}>
 
         {/* Background gradient blobs */}
         <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-[#A5F41F] opacity-25 blur-[120px] pointer-events-none" />
