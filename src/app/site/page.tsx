@@ -7,7 +7,6 @@ import BentoGrid from '@/components/BentoGrid'
 import FloatingUI from '@/components/FloatingUI'
 import UseCases from '@/components/UseCases'
 import Pricing from '@/components/Pricing'
-import QuoteSection from '@/components/QuoteSection'
 import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
 import WaitlistProvider from '@/components/WaitlistContext'
@@ -25,7 +24,6 @@ export default function Home() {
         <FloatingUI />
         <BentoGrid />
         <Pricing />
-        <QuoteSection />
         <CTASection />
       </main>
       <Footer />
