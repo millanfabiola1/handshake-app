@@ -202,7 +202,7 @@ export default function FloatingUI() {
   const purchaseConfirmed = step >= 6
 
   return (
-    <div className="relative z-[103]">
+    <div className="relative z-[201]">
       <section className="relative sticky top-0 rounded-t-[24px] overflow-hidden py-[100px] lg:py-[140px]" style={{ background: 'linear-gradient(to bottom, #F7F5ED 0%, #F7F5ED 70%, #F4F4F5 100%)' }}>
 
         {/* Background gradient blobs */}
