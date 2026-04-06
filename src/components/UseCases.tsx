@@ -85,7 +85,7 @@ export default function UseCases() {
   }, [paused])
 
   return (
-    <div className="relative z-[56]" style={{ marginTop: '-100vh' }}>
+    <div className="relative z-[102]" style={{ marginTop: '-100vh' }}>
     <section className="bg-[#A5F41F] sticky top-0 rounded-t-[24px] relative" id="use-cases">
       <div className="py-[140px]">
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 flex items-end justify-between mb-14">

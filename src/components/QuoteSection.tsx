@@ -3,7 +3,7 @@ import ScrollReveal from './ScrollReveal'
 
 export default function QuoteSection() {
   return (
-    <section className="h-screen sticky top-0 z-[60] rounded-t-[24px] relative overflow-hidden flex items-center justify-center">
+    <section className="h-screen sticky top-0 z-[106] rounded-t-[24px] relative overflow-hidden flex items-center justify-center">
       <video
         autoPlay
         muted

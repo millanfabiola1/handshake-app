@@ -61,7 +61,7 @@ export default function Nav() {
   return (
     <>
       <nav
-        className={`fixed left-0 right-0 z-[100] h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-[110] h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
           visible || mobileOpen
             ? 'bg-white'
             : 'bg-transparent'
@@ -72,20 +72,28 @@ export default function Nav() {
           <img src="/tappd-logo.svg" alt="Tapp'd" className="h-[28px] w-auto" />
         </a>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="w-10 h-10 flex flex-col items-center justify-center gap-[6px] cursor-pointer group"
-          aria-label="Toggle menu"
-        >
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => { showWaitlist(); setMobileOpen(false) }}
+            className="text-[13px] font-semibold text-black px-5 py-2.5 rounded-full bg-[#A5F41F] hover:bg-[#94DC1B] transition-colors cursor-pointer"
+          >
+            Join Waitlist
+          </button>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="w-10 h-10 flex flex-col items-center justify-center gap-[6px] cursor-pointer group"
+            aria-label="Toggle menu"
+          >
           <span className={`block w-6 h-[2px] bg-black transition-all duration-300 origin-center ${mobileOpen ? 'rotate-45 translate-y-[8px]' : ''}`} />
           <span className={`block w-6 h-[2px] bg-black transition-all duration-300 ${mobileOpen ? 'opacity-0 scale-x-0' : ''}`} />
           <span className={`block w-6 h-[2px] bg-black transition-all duration-300 origin-center ${mobileOpen ? '-rotate-45 -translate-y-[8px]' : ''}`} />
-        </button>
+          </button>
+        </div>
       </nav>
 
       {/* Menu overlay */}
       <div
-        className={`fixed inset-0 z-[99] bg-white transition-transform duration-500 ease-out lg:overflow-hidden ${
+        className={`fixed inset-0 z-[109] bg-white transition-transform duration-500 ease-out lg:overflow-hidden ${
           mobileOpen
             ? 'translate-y-0 pointer-events-auto'
             : '-translate-y-full pointer-events-none'
