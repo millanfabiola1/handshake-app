@@ -61,7 +61,7 @@ export default function Nav() {
   return (
     <>
       <nav
-        className={`fixed left-0 right-0 z-[100] h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-[115] h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
           visible || mobileOpen
             ? 'bg-white'
             : 'bg-transparent'
