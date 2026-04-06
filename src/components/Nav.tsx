@@ -75,7 +75,7 @@ export default function Nav() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => { showWaitlist(); setMobileOpen(false) }}
-            className="text-[13px] font-semibold text-black px-5 py-2.5 rounded-full bg-[#A5F41F] hover:bg-[#94DC1B] transition-colors cursor-pointer"
+            className={`text-[13px] font-semibold px-5 py-2.5 rounded-full transition-colors cursor-pointer ${scrolled ? 'bg-[#A5F41F] text-black hover:bg-[#94DC1B]' : 'bg-black text-white hover:bg-black/80'}`}
           >
             Join Waitlist
           </button>
