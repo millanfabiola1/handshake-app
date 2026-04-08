@@ -86,14 +86,23 @@ export default function UseCases() {
 
   return (
     <div className="relative z-[200]" style={{ marginTop: '-100vh' }}>
-    <section className="bg-[#A5F41F] sticky top-0 rounded-t-[24px] relative" id="use-cases">
-      <div className="py-[140px]">
+    <section className="bg-[#A5F41F] sticky top-0 rounded-t-[24px] relative overflow-hidden" id="use-cases">
+      {/* Grain texture */}
+      <div className="noise-texture absolute inset-0 z-0" aria-hidden />
+      {/* Subtle top vignette for depth */}
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 90% 60% at 50% -10%, rgba(0,0,0,0.07) 0%, transparent 70%)' }} aria-hidden />
+      <div className="py-[140px] relative z-[1]">
       <div className="px-4 md:px-8 lg:px-10 xl:px-12 flex items-end justify-between mb-14">
-        <ScrollReveal>
-          <h2 className="font-medium text-[#18181B] tracking-[-0.035em] leading-[0.95] max-w-[500px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
-            Built for the new economy
-          </h2>
-        </ScrollReveal>
+        <div>
+          <ScrollReveal>
+            <p className="mono text-[11px] text-black/40 uppercase tracking-widest mb-5">Use Cases</p>
+          </ScrollReveal>
+          <ScrollReveal delay={60}>
+            <h2 className="font-medium text-[#18181B] tracking-[-0.035em] leading-[0.95] max-w-[500px]" style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}>
+              Built for the<br />new economy
+            </h2>
+          </ScrollReveal>
+        </div>
         <ScrollReveal delay={100}>
           <div className="flex gap-2">
             <button onClick={() => scroll('left')} className="w-14 h-14 rounded-full border border-black hover:bg-black hover:text-white hover:border-transparent flex items-center justify-center transition-all duration-300 cursor-pointer text-black">
@@ -118,7 +127,7 @@ export default function UseCases() {
         {cases.map((item, i) => (
           <div
             key={item.label}
-            className="group rounded-lg overflow-hidden transition-all duration-300 cursor-pointer flex flex-col snap-start flex-shrink-0 bg-white hover:bg-black"
+            className="group rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer flex flex-col snap-start flex-shrink-0 bg-white hover:bg-black hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.2)]"
             style={{ width: 'min(380px, 80vw)', minHeight: '480px' }}
           >
             <div className="p-8 flex flex-col flex-1 justify-end">

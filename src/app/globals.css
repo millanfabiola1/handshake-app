@@ -136,3 +136,27 @@ a:not(:hover) { text-decoration: none; }
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ── Premium grain/noise texture overlay ───────────────────── */
+.noise-texture {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.048;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* ── Section radial glow helpers ─────────────────────────────── */
+.glow-green-bottom {
+  background: radial-gradient(ellipse 80% 60% at 50% 110%, rgba(165, 244, 31, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.glow-green-center {
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(165, 244, 31, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.vignette {
+  background: radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.13) 100%);
+  pointer-events: none;
+}

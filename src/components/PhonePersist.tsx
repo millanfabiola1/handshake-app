@@ -8,7 +8,6 @@ export default function PhonePersist() {
   const [menuOpen, setMenuOpen] = useState(false)
   const phoneRef = useRef<HTMLDivElement>(null)
 
-  // Detect menu open by watching body overflow
   useEffect(() => {
     const observer = new MutationObserver(() => {
       setMenuOpen(document.body.style.overflow === 'hidden')
@@ -19,25 +18,25 @@ export default function PhonePersist() {
 
   useEffect(() => {
     const update = () => {
-      const wrapper = document.querySelector('#product')?.parentElement
-      const useCases = document.querySelector('#use-cases')
+      const wrapper = document.querySelector('#product')
       const vh = window.innerHeight
 
-      // Scale up as section 2 scrolls in
       if (wrapper) {
-        const wrapperTop = wrapper.getBoundingClientRect().top
-        const p = Math.min(Math.max((vh - wrapperTop) / vh * 3, 0), 1)
-        // Scale from 1 to 1.35 as section 2 arrives
-        setScale(1 + p * 0.35)
-      }
+        const rect = wrapper.getBoundingClientRect()
+        const scrolledIn = Math.max(0, -rect.top)
+        const wrapperHeight = wrapper.offsetHeight
 
-      // Fade out as section 3 approaches
-      if (useCases) {
-        const rect = useCases.getBoundingClientRect()
-        if (rect.top < vh) {
-          const progress = Math.max(0, rect.top / vh)
-          setOpacity(progress)
-          setVisible(rect.top > -100)
+        // Scale up slightly as product section enters (0 → 1.15)
+        const enterP = Math.min(Math.max((vh - rect.top) / vh, 0), 1)
+        setScale(1 + enterP * 0.15)
+
+        // Fade out after 18% of product section scrolled
+        // (before the first flip starts at 25%)
+        const productProgress = scrolledIn / wrapperHeight
+        if (productProgress > 0.10) {
+          const fade = Math.max(0, 1 - (productProgress - 0.10) / 0.12)
+          setOpacity(fade)
+          if (fade <= 0) setVisible(false)
         } else {
           setOpacity(1)
           setVisible(true)

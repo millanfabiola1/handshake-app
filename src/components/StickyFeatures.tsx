@@ -1,182 +1,413 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { CurrencyDollar, LockSimple, PhoneCall, Megaphone } from '@phosphor-icons/react'
+import { useEffect, useRef, useState } from 'react'
+import { CurrencyDollar, LockSimple, PhoneCall, Megaphone, Check, LockKey } from '@phosphor-icons/react'
 
-const leftCards = [
+/* ─── Card data ──────────────────────────────────────────────── */
+const cards = [
   {
     label: 'Tips',
-    title: 'Get tipped mid-convo.',
-    desc: 'One tap. Instant appreciation. Zero fees.',
     Icon: CurrencyDollar,
-    bg: 'bg-[#A5F41F]',
-    textColor: 'text-black',
+    title: 'Get tipped\nmid-convo.',
+    desc: 'One tap. Zero fees.',
+    stat: '0%',
+    statLabel: 'Platform fee',
+    bg: '#A5F41F',
+    textColor: '#000',
+    mutedColor: 'rgba(0,0,0,0.45)',
+    accentColor: '#000',
+  },
+  {
+    label: 'Locked Content',
+    Icon: LockSimple,
+    title: 'Lock it.\nEarn it.',
+    desc: 'Gate your best work.',
+    stat: '85%',
+    statLabel: 'Unlock rate',
+    bg: '#0D0D0F',
+    textColor: '#fff',
+    mutedColor: 'rgba(255,255,255,0.38)',
+    accentColor: '#A5F41F',
   },
   {
     label: 'Paid Calls',
-    title: 'Talk money.',
-    desc: 'Bill per minute or flat. Get paid before you pick up.',
     Icon: PhoneCall,
-    bg: 'bg-[#F4F4F5]',
-    textColor: 'text-black',
-  },
-]
-
-const rightCards = [
-  {
-    label: 'Locked Content',
-    title: 'Lock it. Earn it.',
-    desc: 'Premium content stays locked until they pay.',
-    Icon: LockSimple,
-    bg: 'bg-[#0A0A0B]',
-    textColor: 'text-white',
+    title: 'Talk money.',
+    desc: 'Get paid before you pick up.',
+    stat: '8,500+',
+    statLabel: 'Calls booked',
+    bg: '#F0F0EE',
+    textColor: '#0D0D0F',
+    mutedColor: 'rgba(0,0,0,0.38)',
+    accentColor: '#0D0D0F',
   },
   {
     label: 'Mass Messaging',
-    title: 'Blast without the spam.',
-    desc: 'Personalized. Human. Revenue-driving.',
     Icon: Megaphone,
-    bg: 'bg-[#1A1A1D]',
-    textColor: 'text-white',
+    title: 'Blast without\nthe spam.',
+    desc: 'Personalized. Revenue-driving.',
+    stat: '98%',
+    statLabel: 'Delivery rate',
+    bg: '#1A1A1D',
+    textColor: '#fff',
+    mutedColor: 'rgba(255,255,255,0.38)',
+    accentColor: '#A5F41F',
   },
 ]
 
-const allCards = [...leftCards, ...rightCards]
+/* ─── Satellite UI widgets ───────────────────────────────────── */
 
-function CardContent({ f, mobile = false }: { f: typeof leftCards[0]; mobile?: boolean }) {
+/* Landscape "payment confirmed" card — sits in front of main card, bottom-left */
+function PaymentCard({ amount, from, note }: { amount: string; from: string; note?: string }) {
   return (
-    <div className={`${f.bg} rounded-xl ${mobile ? 'p-6' : 'p-5 md:p-6'} flex flex-col justify-between h-full hover:scale-[1.03] hover:-rotate-1 transition-transform duration-300 cursor-pointer`}>
-      <div>
-        <f.Icon size={mobile ? 40 : 28} weight="light" className={`${f.textColor} opacity-30`} />
-      </div>
-      <div>
-        <h3 className={`${mobile ? 'text-[24px]' : 'text-[16px] md:text-[20px]'} font-medium ${f.textColor} tracking-[-0.02em] leading-[1.1] mb-2`}>{f.title}</h3>
-        <p className={`${mobile ? 'text-[15px]' : 'text-[12px] md:text-[13px]'} ${f.textColor} opacity-50 leading-[1.4]`}>{f.desc}</p>
-      </div>
-    </div>
-  )
-}
-
-function MobileStackCards({ cards }: { cards: typeof allCards }) {
-  const [mobileProgress, setMobileProgress] = useState(0)
-
-  useEffect(() => {
-    const update = () => {
-      const wrapper = document.querySelector('#product')?.parentElement
-      if (!wrapper) return
-      const rect = wrapper.getBoundingClientRect()
-      const vh = window.innerHeight
-      const wrapperHeight = wrapper.offsetHeight
-      // How far through the wrapper scroll we are (0 to 1 over full 200vh)
-      const scrolled = -rect.top
-      const scrollRange = wrapperHeight - vh
-      const p = Math.min(Math.max(scrolled / scrollRange, 0), 1)
-      setMobileProgress(p)
-    }
-    window.addEventListener('scroll', update, { passive: true })
-    update()
-    return () => window.removeEventListener('scroll', update)
-  }, [])
-
-  return (
-    <div className="lg:hidden relative mx-auto w-[90vw] max-w-[380px]" style={{ height: 'clamp(300px,55vh,420px)' }}>
-      {cards.map((f, i) => {
-        // Card 0: visible from 0%, Card 1: from 20%, Card 2: from 45%, Card 3: from 70%
-        const threshold = i * 0.23
-        const isVisible = i === 0 || mobileProgress >= threshold
-        const stackOffset = i * 8
-
-        return (
-          <div
-            key={f.label}
-            className="absolute inset-0 rounded-xl overflow-hidden"
-            style={{
-              zIndex: i + 1,
-              top: stackOffset,
-              transform: isVisible
-                ? `translateY(0) scale(${1 - i * 0.02})`
-                : `translateY(120%) scale(0.9)`,
-              opacity: isVisible ? 1 : 0,
-              transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out',
-            }}
-          >
-            <CardContent f={f} mobile />
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
-export default function StickyFeatures() {
-  const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    const update = () => {
-      // Use the wrapper div's position, not the sticky section
-      const wrapper = document.querySelector('#product')?.parentElement
-      if (!wrapper) return
-      const wrapperTop = wrapper.getBoundingClientRect().top
-      const vh = window.innerHeight
-      // progress based on how far the wrapper has scrolled up
-      // wrapper starts below viewport, scrolls up past it
-      const p = Math.min(Math.max((vh - wrapperTop) / vh * 3, 0), 1)
-      setProgress(p)
-    }
-    window.addEventListener('scroll', update, { passive: true })
-    update()
-    return () => window.removeEventListener('scroll', update)
-  }, [])
-
-  // Cards slide in from sides once section 2 is in view
-  // progress 0 = section not visible, 1 = fully scrolled in
-  const slideAmount = Math.max(0, 1 - progress) * 100 // percentage to translate off-screen
-
-  return (
-    <div className="relative z-[3]" style={{ height: '350vh', marginTop: '-100vh' }}>
-      <section id="product" className="h-screen relative bg-white sticky top-0 rounded-t-[24px] overflow-hidden">
-        <div className="h-full flex flex-col justify-center px-4 md:px-8 lg:px-10 xl:px-12 py-10">
-
-          {/* Desktop: cards slide in from sides of phone */}
-          <div className="hidden lg:flex items-center justify-center max-w-[1200px] mx-auto w-full" style={{ height: '55vh' }}>
-            {/* Left column — starts at center, slides out to the left */}
-            <div
-              className="flex flex-col gap-4 flex-1 h-full"
-              style={{
-                transform: `translateX(${(1 - progress) * 50}%)`,
-                opacity: progress,
-                transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
-              }}
-            >
-              {leftCards.map((f) => (
-                <div key={f.label} className="flex-1">
-                  <CardContent f={f} />
-                </div>
-              ))}
-            </div>
-
-            {/* Center gap for phone */}
-            <div className="shrink-0 w-[clamp(300px,30vw,420px)]" />
-
-            {/* Right column — starts at center, slides out to the right */}
-            <div
-              className="flex flex-col gap-4 flex-1 h-full"
-              style={{
-                transform: `translateX(-${(1 - progress) * 50}%)`,
-                opacity: progress,
-                transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
-              }}
-            >
-              {rightCards.map((f) => (
-                <div key={f.label} className="flex-1">
-                  <CardContent f={f} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile: scroll-driven stacking cards */}
-          <MobileStackCards cards={allCards} />
+    <div style={{
+      width: 260, background: '#fff', borderRadius: 20,
+      boxShadow: '0 16px 60px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.15)',
+      overflow: 'hidden',
+    }}>
+      <div style={{ background: '#A5F41F', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#000', letterSpacing: '-0.02em' }}>Payment received</span>
+        <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Check size={12} weight="bold" style={{ color: '#A5F41F' }} />
         </div>
+      </div>
+      <div style={{ padding: '16px 20px' }}>
+        <div style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.05em', color: '#000', lineHeight: 1, fontFamily: 'var(--font-geist-mono)' }}>{amount}</div>
+        <div style={{ fontSize: 12, color: '#71717A', marginTop: 4 }}>from {from}</div>
+        {note && <div style={{ marginTop: 10, background: '#F4F4F5', borderRadius: 10, padding: '6px 12px', fontSize: 12, color: '#444' }}>{note}</div>}
+      </div>
+    </div>
+  )
+}
+
+/* Small floating chip — top-right area */
+function FloatChip({ icon, text, accent }: { icon: React.ReactNode; text: string; accent?: boolean }) {
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 8,
+      background: accent ? '#A5F41F' : '#fff',
+      borderRadius: 40, padding: '10px 16px',
+      boxShadow: '0 8px 28px rgba(0,0,0,0.22)',
+      whiteSpace: 'nowrap' as const,
+    }}>
+      {icon}
+      <span style={{ fontSize: 13, fontWeight: 600, color: accent ? '#000' : '#18181B' }}>{text}</span>
+    </div>
+  )
+}
+
+/* Landscape unlock card — bottom-left */
+function UnlockCard() {
+  return (
+    <div style={{
+      width: 270, background: '#1A1A1D', borderRadius: 20,
+      boxShadow: '0 16px 60px rgba(0,0,0,0.4)',
+      overflow: 'hidden',
+    }}>
+      {/* Blurred preview area */}
+      <div style={{
+        height: 120, background: 'linear-gradient(135deg, #2A2A2E 0%, #1A1A1D 100%)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' as const,
+      }}>
+        <div style={{ fontSize: 48, filter: 'blur(10px)', opacity: 0.35 }}>📸</div>
+        <div style={{
+          position: 'absolute' as const, inset: 0,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' as const, gap: 6,
+        }}>
+          <LockKey size={28} style={{ color: 'rgba(255,255,255,0.5)' }} />
+          <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' as const, letterSpacing: '0.06em', fontWeight: 500 }}>1 exclusive photo</span>
+        </div>
+      </div>
+      <div style={{ padding: '14px 16px' }}>
+        <div style={{ background: '#A5F41F', borderRadius: 40, padding: '10px 0', textAlign: 'center' as const, fontSize: 13, fontWeight: 700, color: '#000', cursor: 'default' }}>
+          Unlock for $4.00
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* Live call card — bottom-left for calls */
+function LiveCallCard() {
+  const [secs, setSecs] = useState(272)
+  useEffect(() => {
+    const t = setInterval(() => setSecs(s => s + 1), 1000)
+    return () => clearInterval(t)
+  }, [])
+  const m = String(Math.floor(secs / 60)).padStart(2, '0')
+  const s = String(secs % 60).padStart(2, '0')
+  return (
+    <div style={{
+      width: 260, background: '#fff', borderRadius: 20,
+      boxShadow: '0 16px 60px rgba(0,0,0,0.28)',
+      padding: '18px 20px',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <span style={{ fontSize: 11, color: '#71717A', textTransform: 'uppercase' as const, letterSpacing: '0.06em', fontWeight: 500 }}>Active Call</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+          <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#A5F41F', boxShadow: '0 0 8px rgba(165,244,31,0.9)' }} />
+          <span style={{ fontSize: 11, color: '#A5F41F', fontWeight: 600 }}>LIVE</span>
+        </div>
+      </div>
+      <div style={{ fontSize: 36, fontWeight: 800, letterSpacing: '0.04em', color: '#0A0A0B', fontFamily: 'monospace', lineHeight: 1 }}>{m}:{s}</div>
+      <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 12, color: '#71717A' }}>Billing at $2.00/min</span>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0A0A0B', fontFamily: 'var(--font-geist-mono)', letterSpacing: '-0.03em' }}>
+          ${(secs / 60 * 2).toFixed(2)}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+/* Campaign stats card — bottom-left for mass messaging */
+function CampaignCard() {
+  return (
+    <div style={{
+      width: 260, background: '#fff', borderRadius: 20,
+      boxShadow: '0 16px 60px rgba(0,0,0,0.28)',
+      padding: '18px 20px',
+    }}>
+      <div style={{ fontSize: 11, color: '#71717A', textTransform: 'uppercase' as const, letterSpacing: '0.06em', fontWeight: 500, marginBottom: 8 }}>Campaign sent</div>
+      <div style={{ display: 'flex', gap: 16, marginBottom: 12 }}>
+        <div>
+          <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.04em', color: '#0A0A0B', lineHeight: 1, fontFamily: 'var(--font-geist-mono)' }}>47K</div>
+          <div style={{ fontSize: 11, color: '#71717A', marginTop: 2 }}>Recipients</div>
+        </div>
+        <div style={{ width: 1, background: '#E4E4E7' }} />
+        <div>
+          <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.04em', color: '#0A0A0B', lineHeight: 1, fontFamily: 'var(--font-geist-mono)' }}>98%</div>
+          <div style={{ fontSize: 11, color: '#71717A', marginTop: 2 }}>Delivered</div>
+        </div>
+      </div>
+      <div style={{ background: '#A5F41F', borderRadius: 10, padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+        <Check size={12} weight="bold" />
+        <span style={{ fontSize: 12, fontWeight: 600 }}>All delivered</span>
+      </div>
+    </div>
+  )
+}
+
+/* ─── Satellite layout per card ──────────────────────────────── */
+// tx/ty = offset from center of composition
+// Card is ~300px wide × 560px tall → edges at ±150px / ±280px
+
+function Satellites({ index, opacity }: { index: number; opacity: number }) {
+  const style = (tx: number, ty: number, rot: number, delay = 0, z = 10) => ({
+    position: 'absolute' as const,
+    left: '50%', top: '50%',
+    transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(${rot}deg)`,
+    opacity,
+    transition: 'opacity 0.15s ease-out',
+    animationDelay: `${delay}s`,
+    zIndex: z,
+    pointerEvents: 'none' as const,
+  })
+
+  if (index === 0) return (
+    <>
+      {/* Bottom-left: payment card overlapping card */}
+      <div className="float-slow" style={style(-215, 230, -5, 0, 12)}>
+        <PaymentCard amount="$25.00" from="@alex_m" note="💰 Thanks for the session!" />
+      </div>
+      {/* Top-right: 0% chip */}
+      <div className="float-medium" style={style(185, -260, 8, 0.5, 10)}>
+        <FloatChip accent icon={<span style={{ fontSize: 16 }}>✓</span>} text="0% platform fee" />
+      </div>
+    </>
+  )
+
+  if (index === 1) return (
+    <>
+      {/* Bottom-left: unlock card overlapping bottom of main card */}
+      <div className="float-slow" style={style(-215, 240, -6, 0, 12)}>
+        <UnlockCard />
+      </div>
+      {/* Top-right: lock chip */}
+      <div className="float-medium" style={style(180, -265, 7, 0.4, 10)}>
+        <FloatChip icon={<LockSimple size={15} style={{ color: '#18181B' }} />} text="Paywall protected" />
+      </div>
+    </>
+  )
+
+  if (index === 2) return (
+    <>
+      {/* Bottom-left: live call card */}
+      <div className="float-slow" style={style(-215, 220, -4, 0, 12)}>
+        <LiveCallCard />
+      </div>
+      {/* Top-right: rate chip */}
+      <div className="float-medium" style={style(185, -265, 6, 0.5, 10)}>
+        <FloatChip icon={<span style={{ fontSize: 16 }}>📞</span>} text="$2.00 / min" />
+      </div>
+    </>
+  )
+
+  if (index === 3) return (
+    <>
+      {/* Bottom-left: campaign stats card */}
+      <div className="float-slow" style={style(-215, 225, -5, 0, 12)}>
+        <CampaignCard />
+      </div>
+      {/* Top-right: delivery chip */}
+      <div className="float-medium" style={style(185, -265, 5, 0.5, 10)}>
+        <FloatChip accent icon={<Check size={15} weight="bold" />} text="98% delivered" />
+      </div>
+    </>
+  )
+
+  return null
+}
+
+/* ─── Flip state math ────────────────────────────────────────── */
+function getFlipState(p: number, n: number): { angle: number; cardIndex: number } {
+  const zoneSize = 1 / n
+  const zoneIndex = Math.min(Math.floor(p / zoneSize), n - 1)
+  if (zoneIndex === 0) return { angle: 0, cardIndex: 0 }
+  const ti = zoneIndex - 1
+  const localP = Math.min((p - zoneIndex * zoneSize) / zoneSize, 1)
+  if (localP <= 0.5) {
+    return { angle: (localP / 0.5) * 90, cardIndex: ti }
+  } else {
+    return { angle: -90 + ((localP - 0.5) / 0.5) * 90, cardIndex: Math.min(ti + 1, n - 1) }
+  }
+}
+
+/* ─── Main component ─────────────────────────────────────────── */
+export default function StickyFeatures() {
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [angle, setAngle] = useState(0)
+  const [cardIndex, setCardIndex] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    const update = () => {
+      const el = wrapperRef.current
+      if (!el) return
+      const scrolled = Math.max(0, -el.getBoundingClientRect().top)
+      const range = Math.max(1, el.offsetHeight - window.innerHeight)
+      const p = Math.min(1, scrolled / range)
+      setScrollProgress(p)
+      const { angle: a, cardIndex: ci } = getFlipState(p, cards.length)
+      setAngle(a)
+      setCardIndex(ci)
+    }
+    window.addEventListener('scroll', update, { passive: true })
+    update()
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+
+  const card = cards[cardIndex]
+  const contentOpacity = Math.max(0, 1 - Math.abs(angle) / 50)
+
+  return (
+    <div
+      ref={wrapperRef}
+      id="product"
+      className="relative z-[3]"
+      style={{ height: '800vh', marginTop: '-100vh' }}
+    >
+      <section className="h-screen sticky top-0 rounded-t-[24px] overflow-hidden flex flex-col items-center justify-center" style={{ background: '#0D0D0F' }}>
+
+        {/* Section label */}
+        <div
+          className="absolute top-10 left-4 md:left-8 lg:left-10 xl:left-12"
+          style={{ opacity: Math.max(0, 1 - Math.abs(angle) / 40) * (1 - scrollProgress * 0.5) }}
+        >
+          <p className="mono text-[11px] text-white/25 uppercase tracking-widest mb-1">Product</p>
+          <p className="text-[15px] font-medium text-white/35 tracking-[-0.02em]">Everything in one thread</p>
+        </div>
+
+        {/* Composition wrapper */}
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+          {/* Satellites */}
+          <Satellites index={cardIndex} opacity={contentOpacity} />
+
+          {/* 3D flip card — phone proportions */}
+          <div style={{ perspective: '1400px', perspectiveOrigin: '50% 50%', position: 'relative', zIndex: 5 }}>
+            <div
+              style={{
+                transform: `rotateY(${angle}deg)`,
+                willChange: 'transform',
+                width: 'clamp(260px, 22vw, 320px)',
+                height: 'clamp(480px, 62vh, 580px)',
+                borderRadius: 36,
+                background: card.bg,
+                boxShadow: '0 40px 100px rgba(0,0,0,0.5), 0 8px 32px rgba(0,0,0,0.3)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                padding: '32px 28px',
+                overflow: 'hidden',
+                opacity: contentOpacity,
+              }}
+            >
+              {/* Top */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <card.Icon size={26} weight="light" style={{ color: card.textColor, opacity: 0.3 }} />
+                <span className="mono text-[10px] uppercase tracking-widest" style={{ color: card.mutedColor }}>{card.label}</span>
+              </div>
+
+              {/* Middle */}
+              <div>
+                <h2 style={{
+                  color: card.textColor,
+                  fontSize: 'clamp(28px, 3vw, 40px)',
+                  fontWeight: 500,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.08,
+                  whiteSpace: 'pre-line',
+                  marginBottom: 10,
+                }}>
+                  {card.title}
+                </h2>
+                <p style={{ color: card.mutedColor, fontSize: 13, lineHeight: 1.5 }}>
+                  {card.desc}
+                </p>
+              </div>
+
+              {/* Bottom */}
+              <div>
+                <div style={{
+                  color: card.accentColor,
+                  fontSize: 'clamp(48px, 5vw, 68px)',
+                  fontWeight: 700,
+                  letterSpacing: '-0.05em',
+                  lineHeight: 1,
+                  fontFamily: 'var(--font-geist-mono)',
+                }}>
+                  {card.stat}
+                </div>
+                <div className="mono text-[10px] uppercase tracking-widest mt-2" style={{ color: card.mutedColor }}>
+                  {card.statLabel}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Progress dots */}
+        <div className="absolute bottom-10 flex gap-2 items-center">
+          {cards.map((_, i) => (
+            <div
+              key={i}
+              className="rounded-full transition-all duration-500"
+              style={{
+                width: i === cardIndex ? 22 : 6,
+                height: 6,
+                background: i === cardIndex ? '#A5F41F' : 'rgba(255,255,255,0.2)',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Scroll hint */}
+        {scrollProgress < 0.03 && (
+          <div className="absolute bottom-10 right-8 md:right-12 flex items-center gap-2" style={{ opacity: 0.3 }}>
+            <span className="mono text-[11px] uppercase tracking-widest text-white">Scroll</span>
+            <span className="text-white">↓</span>
+          </div>
+        )}
       </section>
     </div>
   )

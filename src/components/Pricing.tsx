@@ -65,8 +65,10 @@ export default function Pricing() {
   const active = paymentTabs[activeTab]
 
   return (
-    <section className="py-[180px] px-4 md:px-8 lg:px-10 xl:px-12 bg-white text-[#18181B] sticky top-0 z-[203] rounded-t-[24px] relative" id="pricing">
-      <div className="text-center">
+    <section className="py-[180px] px-4 md:px-8 lg:px-10 xl:px-12 bg-white text-[#18181B] sticky top-0 z-[203] rounded-t-[24px] relative overflow-hidden" id="pricing">
+      <div className="glow-green-center absolute inset-0 z-0" aria-hidden />
+      <div className="noise-texture absolute inset-0 z-0" aria-hidden />
+      <div className="text-center relative z-[1]">
         <div className="mono leading-[0.85] tracking-[-0.06em] text-[#18181B] transition-all duration-500" style={{ fontSize: 'clamp(100px, 20vw, 280px)' }}>
           <AnimatedNumber value={active.value} suffix={active.suffix} />
         </div>
@@ -85,8 +87,8 @@ export default function Pricing() {
                 onClick={() => setActiveTab(i)}
                 className={`mono text-[14px] px-7 py-3.5 rounded-lg transition-all duration-300 cursor-pointer inline-flex items-center gap-2.5 ${
                   activeTab === i
-                    ? 'bg-[#18181B] text-white'
-                    : 'bg-[#F4F4F5] text-[#71717A] hover:bg-[#E4E4E7] hover:text-black'
+                    ? 'bg-[#18181B] text-white shadow-[0_2px_12px_rgba(0,0,0,0.18)]'
+                    : 'bg-[#F4F4F5] text-[#71717A] hover:bg-[#E4E4E7] hover:text-black ring-1 ring-black/[0.06]'
                 }`}
               >
                 <tab.icon size={18} weight={activeTab === i ? 'fill' : 'regular'} />
@@ -95,7 +97,6 @@ export default function Pricing() {
             ))}
           </div>
         </ScrollReveal>
-
       </div>
     </section>
   )

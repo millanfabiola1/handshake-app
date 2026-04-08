@@ -10,8 +10,9 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="bg-[#1A1A1D] relative z-[205]">
-      <div className="bg-[#A5F41F] rounded-t-[24px] pt-24 pb-12 px-4 md:px-8 lg:px-10 xl:px-12">
-      <div >
+      <div className="bg-gradient-to-b from-[#B0F530] to-[#A5F41F] rounded-t-[24px] pt-24 pb-12 px-4 md:px-8 lg:px-10 xl:px-12 relative overflow-hidden">
+      <div className="noise-texture absolute inset-0 pointer-events-none" aria-hidden />
+      <div className="relative z-[1]">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-24">
           {[
             { title: 'Product', items: ['Tips', 'Locked Content', 'Paid Calls', 'Mass Messaging'] },

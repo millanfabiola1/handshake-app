@@ -6,7 +6,6 @@ import StickyFeatures from '@/components/StickyFeatures'
 import BentoGrid from '@/components/BentoGrid'
 import FloatingUI from '@/components/FloatingUI'
 import UseCases from '@/components/UseCases'
-import Pricing from '@/components/Pricing'
 import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
 import WaitlistProvider from '@/components/WaitlistContext'
@@ -23,7 +22,6 @@ export default function Home() {
         <UseCases />
         <FloatingUI />
         <BentoGrid />
-        <Pricing />
         <CTASection />
       </main>
       <Footer />

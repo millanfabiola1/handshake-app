@@ -45,12 +45,36 @@ function FallingTags() {
 
 export default function BentoGrid() {
   return (
-    <section className="relative z-[202] rounded-t-[24px] py-[100px] lg:py-[140px] px-4 md:px-8 lg:px-10 xl:px-12" style={{ background: '#F4F4F5' }}>
-      <div className="max-w-[1300px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[340px]">
+    <section className="relative z-[202] rounded-t-[24px] py-[100px] lg:py-[140px] px-4 md:px-8 lg:px-10 xl:px-12 overflow-hidden" style={{ background: 'linear-gradient(160deg, #F4F4F5 0%, #EBEBEB 100%)' }}>
+      {/* Grain texture */}
+      <div className="noise-texture absolute inset-0 z-0" aria-hidden />
+
+      <div className="relative z-[1] max-w-[1300px] mx-auto">
+        {/* Section header */}
+        <div className="mb-14">
+          <ScrollReveal>
+            <p className="mono text-[11px] text-black/40 uppercase tracking-widest mb-5">The Platform</p>
+          </ScrollReveal>
+          <ScrollReveal delay={60}>
+            <h2
+              className="font-medium text-[#18181B] tracking-[-0.045em] leading-[0.95] mb-5 max-w-[520px]"
+              style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}
+            >
+              Built to make<br />every message pay.
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <p className="text-[17px] text-[#71717A] leading-[1.55] max-w-[380px]">
+              One platform. Every monetisation tool. Zero fees on tips.
+            </p>
+          </ScrollReveal>
+        </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[340px]">
 
         {/* All-in-one */}
         <ScrollReveal>
-          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between">
+          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between shadow-[0_1px_2px_rgba(0,0,0,0.05),0_4px_20px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
             <div className="w-12 h-12 rounded-xl bg-[#A5F41F] flex items-center justify-center">
               <CurrencyDollar size={24} weight="bold" className="text-black" />
             </div>
@@ -67,7 +91,7 @@ export default function BentoGrid() {
 
         {/* Tagline */}
         <ScrollReveal delay={100}>
-          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between">
+          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between shadow-[0_1px_2px_rgba(0,0,0,0.05),0_4px_20px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
             <div className="flex gap-2">
               <div className="w-3 h-3 rounded-full bg-[#A5F41F]" />
               <div className="w-3 h-3 rounded-full bg-[#0A0A0B]" />
@@ -81,7 +105,7 @@ export default function BentoGrid() {
 
         {/* Global */}
         <ScrollReveal delay={200}>
-          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between text-center">
+          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between shadow-[0_1px_2px_rgba(0,0,0,0.05),0_4px_20px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] text-center">
             <img src="/globe-wireframe.webp" alt="" className="w-full max-h-[240px] object-contain mx-auto" />
             <div>
               <h3 className="text-[22px] font-semibold text-black tracking-[-0.02em] mb-2">
@@ -96,7 +120,7 @@ export default function BentoGrid() {
 
         {/* Phone mockup card */}
         <ScrollReveal delay={50}>
-          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between">
+          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between shadow-[0_1px_2px_rgba(0,0,0,0.05),0_4px_20px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
             <div className="flex justify-center">
               <div className="w-[110px] bg-black rounded-[20px] p-[3px]">
                 <div className="rounded-[17px] overflow-hidden bg-black" style={{ aspectRatio: '9/19.5' }}>
@@ -124,7 +148,8 @@ export default function BentoGrid() {
 
         {/* Features cloud — dark pills */}
         <ScrollReveal delay={150}>
-          <div className="bg-gradient-to-br from-[#A5F41F] via-[#8BD818] to-[#6BBF12] rounded-2xl p-8 h-full flex flex-col justify-between">
+          <div className="bg-gradient-to-br from-[#B8F53C] via-[#A5F41F] to-[#7BC714] rounded-2xl p-8 h-full flex flex-col justify-between shadow-[0_1px_2px_rgba(0,0,0,0.07),0_4px_20px_rgba(165,244,31,0.3)] ring-1 ring-black/[0.05] overflow-hidden relative">
+            <div className="noise-texture absolute inset-0" aria-hidden />
             <FallingTags />
             <div>
               <h3 className="text-[22px] font-semibold text-black tracking-[-0.02em] mb-2">
@@ -139,7 +164,7 @@ export default function BentoGrid() {
 
         {/* Rating card */}
         <ScrollReveal delay={250}>
-          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between">
+          <div className="bg-white rounded-2xl p-8 h-full flex flex-col justify-between shadow-[0_1px_2px_rgba(0,0,0,0.05),0_4px_20px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
             <div>
               <p className="text-[56px] font-bold text-[#A5F41F] leading-none tracking-[-0.04em]">4.9</p>
               <div className="flex gap-1 mt-2">
@@ -161,6 +186,7 @@ export default function BentoGrid() {
           </div>
         </ScrollReveal>
 
+      </div>
       </div>
     </section>
   )
