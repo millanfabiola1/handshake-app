@@ -24,7 +24,7 @@ export default function PhonePersist() {
       if (wrapper) {
         const rect = wrapper.getBoundingClientRect()
         const scrolledIn = Math.max(0, -rect.top)
-        const wrapperHeight = wrapper.offsetHeight
+        const wrapperHeight = (wrapper as HTMLElement).offsetHeight
 
         // Scale up slightly as product section enters (0 → 1.15)
         const enterP = Math.min(Math.max((vh - rect.top) / vh, 0), 1)
