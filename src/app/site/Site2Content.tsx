@@ -470,7 +470,7 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-20 pt-[clamp(40px,6vh,80px)]">
+        <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-20 pt-[clamp(16px,2vh,80px)]">
 
           {/* Left: Visual — tilt wrapper + flip inner */}
           <div className="relative flex-1 flex justify-center">
@@ -482,9 +482,9 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
                 transformStyle: 'preserve-3d',
               }}
             >
-              {/* Flip layer */}
+              {/* Flip layer — square on mobile so globe isn't squashed */}
               <div
-                className={`relative w-[min(500px,85vw)] h-[min(600px,60vw)] min-h-[300px] ${flipClass}`}
+                className={`relative w-[min(500px,85vw)] aspect-square lg:aspect-auto lg:h-[min(600px,60vw)] ${flipClass}`}
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Glare overlay */}
@@ -577,20 +577,20 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
 
                 {/* ── State 1: Globe ── */}
                 <div className={`absolute inset-0 flex items-center justify-center ${displayStep === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-                  <div className="relative w-[480px] h-[480px]">
+                  <div className="relative w-[min(480px,78vw)] h-[min(480px,78vw)]">
                     <div className="absolute inset-[-10px] rounded-full border-2 border-[#A5F41F]/30" />
                     <div className="absolute inset-[20px] rounded-full border border-[#A5F41F]/20" />
                     <div className="absolute inset-[60px] rounded-full overflow-hidden flex items-center justify-center">
                       <img src="/ellipse-2161.png" alt="" className="w-full h-full object-cover spin-slow" />
                     </div>
                     <div className="absolute left-[50%] top-[25%] -translate-x-1/2 -translate-y-1/2 z-10 float-slow">
-                      <div className="backdrop-blur-lg bg-white/40 border border-white/50 rounded-[16px] shadow-xl px-4 py-3">
-                        <div className="flex items-center gap-2 mb-1"><span className="text-[20px]">🇺🇸</span><span className="text-[12px] font-medium text-white">United States</span></div>
-                        <p className="text-[32px] font-bold text-white leading-none">$100</p>
+                      <div className="backdrop-blur-lg bg-white/40 border border-white/50 rounded-[16px] shadow-xl px-3 py-2">
+                        <div className="flex items-center gap-2 mb-1"><span className="text-[16px]">🇺🇸</span><span className="text-[11px] font-medium text-white">United States</span></div>
+                        <p className="font-bold text-white leading-none" style={{ fontSize: 'clamp(20px,5vw,32px)' }}>$100</p>
                       </div>
                     </div>
 
-                    {/* Transfer arrow — between US and EU cards */}
+                    {/* Transfer arrow */}
                     <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1">
                       <div className="flex flex-col items-center gap-[5px]">
                         <div className="w-[6px] h-[6px] rounded-full bg-white flow-dot-1" />
@@ -610,12 +610,13 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
                     </div>
 
                     <div className="absolute left-[50%] bottom-[15%] -translate-x-1/2 z-10 float-medium">
-                      <div className="backdrop-blur-lg bg-[#A5F41F]/40 border border-[#A5F41F]/50 rounded-[16px] shadow-xl px-4 py-3">
-                        <div className="flex items-center gap-2 mb-1"><span className="text-[20px]">🇪🇺</span><span className="text-[12px] font-medium text-white/70">Europe</span></div>
-                        <p className="text-[32px] font-bold text-white leading-none">€92</p>
+                      <div className="backdrop-blur-lg bg-[#A5F41F]/40 border border-[#A5F41F]/50 rounded-[16px] shadow-xl px-3 py-2">
+                        <div className="flex items-center gap-2 mb-1"><span className="text-[16px]">🇪🇺</span><span className="text-[11px] font-medium text-white/70">Europe</span></div>
+                        <p className="font-bold text-white leading-none" style={{ fontSize: 'clamp(20px,5vw,32px)' }}>€92</p>
                       </div>
                     </div>
-                    <GlobeOrbitRing />
+                    {/* Orbit ring hidden on mobile — 240px radius doesn't fit in a 300px container */}
+                    <div className="hidden lg:block"><GlobeOrbitRing /></div>
                   </div>
                 </div>
 
@@ -629,10 +630,10 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
           </div>
 
           {/* Right: Text */}
-          <div className="flex-1 lg:flex-none lg:w-[400px] w-full text-center lg:text-left">
-            <div className="relative h-[160px]">
+          <div className="flex-none lg:w-[400px] w-full text-center lg:text-left">
+            <div className="relative min-h-[120px] lg:h-[160px]">
               {swapSteps.map((step, i) => (
-                <div key={step.title} className={`absolute inset-0 transition-all duration-500 ${activeStep === i ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+                <div key={step.title} className={`lg:absolute inset-0 transition-all duration-500 ${activeStep === i ? 'opacity-100 translate-y-0' : 'hidden lg:block opacity-0 translate-y-4 pointer-events-none'}`}>
                   <h3 className="font-display text-[clamp(28px,3vw,40px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">{step.title}</h3>
                   <p className="text-[clamp(14px,1.4vw,18px)] text-black/60 mt-3 leading-[1.5]">{step.desc}</p>
                 </div>
