@@ -362,16 +362,18 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
             </div>
           </div>
 
-          {/* Right: Text that swaps */}
+          {/* Right: Text that swaps — fixed height to prevent jumping */}
           <div className="flex-1 lg:flex-none lg:w-[400px]">
-            {swapSteps.map((step, i) => (
-              <div key={step.title} className={`transition-all duration-500 ${activeStep === i ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute pointer-events-none'}`}>
-                <h3 className="font-display text-[clamp(28px,3vw,40px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">{step.title}</h3>
-                <p className="text-[clamp(14px,1.4vw,18px)] text-black/60 mt-3 leading-[1.5]">{step.desc}</p>
-              </div>
-            ))}
+            <div className="relative h-[120px]">
+              {swapSteps.map((step, i) => (
+                <div key={step.title} className={`absolute inset-0 transition-all duration-500 ${activeStep === i ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+                  <h3 className="font-display text-[clamp(28px,3vw,40px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">{step.title}</h3>
+                  <p className="text-[clamp(14px,1.4vw,18px)] text-black/60 mt-3 leading-[1.5]">{step.desc}</p>
+                </div>
+              ))}
+            </div>
             {/* Step indicators — clickable */}
-            <div className="flex gap-3 mt-8">
+            <div className="flex gap-3 mt-4">
               {[0, 1, 2].map((i) => (
                 <button
                   key={i}
