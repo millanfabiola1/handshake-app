@@ -629,7 +629,7 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
           </div>
 
           {/* Right: Text */}
-          <div className="flex-1 lg:flex-none lg:w-[400px]">
+          <div className="flex-1 lg:flex-none lg:w-[400px] w-full text-center lg:text-left">
             <div className="relative h-[160px]">
               {swapSteps.map((step, i) => (
                 <div key={step.title} className={`absolute inset-0 transition-all duration-500 ${activeStep === i ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
@@ -638,7 +638,7 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
                 </div>
               ))}
             </div>
-            <div className="flex gap-3 mt-2">
+            <div className="flex gap-3 mt-2 justify-center lg:justify-start">
               {[0, 1, 2].map((i) => (
                 <button
                   key={i}
@@ -707,16 +707,15 @@ function Site2Inner() {
 
   return (
     <div className="bg-white min-h-screen">
+      {/* ═══════ MARQUEE — outside overflow:hidden so it's never clipped on iOS ═══════ */}
+      <MarqueeBanner />
+
       {/* ═══════ NAV — always visible ═══════ */}
       <Nav />
 
       <main>
         {/* ═══════ HERO ═══════ */}
         <div className="relative h-screen overflow-hidden">
-          {/* Marquee at top of hero */}
-          <div className="absolute top-0 left-0 right-0 z-[100]">
-            <MarqueeBanner />
-          </div>
           {/* Design A: Figma-based hero with photo + video phone */}
           <div className={`absolute inset-0 transition-opacity duration-500 ${heroDesign === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <section className="relative h-full overflow-hidden pt-[112px] pb-0">
@@ -748,9 +747,9 @@ function Site2Inner() {
                     </a>
                   </div>
                   <div className="relative mt-8 md:mt-10 flex justify-center w-full">
-                    <div className="relative rounded-[22px] overflow-hidden w-full md:w-[clamp(500px,65vw,900px)] h-[220px] sm:h-[280px] md:h-[clamp(350px,45vw,600px)]">
-                      <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover" />
-                      <div className="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, white)' }} />
+                    <div className="relative overflow-hidden w-full md:w-[clamp(500px,65vw,900px)] h-[220px] sm:h-[280px] md:h-[clamp(350px,45vw,600px)]" style={{ borderRadius: 'clamp(12px,3vw,22px)' }}>
+                      <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover object-top" />
+                      <div className="absolute bottom-0 left-0 right-0 h-[70%] pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent 0%, white 100%)' }} />
                     </div>
                     <div className="absolute right-0 md:right-[clamp(-40px,-3vw,0px)] lg:right-[40px] top-[12px] w-[clamp(110px,22vw,280px)] hidden sm:block">
                       <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,10px)] shadow-2xl shadow-black/30">

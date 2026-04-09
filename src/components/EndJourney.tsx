@@ -279,9 +279,9 @@ export default function EndJourney({ zeroFeesBg: _zeroFeesBg }: { zeroFeesBg?: s
 
         {/* ── 3D icons — flanking the phone, phase 2 ── */}
         <div ref={iconsRef} className="absolute inset-0 pointer-events-none" style={{ opacity: 0, zIndex: 10 }}>
-          <img src="/site2/cta-dollar.svg" alt="" className="absolute object-contain -rotate-12 float-slow"      style={{ right: 'calc(50% + clamp(75px, 17vw, 125px))', top: '38%', width: 'clamp(110px, 20vw, 180px)' }} />
-          <img src="/site2/cta-star.svg"   alt="" className="absolute object-contain float-medium"               style={{ left: 'calc(50% + clamp(75px, 17vw, 125px))', top: '22%', width: 'clamp(95px, 17vw, 155px)' }} />
-          <img src="/site2/cta-bubble.svg" alt="" className="absolute object-contain -rotate-[10deg] float-slow" style={{ left: 'calc(50% + clamp(75px, 17vw, 125px))', bottom: '24%', width: 'clamp(100px, 18vw, 160px)' }} />
+          <img src="/site2/cta-dollar.png" alt="" className="absolute object-contain -rotate-12 float-slow"      style={{ right: 'calc(50% + clamp(75px, 17vw, 125px))', top: '38%', width: 'clamp(110px, 20vw, 180px)' }} />
+          <img src="/site2/cta-star.png"   alt="" className="absolute object-contain float-medium"               style={{ left: 'calc(50% + clamp(75px, 17vw, 125px))', top: '22%', width: 'clamp(95px, 17vw, 155px)' }} />
+          <img src="/site2/cta-bubble.png" alt="" className="absolute object-contain -rotate-[10deg] float-slow" style={{ left: 'calc(50% + clamp(75px, 17vw, 125px))', bottom: '24%', width: 'clamp(100px, 18vw, 160px)' }} />
         </div>
 
       </div>
