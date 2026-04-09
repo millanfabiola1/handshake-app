@@ -3,12 +3,12 @@
   "configurations": [
     {
       "name": "dev",
-      "runtimeExecutable": "/opt/homebrew/bin/node",
-      "runtimeArgs": ["/opt/homebrew/bin/npx", "next", "dev", "--turbopack"],
+      "runtimeExecutable": "/Users/fabiolamillan/.nvm/versions/node/v22.18.0/bin/npx",
+      "runtimeArgs": ["next", "dev", "--turbopack"],
       "port": 3000,
       "autoPort": true,
       "env": {
-        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+        "PATH": "/Users/fabiolamillan/.nvm/versions/node/v22.18.0/bin:/usr/local/bin:/usr/bin:/bin"
       }
     }
   ]

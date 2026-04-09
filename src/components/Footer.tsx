@@ -1,55 +1,36 @@
 'use client'
-import { XLogo, InstagramLogo, LinkedinLogo } from '@phosphor-icons/react'
-
-const socialLinks = [
-  { label: 'Twitter', icon: XLogo, href: '#' },
-  { label: 'Instagram', icon: InstagramLogo, href: '#' },
-  { label: 'LinkedIn', icon: LinkedinLogo, href: '#' },
-]
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1A1A1D] relative z-[205]">
-      <div className="bg-gradient-to-b from-[#B0F530] to-[#A5F41F] rounded-t-[24px] pt-24 pb-12 px-4 md:px-8 lg:px-10 xl:px-12 relative overflow-hidden">
-      <div className="noise-texture absolute inset-0 pointer-events-none" aria-hidden />
-      <div className="relative z-[1]">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-24">
-          {[
-            { title: 'Product', items: ['Tips', 'Locked Content', 'Paid Calls', 'Mass Messaging'] },
-            { title: 'Company', items: ['About', 'Blog', 'Careers', 'Press'] },
-            { title: 'Legal', items: ['Privacy', 'Terms', 'Security'] },
-          ].map((col) => (
-            <div key={col.title}>
-              <p className="mono text-[11px] text-black uppercase mb-5">{col.title}</p>
-              <div className="flex flex-col gap-3">
-                {col.items.map((item) => (
-                  <a key={item} href="#" className="text-[14px] font-light text-black no-underline hover:underline transition-all">{item}</a>
-                ))}
-              </div>
-            </div>
-          ))}
-          <div>
-            <p className="mono text-[11px] text-black uppercase mb-5">Connect</p>
-            <div className="flex flex-col gap-3">
-              {socialLinks.map((link) => (
-                <a key={link.label} href={link.href} className="text-[14px] font-light text-black no-underline hover:underline transition-all inline-flex items-center gap-2">
-                  <link.icon size={16} weight="regular" />
-                  {link.label}
-                </a>
-              ))}
-            </div>
+    <footer
+      className="relative z-[205] overflow-hidden"
+      style={{
+        background: '#A5F41F',
+      }}
+    >
+      <div className="noise-texture absolute inset-0 opacity-20 pointer-events-none" />
+
+      <div className="relative z-[1] px-6 md:px-10 xl:px-14 pt-16 pb-10">
+
+        {/* Wordmark — centered */}
+        <div className="mb-10 flex justify-center">
+          <img
+            src="/tappd-logo.svg"
+            alt="Tapp'd"
+            className="h-auto select-none"
+            style={{ filter: 'brightness(0)', width: 'clamp(110px, 14vw, 190px)' }}
+          />
+        </div>
+
+        {/* Bottom bar — centered */}
+        <div className="flex flex-col items-center gap-3 border-t border-black/10 pt-6">
+          <div className="flex gap-5">
+            <a href="#" className="mono text-[11px] text-black/45 hover:text-black/80 transition-colors no-underline">Privacy</a>
+            <a href="#" className="mono text-[11px] text-black/45 hover:text-black/80 transition-colors no-underline">Terms</a>
           </div>
+          <p className="mono text-[11px] text-black/40">&copy; 2026 Tapp&apos;d &middot; Tap &middot; Text &middot; Get Paid</p>
         </div>
 
-        <div className="w-full">
-          <img src="/tappd-logo.svg" alt="Tapp'd" className="w-full h-auto select-none" />
-        </div>
-
-        <div className="flex items-center justify-between flex-wrap gap-4 mt-12 pt-8 border-t border-black/10">
-          <span className="mono text-[12px] font-normal text-black">&copy; 2026 Tapp&apos;d. All rights reserved.</span>
-          <span className="mono text-[12px] font-normal text-black">Tap &middot; Text &middot; Get Paid</span>
-        </div>
-      </div>
       </div>
     </footer>
   )

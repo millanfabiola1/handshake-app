@@ -26,6 +26,14 @@ export default function PhonePersist() {
         const scrolledIn = Math.max(0, -rect.top)
         const wrapperHeight = (wrapper as HTMLElement).offsetHeight
 
+        // Only show phone once the product section is within one viewport of entering.
+        // The Hero has its own embedded phone.
+        if (rect.top > vh) {
+          setVisible(false)
+          setOpacity(0)
+          return
+        }
+
         // Scale up slightly as product section enters (0 → 1.15)
         const enterP = Math.min(Math.max((vh - rect.top) / vh, 0), 1)
         setScale(1 + enterP * 0.15)
