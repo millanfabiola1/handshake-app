@@ -375,59 +375,63 @@ function Site2Inner() {
 
       <main>
         {/* ═══════ HERO ═══════ */}
-        {/* Toggle button */}
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] flex items-center gap-1 bg-black/80 backdrop-blur-lg rounded-full p-1 shadow-2xl">
-          <button
-            onClick={() => setHeroDesign(0)}
-            className={`text-[12px] font-medium px-4 py-2 rounded-full transition-all cursor-pointer ${heroDesign === 0 ? 'bg-[#A5F41F] text-black' : 'text-white/60 hover:text-white'}`}
-          >
-            Design A
-          </button>
-          <button
-            onClick={() => setHeroDesign(1)}
-            className={`text-[12px] font-medium px-4 py-2 rounded-full transition-all cursor-pointer ${heroDesign === 1 ? 'bg-[#A5F41F] text-black' : 'text-white/60 hover:text-white'}`}
-          >
-            Design B
-          </button>
-        </div>
+        <div className="relative">
+          {/* Design A: Figma-based hero with photo + video phone */}
+          <div className={`transition-opacity duration-500 ${heroDesign === 0 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
+            <section className="relative min-h-screen overflow-hidden pt-[112px]">
+              <div className="absolute inset-0 pointer-events-none" aria-hidden>
+                <img src={assets.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-75" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 60%, white 100%)' }} />
+              </div>
 
-        {/* Design A: Figma-based hero with photo + video phone */}
-        <div className={`transition-opacity duration-500 ${heroDesign === 0 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
-          <section className="relative min-h-screen overflow-hidden pt-[112px]">
-            <div className="absolute inset-0 pointer-events-none" aria-hidden>
-              <img src={assets.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-75" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 60%, white 100%)' }} />
-            </div>
-
-            <div className="relative z-10 max-w-[1200px] mx-auto px-6 pt-8 flex flex-col items-center">
-              <div className="relative w-full">
-                <h1 className="font-display text-[clamp(48px,7vw,83px)] font-medium leading-[0.9] text-black tracking-tight">
-                  Tap. Text. Get Paid.
-                </h1>
-                <p className="text-[18px] text-black/70 mt-6 max-w-[672px]">
-                  No apps. No links. Just text your clients and get paid instantly. Zero fees.
-                </p>
-                <div className="relative mt-10 flex justify-center">
-                  <div className="relative rounded-[22px] overflow-hidden w-[clamp(400px,60vw,840px)] h-[clamp(300px,40vw,560px)]">
-                    <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="absolute right-[clamp(-60px,-5vw,-20px)] top-[20px] lg:right-[60px] w-[clamp(180px,20vw,240px)]">
-                    <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,9px)] shadow-2xl shadow-black/30">
-                      <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,12vw,100px)] h-[clamp(18px,2vw,22px)] bg-black rounded-full" />
-                      <div className="relative rounded-[clamp(22px,3.5vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
-                        <video src="/demo.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+              <div className="relative z-10 max-w-[1200px] mx-auto px-6 pt-8 flex flex-col items-center">
+                <div className="relative w-full flex flex-col items-center">
+                  <h1 className="font-display text-[clamp(48px,7vw,83px)] font-medium leading-[0.9] text-black tracking-tight text-center">
+                    Tap. Text. Get Paid.
+                  </h1>
+                  <p className="text-[18px] text-black/70 mt-6 max-w-[672px] text-center">
+                    No apps. No links. Just text your clients and get paid instantly. Zero fees.
+                  </p>
+                  <div className="relative mt-10 flex justify-center">
+                    <div className="relative rounded-[22px] overflow-hidden w-[clamp(400px,60vw,840px)] h-[clamp(300px,40vw,560px)]">
+                      <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="absolute right-[clamp(-60px,-5vw,-20px)] top-[20px] lg:right-[60px] w-[clamp(180px,20vw,240px)]">
+                      <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,9px)] shadow-2xl shadow-black/30">
+                        <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,12vw,100px)] h-[clamp(18px,2vw,22px)] bg-black rounded-full" />
+                        <div className="relative rounded-[clamp(22px,3.5vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
+                          <video src="/demo.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-        </div>
+            </section>
+          </div>
 
-        {/* Design B: Centered hero with dot grid + persistent phone */}
-        <div className={`transition-opacity duration-500 ${heroDesign === 1 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
-          <Hero />
+          {/* Design B: Centered hero with dot grid + persistent phone */}
+          <div className={`transition-opacity duration-500 ${heroDesign === 1 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
+            <Hero />
+          </div>
+
+          {/* Arrow toggles — bottom right of hero section */}
+          <div className="absolute bottom-8 right-8 z-[200] flex items-center gap-2">
+            <button
+              onClick={() => setHeroDesign(heroDesign === 0 ? 1 : 0)}
+              className="w-10 h-10 rounded-full border-2 border-black/30 flex items-center justify-center hover:border-black transition-colors cursor-pointer bg-white/50 backdrop-blur-sm"
+              aria-label="Previous design"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button
+              onClick={() => setHeroDesign(heroDesign === 0 ? 1 : 0)}
+              className="w-10 h-10 rounded-full border-2 border-black/30 flex items-center justify-center hover:border-black transition-colors cursor-pointer bg-white/50 backdrop-blur-sm"
+              aria-label="Next design"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
         </div>
 
         {/* ═══════ FEATURES SCROLL-SWAP: Send Money → Globe → PayWall ═══════ */}
