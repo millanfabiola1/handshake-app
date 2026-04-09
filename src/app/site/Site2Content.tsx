@@ -7,7 +7,7 @@ import MarqueeBanner from '@/components/MarqueeBanner'
 import FloatingUI from '@/components/FloatingUI'
 import BentoGrid from '@/components/BentoGrid'
 import Nav from '@/components/Nav'
-import { Check } from '@phosphor-icons/react'
+import { Check, ArrowLeft, ArrowRight } from '@phosphor-icons/react'
 
 /* ────────────── local assets ────────────── */
 const assets = {
@@ -330,7 +330,7 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
                         <span className="text-[20px]">💰</span>
                       </div>
                       <div>
-                        <p className="text-[20px] font-bold text-black">$284</p>
+                        <p className="text-[20px] font-bold text-white">$284</p>
                         <p className="text-[11px] text-gray-500">This week</p>
                       </div>
                     </div>
@@ -370,10 +370,19 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
                 <p className="text-[clamp(14px,1.4vw,18px)] text-black/60 mt-3 leading-[1.5]">{step.desc}</p>
               </div>
             ))}
-            {/* Step indicators */}
-            <div className="flex gap-2 mt-8">
+            {/* Step indicators — clickable */}
+            <div className="flex gap-3 mt-8">
               {[0, 1, 2].map((i) => (
-                <div key={i} className={`h-[3px] rounded-full transition-all duration-500 ${activeStep === i ? 'w-8 bg-[#A5F41F]' : 'w-3 bg-black/20'}`} />
+                <button
+                  key={i}
+                  onClick={() => {
+                    if (!sectionRef.current) return
+                    const top = sectionRef.current.offsetTop + (i / 3) * (sectionRef.current.offsetHeight - window.innerHeight) + 10
+                    window.scrollTo({ top, behavior: 'smooth' })
+                  }}
+                  className={`rounded-full transition-all duration-500 cursor-pointer ${activeStep === i ? 'w-10 h-3 bg-[#A5F41F]' : 'w-3 h-3 bg-black/20 hover:bg-black/40'}`}
+                  aria-label={`Step ${i + 1}`}
+                />
               ))}
             </div>
           </div>
@@ -390,18 +399,19 @@ function Site2Inner() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* ═══════ MARQUEE ═══════ */}
-      <MarqueeBanner />
-
       {/* ═══════ NAV — always visible ═══════ */}
       <Nav />
 
       <main>
         {/* ═══════ HERO ═══════ */}
-        <div className="relative">
+        <div className="relative h-screen overflow-hidden">
+          {/* Marquee at top of hero */}
+          <div className="absolute top-0 left-0 right-0 z-[100]">
+            <MarqueeBanner />
+          </div>
           {/* Design A: Figma-based hero with photo + video phone */}
-          <div className={`transition-opacity duration-500 ${heroDesign === 0 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
-            <section className="relative min-h-screen overflow-hidden pt-[112px] pb-0">
+          <div className={`absolute inset-0 transition-opacity duration-500 ${heroDesign === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <section className="relative h-full overflow-hidden pt-[112px] pb-0">
               <div className="absolute inset-0 pointer-events-none" aria-hidden>
                 <img src={assets.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-75" />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 50%, white 100%)' }} />
@@ -436,9 +446,9 @@ function Site2Inner() {
           </div>
 
           {/* Design B: Centered headline + dot grid + phone with floating cards */}
-          <div className={`transition-opacity duration-500 ${heroDesign === 1 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
+          <div className={`absolute inset-0 transition-opacity duration-500 ${heroDesign === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <section
-              className="relative min-h-screen overflow-hidden flex flex-col"
+              className="relative h-full overflow-hidden flex flex-col"
               style={{ background: 'linear-gradient(145deg, #A5F41F 0%, #c2f55a 12%, #d8f890 24%, #ebfbc8 38%, #f4f6ee 58%, #efefeb 100%)' }}
             >
               {/* Dot grid */}
@@ -516,21 +526,21 @@ function Site2Inner() {
             </section>
           </div>
 
-          {/* Arrow toggles — bottom right of hero section */}
+          {/* Arrow toggles — bottom right of hero only */}
           <div className="absolute bottom-8 right-8 z-[200] flex items-center gap-2">
             <button
               onClick={() => setHeroDesign(heroDesign === 0 ? 1 : 0)}
-              className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center hover:bg-black/5 transition-colors cursor-pointer bg-transparent"
+              className="w-11 h-11 rounded-full border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer bg-transparent"
               aria-label="Previous design"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              <ArrowLeft size={18} weight="bold" />
             </button>
             <button
               onClick={() => setHeroDesign(heroDesign === 0 ? 1 : 0)}
-              className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center hover:bg-black/5 transition-colors cursor-pointer bg-transparent"
+              className="w-11 h-11 rounded-full border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer bg-transparent"
               aria-label="Next design"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              <ArrowRight size={18} weight="bold" />
             </button>
           </div>
         </div>
