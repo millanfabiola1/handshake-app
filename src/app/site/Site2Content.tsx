@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useWaitlist } from '@/components/WaitlistContext'
 import WaitlistProvider from '@/components/WaitlistContext'
 import MarqueeBanner from '@/components/MarqueeBanner'
@@ -69,6 +69,284 @@ const useCases = [
   { label: 'SECURITY & SERVICE', title: 'Coordinate and\ninvoice instantly', desc: 'Ditch the invoicing software. Bill clients the second the job is done.', stat: '90%', statLabel: 'FASTER PAYMENTS' },
 ]
 
+/* ────────────── Scroll-swap feature section ────────────── */
+const swapSteps = [
+  { title: 'Text-based payments', desc: 'Works with any phone number. No apps required.' },
+  { title: 'Send money globally', desc: '150+ countries supported. Instant cross-border payments with zero fees.' },
+  { title: 'Lock your best content', desc: 'Sell exclusive photos, videos, and messages. Set your price, get paid instantly.' },
+]
+
+function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const [activeStep, setActiveStep] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return
+      const rect = sectionRef.current.getBoundingClientRect()
+      const sectionHeight = sectionRef.current.offsetHeight
+      const scrolled = -rect.top
+      const progress = Math.max(0, Math.min(1, scrolled / (sectionHeight - window.innerHeight)))
+      const step = Math.min(2, Math.floor(progress * 3))
+      setActiveStep(step)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <section ref={sectionRef} className="relative" style={{ height: '300vh' }}>
+      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+        <div className="max-w-[1200px] mx-auto px-6 w-full flex flex-col lg:flex-row items-center gap-16">
+          {/* Left: Visual that swaps */}
+          <div className="relative flex-1 flex justify-center">
+            <div className="relative w-[420px] h-[500px]">
+
+              {/* ── State 0: Send Money ── */}
+              <div className={`absolute inset-0 transition-all duration-700 ${activeStep === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+                <div className="absolute left-[120px] top-[220px] w-[75px] h-[75px] rounded-full overflow-hidden shadow-xl rotate-[4deg] float-slow z-10">
+                  <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute right-[30px] top-[60px] w-[70px] h-[70px] rounded-full overflow-hidden shadow-xl -rotate-[34deg] float-medium z-10">
+                  <img src={assets.avatar2} alt="" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute left-[80px] top-[40px] w-[240px] -rotate-[11deg] z-[5]">
+                  <div className="rounded-[36px] overflow-hidden shadow-2xl">
+                    <img src={assets.phoneMockup} alt="Send Money" className="w-full h-auto" />
+                  </div>
+                </div>
+                <div className="absolute right-[20px] top-[100px] -rotate-[22deg] float-medium z-10">
+                  <div className="backdrop-blur-lg bg-white/30 border border-white/50 rounded-[20px] shadow-xl px-6 py-5">
+                    <p className="font-display text-[44px] font-bold text-black text-center leading-none">$50</p>
+                    <p className="text-[12px] text-gray-600 text-center mt-1">Enter amount</p>
+                  </div>
+                </div>
+                <div className="absolute right-[60px] top-[230px] -rotate-[22deg] float-fast z-10">
+                  <div className="bg-black rounded-full shadow-lg px-4 py-2.5 flex items-center gap-2">
+                    <span className="text-[16px]">⚡</span>
+                    <span className="text-[12px] font-bold text-white">Instant</span>
+                  </div>
+                </div>
+                <div className="absolute left-[100px] bottom-[80px] z-10 float-slow">
+                  <div className="backdrop-blur-lg bg-white/20 border border-white/40 rounded-[16px] shadow-xl px-5 py-3 flex items-center gap-3">
+                    <div className="w-[40px] h-[40px] rounded-full bg-gradient-to-br from-purple-400 to-pink-400" />
+                    <div>
+                      <p className="text-[13px] font-semibold text-black">Alex Smith</p>
+                      <p className="text-[10px] text-gray-500">@alexsmith</p>
+                    </div>
+                    <span className="text-[20px] ml-2">💸</span>
+                  </div>
+                </div>
+                <div className="absolute left-[20px] top-[280px] rotate-[1deg] float-slow z-10">
+                  <div className="backdrop-blur-lg bg-[#A5F41F]/50 border border-[#A5F41F]/50 rounded-[16px] shadow-lg px-4 py-2.5">
+                    <p className="text-[10px] text-black">You sent</p>
+                    <p className="text-[24px] font-bold text-black leading-tight">$50</p>
+                  </div>
+                </div>
+                <div className="absolute left-[10px] bottom-[30px] -rotate-[18deg] float-medium z-10">
+                  <div className="bg-white rounded-full shadow-lg px-4 py-2.5 flex items-center gap-1.5">
+                    <span className="text-[16px]">🔒</span>
+                    <span className="text-[12px] font-bold text-black">Secure</span>
+                  </div>
+                </div>
+                <div className="absolute right-[10px] bottom-[100px] -rotate-[22deg] float-slow z-10">
+                  <span className="text-[56px]">💵</span>
+                </div>
+                <div className="absolute left-[110px] bottom-[15px] z-10">
+                  <div className="bg-[#A5F41F] rounded-full shadow-lg px-10 py-3.5">
+                    <span className="text-[14px] font-bold text-black">Send Now</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── State 1: Globe ── */}
+              <div className={`absolute inset-0 transition-all duration-700 flex items-center justify-center ${activeStep === 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+                <div className="relative w-[400px] h-[400px]">
+                  {/* Orbit rings */}
+                  <div className="absolute inset-[-10px] rounded-full border-2 border-[#A5F41F]/30" />
+                  <div className="absolute inset-[20px] rounded-full border border-[#A5F41F]/20" />
+                  {/* Center photo circle */}
+                  <div className="absolute inset-[60px] rounded-full overflow-hidden">
+                    <img src={assets.heroPhoto} alt="" className="w-full h-full object-cover" />
+                  </div>
+                  {/* US card */}
+                  <div className="absolute left-[50%] top-[25%] -translate-x-1/2 -translate-y-1/2 z-10 float-slow">
+                    <div className="backdrop-blur-lg bg-white/40 border border-white/50 rounded-[16px] shadow-xl px-4 py-3">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[20px]">🇺🇸</span>
+                        <span className="text-[12px] font-medium text-white">United States</span>
+                      </div>
+                      <p className="text-[32px] font-bold text-white leading-none">$100</p>
+                    </div>
+                  </div>
+                  {/* EU card */}
+                  <div className="absolute left-[50%] bottom-[15%] -translate-x-1/2 z-10 float-medium">
+                    <div className="backdrop-blur-lg bg-[#A5F41F]/40 border border-[#A5F41F]/50 rounded-[16px] shadow-xl px-4 py-3">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[20px]">🇪🇺</span>
+                        <span className="text-[12px] font-medium text-white/70">Europe</span>
+                      </div>
+                      <p className="text-[32px] font-bold text-white leading-none">€92</p>
+                    </div>
+                  </div>
+                  {/* Country badges */}
+                  <div className="absolute top-[-5px] left-[50%] -translate-x-1/2 z-10">
+                    <div className="bg-black/60 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5">
+                      <span className="text-[14px]">🇨🇦</span>
+                      <span className="text-[12px] font-bold text-white">$130</span>
+                      <span className="text-[9px] text-gray-400">CAD</span>
+                    </div>
+                  </div>
+                  <div className="absolute right-[-20px] top-[30%] z-10">
+                    <div className="bg-black/60 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5">
+                      <span className="text-[14px]">🇯🇵</span>
+                      <span className="text-[12px] font-bold text-white">¥13,500</span>
+                      <span className="text-[9px] text-gray-400">JPY</span>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-[5px] right-[10%] z-10">
+                    <div className="bg-black/60 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5">
+                      <span className="text-[14px]">🇦🇺</span>
+                      <span className="text-[12px] font-bold text-white">$145</span>
+                      <span className="text-[9px] text-gray-400">AUD</span>
+                    </div>
+                  </div>
+                  {/* Globe emoji + 150+ countries */}
+                  <div className="absolute left-[-30px] bottom-[25%] z-10 float-slow">
+                    <span className="text-[48px]">🌏</span>
+                  </div>
+                  <div className="absolute left-[-20px] bottom-[10%] z-10">
+                    <div className="bg-black rounded-full px-4 py-2.5 shadow-lg">
+                      <span className="text-[14px] font-bold text-[#A5F41F]">150+ countries</span>
+                    </div>
+                  </div>
+                  {/* Profile cards */}
+                  <div className="absolute left-[-10px] top-[20%] z-10 float-medium">
+                    <div className="bg-white rounded-[16px] shadow-xl px-3 py-2 flex items-center gap-2">
+                      <div className="w-[36px] h-[36px] rounded-full overflow-hidden">
+                        <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1"><span className="text-[12px]">🇧🇷</span><span className="text-[11px] font-bold">Brazil</span></div>
+                        <span className="text-[9px] text-gray-400">Received $$$</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute right-[-30px] bottom-[30%] z-10 float-slow">
+                    <div className="bg-white rounded-[16px] shadow-xl px-3 py-2 flex items-center gap-2">
+                      <div className="w-[36px] h-[36px] rounded-full overflow-hidden">
+                        <img src={assets.avatar2} alt="" className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1"><span className="text-[12px]">🇬🇧</span><span className="text-[11px] font-bold">UK</span></div>
+                        <span className="text-[9px] text-gray-400">Received $$$</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── State 2: Pay Wall ── */}
+              <div className={`absolute inset-0 transition-all duration-700 flex items-center justify-center ${activeStep === 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+                <div className="relative w-[380px]">
+                  {/* Main card */}
+                  <div className="bg-black/80 backdrop-blur-xl rounded-[32px] overflow-hidden shadow-2xl">
+                    {/* Blurred image top */}
+                    <div className="relative h-[180px] overflow-hidden">
+                      <img src={assets.heroPhoto} alt="" className="w-full h-full object-cover blur-[3px] opacity-50" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
+                      {/* Lock icon */}
+                      <div className="absolute top-[30px] left-1/2 -translate-x-1/2 bg-white/20 rounded-full w-[56px] h-[56px] flex items-center justify-center">
+                        <span className="text-[28px]">🔒</span>
+                      </div>
+                      <div className="absolute bottom-[30px] left-0 right-0 text-center">
+                        <p className="text-[18px] font-bold text-white">Exclusive Content</p>
+                        <p className="text-[14px] text-white/80 mt-1">3 photos &bull; 1 video</p>
+                      </div>
+                    </div>
+                    {/* Divider + creator info */}
+                    <div className="border-t border-white/10 px-6 py-4 flex items-center gap-3">
+                      <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
+                        <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <p className="text-[14px] font-bold text-white">Maya Chen</p>
+                        <p className="text-[11px] text-gray-400">@mayachen</p>
+                      </div>
+                    </div>
+                    {/* Unlock button */}
+                    <div className="px-6 pb-6">
+                      <div className="bg-[#A5F41F] rounded-full py-4 text-center">
+                        <span className="text-[16px] font-bold text-black">Unlock for $4.99</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Floating elements */}
+                  <div className="absolute -left-[30px] top-[20px] z-10 rotate-12 float-slow">
+                    <div className="bg-[#A5F41F]/40 backdrop-blur border border-[#A5F41F]/50 rounded-[16px] shadow-lg w-[80px] h-[80px] flex items-center justify-center">
+                      <span className="text-[36px]">🔓</span>
+                    </div>
+                  </div>
+                  <div className="absolute right-[-20px] top-[100px] z-10 float-medium">
+                    <div className="backdrop-blur-lg bg-white/20 border border-white/40 rounded-[20px] shadow-xl px-4 py-3 flex items-center gap-3">
+                      <div className="bg-gradient-to-br from-blue-300 to-blue-400 rounded-full w-[44px] h-[44px] flex items-center justify-center">
+                        <span className="text-[20px]">💰</span>
+                      </div>
+                      <div>
+                        <p className="text-[20px] font-bold text-black">$284</p>
+                        <p className="text-[11px] text-gray-500">This week</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute -left-[10px] bottom-[120px] z-10 -rotate-4 float-medium">
+                    <div className="bg-white rounded-full shadow-lg px-4 py-2.5">
+                      <span className="text-[13px] font-medium text-black">Just unlocked! 🔥</span>
+                    </div>
+                  </div>
+                  <div className="absolute right-[-10px] bottom-[60px] z-10 -rotate-[9deg] float-slow">
+                    <div className="bg-black rounded-[16px] shadow-lg px-4 py-2.5">
+                      <span className="text-[13px] text-white">Worth it! ❤️</span>
+                    </div>
+                  </div>
+                  {/* Avatar cluster */}
+                  <div className="absolute -left-[20px] bottom-[180px] z-10 flex">
+                    <div className="w-[44px] h-[44px] rounded-full border-2 border-white overflow-hidden shadow-lg">
+                      <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="w-[44px] h-[44px] rounded-full border-2 border-white overflow-hidden shadow-lg -ml-3">
+                      <img src={assets.avatar2} alt="" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="w-[44px] h-[44px] rounded-full border-2 border-white bg-black flex items-center justify-center shadow-lg -ml-3">
+                      <span className="text-[11px] font-bold text-white">+12</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Text that swaps */}
+          <div className="flex-1 lg:flex-none lg:w-[320px]">
+            {swapSteps.map((step, i) => (
+              <div key={step.title} className={`transition-all duration-500 ${activeStep === i ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute pointer-events-none'}`}>
+                <h3 className="font-display text-[28px] font-medium text-black">{step.title}</h3>
+                <p className="text-[14px] text-black/60 mt-2">{step.desc}</p>
+              </div>
+            ))}
+            {/* Step indicators */}
+            <div className="flex gap-2 mt-8">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className={`h-[3px] rounded-full transition-all duration-500 ${activeStep === i ? 'w-8 bg-[#A5F41F]' : 'w-3 bg-black/20'}`} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ────────────── Inner content (needs WaitlistContext) ────────────── */
 function Site2Inner() {
   const showWaitlist = useWaitlist()
@@ -131,93 +409,8 @@ function Site2Inner() {
           </div>
         </section>
 
-        {/* ═══════ SEND MONEY ═══════ */}
-        <section className="relative py-24 overflow-hidden">
-          <div className="max-w-[1200px] mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
-            {/* Left: Phone with floating elements — matching Figma */}
-            <div className="relative flex-1 flex justify-center py-8">
-              <div className="relative w-[420px] h-[500px]">
-                {/* Avatar - top left */}
-                <div className="absolute left-[120px] top-[220px] w-[75px] h-[75px] rounded-full overflow-hidden shadow-xl rotate-[4deg] float-slow z-10">
-                  <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
-                </div>
-                {/* Avatar - top right */}
-                <div className="absolute right-[30px] top-[60px] w-[70px] h-[70px] rounded-full overflow-hidden shadow-xl -rotate-[34deg] float-medium z-10">
-                  <img src={assets.avatar2} alt="" className="w-full h-full object-cover" />
-                </div>
-
-                {/* Phone mockup — tilted */}
-                <div className="absolute left-[80px] top-[40px] w-[240px] -rotate-[11deg] z-[5]">
-                  <div className="rounded-[36px] overflow-hidden shadow-2xl">
-                    <img src={assets.phoneMockup} alt="Send Money screen" className="w-full h-auto" />
-                  </div>
-                </div>
-
-                {/* Floating $50 card */}
-                <div className="absolute right-[20px] top-[100px] -rotate-[22deg] float-medium z-10">
-                  <div className="backdrop-blur-lg bg-white/30 border border-white/50 rounded-[20px] shadow-xl px-6 py-5">
-                    <p className="font-display text-[44px] font-bold text-black text-center leading-none">$50</p>
-                    <p className="text-[12px] text-gray-600 text-center mt-1">Enter amount</p>
-                  </div>
-                </div>
-
-                {/* Floating "Instant" pill */}
-                <div className="absolute right-[60px] top-[230px] -rotate-[22deg] float-fast z-10">
-                  <div className="bg-black rounded-full shadow-lg px-4 py-2.5 flex items-center gap-2">
-                    <span className="text-[16px]">⚡</span>
-                    <span className="text-[12px] font-bold text-white">Instant</span>
-                  </div>
-                </div>
-
-                {/* Contact card - glass */}
-                <div className="absolute left-[100px] bottom-[80px] z-10 float-slow">
-                  <div className="backdrop-blur-lg bg-white/20 border border-white/40 rounded-[16px] shadow-xl px-5 py-3 flex items-center gap-3">
-                    <div className="w-[40px] h-[40px] rounded-full bg-gradient-to-br from-purple-400 to-pink-400" />
-                    <div>
-                      <p className="text-[13px] font-semibold text-black">Alex Smith</p>
-                      <p className="text-[10px] text-gray-500">@alexsmith</p>
-                    </div>
-                    <span className="text-[20px] ml-2">💸</span>
-                  </div>
-                </div>
-
-                {/* "You sent" badge */}
-                <div className="absolute left-[20px] top-[280px] rotate-[1deg] float-slow z-10">
-                  <div className="backdrop-blur-lg bg-[#A5F41F]/50 border border-[#A5F41F]/50 rounded-[16px] shadow-lg px-4 py-2.5">
-                    <p className="text-[10px] text-black">You sent</p>
-                    <p className="text-[24px] font-bold text-black leading-tight">$50</p>
-                  </div>
-                </div>
-
-                {/* "Secure" pill */}
-                <div className="absolute left-[10px] bottom-[30px] -rotate-[18deg] float-medium z-10">
-                  <div className="bg-white rounded-full shadow-lg px-4 py-2.5 flex items-center gap-1.5">
-                    <span className="text-[16px]">🔒</span>
-                    <span className="text-[12px] font-bold text-black">Secure</span>
-                  </div>
-                </div>
-
-                {/* Money emoji */}
-                <div className="absolute right-[10px] bottom-[100px] -rotate-[22deg] float-slow z-10">
-                  <span className="text-[56px]">💵</span>
-                </div>
-
-                {/* Send Now button */}
-                <div className="absolute left-[110px] bottom-[15px] z-10">
-                  <div className="bg-[#A5F41F] rounded-full shadow-lg px-10 py-3.5">
-                    <span className="text-[14px] font-bold text-black">Send Now</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Text */}
-            <div className="flex-1 lg:flex-none">
-              <h3 className="font-display text-[28px] font-medium text-black">Text-based payments</h3>
-              <p className="text-[14px] text-black/60 mt-1">Works with any phone number. No apps required.</p>
-            </div>
-          </div>
-        </section>
+        {/* ═══════ FEATURES SCROLL-SWAP: Send Money → Globe → PayWall ═══════ */}
+        <ScrollSwapSection assets={assets} />
 
         {/* ═══════ BUILT FOR THE NEW ECONOMY — Carousel ═══════ */}
         <section className="bg-[#A5F41F] pt-24 pb-16 overflow-hidden">
@@ -227,35 +420,34 @@ function Site2Inner() {
             </h2>
           </div>
 
-          {/* Horizontal carousel */}
-          <div className="flex gap-6 px-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
-            {/* Spacer for left alignment */}
-            <div className="shrink-0 w-[max(0px,calc((100%-1200px)/2))]" />
-
-            {useCases.map((uc, i) => (
-              <React.Fragment key={uc.label}>
-                {/* Use case card */}
-                <div className="shrink-0 w-[340px] snap-start bg-white rounded-[24px] p-8 flex flex-col justify-between min-h-[440px] hover:bg-black hover:text-white transition-colors duration-300 group cursor-pointer">
-                  <div>
-                    <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase mb-4">{uc.label}</p>
-                    <h3 className="font-display text-[30px] font-medium leading-tight whitespace-pre-line">{uc.title}</h3>
-                    <p className="text-[14px] text-black/60 group-hover:text-white/60 mt-3">{uc.desc}</p>
-                  </div>
-                  <div className="mt-8">
-                    <p className="font-display text-[36px] font-medium text-[#A5F41F]">{uc.stat}</p>
-                    <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase">{uc.statLabel}</p>
-                  </div>
-                </div>
-
-                {/* Photo card */}
-                <div className="shrink-0 w-[280px] snap-start rounded-[24px] overflow-hidden min-h-[440px]">
-                  <img src={i % 2 === 0 ? assets.photo1 : assets.photo2} alt="" className="w-full h-full object-cover" />
-                </div>
-              </React.Fragment>
-            ))}
-
-            {/* Right spacer */}
-            <div className="shrink-0 w-6" />
+          {/* Auto-scrolling carousel loop */}
+          <div className="relative overflow-hidden pb-8 group/carousel">
+            <div
+              className="flex gap-6 w-max hover:[animation-play-state:paused]"
+              style={{ animation: 'marquee 40s linear infinite' }}
+            >
+              {/* Render items twice for seamless loop */}
+              {[0, 1].map((set) =>
+                useCases.map((uc, i) => (
+                  <React.Fragment key={`${set}-${uc.label}`}>
+                    <div className="shrink-0 w-[340px] bg-white rounded-[24px] p-8 flex flex-col justify-between min-h-[440px] hover:bg-black hover:text-white transition-colors duration-300 group cursor-pointer">
+                      <div>
+                        <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase mb-4">{uc.label}</p>
+                        <h3 className="font-display text-[30px] font-medium leading-tight whitespace-pre-line">{uc.title}</h3>
+                        <p className="text-[14px] text-black/60 group-hover:text-white/60 mt-3">{uc.desc}</p>
+                      </div>
+                      <div className="mt-8">
+                        <p className="font-display text-[36px] font-medium text-[#A5F41F]">{uc.stat}</p>
+                        <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase">{uc.statLabel}</p>
+                      </div>
+                    </div>
+                    <div className="shrink-0 w-[280px] rounded-[24px] overflow-hidden min-h-[440px]">
+                      <img src={i % 2 === 0 ? assets.photo1 : assets.photo2} alt="" className="w-full h-full object-cover" />
+                    </div>
+                  </React.Fragment>
+                ))
+              )}
+            </div>
           </div>
         </section>
 
