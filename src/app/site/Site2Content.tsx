@@ -8,6 +8,7 @@ import FloatingUI from '@/components/FloatingUI'
 import BentoGrid from '@/components/BentoGrid'
 import Hero from '@/components/Hero'
 import PhonePersist from '@/components/PhonePersist'
+import Nav from '@/components/Nav'
 import { Check } from '@phosphor-icons/react'
 
 /* ────────────── local assets ────────────── */
@@ -359,16 +360,8 @@ function Site2Inner() {
       {/* ═══════ MARQUEE ═══════ */}
       <MarqueeBanner />
 
-      {/* ═══════ HEADER ═══════ */}
-      <header className="fixed top-[32px] left-0 right-0 z-50 h-[80px] flex items-center justify-between px-6">
-        <TappdLogo className="h-[28px] w-auto text-black" />
-        <button
-          onClick={showWaitlist}
-          className="bg-black text-white text-[14px] font-medium px-6 py-3 rounded-full hover:bg-black/80 transition-colors cursor-pointer"
-        >
-          Get Tapp&apos;d
-        </button>
-      </header>
+      {/* ═══════ NAV — always visible ═══════ */}
+      <Nav />
 
       {/* PhonePersist — only visible when Design B active */}
       {heroDesign === 1 && <PhonePersist />}
