@@ -72,6 +72,41 @@ const useCases = [
   { label: 'SECURITY & SERVICE', title: 'Coordinate and\ninvoice instantly', desc: 'Ditch the invoicing software. Bill clients the second the job is done.', stat: '90%', statLabel: 'FASTER PAYMENTS' },
 ]
 
+/* ────────────── Fee slideshow ────────────── */
+const feeItems = [
+  { name: 'Venmo charges 3%', isTappd: false },
+  { name: 'PayPal charges 2.9%', isTappd: false },
+  { name: 'Cash App charges 2.75%', isTappd: false },
+  { name: 'Tappd charges 0%', isTappd: true },
+]
+
+function FeeSlideshow() {
+  const [active, setActive] = useState(0)
+  useEffect(() => {
+    const timer = setInterval(() => setActive((p) => (p + 1) % feeItems.length), 2500)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
+      {feeItems.map((item, i) => (
+        <div
+          key={item.name}
+          className={`backdrop-blur-[35px] rounded-full px-6 py-3 text-[14px] transition-all duration-500 ${
+            item.isTappd
+              ? 'bg-[#A5F41F] text-black font-semibold scale-100'
+              : active === i
+                ? 'border-2 border-white text-white shadow-xl scale-110 bg-white/10'
+                : 'border border-white/40 text-white/60 shadow-lg scale-100'
+          }`}
+        >
+          {item.name}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 /* ────────────── Scroll-swap feature section ────────────── */
 const swapSteps = [
   { title: 'Text-based payments', desc: 'Works with any phone number. No apps required.' },
@@ -101,10 +136,10 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
   return (
     <section ref={sectionRef} className="relative" style={{ height: '300vh' }}>
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-        <div className="max-w-[1200px] mx-auto px-6 w-full flex flex-col lg:flex-row items-center gap-16">
+        <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           {/* Left: Visual that swaps */}
           <div className="relative flex-1 flex justify-center">
-            <div className="relative w-[420px] h-[500px]">
+            <div className="relative w-[500px] h-[600px]">
 
               {/* ── State 0: Send Money ── */}
               <div className={`absolute inset-0 transition-all duration-700 ${activeStep === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
@@ -114,8 +149,8 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
                 <div className="absolute right-[30px] top-[60px] w-[70px] h-[70px] rounded-full overflow-hidden shadow-xl -rotate-[34deg] float-medium z-10">
                   <img src={assets.avatar2} alt="" className="w-full h-full object-cover" />
                 </div>
-                <div className="absolute left-[80px] top-[40px] w-[240px] -rotate-[11deg] z-[5]">
-                  <div className="rounded-[36px] overflow-hidden shadow-2xl">
+                <div className="absolute left-[60px] top-[20px] w-[300px] -rotate-[11deg] z-[5]">
+                  <div className="rounded-[40px] overflow-hidden shadow-2xl">
                     <img src={assets.phoneMockup} alt="Send Money" className="w-full h-auto" />
                   </div>
                 </div>
@@ -330,11 +365,11 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
           </div>
 
           {/* Right: Text that swaps */}
-          <div className="flex-1 lg:flex-none lg:w-[320px]">
+          <div className="flex-1 lg:flex-none lg:w-[400px]">
             {swapSteps.map((step, i) => (
               <div key={step.title} className={`transition-all duration-500 ${activeStep === i ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute pointer-events-none'}`}>
-                <h3 className="font-display text-[28px] font-medium text-black">{step.title}</h3>
-                <p className="text-[14px] text-black/60 mt-2">{step.desc}</p>
+                <h3 className="font-display text-[clamp(28px,3vw,40px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">{step.title}</h3>
+                <p className="text-[clamp(14px,1.4vw,18px)] text-black/60 mt-3 leading-[1.5]">{step.desc}</p>
               </div>
             ))}
             {/* Step indicators */}
@@ -371,27 +406,29 @@ function Site2Inner() {
         <div className="relative">
           {/* Design A: Figma-based hero with photo + video phone */}
           <div className={`transition-opacity duration-500 ${heroDesign === 0 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
-            <section className="relative min-h-screen overflow-hidden pt-[112px]">
+            <section className="relative min-h-screen overflow-hidden pt-[112px] pb-0">
               <div className="absolute inset-0 pointer-events-none" aria-hidden>
                 <img src={assets.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-75" />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 60%, white 100%)' }} />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 50%, white 100%)' }} />
               </div>
 
               <div className="relative z-10 max-w-[1200px] mx-auto px-6 pt-8 flex flex-col items-center">
                 <div className="relative w-full flex flex-col items-center">
-                  <h1 className="font-display text-[clamp(48px,7vw,83px)] font-medium leading-[0.9] text-black tracking-tight text-center">
+                  <h1 className="font-display text-[clamp(56px,8vw,96px)] font-medium leading-[0.85] text-black tracking-[-0.04em] text-center">
                     Tap. Text. Get Paid.
                   </h1>
-                  <p className="text-[18px] text-black/70 mt-6 max-w-[672px] text-center">
+                  <p className="text-[clamp(16px,1.6vw,20px)] text-black/60 mt-5 max-w-[672px] text-center leading-[1.4]">
                     No apps. No links. Just text your clients and get paid instantly. Zero fees.
                   </p>
                   <div className="relative mt-10 flex justify-center">
-                    <div className="relative rounded-[22px] overflow-hidden w-[clamp(400px,60vw,840px)] h-[clamp(300px,40vw,560px)]">
+                    <div className="relative rounded-[22px] overflow-hidden w-[clamp(500px,65vw,900px)] h-[clamp(350px,45vw,600px)]">
                       <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover" />
+                      {/* Fade-out gradient at bottom of image */}
+                      <div className="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, white)' }} />
                     </div>
-                    <div className="absolute right-[clamp(-60px,-5vw,-20px)] top-[20px] lg:right-[60px] w-[clamp(180px,20vw,240px)]">
-                      <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,9px)] shadow-2xl shadow-black/30">
-                        <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,12vw,100px)] h-[clamp(18px,2vw,22px)] bg-black rounded-full" />
+                    <div className="absolute right-[clamp(-40px,-3vw,0px)] top-[20px] lg:right-[40px] w-[clamp(200px,22vw,280px)]">
+                      <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,10px)] shadow-2xl shadow-black/30">
+                        <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,12vw,100px)] h-[clamp(18px,2vw,24px)] bg-black rounded-full" />
                         <div className="relative rounded-[clamp(22px,3.5vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
                           <video src="/demo.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
                         </div>
@@ -412,14 +449,14 @@ function Site2Inner() {
           <div className="absolute bottom-8 right-8 z-[200] flex items-center gap-2">
             <button
               onClick={() => setHeroDesign(heroDesign === 0 ? 1 : 0)}
-              className="w-10 h-10 rounded-full border-2 border-black/30 flex items-center justify-center hover:border-black transition-colors cursor-pointer bg-white/50 backdrop-blur-sm"
+              className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center hover:bg-black/5 transition-colors cursor-pointer bg-transparent"
               aria-label="Previous design"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
             <button
               onClick={() => setHeroDesign(heroDesign === 0 ? 1 : 0)}
-              className="w-10 h-10 rounded-full border-2 border-black/30 flex items-center justify-center hover:border-black transition-colors cursor-pointer bg-white/50 backdrop-blur-sm"
+              className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center hover:bg-black/5 transition-colors cursor-pointer bg-transparent"
               aria-label="Next design"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -433,7 +470,7 @@ function Site2Inner() {
         {/* ═══════ BUILT FOR THE NEW ECONOMY — Carousel ═══════ */}
         <section className="bg-[#A5F41F] pt-24 pb-16 overflow-hidden">
           <div className="max-w-[1200px] mx-auto px-6 mb-12">
-            <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[1.25]">
+            <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
               Built for the<br />new economy
             </h2>
           </div>
@@ -470,17 +507,17 @@ function Site2Inner() {
         </section>
 
         {/* ═══════ EVERYTHING IN ONE PLACE — FloatingUI ═══════ */}
-        <section className="relative pt-24 pb-12 overflow-hidden">
-          {/* Actual gradient background image from Figma */}
+        <section className="relative pt-24 pb-0 overflow-hidden">
+          {/* Gradient background */}
           <div className="absolute inset-0 pointer-events-none" aria-hidden>
             <img src={assets.lockedContentBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
           </div>
           <div className="relative z-10 max-w-[1200px] mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[1.25]">
+            <div className="text-center mb-16 reveal reveal-in">
+              <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
                 Everything in<br />one place
               </h2>
-              <p className="text-[20px] text-black/60 mt-6 max-w-[612px] mx-auto">
+              <p className="text-[clamp(16px,1.4vw,20px)] text-black/60 mt-4 max-w-[612px] mx-auto leading-[1.5]">
                 Payments, locked content, mass texts. All through your phone. Zero complexity.
               </p>
             </div>
@@ -496,6 +533,9 @@ function Site2Inner() {
           <div className="site2-floating-ui" style={{ marginTop: '-2rem' }}>
             <FloatingUI />
           </div>
+
+          {/* Fade-out gradient into next section */}
+          <div className="h-[120px] relative z-10 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, white)' }} />
         </section>
 
         {/* ═══════ BENTO GRID ═══════ */}
@@ -512,7 +552,7 @@ function Site2Inner() {
             {/* Lock your content */}
             <div className="flex flex-col lg:flex-row items-center gap-16 mb-32">
               <div className="flex-1">
-                <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[1.25]">
+                <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
                   Lock your<br />content
                 </h2>
                 <p className="text-[18px] text-black/60 mt-6 max-w-[567px] leading-relaxed">
@@ -567,7 +607,7 @@ function Site2Inner() {
               </div>
 
               <div className="flex-1">
-                <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[1.25]">
+                <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
                   Text everyone<br />at once
                 </h2>
                 <p className="text-[18px] text-black/60 mt-6 max-w-[542px] leading-relaxed">
@@ -601,25 +641,7 @@ function Site2Inner() {
               Zero. Forever.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
-              {[
-                { name: 'Venmo charges 3%', highlight: false },
-                { name: 'PayPal charges 2.9%', highlight: false },
-                { name: 'Cash App charges 2.75%', highlight: false },
-                { name: 'Tappd charges 0%', highlight: true },
-              ].map((item) => (
-                <div
-                  key={item.name}
-                  className={`backdrop-blur-[35px] rounded-full px-6 py-3 text-[14px] ${
-                    item.highlight
-                      ? 'bg-[#A5F41F] text-black font-semibold'
-                      : 'border border-white text-white shadow-lg'
-                  }`}
-                >
-                  {item.name}
-                </div>
-              ))}
-            </div>
+            <FeeSlideshow />
 
             <p className="text-[14px] text-white/50 mt-10">
               Keep every dollar you earn. No hidden costs. Ever.
@@ -635,7 +657,7 @@ function Site2Inner() {
           <img src="/site2/cta-bubble.svg" alt="" className="absolute right-[3%] bottom-[10%] w-[100px] md:w-[160px] h-auto -rotate-[12deg] pointer-events-none float-slow" />
 
           <div className="relative z-10 max-w-[896px] mx-auto px-6 text-center">
-            <h2 className="font-display text-[clamp(48px,6vw,72px)] font-medium text-white leading-[1.25]">
+            <h2 className="font-display text-[clamp(48px,6vw,72px)] font-medium text-white leading-[0.95] tracking-[-0.02em]">
               Ready to get<br />Tapp&apos;d?
             </h2>
 
