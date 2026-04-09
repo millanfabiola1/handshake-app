@@ -1,11 +1,13 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useWaitlist } from '@/components/WaitlistContext'
 import WaitlistProvider from '@/components/WaitlistContext'
 import MarqueeBanner from '@/components/MarqueeBanner'
 import FloatingUI from '@/components/FloatingUI'
 import BentoGrid from '@/components/BentoGrid'
+import EndJourney from '@/components/EndJourney'
+import Footer from '@/components/Footer'
 import Nav from '@/components/Nav'
 import { Check, ArrowLeft, ArrowRight } from '@phosphor-icons/react'
 
@@ -64,44 +66,339 @@ function CheckItem({ children, dark = false }: { children: React.ReactNode; dark
 
 /* ────────────── Use case data ────────────── */
 const useCases = [
-  { label: 'CREATORS & INDEPENDENTS', title: 'Tips. Locked drops.\nKeep 100%.', desc: 'Every DM is a potential payday. Every follower is a potential revenue source.', stat: '47%', statLabel: 'HIGHER CONVERSION' },
-  { label: 'HOME SERVICES', title: 'Quote, confirm, collect', desc: 'Your clients already text you. Now those texts make you money.', stat: '3x', statLabel: 'FASTER COLLECTIONS' },
-  { label: 'PSYCHICS & COACHES', title: 'Lock premium readings', desc: 'Charge per message. Lock premium sessions. Schedule paid calls. One app does it all.', stat: '$120', statLabel: 'AVG SESSION REVENUE' },
-  { label: 'SECURITY & SERVICE', title: 'Coordinate and\ninvoice instantly', desc: 'Ditch the invoicing software. Bill clients the second the job is done.', stat: '90%', statLabel: 'FASTER PAYMENTS' },
+  { label: 'CREATORS & INDEPENDENTS', title: 'Tips. Locked drops.\nKeep 100%.', desc: 'Every DM is a potential payday. Every follower is a potential revenue source.', stat: '47%', statLabel: 'HIGHER CONVERSION', photo: '/site2/photo-glamour.jpg' },
+  { label: 'HOME SERVICES', title: 'Quote, confirm, collect', desc: 'Your clients already text you. Now those texts make you money.', stat: '3x', statLabel: 'FASTER COLLECTIONS', photo: '/site2/photo1.jpg' },
+  { label: 'PSYCHICS & COACHES', title: 'Lock premium readings', desc: 'Charge per message. Lock premium sessions. Schedule paid calls. One app does it all.', stat: '$120', statLabel: 'AVG SESSION REVENUE', photo: '/site2/photo-chill.jpg' },
+  { label: 'SECURITY & SERVICE', title: 'Coordinate and\ninvoice instantly', desc: 'Ditch the invoicing software. Bill clients the second the job is done.', stat: '90%', statLabel: 'FASTER PAYMENTS', photo: '/site2/photo2.jpg' },
 ]
 
 /* ────────────── Fee slideshow ────────────── */
 const feeItems = [
-  { name: 'Venmo charges 3%', isTappd: false },
-  { name: 'PayPal charges 2.9%', isTappd: false },
-  { name: 'Cash App charges 2.75%', isTappd: false },
-  { name: 'Tappd charges 0%', isTappd: true },
+  { stat: '3%',    name: 'Venmo charges 3%',       line1: '\u201cLow fees.\u201d',                                              line2: 'Keep looking.',   isTappd: false },
+  { stat: '2.9%',  name: 'PayPal charges 2.9%',    line1: '\u201cCompetitive rates.\u201d',                                     line2: 'Still not zero.', isTappd: false },
+  { stat: '2.75%', name: 'Cash App charges 2.75%', line1: '\u201cIndustry standard.\u201d',                                     line2: 'Not even close.', isTappd: false },
+  { stat: '0%',    name: 'Tappd charges 0%',        line1: 'Not \u201clow fees.\u201d Not \u201ccompetitive rates.\u201d',       line2: 'Zero. Forever.',  isTappd: true  },
 ]
 
 function FeeSlideshow() {
   const [active, setActive] = useState(0)
-  useEffect(() => {
-    const timer = setInterval(() => setActive((p) => (p + 1) % feeItems.length), 2500)
-    return () => clearInterval(timer)
+  const [pillKey, setPillKey] = useState(0)
+  // Animated counter value (float, e.g. 2.94 during animation between 3 and 2.9)
+  const [displayedVal, setDisplayedVal] = useState(3)
+  const rafRef = useRef<number | null>(null)
+  const startRef = useRef<number | null>(null)
+  const fromRef = useRef(3)
+  const toRef = useRef(3)
+
+  const parseVal = (stat: string) => parseFloat(stat.replace('%', ''))
+
+  const animateTo = useCallback((from: number, to: number) => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    fromRef.current = from
+    toRef.current = to
+    startRef.current = null
+    const duration = 700
+
+    function frame(ts: number) {
+      if (!startRef.current) startRef.current = ts
+      const t = Math.min((ts - startRef.current) / duration, 1)
+      // ease-in-out cubic
+      const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      setDisplayedVal(fromRef.current + (toRef.current - fromRef.current) * eased)
+      if (t < 1) rafRef.current = requestAnimationFrame(frame)
+    }
+    rafRef.current = requestAnimationFrame(frame)
   }, [])
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActive((prev) => {
+        const next = (prev + 1) % feeItems.length
+        animateTo(parseVal(feeItems[prev].stat), parseVal(feeItems[next].stat))
+        setPillKey((k) => k + 1)
+        return next
+      })
+    }, 2800)
+    return () => {
+      clearInterval(timer)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [animateTo])
+
+  // Format: trim trailing zeros — "3.00" → "3", "2.90" → "2.9", "2.75" → "2.75"
+  const formatVal = (v: number) => v.toFixed(2).replace(/\.?0+$/, '')
+
+  const CAP_H = 120
+
   return (
-    <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
-      {feeItems.map((item, i) => (
-        <div
-          key={item.name}
-          className={`backdrop-blur-[35px] rounded-full px-6 py-3 text-[14px] transition-all duration-500 ${
-            item.isTappd
-              ? 'bg-[#A5F41F] text-black font-semibold scale-100'
-              : active === i
-                ? 'border-2 border-white text-white shadow-xl scale-110 bg-white/10'
-                : 'border border-white/40 text-white/60 shadow-lg scale-100'
-          }`}
+    <div className="max-w-[900px] mx-auto text-center select-none">
+
+      {/* ── Animated counter ── */}
+      <div style={{ height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p
+          className="font-display leading-none tracking-[-0.04em] text-[#A5F41F]"
+          style={{ fontSize: 'clamp(130px, 17vw, 210px)', textShadow: '0 0 80px rgba(165,244,31,0.4), 0 4px 40px rgba(0,0,0,0.8)' }}
         >
-          {item.name}
+          {formatVal(displayedVal)}%
+        </p>
+      </div>
+
+      {/* ── Caption slot machine ── */}
+      <div style={{ height: CAP_H, overflow: 'hidden', position: 'relative', marginTop: '1rem' }}>
+        <div style={{ transform: `translateY(${-active * CAP_H}px)`, transition: 'transform 650ms cubic-bezier(0.4,0,0.2,1)' }}>
+          {feeItems.map((item) => (
+            <div key={item.name} style={{ height: CAP_H, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+              <p className="text-[clamp(15px,1.8vw,24px)] text-white leading-[1.2]">{item.line1}</p>
+              <p className="font-display text-[clamp(22px,3vw,42px)] font-medium text-white leading-[1.1] tracking-[-0.02em]">{item.line2}</p>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+
+      {/* ── Pills with pop animation on active ── */}
+      <div className="flex flex-wrap items-center justify-center gap-2 mt-10">
+        {feeItems.map((f, i) => (
+          <button
+            key={active === i ? `active-${pillKey}-${i}` : f.name}
+            onClick={() => {
+              const fromVal = parseVal(feeItems[active].stat)
+              animateTo(fromVal, parseVal(f.stat))
+              setActive(i)
+              setPillKey((k) => k + 1)
+            }}
+            className={`rounded-full px-5 py-2 text-[13px] font-medium cursor-pointer ${
+              active === i
+                ? 'bg-[#A5F41F] text-black'
+                : 'border border-white/25 text-white/60 hover:border-white/50 hover:text-white/90 transition-all duration-300'
+            }`}
+            style={active === i ? { animation: 'pill-pop 400ms cubic-bezier(0.34,1.56,0.64,1) both' } : {}}
+          >
+            {f.name}
+          </button>
+        ))}
+      </div>
+
+      <p className="text-[13px] text-white/35 mt-8 tracking-wide">
+        Keep every dollar you earn. No hidden costs. Ever.
+      </p>
     </div>
+  )
+}
+
+/* ────────────── Globe orbit ring ────────────── */
+const ORBIT_ITEMS_DATA = [
+  { radius: 232, offsetDeg: 270 },
+  { radius: 228, offsetDeg: 330 },
+  { radius: 244, offsetDeg: 38  },
+  { radius: 232, offsetDeg: 108 },
+  { radius: 240, offsetDeg: 158 },
+  { radius: 254, offsetDeg: 188 },
+  { radius: 244, offsetDeg: 226 },
+]
+
+function GlobeOrbitRing() {
+  const refs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    let raf: number
+    const DURATION_MS = 52000
+    let startTime: number | null = null
+    const items = ORBIT_ITEMS_DATA
+
+    function frame(ts: number) {
+      if (!startTime) startTime = ts
+      const baseAngle = ((ts - startTime) / DURATION_MS) * 2 * Math.PI
+      items.forEach((item, i) => {
+        const el = refs.current[i]
+        if (!el) return
+        const a = baseAngle + (item.offsetDeg * Math.PI) / 180
+        el.style.left = `calc(50% + ${(Math.cos(a) * item.radius).toFixed(2)}px)`
+        el.style.top  = `calc(50% + ${(Math.sin(a) * item.radius).toFixed(2)}px)`
+      })
+      raf = requestAnimationFrame(frame)
+    }
+    raf = requestAnimationFrame(frame)
+    return () => cancelAnimationFrame(raf)
+  }, [])
+
+  const setRef = (i: number) => (el: HTMLDivElement | null) => { refs.current[i] = el }
+
+  return (
+    <>
+      {/* CAD */}
+      <div ref={setRef(0)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+        <div className="bg-black/65 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5 whitespace-nowrap shadow-md">
+          <span className="text-[13px]">🇨🇦</span><span className="text-[12px] font-bold text-white">$130</span><span className="text-[9px] text-gray-400 ml-0.5">CAD</span>
+        </div>
+      </div>
+      {/* JPY */}
+      <div ref={setRef(1)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+        <div className="bg-black/65 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5 whitespace-nowrap shadow-md">
+          <span className="text-[13px]">🇯🇵</span><span className="text-[12px] font-bold text-white">¥13,500</span><span className="text-[9px] text-gray-400 ml-0.5">JPY</span>
+        </div>
+      </div>
+      {/* UK */}
+      <div ref={setRef(2)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+        <div className="bg-white rounded-[14px] shadow-xl px-3 py-2 flex items-center gap-2 whitespace-nowrap">
+          <div className="w-[30px] h-[30px] rounded-full overflow-hidden shrink-0"><img src="/site2/avatar3.jpg" alt="" className="w-full h-full object-cover" /></div>
+          <div><div className="flex items-center gap-1"><span className="text-[11px]">🇬🇧</span><span className="text-[11px] font-bold">UK</span></div><span className="text-[9px] text-gray-400">Received $$$</span></div>
+        </div>
+      </div>
+      {/* AUD */}
+      <div ref={setRef(3)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+        <div className="bg-black/65 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5 whitespace-nowrap shadow-md">
+          <span className="text-[13px]">🇦🇺</span><span className="text-[12px] font-bold text-white">$145</span><span className="text-[9px] text-gray-400 ml-0.5">AUD</span>
+        </div>
+      </div>
+      {/* 150+ countries */}
+      <div ref={setRef(4)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+        <div className="bg-black rounded-full px-4 py-2.5 shadow-lg whitespace-nowrap">
+          <span className="text-[13px] font-bold text-[#A5F41F]">150+ countries</span>
+        </div>
+      </div>
+      {/* Globe emoji */}
+      <div ref={setRef(5)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+        <span className="text-[36px] drop-shadow-md">🌏</span>
+      </div>
+      {/* Brazil */}
+      <div ref={setRef(6)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+        <div className="bg-white rounded-[14px] shadow-xl px-3 py-2 flex items-center gap-2 whitespace-nowrap">
+          <div className="w-[30px] h-[30px] rounded-full overflow-hidden shrink-0"><img src="/site2/avatar8.jpg" alt="" className="w-full h-full object-cover" /></div>
+          <div><div className="flex items-center gap-1"><span className="text-[11px]">🇧🇷</span><span className="text-[11px] font-bold">Brazil</span></div><span className="text-[9px] text-gray-400">Received $$$</span></div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+/* ────────────── Locked content unlock loop ────────────── */
+type LockPhase = 'locked' | 'pressing' | 'unlocking' | 'unlocked' | 'relocking'
+
+function LockedContentSlide() {
+  const [phase, setPhase] = useState<LockPhase>('locked')
+
+  useEffect(() => {
+    const durations: Record<LockPhase, number> = { locked: 2200, pressing: 380, unlocking: 720, unlocked: 2800, relocking: 620 }
+    const next: Record<LockPhase, LockPhase> = { locked: 'pressing', pressing: 'unlocking', unlocking: 'unlocked', unlocked: 'relocking', relocking: 'locked' }
+    const t = setTimeout(() => setPhase(next[phase]), durations[phase])
+    return () => clearTimeout(t)
+  }, [phase])
+
+  const unlocked  = phase === 'unlocked' || phase === 'relocking'
+  const unlocking = phase === 'unlocking' || phase === 'unlocked' || phase === 'relocking'
+  const pressing  = phase === 'pressing'  || phase === 'unlocking'
+
+  return (
+    <>
+      {/* Main card */}
+      <div className="relative w-[300px] rounded-[32px] overflow-hidden shadow-2xl z-10">
+        <div className="relative h-[280px] overflow-hidden">
+          <img
+            src="/locked-content-photo.jpg" alt=""
+            className="absolute inset-0 w-full h-full object-cover scale-110"
+            style={{
+              filter: unlocked ? 'blur(0px) brightness(1)' : 'blur(8px) brightness(0.65)',
+              transition: 'filter 750ms cubic-bezier(0.4,0,0.2,1)',
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/55"
+            style={{ opacity: unlocked ? 0.1 : 1, transition: 'opacity 750ms' }} />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+            <div
+              className="rounded-full w-[52px] h-[52px] flex items-center justify-center"
+              style={{
+                background: unlocking ? 'rgba(165,244,31,0.35)' : 'rgba(255,255,255,0.2)',
+                backdropFilter: 'blur(4px)',
+                transform: pressing ? 'scale(1.25) rotate(12deg)' : 'scale(1)',
+                transition: 'transform 400ms cubic-bezier(0.34,1.56,0.64,1), background 400ms',
+              }}
+            >
+              <span className="text-[26px]">{unlocking ? '🔓' : '🔒'}</span>
+            </div>
+            <p className="text-[17px] font-bold text-white mt-1" style={{ opacity: unlocked ? 0 : 1, transition: 'opacity 400ms' }}>Exclusive Content</p>
+            <p className="text-[13px] text-white/70" style={{ opacity: unlocked ? 0 : 1, transition: 'opacity 400ms' }}>3 photos &bull; 1 video</p>
+            {/* Unlocked badge */}
+            <div style={{
+              position: 'absolute', bottom: 14, left: '50%',
+              transform: unlocked ? 'translate(-50%,0) scale(1)' : 'translate(-50%,12px) scale(0.8)',
+              opacity: unlocked ? 1 : 0,
+              transition: 'all 500ms cubic-bezier(0.34,1.56,0.64,1)',
+              pointerEvents: 'none',
+            }}>
+              <div className="bg-[#A5F41F] rounded-full px-4 py-1.5 whitespace-nowrap shadow-lg">
+                <span className="text-[13px] font-bold text-black">Unlocked! ✨</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-white px-5 pt-4 pb-5">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-[40px] h-[40px] rounded-full overflow-hidden shrink-0">
+              <img src="/site2/avatar4.jpg" alt="" className="w-full h-full object-cover" />
+            </div>
+            <div>
+              <p className="text-[14px] font-bold text-black leading-none">Maya Chen</p>
+              <p className="text-[11px] text-black/40 mt-0.5">@mayachen</p>
+            </div>
+          </div>
+          <div className="rounded-full py-4 text-center" style={{
+            background: unlocked ? '#0A0A0B' : '#A5F41F',
+            transform: pressing ? 'scale(0.95)' : 'scale(1)',
+            transition: 'background 600ms, transform 200ms cubic-bezier(0.34,1.56,0.64,1)',
+          }}>
+            <span className="text-[15px] font-bold" style={{ color: unlocked ? '#A5F41F' : '#000000', transition: 'color 600ms' }}>
+              {unlocked ? 'Content Unlocked ✓' : 'Unlock for $4.99'}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Lock icon — upper left */}
+      <div className="absolute left-[20px] top-[10px] rotate-[10deg] float-slow z-20">
+        <div className="bg-[#A5F41F] rounded-[22px] shadow-xl w-[80px] h-[80px] flex items-center justify-center"
+          style={{ transform: pressing ? 'scale(1.15) rotate(-8deg)' : 'scale(1)', transition: 'transform 400ms cubic-bezier(0.34,1.56,0.64,1)' }}>
+          <span className="text-[40px]">{unlocking ? '🔓' : '🔒'}</span>
+        </div>
+      </div>
+
+      {/* Avatar cluster */}
+      <div className="absolute left-[10px] top-[220px] z-20 flex items-center float-medium">
+        <div className="w-[42px] h-[42px] rounded-full border-2 border-white overflow-hidden shadow-lg"><img src="/site2/avatar3.jpg" alt="" className="w-full h-full object-cover" /></div>
+        <div className="w-[42px] h-[42px] rounded-full border-2 border-white overflow-hidden shadow-lg -ml-3"><img src="/site2/avatar7.jpg" alt="" className="w-full h-full object-cover" /></div>
+        <div className="w-[42px] h-[42px] rounded-full border-2 border-white bg-black flex items-center justify-center shadow-lg -ml-3">
+          <span className="text-[10px] font-bold text-white">+12</span>
+        </div>
+      </div>
+
+      {/* Just unlocked — animated */}
+      <div className="absolute left-[5px] top-[290px] z-20" style={{
+        opacity: unlocked ? 1 : 0,
+        transform: unlocked ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.9)',
+        transition: 'opacity 500ms, transform 500ms cubic-bezier(0.34,1.56,0.64,1)',
+      }}>
+        <div className="bg-white rounded-full shadow-lg px-4 py-2.5">
+          <span className="text-[13px] font-medium text-black">Just unlocked! 🔥</span>
+        </div>
+      </div>
+
+      {/* $284 earnings card */}
+      <div className="absolute right-[10px] top-[80px] float-medium z-20">
+        <div className="bg-[#EAF0FB] rounded-[18px] shadow-lg px-4 py-3 flex items-center gap-3">
+          <span className="text-[28px]">💰</span>
+          <div>
+            <p className="text-[22px] font-bold text-black leading-none">$284</p>
+            <p className="text-[11px] text-black/40 mt-0.5">This week</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Worth it */}
+      <div className="absolute right-[5px] bottom-[120px] -rotate-[3deg] float-slow z-20">
+        <div className="bg-black rounded-[16px] shadow-lg px-4 py-2.5">
+          <span className="text-[13px] font-semibold text-white">Worth it! ❤️</span>
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -114,8 +411,15 @@ const swapSteps = [
 
 function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const tiltRef = useRef<HTMLDivElement>(null)
   const [activeStep, setActiveStep] = useState(0)
+  const [displayStep, setDisplayStep] = useState(0)
+  const [flipClass, setFlipClass] = useState('')
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 })
+  const isFlipping = flipClass !== ''
 
+  // Scroll → step
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return
@@ -123,7 +427,7 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
       const sectionHeight = sectionRef.current.offsetHeight
       const scrolled = -rect.top
       const progress = Math.max(0, Math.min(1, scrolled / (sectionHeight - window.innerHeight)))
-      const step = Math.min(2, Math.floor(progress * 3))
+      const step = progress < 0.28 ? 0 : progress < 0.6 ? 1 : 2
       setActiveStep(step)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -131,240 +435,202 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Flip transition when activeStep changes
+  useEffect(() => {
+    if (activeStep === displayStep) return
+    setFlipClass('visual-flip-out')
+    setTilt({ x: 0, y: 0 })
+    const t1 = setTimeout(() => {
+      setDisplayStep(activeStep)
+      setFlipClass('visual-flip-in')
+      const t2 = setTimeout(() => setFlipClass(''), 300)
+      return () => clearTimeout(t2)
+    }, 300)
+    return () => clearTimeout(t1)
+  }, [activeStep, displayStep])
+
+  // Mouse 3D tilt — responds to mouse anywhere in the section
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (isFlipping) return
+    const x = e.clientX / window.innerWidth
+    const y = e.clientY / window.innerHeight
+    setTilt({ x: (y - 0.5) * -14, y: (x - 0.5) * 14 })
+    setGlare({ x: x * 100, y: y * 100, opacity: 0.12 })
+  }, [isFlipping])
+
+  const handleMouseLeave = useCallback(() => {
+    setTilt({ x: 0, y: 0 })
+    setGlare(g => ({ ...g, opacity: 0 }))
+  }, [])
+
   return (
-    <section ref={sectionRef} className="relative" style={{ height: '300vh' }}>
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-        <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          {/* Left: Visual that swaps */}
+    <section ref={sectionRef} className="relative" style={{ height: '450vh' }}>
+      <div
+        className="sticky top-0 h-screen flex items-center overflow-hidden"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-20 pt-[clamp(40px,6vh,80px)]">
+
+          {/* Left: Visual — tilt wrapper + flip inner */}
           <div className="relative flex-1 flex justify-center">
-            <div className="relative w-[500px] h-[600px]">
+            <div
+              ref={tiltRef}
+              style={{
+                transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+                transition: isFlipping ? 'none' : 'transform 100ms ease-out',
+                transformStyle: 'preserve-3d',
+              }}
+            >
+              {/* Flip layer */}
+              <div
+                className={`relative w-[min(500px,85vw)] h-[min(600px,60vw)] min-h-[300px] ${flipClass}`}
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                {/* Glare overlay */}
+                <div
+                  className="absolute inset-0 z-30 pointer-events-none rounded-[24px]"
+                  style={{
+                    background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,${glare.opacity}) 0%, transparent 55%)`,
+                    transition: isFlipping ? 'none' : 'background 100ms ease-out',
+                  }}
+                />
 
-              {/* ── State 0: Send Money ── */}
-              <div className={`absolute inset-0 transition-all duration-700 ${activeStep === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-                <div className="absolute left-[120px] top-[220px] w-[75px] h-[75px] rounded-full overflow-hidden shadow-xl rotate-[4deg] float-slow z-10">
-                  <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
-                </div>
-                <div className="absolute right-[30px] top-[60px] w-[70px] h-[70px] rounded-full overflow-hidden shadow-xl -rotate-[34deg] float-medium z-10">
-                  <img src={assets.avatar2} alt="" className="w-full h-full object-cover" />
-                </div>
-                <div className="absolute left-[60px] top-[20px] w-[300px] -rotate-[11deg] z-[5]">
-                  <div className="rounded-[40px] overflow-hidden shadow-2xl">
-                    <img src={assets.phoneMockup} alt="Send Money" className="w-full h-auto" />
-                  </div>
-                </div>
-                <div className="absolute right-[20px] top-[100px] -rotate-[22deg] float-medium z-10">
-                  <div className="backdrop-blur-lg bg-white/30 border border-white/50 rounded-[20px] shadow-xl px-6 py-5">
-                    <p className="font-display text-[44px] font-bold text-black text-center leading-none">$50</p>
-                    <p className="text-[12px] text-gray-600 text-center mt-1">Enter amount</p>
-                  </div>
-                </div>
-                <div className="absolute right-[60px] top-[230px] -rotate-[22deg] float-fast z-10">
-                  <div className="bg-black rounded-full shadow-lg px-4 py-2.5 flex items-center gap-2">
-                    <span className="text-[16px]">⚡</span>
-                    <span className="text-[12px] font-bold text-white">Instant</span>
-                  </div>
-                </div>
-                <div className="absolute left-[100px] bottom-[80px] z-10 float-slow">
-                  <div className="backdrop-blur-lg bg-white/20 border border-white/40 rounded-[16px] shadow-xl px-5 py-3 flex items-center gap-3">
-                    <div className="w-[40px] h-[40px] rounded-full bg-gradient-to-br from-purple-400 to-pink-400" />
-                    <div>
-                      <p className="text-[13px] font-semibold text-black">Alex Smith</p>
-                      <p className="text-[10px] text-gray-500">@alexsmith</p>
-                    </div>
-                    <span className="text-[20px] ml-2">💸</span>
-                  </div>
-                </div>
-                <div className="absolute left-[20px] top-[280px] rotate-[1deg] float-slow z-10">
-                  <div className="backdrop-blur-lg bg-[#A5F41F]/50 border border-[#A5F41F]/50 rounded-[16px] shadow-lg px-4 py-2.5">
-                    <p className="text-[10px] text-black">You sent</p>
-                    <p className="text-[24px] font-bold text-black leading-tight">$50</p>
-                  </div>
-                </div>
-                <div className="absolute left-[10px] bottom-[30px] -rotate-[18deg] float-medium z-10">
-                  <div className="bg-white rounded-full shadow-lg px-4 py-2.5 flex items-center gap-1.5">
-                    <span className="text-[16px]">🔒</span>
-                    <span className="text-[12px] font-bold text-black">Secure</span>
-                  </div>
-                </div>
-                <div className="absolute right-[10px] bottom-[100px] -rotate-[22deg] float-slow z-10">
-                  <span className="text-[56px]">💵</span>
-                </div>
-                <div className="absolute left-[110px] bottom-[15px] z-10">
-                  <div className="bg-[#A5F41F] rounded-full shadow-lg px-10 py-3.5">
-                    <span className="text-[14px] font-bold text-black">Send Now</span>
-                  </div>
-                </div>
-              </div>
+                {/* ── State 0: Send Money ── */}
+                <div className={`absolute inset-0 ${displayStep === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
 
-              {/* ── State 1: Globe ── */}
-              <div className={`absolute inset-0 transition-all duration-700 flex items-center justify-center ${activeStep === 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-                <div className="relative w-[400px] h-[400px]">
-                  {/* Orbit rings */}
-                  <div className="absolute inset-[-10px] rounded-full border-2 border-[#A5F41F]/30" />
-                  <div className="absolute inset-[20px] rounded-full border border-[#A5F41F]/20" />
-                  {/* Center photo circle */}
-                  <div className="absolute inset-[60px] rounded-full overflow-hidden">
-                    <img src={assets.heroPhoto} alt="" className="w-full h-full object-cover" />
-                  </div>
-                  {/* US card */}
-                  <div className="absolute left-[50%] top-[25%] -translate-x-1/2 -translate-y-1/2 z-10 float-slow">
-                    <div className="backdrop-blur-lg bg-white/40 border border-white/50 rounded-[16px] shadow-xl px-4 py-3">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[20px]">🇺🇸</span>
-                        <span className="text-[12px] font-medium text-white">United States</span>
+                  {/* ── Main phone card ── */}
+                  <div className="absolute left-[50px] top-[10px] w-[255px] h-[540px] rounded-[36px] overflow-hidden shadow-2xl rotate-[2deg] z-[5]">
+                    <img src={assets.phoneMockup} alt="Send Money" className="absolute inset-0 w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+                    {/* Top bar */}
+                    <div className="relative z-10 px-5 pt-5 flex items-start justify-between">
+                      <p className="text-[20px] font-bold text-white leading-tight">Send Money</p>
+                      <div className="w-9 h-9 bg-[#A5F41F] rounded-[10px] flex items-center justify-center">
+                        <TappdIcon className="w-4 h-auto text-black" />
                       </div>
-                      <p className="text-[32px] font-bold text-white leading-none">$100</p>
                     </div>
-                  </div>
-                  {/* EU card */}
-                  <div className="absolute left-[50%] bottom-[15%] -translate-x-1/2 z-10 float-medium">
-                    <div className="backdrop-blur-lg bg-[#A5F41F]/40 border border-[#A5F41F]/50 rounded-[16px] shadow-xl px-4 py-3">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[20px]">🇪🇺</span>
-                        <span className="text-[12px] font-medium text-white/70">Europe</span>
+                    {/* Bottom UI */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 space-y-2.5">
+                      <div className="bg-black/50 backdrop-blur-lg rounded-[18px] px-4 py-3 flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 shrink-0" />
+                        <div>
+                          <p className="text-[13px] font-semibold text-white leading-none">Alex Smith</p>
+                          <p className="text-[10px] text-white/50 mt-0.5">@alexsmith</p>
+                        </div>
+                        <span className="text-[18px] ml-auto">💸</span>
                       </div>
-                      <p className="text-[32px] font-bold text-white leading-none">€92</p>
-                    </div>
-                  </div>
-                  {/* Country badges */}
-                  <div className="absolute top-[-5px] left-[50%] -translate-x-1/2 z-10">
-                    <div className="bg-black/60 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5">
-                      <span className="text-[14px]">🇨🇦</span>
-                      <span className="text-[12px] font-bold text-white">$130</span>
-                      <span className="text-[9px] text-gray-400">CAD</span>
-                    </div>
-                  </div>
-                  <div className="absolute right-[-20px] top-[30%] z-10">
-                    <div className="bg-black/60 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5">
-                      <span className="text-[14px]">🇯🇵</span>
-                      <span className="text-[12px] font-bold text-white">¥13,500</span>
-                      <span className="text-[9px] text-gray-400">JPY</span>
-                    </div>
-                  </div>
-                  <div className="absolute bottom-[5px] right-[10%] z-10">
-                    <div className="bg-black/60 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5">
-                      <span className="text-[14px]">🇦🇺</span>
-                      <span className="text-[12px] font-bold text-white">$145</span>
-                      <span className="text-[9px] text-gray-400">AUD</span>
-                    </div>
-                  </div>
-                  {/* Globe emoji + 150+ countries */}
-                  <div className="absolute left-[-30px] bottom-[25%] z-10 float-slow">
-                    <span className="text-[48px]">🌏</span>
-                  </div>
-                  <div className="absolute left-[-20px] bottom-[10%] z-10">
-                    <div className="bg-black rounded-full px-4 py-2.5 shadow-lg">
-                      <span className="text-[14px] font-bold text-[#A5F41F]">150+ countries</span>
-                    </div>
-                  </div>
-                  {/* Profile cards */}
-                  <div className="absolute left-[-10px] top-[20%] z-10 float-medium">
-                    <div className="bg-white rounded-[16px] shadow-xl px-3 py-2 flex items-center gap-2">
-                      <div className="w-[36px] h-[36px] rounded-full overflow-hidden">
-                        <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-1"><span className="text-[12px]">🇧🇷</span><span className="text-[11px] font-bold">Brazil</span></div>
-                        <span className="text-[9px] text-gray-400">Received $$$</span>
+                      <div className="bg-[#A5F41F] rounded-full py-3.5 text-center">
+                        <span className="text-[15px] font-bold text-black">Send Now</span>
                       </div>
                     </div>
                   </div>
-                  <div className="absolute right-[-30px] bottom-[30%] z-10 float-slow">
-                    <div className="bg-white rounded-[16px] shadow-xl px-3 py-2 flex items-center gap-2">
-                      <div className="w-[36px] h-[36px] rounded-full overflow-hidden">
-                        <img src={assets.avatar2} alt="" className="w-full h-full object-cover" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-1"><span className="text-[12px]">🇬🇧</span><span className="text-[11px] font-bold">UK</span></div>
-                        <span className="text-[9px] text-gray-400">Received $$$</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              {/* ── State 2: Pay Wall ── */}
-              <div className={`absolute inset-0 transition-all duration-700 flex items-center justify-center ${activeStep === 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-                <div className="relative w-[380px]">
-                  {/* Main card */}
-                  <div className="bg-black/80 backdrop-blur-xl rounded-[32px] overflow-hidden shadow-2xl">
-                    {/* Blurred image top */}
-                    <div className="relative h-[180px] overflow-hidden">
-                      <img src={assets.heroPhoto} alt="" className="w-full h-full object-cover blur-[3px] opacity-50" />
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
-                      {/* Lock icon */}
-                      <div className="absolute top-[30px] left-1/2 -translate-x-1/2 bg-white/20 rounded-full w-[56px] h-[56px] flex items-center justify-center">
-                        <span className="text-[28px]">🔒</span>
-                      </div>
-                      <div className="absolute bottom-[30px] left-0 right-0 text-center">
-                        <p className="text-[18px] font-bold text-white">Exclusive Content</p>
-                        <p className="text-[14px] text-white/80 mt-1">3 photos &bull; 1 video</p>
-                      </div>
-                    </div>
-                    {/* Divider + creator info */}
-                    <div className="border-t border-white/10 px-6 py-4 flex items-center gap-3">
-                      <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-                        <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
-                      </div>
-                      <div>
-                        <p className="text-[14px] font-bold text-white">Maya Chen</p>
-                        <p className="text-[11px] text-gray-400">@mayachen</p>
-                      </div>
-                    </div>
-                    {/* Unlock button */}
-                    <div className="px-6 pb-6">
-                      <div className="bg-[#A5F41F] rounded-full py-4 text-center">
-                        <span className="text-[16px] font-bold text-black">Unlock for $4.99</span>
-                      </div>
+                  {/* Avatar — upper right, outside phone */}
+                  <div className="absolute right-[20px] top-[0px] w-[68px] h-[68px] rounded-full overflow-hidden shadow-xl border-[3px] border-white z-20 float-slow">
+                    <img src="/site2/avatar4.jpg" alt="" className="w-full h-full object-cover" />
+                  </div>
+
+                  {/* Avatar — left mid, slightly overlapping phone */}
+                  <div className="absolute left-[0px] top-[190px] w-[64px] h-[64px] rounded-full overflow-hidden shadow-xl border-[3px] border-white z-20 float-medium">
+                    <img src="/site2/avatar6.jpg" alt="" className="w-full h-full object-cover" />
+                  </div>
+
+                  {/* $50 card — upper right */}
+                  <div className="absolute right-[0px] top-[90px] rotate-[5deg] float-slow z-20">
+                    <div className="bg-white rounded-[20px] shadow-xl px-6 py-4 min-w-[140px]">
+                      <p className="font-display text-[42px] font-bold text-black leading-none">$50</p>
+                      <p className="text-[11px] text-gray-400 mt-1">Enter amount</p>
                     </div>
                   </div>
-                  {/* Floating elements */}
-                  <div className="absolute -left-[30px] top-[20px] z-10 rotate-12 float-slow">
-                    <div className="bg-[#A5F41F]/40 backdrop-blur border border-[#A5F41F]/50 rounded-[16px] shadow-lg w-[80px] h-[80px] flex items-center justify-center">
-                      <span className="text-[36px]">🔓</span>
+
+                  {/* ⚡ Instant — right, below $50 */}
+                  <div className="absolute right-[25px] top-[230px] float-medium z-20">
+                    <div className="bg-black rounded-full px-5 py-2.5 flex items-center gap-2 shadow-lg">
+                      <span className="text-[14px]">⚡</span>
+                      <span className="text-[13px] font-bold text-white">Instant</span>
                     </div>
                   </div>
-                  <div className="absolute right-[-20px] top-[100px] z-10 float-medium">
-                    <div className="backdrop-blur-lg bg-white/20 border border-white/40 rounded-[20px] shadow-xl px-4 py-3 flex items-center gap-3">
-                      <div className="bg-gradient-to-br from-blue-300 to-blue-400 rounded-full w-[44px] h-[44px] flex items-center justify-center">
-                        <span className="text-[20px]">💰</span>
+
+                  {/* You sent $50 — left, mid-low */}
+                  <div className="absolute left-[8px] top-[350px] -rotate-[2deg] float-slow z-20">
+                    <div className="bg-[#A5F41F] rounded-[16px] shadow-lg px-4 py-3">
+                      <p className="text-[10px] text-black/60 font-medium">You sent</p>
+                      <p className="text-[26px] font-bold text-black leading-tight">$50</p>
+                    </div>
+                  </div>
+
+                  {/* 🔒 Secure — lower left */}
+                  <div className="absolute left-[15px] bottom-[50px] rotate-[1deg] float-medium z-20">
+                    <div className="bg-white rounded-full shadow-lg px-5 py-2.5 flex items-center gap-2">
+                      <span className="text-[14px]">🔒</span>
+                      <span className="text-[13px] font-semibold text-black">Secure</span>
+                    </div>
+                  </div>
+
+                  {/* 💵 — right, lower mid */}
+                  <div className="absolute right-[10px] bottom-[160px] float-slow z-20">
+                    <span className="text-[52px]">💵</span>
+                  </div>
+
+                </div>
+
+                {/* ── State 1: Globe ── */}
+                <div className={`absolute inset-0 flex items-center justify-center ${displayStep === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                  <div className="relative w-[480px] h-[480px]">
+                    <div className="absolute inset-[-10px] rounded-full border-2 border-[#A5F41F]/30" />
+                    <div className="absolute inset-[20px] rounded-full border border-[#A5F41F]/20" />
+                    <div className="absolute inset-[60px] rounded-full overflow-hidden flex items-center justify-center">
+                      <img src="/ellipse-2161.png" alt="" className="w-full h-full object-cover spin-slow" />
+                    </div>
+                    <div className="absolute left-[50%] top-[25%] -translate-x-1/2 -translate-y-1/2 z-10 float-slow">
+                      <div className="backdrop-blur-lg bg-white/40 border border-white/50 rounded-[16px] shadow-xl px-4 py-3">
+                        <div className="flex items-center gap-2 mb-1"><span className="text-[20px]">🇺🇸</span><span className="text-[12px] font-medium text-white">United States</span></div>
+                        <p className="text-[32px] font-bold text-white leading-none">$100</p>
                       </div>
-                      <div>
-                        <p className="text-[20px] font-bold text-white">$284</p>
-                        <p className="text-[11px] text-gray-500">This week</p>
+                    </div>
+
+                    {/* Transfer arrow — between US and EU cards */}
+                    <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1">
+                      <div className="flex flex-col items-center gap-[5px]">
+                        <div className="w-[6px] h-[6px] rounded-full bg-white flow-dot-1" />
+                        <div className="w-[6px] h-[6px] rounded-full bg-white flow-dot-2" />
+                        <div className="w-[6px] h-[6px] rounded-full bg-white flow-dot-3" />
+                      </div>
+                      <div className="bg-black/50 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-lg my-1">
+                        <span className="text-[10px] font-bold text-[#A5F41F]">0% fee</span>
+                        <span className="text-[10px] text-white/60">·</span>
+                        <span className="text-[10px] text-white/80">Instant</span>
+                      </div>
+                      <div className="flex flex-col items-center gap-[5px]">
+                        <div className="w-[6px] h-[6px] rounded-full bg-[#A5F41F] flow-dot-1" />
+                        <div className="w-[6px] h-[6px] rounded-full bg-[#A5F41F] flow-dot-2" />
+                        <div className="w-[6px] h-[6px] rounded-full bg-[#A5F41F] flow-dot-3" />
                       </div>
                     </div>
-                  </div>
-                  <div className="absolute -left-[10px] bottom-[120px] z-10 -rotate-4 float-medium">
-                    <div className="bg-white rounded-full shadow-lg px-4 py-2.5">
-                      <span className="text-[13px] font-medium text-black">Just unlocked! 🔥</span>
+
+                    <div className="absolute left-[50%] bottom-[15%] -translate-x-1/2 z-10 float-medium">
+                      <div className="backdrop-blur-lg bg-[#A5F41F]/40 border border-[#A5F41F]/50 rounded-[16px] shadow-xl px-4 py-3">
+                        <div className="flex items-center gap-2 mb-1"><span className="text-[20px]">🇪🇺</span><span className="text-[12px] font-medium text-white/70">Europe</span></div>
+                        <p className="text-[32px] font-bold text-white leading-none">€92</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="absolute right-[-10px] bottom-[60px] z-10 -rotate-[9deg] float-slow">
-                    <div className="bg-black rounded-[16px] shadow-lg px-4 py-2.5">
-                      <span className="text-[13px] text-white">Worth it! ❤️</span>
-                    </div>
-                  </div>
-                  {/* Avatar cluster */}
-                  <div className="absolute -left-[20px] bottom-[180px] z-10 flex">
-                    <div className="w-[44px] h-[44px] rounded-full border-2 border-white overflow-hidden shadow-lg">
-                      <img src={assets.avatar1} alt="" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="w-[44px] h-[44px] rounded-full border-2 border-white overflow-hidden shadow-lg -ml-3">
-                      <img src={assets.avatar2} alt="" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="w-[44px] h-[44px] rounded-full border-2 border-white bg-black flex items-center justify-center shadow-lg -ml-3">
-                      <span className="text-[11px] font-bold text-white">+12</span>
-                    </div>
+                    <GlobeOrbitRing />
                   </div>
                 </div>
-              </div>
-            </div>
+
+                {/* ── State 2: Pay Wall ── */}
+                <div className={`absolute inset-0 flex items-center justify-center ${displayStep === 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                  <LockedContentSlide />
+                </div>
+
+              </div>{/* end flip layer */}
+            </div>{/* end tilt wrapper */}
           </div>
 
-          {/* Right: Text that swaps — fixed height to prevent jumping */}
+          {/* Right: Text */}
           <div className="flex-1 lg:flex-none lg:w-[400px]">
-            <div className="relative h-[120px]">
+            <div className="relative h-[160px]">
               {swapSteps.map((step, i) => (
                 <div key={step.title} className={`absolute inset-0 transition-all duration-500 ${activeStep === i ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
                   <h3 className="font-display text-[clamp(28px,3vw,40px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">{step.title}</h3>
@@ -372,14 +638,14 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
                 </div>
               ))}
             </div>
-            {/* Step indicators — clickable */}
-            <div className="flex gap-3 mt-4">
+            <div className="flex gap-3 mt-2">
               {[0, 1, 2].map((i) => (
                 <button
                   key={i}
                   onClick={() => {
                     if (!sectionRef.current) return
-                    const top = sectionRef.current.offsetTop + (i / 3) * (sectionRef.current.offsetHeight - window.innerHeight) + 10
+                    const thresholds = [0, 0.28, 0.6]
+                    const top = sectionRef.current.offsetTop + thresholds[i] * (sectionRef.current.offsetHeight - window.innerHeight) + 10
                     window.scrollTo({ top, behavior: 'smooth' })
                   }}
                   className={`rounded-full transition-all duration-500 cursor-pointer ${activeStep === i ? 'w-10 h-3 bg-[#A5F41F]' : 'w-3 h-3 bg-black/20 hover:bg-black/40'}`}
@@ -388,9 +654,49 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
               ))}
             </div>
           </div>
+
         </div>
       </div>
     </section>
+  )
+}
+
+/* ────────────── Bento grid — fades white → lime-to-black gradient on scroll ────────────── */
+function BentoStickySection() {
+  const wrapRef    = useRef<HTMLDivElement>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function onScroll() {
+      const el = wrapRef.current
+      if (!el) return
+      const scrolled = -el.getBoundingClientRect().top
+      const total    = el.offsetHeight - window.innerHeight
+      const p        = Math.min(1, Math.max(0, scrolled / total))
+      /* white fades into lime gradient from p=0.30 onward */
+      const t = Math.max(0, (p - 0.30) / 0.70)
+      if (overlayRef.current) overlayRef.current.style.opacity = t.toFixed(3)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <div ref={wrapRef} style={{ height: '180vh' }} className="relative">
+      <div className="sticky top-0 h-screen overflow-hidden bg-white">
+        <BentoGrid />
+        {/* Lime-to-black gradient overlay — transitions white into the stats section background */}
+        <div
+          ref={overlayRef}
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            opacity: 0,
+            background: 'linear-gradient(to bottom, #c8ff50 0%, #A5F41F 18%, #5a9610 36%, #1e4408 54%, #091202 74%, #000 100%)',
+          }}
+        />
+      </div>
+    </div>
   )
 }
 
@@ -416,7 +722,9 @@ function Site2Inner() {
             <section className="relative h-full overflow-hidden pt-[112px] pb-0">
               <div className="absolute inset-0 pointer-events-none" aria-hidden>
                 <img src={assets.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-75" />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 50%, white 100%)' }} />
+                {/* Dot grid — matches Design B, fades out toward bottom */}
+                <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.08) 1.5px, transparent 1.5px)', backgroundSize: '26px 26px', maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 80%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 80%)' }} />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 65%, white 100%)' }} />
               </div>
 
               <div className="relative z-10 max-w-[1200px] mx-auto px-6 pt-8 flex flex-col items-center">
@@ -427,13 +735,23 @@ function Site2Inner() {
                   <p className="text-[clamp(16px,1.6vw,20px)] text-black/60 mt-5 max-w-[672px] text-center leading-[1.4]">
                     No apps. No links. Just text your clients and get paid instantly. Zero fees.
                   </p>
-                  <div className="relative mt-10 flex justify-center">
-                    <div className="relative rounded-[22px] overflow-hidden w-[clamp(500px,65vw,900px)] h-[clamp(350px,45vw,600px)]">
+                  <div className="flex items-center justify-center gap-3 mt-6">
+                    <button
+                      onClick={showWaitlist}
+                      className="text-[14px] font-semibold text-white px-8 py-4 rounded-full bg-black hover:bg-black/80 transition-colors cursor-pointer shadow-[0_2px_20px_rgba(0,0,0,0.2)]"
+                    >
+                      Get Tapp&apos;d
+                    </button>
+                    <a href="#product" className="text-[14px] font-semibold text-black px-8 py-4 rounded-full border-2 border-black/60 hover:bg-black hover:text-white hover:border-black transition-all">
+                      See how it works
+                    </a>
+                  </div>
+                  <div className="relative mt-8 md:mt-10 flex justify-center w-full">
+                    <div className="relative rounded-[22px] overflow-hidden w-full md:w-[clamp(500px,65vw,900px)] h-[220px] sm:h-[280px] md:h-[clamp(350px,45vw,600px)]">
                       <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover" />
-                      {/* Fade-out gradient at bottom of image */}
                       <div className="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, white)' }} />
                     </div>
-                    <div className="absolute right-[clamp(-40px,-3vw,0px)] top-[20px] lg:right-[40px] w-[clamp(200px,22vw,280px)]">
+                    <div className="absolute right-0 md:right-[clamp(-40px,-3vw,0px)] lg:right-[40px] top-[12px] w-[clamp(110px,22vw,280px)] hidden sm:block">
                       <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,10px)] shadow-2xl shadow-black/30">
                         <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,12vw,100px)] h-[clamp(18px,2vw,24px)] bg-black rounded-full" />
                         <div className="relative rounded-[clamp(22px,3.5vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
@@ -487,7 +805,7 @@ function Site2Inner() {
               </div>
 
               {/* Phone + floating cards at bottom */}
-              <div className="relative z-10 flex justify-center pb-0 -mb-[100px]">
+              <div className="relative z-10 flex justify-center pb-0 -mb-[60px]">
                 <div className="relative">
                   {/* Phone */}
                   <div className="relative w-[clamp(260px,40vw,340px)]">
@@ -500,7 +818,7 @@ function Site2Inner() {
                   </div>
 
                   {/* Floating: "You sent $50" — left */}
-                  <div className="absolute left-[-120px] top-[15%] z-10 float-slow">
+                  <div className="absolute left-[-120px] top-[15%] z-10 float-slow hidden md:block">
                     <div className="bg-[#A5F41F]/80 backdrop-blur-sm rounded-[16px] shadow-xl px-5 py-4">
                       <p className="text-[12px] text-black/70">You sent</p>
                       <p className="text-[36px] font-bold text-black leading-none">$50</p>
@@ -508,7 +826,7 @@ function Site2Inner() {
                   </div>
 
                   {/* Floating: "+$75 via text" — right */}
-                  <div className="absolute right-[-160px] top-[20%] z-10 float-medium">
+                  <div className="absolute right-[-160px] top-[20%] z-10 float-medium hidden md:block">
                     <div className="bg-white rounded-[16px] shadow-xl px-5 py-4">
                       <p className="text-[11px] text-black/50 font-medium uppercase tracking-wider">Incoming <span className="text-[#A5F41F]">&bull;</span></p>
                       <p className="text-[24px] font-bold text-black leading-tight">+$75 via text</p>
@@ -517,7 +835,7 @@ function Site2Inner() {
                   </div>
 
                   {/* Floating: "Thanks for dinner!" — bottom right */}
-                  <div className="absolute right-[-140px] bottom-[20%] z-10 float-slow">
+                  <div className="absolute right-[-140px] bottom-[20%] z-10 float-slow hidden md:block">
                     <div className="bg-white rounded-[16px] shadow-xl px-5 py-3">
                       <p className="text-[10px] text-black/40 font-medium uppercase tracking-wider">New Message</p>
                       <p className="text-[15px] font-medium text-black">&quot;Thanks for dinner! 📬&quot;</p>
@@ -527,6 +845,9 @@ function Site2Inner() {
               </div>
             </section>
           </div>
+
+          {/* Bottom fade — ensures seamless transition into next section for both designs */}
+          <div className="absolute bottom-0 left-0 right-0 h-[80px] pointer-events-none z-[150]" style={{ background: 'linear-gradient(to bottom, transparent, white)' }} />
 
           {/* Arrow toggles — bottom right of hero only */}
           <div className="absolute bottom-8 right-8 z-[200] flex items-center gap-2">
@@ -553,7 +874,7 @@ function Site2Inner() {
         {/* ═══════ BUILT FOR THE NEW ECONOMY — Carousel ═══════ */}
         <section className="bg-[#A5F41F] pt-24 pb-16 overflow-hidden">
           <div className="max-w-[1200px] mx-auto px-6 mb-12">
-            <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
+            <h2 className="font-display text-[clamp(40px,5vw,64px)] font-medium text-black leading-[0.92] tracking-[-0.03em]">
               Built for the<br />new economy
             </h2>
           </div>
@@ -562,25 +883,25 @@ function Site2Inner() {
           <div className="relative overflow-hidden pb-8 group/carousel">
             <div
               className="flex gap-6 w-max hover:[animation-play-state:paused]"
-              style={{ animation: 'marquee 40s linear infinite' }}
+              style={{ animation: 'marquee 48s linear infinite' }}
             >
-              {/* Render items twice for seamless loop */}
+              {/* Render items twice for seamless loop — each use case has its own unique photo */}
               {[0, 1].map((set) =>
-                useCases.map((uc, i) => (
+                useCases.map((uc) => (
                   <React.Fragment key={`${set}-${uc.label}`}>
-                    <div className="shrink-0 w-[340px] bg-white rounded-[24px] p-8 flex flex-col justify-between min-h-[440px] hover:bg-black hover:text-white transition-colors duration-300 group cursor-pointer">
+                    <div className="shrink-0 w-[320px] bg-white rounded-[24px] p-7 flex flex-col justify-between min-h-[360px] hover:bg-black hover:text-white transition-colors duration-300 group cursor-pointer">
                       <div>
                         <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase mb-4">{uc.label}</p>
-                        <h3 className="font-display text-[30px] font-medium leading-tight whitespace-pre-line">{uc.title}</h3>
-                        <p className="text-[14px] text-black/60 group-hover:text-white/60 mt-3">{uc.desc}</p>
+                        <h3 className="font-display text-[28px] font-medium leading-tight whitespace-pre-line">{uc.title}</h3>
+                        <p className="text-[13px] text-black/60 group-hover:text-white/60 mt-3 leading-[1.5]">{uc.desc}</p>
                       </div>
-                      <div className="mt-8">
-                        <p className="font-display text-[36px] font-medium text-[#A5F41F]">{uc.stat}</p>
+                      <div className="mt-6">
+                        <p className="font-display text-[34px] font-medium text-[#A5F41F]">{uc.stat}</p>
                         <p className="mono text-[11px] text-black/40 group-hover:text-white/40 uppercase">{uc.statLabel}</p>
                       </div>
                     </div>
-                    <div className="shrink-0 w-[280px] rounded-[24px] overflow-hidden min-h-[440px]">
-                      <img src={i % 2 === 0 ? assets.photo1 : assets.photo2} alt="" className="w-full h-full object-cover" />
+                    <div className="shrink-0 w-[260px] rounded-[24px] overflow-hidden min-h-[360px]">
+                      <img src={uc.photo} alt={uc.label} className="w-full h-full object-cover" />
                     </div>
                   </React.Fragment>
                 ))
@@ -590,13 +911,19 @@ function Site2Inner() {
         </section>
 
         {/* ═══════ EVERYTHING IN ONE PLACE — FloatingUI ═══════ */}
-        <section className="relative pt-24 pb-0 overflow-hidden">
-          {/* Gradient background */}
-          <div className="absolute inset-0 pointer-events-none" aria-hidden>
-            <img src={assets.lockedContentBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <section className="relative pt-16 pb-0 overflow-hidden" style={{ marginBottom: -1 }}>
+          {/* Animated gradient background — bottom must be exactly #ffffff to match BentoGrid */}
+          <div className="absolute inset-0 overflow-hidden" aria-hidden>
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #f0f7e4 0%, #e3f5d0 20%, #d8ecf6 45%, #e0eaf8 70%, #ffffff 100%)' }} />
+            <div className="absolute rounded-full" style={{ width: '70vw', height: '70vw', top: '-30%', left: '-15%', background: 'radial-gradient(circle, rgba(165,244,31,0.3), transparent 60%)', filter: 'blur(80px)', animation: 'hero-blob-a 20s ease-in-out infinite' }} />
+            <div className="absolute rounded-full" style={{ width: '55vw', height: '55vw', top: '20%', right: '-15%', background: 'radial-gradient(circle, rgba(204,213,246,0.45), transparent 60%)', filter: 'blur(80px)', animation: 'hero-blob-b 25s ease-in-out infinite' }} />
+            <div className="absolute rounded-full" style={{ width: '45vw', height: '45vw', bottom: '-20%', left: '20%', background: 'radial-gradient(circle, rgba(165,244,31,0.2), transparent 60%)', filter: 'blur(60px)', animation: 'hero-blob-d 30s ease-in-out infinite' }} />
+            {/* Hard lock: final 160px fades opaquely to white — eliminates hue mismatch at seam */}
+            <div className="absolute bottom-0 left-0 right-0 h-[160px]" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0), #ffffff)' }} />
           </div>
+
           <div className="relative z-10 max-w-[1200px] mx-auto px-6">
-            <div className="text-center mb-16 reveal reveal-in">
+            <div className="text-center mb-12 reveal reveal-in">
               <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
                 Everything in<br />one place
               </h2>
@@ -606,190 +933,32 @@ function Site2Inner() {
             </div>
           </div>
 
-          {/* FloatingUI with its internal heading + background hidden */}
+          {/* FloatingUI — hide internal heading, bg, blobs; keep below nav */}
           <style>{`
+            .site2-floating-ui > div { z-index: 50 !important; }
             .site2-floating-ui section { background: transparent !important; }
             .site2-floating-ui .text-center.mb-14 { display: none !important; }
             .site2-floating-ui .text-center.lg\\:mb-20 { display: none !important; }
             .site2-floating-ui section > .absolute { display: none !important; }
           `}</style>
-          <div className="site2-floating-ui" style={{ marginTop: '-2rem' }}>
+          <div className="site2-floating-ui" style={{ marginTop: '-1.5rem' }}>
             <FloatingUI />
           </div>
 
-          {/* Fade-out gradient into next section */}
-          <div className="h-[120px] relative z-10 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, white)' }} />
         </section>
 
         {/* ═══════ BENTO GRID ═══════ */}
-        <div className="[&_section]:!rounded-none" style={{ ['--bento-bg' as string]: 'transparent' }}>
-          <style>{`.site2-bento > section { background: white !important; }`}</style>
-          <div className="site2-bento">
-            <BentoGrid />
-          </div>
-        </div>
+        <BentoGrid />
 
-        {/* ═══════ FEATURES: LOCK YOUR CONTENT ═══════ */}
-        <section className="py-24 bg-gradient-to-b from-transparent to-white">
-          <div className="max-w-[1200px] mx-auto px-6">
-            {/* Lock your content */}
-            <div className="flex flex-col lg:flex-row items-center gap-16 mb-32">
-              <div className="flex-1">
-                <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
-                  Lock your<br />content
-                </h2>
-                <p className="text-[18px] text-black/60 mt-6 max-w-[567px] leading-relaxed">
-                  Photos, videos, messages. Set your price. They pay to unlock. You get paid instantly. Perfect for exclusive content, tutorials, or premium offerings.
-                </p>
-                <div className="flex flex-col gap-4 mt-8">
-                  <CheckItem>Any file type supported</CheckItem>
-                  <CheckItem>Set your own pricing</CheckItem>
-                  <CheckItem>Instant payouts</CheckItem>
-                </div>
-              </div>
+        {/* Bridge: white → near-white (matches gradient.png top color) */}
+        <div style={{ height: 60, background: 'linear-gradient(to bottom, #ffffff, #f8ffe8)', margin: 0 }} />
 
-              <div className="shrink-0">
-                <div className="bg-black rounded-[24px] shadow-2xl w-[384px] max-w-full overflow-hidden">
-                  <div className="relative w-full h-[320px] overflow-hidden rounded-t-[16px] m-8 mb-0" style={{ background: 'linear-gradient(135deg, #1E2939 0%, #101828 100%)', width: 'calc(100% - 64px)' }}>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-30">
-                      <img src={assets.contentCard} alt="" className="w-1/2 h-auto" />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-[72px]">🔒</span>
-                    </div>
-                  </div>
-                  <div className="p-8 pt-6">
-                    <p className="text-[14px] text-white/50">Premium Content</p>
-                    <p className="font-display text-[24px] font-medium text-white mt-1">Unlock exclusive access</p>
-                    <button className="bg-[#A5F41F] text-black text-[14px] font-medium py-4 rounded-full w-full mt-6 hover:bg-[#94DC1B] transition-colors cursor-pointer">
-                      Pay $15 to unlock
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* ═══════ END JOURNEY — stats → phone → CTA ═══════ */}
+        <EndJourney zeroFeesBg={assets.zeroFeesBg} />
 
-            {/* Text everyone at once */}
-            <div className="flex flex-col-reverse lg:flex-row items-center gap-16">
-              <div className="shrink-0">
-                <div className="bg-[#A5F41F] rounded-[24px] shadow-2xl w-[384px] max-w-full p-8">
-                  <div className="bg-black/10 rounded-[16px] p-6 mb-6">
-                    <p className="text-[12px] text-black/60 mb-4">Compose message</p>
-                    <div className="bg-white/50 rounded-[14px] p-4 min-h-[100px]">
-                      <p className="text-[14px] text-black/50">Write your message...</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[14px] text-black/60">Recipients</span>
-                    <span className="font-display text-[20px] font-medium text-black">1,247</span>
-                  </div>
-                  <button className="bg-black text-white text-[14px] font-medium py-4 rounded-full w-full hover:bg-black/80 transition-colors cursor-pointer">
-                    Send to all clients
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex-1">
-                <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
-                  Text everyone<br />at once
-                </h2>
-                <p className="text-[18px] text-black/60 mt-6 max-w-[542px] leading-relaxed">
-                  Send updates, promotions, or announcements to your entire client list instantly. Track open rates and responses in real-time.
-                </p>
-                <div className="flex flex-col gap-4 mt-8">
-                  <CheckItem dark>Unlimited contacts</CheckItem>
-                  <CheckItem dark>90%+ open rate</CheckItem>
-                  <CheckItem dark>Real-time analytics</CheckItem>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════ ZERO FEES ═══════ */}
-        <section className="relative py-32 min-h-[800px] flex items-center overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none" aria-hidden>
-            <img src={assets.zeroFeesBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, transparent 79%, white 100%), linear-gradient(180deg, transparent 15%, #090B06 88%)' }} />
-          </div>
-
-          <div className="relative z-10 max-w-[1024px] mx-auto px-6 text-center">
-            <p className="font-display text-[clamp(200px,25vw,320px)] font-medium text-[#A5F41F] leading-none">0%</p>
-
-            <p className="text-[clamp(18px,2.5vw,30px)] text-white mt-4">
-              Not &quot;low fees.&quot; Not &quot;competitive rates.&quot;
-            </p>
-
-            <p className="font-display text-[clamp(30px,4vw,48px)] font-medium text-white mt-4">
-              Zero. Forever.
-            </p>
-
-            <FeeSlideshow />
-
-            <p className="text-[14px] text-white/50 mt-10">
-              Keep every dollar you earn. No hidden costs. Ever.
-            </p>
-          </div>
-        </section>
-
-        {/* ═══════ FINAL CTA ═══════ */}
-        <section className="bg-[#090B06] py-32 relative overflow-hidden">
-          {/* Floating 3D graphics from Figma */}
-          <img src="/site2/cta-dollar.svg" alt="" className="absolute left-[3%] top-[15%] w-[80px] md:w-[120px] h-auto -rotate-15 pointer-events-none float-slow" />
-          <img src="/site2/cta-star.svg" alt="" className="absolute right-[10%] top-[3%] w-[60px] md:w-[90px] h-auto -rotate-15 pointer-events-none float-medium" />
-          <img src="/site2/cta-bubble.svg" alt="" className="absolute right-[3%] bottom-[10%] w-[100px] md:w-[160px] h-auto -rotate-[12deg] pointer-events-none float-slow" />
-
-          <div className="relative z-10 max-w-[896px] mx-auto px-6 text-center">
-            <h2 className="font-display text-[clamp(48px,6vw,72px)] font-medium text-white leading-[0.95] tracking-[-0.02em]">
-              Ready to get<br />Tapp&apos;d?
-            </h2>
-
-            <p className="text-[20px] text-white/60 mt-6 max-w-[655px] mx-auto">
-              Join thousands of creators and businesses getting paid faster with zero fees.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
-              <button
-                onClick={showWaitlist}
-                className="bg-[#A5F41F] text-black text-[18px] font-semibold px-12 py-5 rounded-full hover:bg-[#94DC1B] transition-colors cursor-pointer"
-              >
-                Download now
-              </button>
-              <button className="backdrop-blur-[35px] border-2 border-white/50 text-white text-[18px] font-semibold px-12 py-5 rounded-full hover:bg-white/10 transition-colors cursor-pointer bg-white/10">
-                Learn more
-              </button>
-            </div>
-
-            <p className="text-[14px] text-white/40 mt-8">
-              No credit card &bull; Free forever &bull; 0% fees
-            </p>
-          </div>
-        </section>
       </main>
 
-      {/* ═══════ FOOTER ═══════ */}
-      <footer className="bg-[#A5F41F] pt-20 pb-12 px-6 relative overflow-hidden">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="flex items-center gap-6 mb-4">
-            <TappdIcon className="w-[55px] h-auto text-black" />
-            <span className="font-display text-[clamp(48px,8vw,90px)] font-medium text-black leading-none">tappd</span>
-          </div>
-          <p className="text-[clamp(18px,2vw,26px)] text-black/60 max-w-[570px] leading-relaxed">
-            The simplest way to get paid. No apps, no links, just text.
-          </p>
-
-          <div className="flex items-center justify-between flex-wrap gap-4 mt-20 pt-8 border-t border-black/10">
-            <span className="text-[14px] text-black/60">&copy; 2026 Tappd. All rights reserved.</span>
-            <div className="flex items-center gap-6">
-              {['Twitter', 'Instagram', 'LinkedIn', 'TikTok'].map((link) => (
-                <a key={link} href="#" className="text-[14px] text-black/60 hover:text-black transition-colors">
-                  {link}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

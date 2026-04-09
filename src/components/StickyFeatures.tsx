@@ -205,13 +205,139 @@ function Satellites({ index, opacity }: { index: number; opacity: number }) {
 
   if (index === 0) return (
     <>
-      {/* Bottom-left: payment card overlapping card */}
-      <div className="float-slow" style={style(-215, 230, -5, 0, 12)}>
-        <PaymentCard amount="$25.00" from="@alex_m" note="💰 Thanks for the session!" />
+      {/* "$50 Enter amount" big glass card — top-right, rotated */}
+      <div style={style(200, -200, -11, 0, 12)}>
+        <div className="float-slow">
+          <div
+            style={{
+              width: 213,
+              height: 159,
+              borderRadius: 28,
+              border: '1px solid rgba(255,255,255,0.5)',
+              backgroundImage:
+                'linear-gradient(62deg, rgba(255,255,255,0.25) 10%, rgba(255,255,255,0.06) 77%)',
+              backdropFilter: 'blur(35px)',
+              WebkitBackdropFilter: 'blur(35px)',
+              boxShadow:
+                '0 1.2px 30px 0 rgba(69,42,124,0.1), inset 10px 10px 29px 0 rgba(255,255,255,0.25)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+            }}
+          >
+            <p style={{ fontSize: 60, fontWeight: 700, color: '#0a0a0a', lineHeight: 1, letterSpacing: '0.01em' }}>$50</p>
+            <p style={{ fontSize: 14, color: '#000', lineHeight: 1 }}>Enter amount</p>
+          </div>
+        </div>
       </div>
-      {/* Top-right: 0% chip */}
-      <div className="float-medium" style={style(185, -260, 8, 0.5, 10)}>
-        <FloatChip accent icon={<span style={{ fontSize: 16 }}>✓</span>} text="0% platform fee" />
+
+      {/* "⚡ Instant" dark pill — right side under the $50 card */}
+      <div style={style(220, -70, -11, 0.3, 13)}>
+        <div className="float-medium">
+          <div
+            style={{
+              height: 52,
+              width: 117,
+              borderRadius: 999,
+              background: '#000',
+              boxShadow: '0 8px 24px 0 rgba(0,0,0,0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+            }}
+          >
+            <span style={{ fontSize: 18 }}>⚡</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: '-0.01em' }}>Instant</span>
+          </div>
+        </div>
+      </div>
+
+      {/* "You sent $50" green glass card — mid-left, rotated */}
+      <div style={style(-215, -50, 12, 0.15, 12)}>
+        <div className="float-slow">
+          <div
+            style={{
+              width: 107,
+              height: 88,
+              borderRadius: 24,
+              border: '1px solid rgba(166,245,31,0.5)',
+              backgroundImage:
+                'linear-gradient(37deg, rgba(165,244,31,0.6) 8%, rgba(166,245,31,0.08) 100%)',
+              backdropFilter: 'blur(35px)',
+              WebkitBackdropFilter: 'blur(35px)',
+              boxShadow:
+                '0 1.2px 30px 0 rgba(69,42,124,0.12), inset 10px 10px 29px 0 rgba(255,255,255,0.35)',
+              padding: '15px 23px',
+            }}
+          >
+            <p style={{ fontSize: 12, color: '#000', lineHeight: 1, marginBottom: 10 }}>You sent</p>
+            <p style={{ fontSize: 30, fontWeight: 700, color: '#0a0a0a', lineHeight: 1, letterSpacing: '0.01em' }}>$50</p>
+          </div>
+        </div>
+      </div>
+
+      {/* "🔒 Secure" white pill — bottom-left, rotated */}
+      <div style={style(-225, 140, -8, 0.5, 13)}>
+        <div className="float-medium">
+          <div
+            style={{
+              height: 52,
+              borderRadius: 999,
+              background: '#fff',
+              boxShadow: '0 8px 24px 0 rgba(0,0,0,0.2)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 7,
+              padding: '0 16px',
+            }}
+          >
+            <span style={{ fontSize: 18 }}>🔒</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#000', letterSpacing: '-0.01em' }}>Secure</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Money bundle emoji 💵 — right side */}
+      <div style={style(240, 100, -11, 0.7, 11)}>
+        <div className="float-slow">
+          <span style={{ fontSize: 85, lineHeight: 1, display: 'block', filter: 'drop-shadow(0 8px 20px rgba(0,0,0,0.25))' }}>💵</span>
+        </div>
+      </div>
+
+      {/* Top-right person avatar (placeholder gradient circle) */}
+      <div style={style(175, -280, 14, 0.2, 11)}>
+        <div className="float-medium">
+          <div
+            style={{
+              width: 88,
+              height: 88,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #8B5A3C 0%, #3A2419 60%, #1A0F08 100%)',
+              boxShadow: '0 9px 35px -2px rgba(0,0,0,0.3)',
+              border: '2px solid rgba(255,255,255,0.3)',
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Mid-left sunglasses avatar (placeholder gradient circle) */}
+      <div style={style(-210, -190, -24, 0.4, 11)}>
+        <div className="float-slow">
+          <div
+            style={{
+              width: 81,
+              height: 81,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #F4C79C 0%, #C89470 50%, #5A3A26 100%)',
+              boxShadow: '0 9px 37px -2px rgba(0,0,0,0.3)',
+              border: '2px solid rgba(255,255,255,0.3)',
+            }}
+          />
+        </div>
       </div>
     </>
   )
@@ -304,27 +430,21 @@ export default function StickyFeatures() {
       ref={wrapperRef}
       id="product"
       className="relative z-[3]"
-      style={{ height: '800vh', marginTop: '-100vh' }}
+      style={{ height: '800vh' }}
     >
-      <section className="h-screen sticky top-0 rounded-t-[24px] overflow-hidden flex flex-col items-center justify-center" style={{ background: '#0D0D0F' }}>
+      <section className="h-screen sticky top-0 overflow-hidden flex items-center justify-center" style={{ background: '#ffffff' }}>
 
-        {/* Section label */}
-        <div
-          className="absolute top-10 left-4 md:left-8 lg:left-10 xl:left-12"
-          style={{ opacity: Math.max(0, 1 - Math.abs(angle) / 40) * (1 - scrollProgress * 0.5) }}
-        >
-          <p className="mono text-[11px] text-white/25 uppercase tracking-widest mb-1">Product</p>
-          <p className="text-[15px] font-medium text-white/35 tracking-[-0.02em]">Everything in one thread</p>
-        </div>
+        {/* Two-column layout: phone composition LEFT, copy RIGHT */}
+        <div className="w-full max-w-[1360px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-16 items-center">
 
-        {/* Composition wrapper */}
-        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* LEFT: Composition wrapper (phone + satellites) — phone pushed right-of-center in col so satellites can extend both directions */}
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70vh', overflow: 'visible', paddingLeft: 'clamp(40px, 6vw, 120px)' }}>
 
-          {/* Satellites */}
-          <Satellites index={cardIndex} opacity={contentOpacity} />
+            {/* Satellites */}
+            <Satellites index={cardIndex} opacity={contentOpacity} />
 
-          {/* 3D flip card — phone proportions */}
-          <div style={{ perspective: '1400px', perspectiveOrigin: '50% 50%', position: 'relative', zIndex: 5 }}>
+            {/* 3D flip card — phone proportions */}
+            <div style={{ perspective: '1400px', perspectiveOrigin: '50% 50%', position: 'relative', zIndex: 5 }}>
             <div
               style={{
                 transform: `rotateY(${angle}deg)`,
@@ -383,11 +503,42 @@ export default function StickyFeatures() {
                 </div>
               </div>
             </div>
+            </div>
+          </div>
+
+          {/* RIGHT: Copy block */}
+          <div className="relative flex flex-col justify-center" style={{ opacity: contentOpacity }}>
+            <p className="mono text-[12px] text-black/40 uppercase tracking-[0.15em] mb-5">
+              Product · 0{cardIndex + 1} / 0{cards.length}
+            </p>
+            <h2
+              className="font-medium text-black leading-[0.95] tracking-[-0.03em] mb-6"
+              style={{ fontSize: 'clamp(40px, 5vw, 72px)' }}
+            >
+              Everything in<br />one thread
+            </h2>
+            <div
+              key={cardIndex}
+              style={{ animation: 'hero-fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both' }}
+            >
+              <p className="mono text-[11px] text-black/50 uppercase tracking-[0.12em] mb-3">
+                {cards[cardIndex].label}
+              </p>
+              <h3
+                className="font-medium text-black leading-[1.05] tracking-[-0.02em] mb-4"
+                style={{ fontSize: 'clamp(24px, 2.2vw, 32px)', whiteSpace: 'pre-line' }}
+              >
+                {cards[cardIndex].title.replace('\n', ' ')}
+              </h3>
+              <p className="text-black/60 text-[15px] leading-[1.5] max-w-[440px]">
+                {cards[cardIndex].desc}
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Progress dots */}
-        <div className="absolute bottom-10 flex gap-2 items-center">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 items-center">
           {cards.map((_, i) => (
             <div
               key={i}
@@ -395,7 +546,7 @@ export default function StickyFeatures() {
               style={{
                 width: i === cardIndex ? 22 : 6,
                 height: 6,
-                background: i === cardIndex ? '#A5F41F' : 'rgba(255,255,255,0.2)',
+                background: i === cardIndex ? '#0D0D0F' : 'rgba(0,0,0,0.15)',
               }}
             />
           ))}
@@ -404,8 +555,8 @@ export default function StickyFeatures() {
         {/* Scroll hint */}
         {scrollProgress < 0.03 && (
           <div className="absolute bottom-10 right-8 md:right-12 flex items-center gap-2" style={{ opacity: 0.3 }}>
-            <span className="mono text-[11px] uppercase tracking-widest text-white">Scroll</span>
-            <span className="text-white">↓</span>
+            <span className="mono text-[11px] uppercase tracking-widest text-black">Scroll</span>
+            <span className="text-black">↓</span>
           </div>
         )}
       </section>

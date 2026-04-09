@@ -1,27 +1,11 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const items = ['0% Fees', 'Tips', 'Locked Content', 'Paid Calls', 'Mass Messaging', 'Keep 100%', 'Messages Meet Money', 'Get Tapp\'d']
 const doubled = [...items, ...items]
 
 export default function MarqueeBanner() {
-  const [hidden, setHidden] = useState(true)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const productSection = document.querySelector('#product')
-      if (productSection) {
-        const rect = productSection.getBoundingClientRect()
-        setHidden(rect.top > 80)
-      } else {
-        const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
-        setHidden(window.scrollY < heroHeight - 120)
-      }
-    }
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const [hidden] = useState(false)
 
   return (
     <div

@@ -66,7 +66,7 @@ export default function Nav() {
             ? 'bg-white'
             : 'bg-transparent'
         }`}
-        style={{ top: scrolled ? 32 : 0 }}
+        style={{ top: 32 }}
       >
         <a href="#" className="transition-opacity duration-300 hover:opacity-70">
           <svg width="90" height="28" viewBox="0 0 464 143" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Tapp'd">
