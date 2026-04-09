@@ -57,7 +57,7 @@ function FeeCounter() {
       <div style={{ height: 'clamp(120px,22vh,220px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <p
           className="font-display leading-none tracking-[-0.04em] text-[#A5F41F]"
-          style={{ fontSize: 'clamp(72px,17vw,210px)', textShadow: '0 0 80px rgba(165,244,31,0.4), 0 4px 40px rgba(0,0,0,0.8)' }}
+          style={{ fontSize: 'clamp(96px,22vw,210px)', textShadow: '0 0 80px rgba(165,244,31,0.4), 0 4px 40px rgba(0,0,0,0.8)' }}
         >
           {fmt(dispVal)}%
         </p>
@@ -66,8 +66,8 @@ function FeeCounter() {
         <div style={{ transform: `translateY(${-active * CAP_H}px)`, transition: 'transform 650ms cubic-bezier(0.4,0,0.2,1)' }}>
           {feeItems.map((item) => (
             <div key={item.name} style={{ height: CAP_H, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'4px' }}>
-              <p className="text-[clamp(15px,1.8vw,24px)] text-white leading-[1.2]">{item.line1}</p>
-              <p className="font-display text-[clamp(22px,3vw,42px)] font-medium text-white leading-[1.1] tracking-[-0.02em]">{item.line2}</p>
+              <p className="text-[clamp(16px,2.2vw,24px)] text-white leading-[1.2]">{item.line1}</p>
+              <p className="font-display text-[clamp(26px,4vw,42px)] font-medium text-white leading-[1.1] tracking-[-0.02em]">{item.line2}</p>
             </div>
           ))}
         </div>

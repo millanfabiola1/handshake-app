@@ -38,15 +38,8 @@ export default function Nav() {
       const current = window.scrollY
       const delta = current - lastScrollY.current
 
-      // Determine if past hero
-      const productSection = document.querySelector('#product')
-      if (productSection) {
-        const rect = productSection.getBoundingClientRect()
-        setScrolled(rect.top <= 80)
-      } else {
-        const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
-        setScrolled(current > heroHeight - 120)
-      }
+      // Determine if past hero — use scroll position directly (avoids issues with hidden #product elements)
+      setScrolled(current > window.innerHeight * 0.7)
 
       // Hide nav on scroll down, show on scroll up
       if (current < 120) {
