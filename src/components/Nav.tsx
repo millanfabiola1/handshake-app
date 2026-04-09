@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { CaretDown, List, X, CurrencyDollar, LockSimple, PhoneCall, Megaphone, PaintBrush, Wrench, UserCircle, ArrowRight, XLogo, InstagramLogo, TiktokLogo, LinkedinLogo } from '@phosphor-icons/react'
 import { useWaitlist } from './WaitlistContext'
 
@@ -29,23 +29,40 @@ export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [navHidden, setNavHidden] = useState(false)
+  const lastScrollY = useRef(0)
   const showWaitlist = useWaitlist()
 
   useEffect(() => {
     const handleScroll = () => {
+      const current = window.scrollY
+      const delta = current - lastScrollY.current
+
+      // Determine if past hero
       const productSection = document.querySelector('#product')
       if (productSection) {
         const rect = productSection.getBoundingClientRect()
         setScrolled(rect.top <= 80)
       } else {
         const heroHeight = document.querySelector('section')?.offsetHeight ?? window.innerHeight
-        setScrolled(window.scrollY > heroHeight - 120)
+        setScrolled(current > heroHeight - 120)
       }
+
+      // Hide nav on scroll down, show on scroll up
+      if (current < 120) {
+        setNavHidden(false)
+      } else if (delta > 4 && !mobileOpen) {
+        setNavHidden(true)
+      } else if (delta < -4) {
+        setNavHidden(false)
+      }
+
+      lastScrollY.current = current
     }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [mobileOpen])
 
   useEffect(() => {
     if (mobileOpen) {
@@ -56,17 +73,19 @@ export default function Nav() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
-  const visible = scrolled
-
   return (
     <>
       <nav
         className={`fixed left-0 right-0 z-[115] h-[80px] flex items-center justify-between px-4 md:px-8 lg:px-10 xl:px-12 transition-all duration-300 ${
-          visible || mobileOpen
+          scrolled || mobileOpen
             ? 'bg-white'
             : 'bg-transparent'
         }`}
-        style={{ top: 32 }}
+        style={{
+          top: 32,
+          transform: navHidden && !mobileOpen ? 'translateY(-110%)' : 'translateY(0)',
+          transition: 'transform 0.3s ease, background-color 0.3s ease',
+        }}
       >
         <a href="#" className="transition-opacity duration-300 hover:opacity-70">
           <svg width="90" height="28" viewBox="0 0 464 143" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Tapp'd">

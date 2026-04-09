@@ -293,3 +293,36 @@ a:not(:hover) { text-decoration: none; }
   background: radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.13) 100%);
   pointer-events: none;
 }
+
+/* ── ScrollSwap visual flip ─────────────────────────────────── */
+@keyframes _vflip-out {
+  0%   { opacity: 1; transform: perspective(900px) rotateY(0deg) scale(1); }
+  100% { opacity: 0; transform: perspective(900px) rotateY(80deg) scale(0.92); }
+}
+@keyframes _vflip-in {
+  0%   { opacity: 0; transform: perspective(900px) rotateY(-80deg) scale(0.92); }
+  100% { opacity: 1; transform: perspective(900px) rotateY(0deg) scale(1); }
+}
+.visual-flip-out { animation: _vflip-out 280ms cubic-bezier(0.4,0,1,1) forwards; }
+.visual-flip-in  { animation: _vflip-in  280ms cubic-bezier(0,0,0.2,1) forwards; }
+
+/* Mobile flip-in only (no flip-out needed for sequential mobile layout) */
+@keyframes _slide-flip-in {
+  0%   { opacity: 0; transform: perspective(600px) rotateX(18deg) translateY(30px); }
+  100% { opacity: 1; transform: perspective(600px) rotateX(0deg)  translateY(0); }
+}
+.mobile-flip-in { animation: _slide-flip-in 500ms cubic-bezier(0,0,0.2,1) forwards; }
+
+/* ── Pill pop ────────────────────────────────────────────────── */
+@keyframes pill-pop {
+  0%   { transform: scale(0.85); }
+  60%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ── Slow spin (globe) ───────────────────────────────────────── */
+@keyframes spin-slow-anim {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-slow { animation: spin-slow-anim 32s linear infinite; }

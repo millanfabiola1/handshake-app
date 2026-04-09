@@ -409,6 +409,119 @@ const swapSteps = [
   { title: 'Lock your best content', desc: 'Sell exclusive photos, videos, and messages. Set your price, get paid instantly.' },
 ]
 
+/* ── Mobile: one step per block, text first then visual flips in ── */
+function MobileFeatureStep({ step, index, assets }: { step: typeof swapSteps[0]; index: number; assets: Record<string, string> }) {
+  const visualRef = useRef<HTMLDivElement>(null)
+  const [animated, setAnimated] = useState(false)
+
+  useEffect(() => {
+    const el = visualRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setAnimated(true); io.disconnect() } }, { threshold: 0.2 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <div className="py-10 border-b border-black/8 last:border-0">
+      {/* Text first */}
+      <div className="px-6 text-center mb-8">
+        <p className="mono text-[11px] text-[#A5F41F] uppercase tracking-widest mb-3">0{index + 1}</p>
+        <h3 className="font-display text-[30px] font-medium text-black leading-[0.95] tracking-[-0.02em]">{step.title}</h3>
+        <p className="text-[15px] text-black/55 mt-3 leading-[1.55]">{step.desc}</p>
+      </div>
+
+      {/* Visual — flips in on scroll */}
+      <div
+        ref={visualRef}
+        className={`flex justify-center overflow-hidden px-4 ${animated ? 'mobile-flip-in' : 'opacity-0'}`}
+      >
+        {index === 0 && (
+          /* ── Send Money (mobile) ── */
+          <div className="relative" style={{ width: 300, height: 380 }}>
+            {/* Phone */}
+            <div className="absolute left-[28px] top-0 w-[200px] h-[420px] rounded-[32px] overflow-hidden shadow-2xl rotate-[2deg] z-[5]">
+              <img src={assets.phoneMockup} alt="Send Money" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+              <div className="relative z-10 px-4 pt-4 flex items-start justify-between">
+                <p className="text-[16px] font-bold text-white">Send Money</p>
+                <div className="w-7 h-7 bg-[#A5F41F] rounded-[8px] flex items-center justify-center">
+                  <TappdIcon className="w-3 h-auto text-black" />
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-3 space-y-2">
+                <div className="bg-black/50 backdrop-blur-lg rounded-[14px] px-3 py-2.5 flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 shrink-0" />
+                  <div><p className="text-[12px] font-semibold text-white leading-none">Alex Smith</p><p className="text-[9px] text-white/50">@alexsmith</p></div>
+                  <span className="text-[15px] ml-auto">💸</span>
+                </div>
+                <div className="bg-[#A5F41F] rounded-full py-3 text-center"><span className="text-[13px] font-bold text-black">Send Now</span></div>
+              </div>
+            </div>
+            {/* $50 card */}
+            <div className="absolute right-0 top-[60px] rotate-[5deg] float-slow z-20">
+              <div className="bg-white rounded-[16px] shadow-xl px-4 py-3">
+                <p className="font-display text-[32px] font-bold text-black leading-none">$50</p>
+                <p className="text-[10px] text-gray-400">Enter amount</p>
+              </div>
+            </div>
+            {/* Instant pill */}
+            <div className="absolute right-[12px] top-[200px] float-medium z-20">
+              <div className="bg-black rounded-full px-4 py-2 flex items-center gap-1.5 shadow-lg">
+                <span className="text-[12px]">⚡</span><span className="text-[11px] font-bold text-white">Instant</span>
+              </div>
+            </div>
+            {/* You sent */}
+            <div className="absolute left-0 top-[280px] float-slow z-20">
+              <div className="bg-[#A5F41F] rounded-[12px] shadow-lg px-3 py-2">
+                <p className="text-[9px] text-black/60 font-medium">You sent</p>
+                <p className="text-[20px] font-bold text-black leading-tight">$50</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {index === 1 && (
+          /* ── Globe (mobile) ── */
+          <div className="relative" style={{ width: 300, height: 300 }}>
+            <div className="absolute inset-[-8px] rounded-full border-2 border-[#A5F41F]/30" />
+            <div className="absolute inset-[15px] rounded-full border border-[#A5F41F]/20" />
+            <div className="absolute inset-[50px] rounded-full overflow-hidden">
+              <img src="/ellipse-2161.png" alt="" className="w-full h-full object-cover spin-slow" />
+            </div>
+            <div className="absolute left-[50%] top-[22%] -translate-x-1/2 -translate-y-1/2 z-10 float-slow">
+              <div className="backdrop-blur-lg bg-white/40 border border-white/50 rounded-[14px] shadow-xl px-3 py-2">
+                <div className="flex items-center gap-1.5 mb-1"><span className="text-[14px]">🇺🇸</span><span className="text-[10px] font-medium text-white">United States</span></div>
+                <p className="font-bold text-white text-[22px] leading-none">$100</p>
+              </div>
+            </div>
+            <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-20">
+              <div className="bg-black/50 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5 flex items-center gap-1.5">
+                <span className="text-[9px] font-bold text-[#A5F41F]">0% fee</span>
+                <span className="text-[9px] text-white/60">·</span>
+                <span className="text-[9px] text-white/80">Instant</span>
+              </div>
+            </div>
+            <div className="absolute left-[50%] bottom-[12%] -translate-x-1/2 z-10 float-medium">
+              <div className="backdrop-blur-lg bg-[#A5F41F]/40 border border-[#A5F41F]/50 rounded-[14px] shadow-xl px-3 py-2">
+                <div className="flex items-center gap-1.5 mb-1"><span className="text-[14px]">🇪🇺</span><span className="text-[10px] font-medium text-white/70">Europe</span></div>
+                <p className="font-bold text-white text-[22px] leading-none">€92</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {index === 2 && (
+          /* ── Locked Content (mobile) ── */
+          <div className="relative" style={{ minHeight: 420 }}>
+            <LockedContentSlide />
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const tiltRef = useRef<HTMLDivElement>(null)
@@ -419,10 +532,10 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 })
   const isFlipping = flipClass !== ''
 
-  // Scroll → step
+  // Scroll → step (desktop only — section is hidden on mobile so offsetParent is null)
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return
+      if (!sectionRef.current || sectionRef.current.offsetParent === null) return
       const rect = sectionRef.current.getBoundingClientRect()
       const sectionHeight = sectionRef.current.offsetHeight
       const scrolled = -rect.top
@@ -464,7 +577,16 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: '450vh' }}>
+    <>
+    {/* ── Mobile: sequential text → visual (text first, visual flips in on scroll) ── */}
+    <div className="block lg:hidden bg-white" id="product">
+      {swapSteps.map((step, i) => (
+        <MobileFeatureStep key={i} step={step} index={i} assets={assets} />
+      ))}
+    </div>
+
+    {/* ── Desktop: sticky scroll-swap — UNTOUCHED ── */}
+    <section ref={sectionRef} className="relative hidden lg:block" style={{ height: '450vh' }}>
       <div
         className="sticky top-0 h-screen flex items-center overflow-hidden"
         onMouseMove={handleMouseMove}
@@ -659,6 +781,7 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
         </div>
       </div>
     </section>
+    </>
   )
 }
 
