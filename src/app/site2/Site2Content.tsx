@@ -5,6 +5,7 @@ import { useWaitlist } from '@/components/WaitlistContext'
 import WaitlistProvider from '@/components/WaitlistContext'
 import MarqueeBanner from '@/components/MarqueeBanner'
 import FloatingUI from '@/components/FloatingUI'
+import BentoGrid from '@/components/BentoGrid'
 import { Check } from '@phosphor-icons/react'
 
 /* ────────────── local assets ────────────── */
@@ -116,8 +117,8 @@ function Site2Inner() {
                   <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover" />
                 </div>
 
-                {/* Phone mockup with video — overlapping right */}
-                <div className="absolute right-[-40px] top-[20px] lg:right-[0px] w-[clamp(180px,20vw,240px)]">
+                {/* Phone mockup with video — overlapping right edge of photo */}
+                <div className="absolute right-[clamp(-60px,-5vw,-20px)] top-[20px] lg:right-[60px] w-[clamp(180px,20vw,240px)]">
                   <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,9px)] shadow-2xl shadow-black/30">
                     <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,12vw,100px)] h-[clamp(18px,2vw,22px)] bg-black rounded-full" />
                     <div className="relative rounded-[clamp(22px,3.5vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
@@ -259,7 +260,11 @@ function Site2Inner() {
         </section>
 
         {/* ═══════ EVERYTHING IN ONE PLACE — FloatingUI ═══════ */}
-        <section className="relative pt-24 pb-12 bg-gradient-to-b from-[#A5F41F] via-[#A5F41F]/30 to-white">
+        <section className="relative pt-24 pb-12 overflow-hidden">
+          {/* Actual gradient background image from Figma */}
+          <div className="absolute inset-0 pointer-events-none" aria-hidden>
+            <img src={assets.lockedContentBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          </div>
           <div className="relative z-10 max-w-[1200px] mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[1.25]">
@@ -271,11 +276,25 @@ function Site2Inner() {
             </div>
           </div>
 
-          {/* FloatingUI with its internal heading hidden */}
-          <div className="[&_.text-center.mb-14]:hidden" style={{ marginTop: '-2rem' }}>
+          {/* FloatingUI with its internal heading + background hidden */}
+          <style>{`
+            .site2-floating-ui section { background: transparent !important; }
+            .site2-floating-ui .text-center.mb-14 { display: none !important; }
+            .site2-floating-ui .text-center.lg\\:mb-20 { display: none !important; }
+            .site2-floating-ui section > .absolute { display: none !important; }
+          `}</style>
+          <div className="site2-floating-ui" style={{ marginTop: '-2rem' }}>
             <FloatingUI />
           </div>
         </section>
+
+        {/* ═══════ BENTO GRID ═══════ */}
+        <div className="[&_section]:!rounded-none" style={{ ['--bento-bg' as string]: 'transparent' }}>
+          <style>{`.site2-bento > section { background: white !important; }`}</style>
+          <div className="site2-bento">
+            <BentoGrid />
+          </div>
+        </div>
 
         {/* ═══════ FEATURES: LOCK YOUR CONTENT ═══════ */}
         <section className="py-24 bg-gradient-to-b from-transparent to-white">
@@ -400,14 +419,12 @@ function Site2Inner() {
 
         {/* ═══════ FINAL CTA ═══════ */}
         <section className="bg-[#090B06] py-32 relative overflow-hidden">
-          <div className="relative z-10 max-w-[896px] mx-auto px-6 text-center">
-            <div className="absolute left-[5%] top-[10%] -rotate-15 opacity-30 hidden lg:block">
-              <TappdIcon className="w-[94px] h-auto text-[#A5F41F]" />
-            </div>
-            <div className="absolute right-[5%] top-[-5%] -rotate-15 opacity-30 hidden lg:block">
-              <TappdIcon className="w-[93px] h-auto text-[#A5F41F]" />
-            </div>
+          {/* Floating 3D graphics from Figma */}
+          <img src="/site2/cta-dollar.svg" alt="" className="absolute left-[3%] top-[15%] w-[80px] md:w-[120px] h-auto -rotate-15 pointer-events-none float-slow" />
+          <img src="/site2/cta-star.svg" alt="" className="absolute right-[10%] top-[3%] w-[60px] md:w-[90px] h-auto -rotate-15 pointer-events-none float-medium" />
+          <img src="/site2/cta-bubble.svg" alt="" className="absolute right-[3%] bottom-[10%] w-[100px] md:w-[160px] h-auto -rotate-[12deg] pointer-events-none float-slow" />
 
+          <div className="relative z-10 max-w-[896px] mx-auto px-6 text-center">
             <h2 className="font-display text-[clamp(48px,6vw,72px)] font-medium text-white leading-[1.25]">
               Ready to get<br />Tapp&apos;d?
             </h2>
