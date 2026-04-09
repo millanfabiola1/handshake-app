@@ -6,8 +6,6 @@ import WaitlistProvider from '@/components/WaitlistContext'
 import MarqueeBanner from '@/components/MarqueeBanner'
 import FloatingUI from '@/components/FloatingUI'
 import BentoGrid from '@/components/BentoGrid'
-import Hero from '@/components/Hero'
-import PhonePersist from '@/components/PhonePersist'
 import Nav from '@/components/Nav'
 import { Check } from '@phosphor-icons/react'
 
@@ -398,9 +396,6 @@ function Site2Inner() {
       {/* ═══════ NAV — always visible ═══════ */}
       <Nav />
 
-      {/* PhonePersist — only visible when Design B active */}
-      {heroDesign === 1 && <PhonePersist />}
-
       <main>
         {/* ═══════ HERO ═══════ */}
         <div className="relative">
@@ -440,9 +435,85 @@ function Site2Inner() {
             </section>
           </div>
 
-          {/* Design B: Centered hero with dot grid + persistent phone */}
+          {/* Design B: Centered headline + dot grid + phone with floating cards */}
           <div className={`transition-opacity duration-500 ${heroDesign === 1 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
-            <Hero />
+            <section
+              className="relative min-h-screen overflow-hidden flex flex-col"
+              style={{ background: 'linear-gradient(145deg, #A5F41F 0%, #c2f55a 12%, #d8f890 24%, #ebfbc8 38%, #f4f6ee 58%, #efefeb 100%)' }}
+            >
+              {/* Dot grid */}
+              <div className="absolute inset-0 pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.10) 1.5px, transparent 1.5px)', backgroundSize: '26px 26px' }} aria-hidden />
+              <div className="noise-texture absolute inset-0 z-[1]" aria-hidden />
+
+              <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 pt-24 pb-8">
+                {/* Centered headline */}
+                <h1
+                  className="font-medium text-black tracking-[-0.04em] text-center leading-[0.85]"
+                  style={{ fontSize: 'clamp(56px, 10vw, 120px)' }}
+                >
+                  Tap. Text. Get Paid.
+                </h1>
+
+                <p className="text-[clamp(14px,1.6vw,18px)] text-black/55 text-center max-w-[480px] mt-6 leading-[1.4]">
+                  Messages and payments in one app. 0% fees. Keep everything you earn.
+                </p>
+
+                <div className="flex items-center justify-center gap-3 mt-6">
+                  <button
+                    onClick={showWaitlist}
+                    className="text-[14px] font-semibold text-white px-8 py-4 rounded-full bg-black hover:bg-black/80 transition-colors cursor-pointer shadow-[0_2px_20px_rgba(0,0,0,0.2)]"
+                  >
+                    Get Tapp&apos;d
+                  </button>
+                  <a
+                    href="#product"
+                    className="text-[14px] font-semibold text-black px-8 py-4 rounded-full border-2 border-black/60 hover:bg-black hover:text-white hover:border-black transition-all backdrop-blur-sm bg-white/10"
+                  >
+                    See the product
+                  </a>
+                </div>
+              </div>
+
+              {/* Phone + floating cards at bottom */}
+              <div className="relative z-10 flex justify-center pb-0 -mb-[100px]">
+                <div className="relative">
+                  {/* Phone */}
+                  <div className="relative w-[clamp(260px,40vw,340px)]">
+                    <div className="bg-black rounded-[clamp(28px,5vw,44px)] p-[clamp(6px,1.2vw,10px)] shadow-2xl shadow-black/30">
+                      <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,14vw,100px)] h-[clamp(18px,2.5vw,24px)] bg-black rounded-full" />
+                      <div className="relative rounded-[clamp(22px,4vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
+                        <video src="/demo.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Floating: "You sent $50" — left */}
+                  <div className="absolute left-[-120px] top-[15%] z-10 float-slow">
+                    <div className="bg-[#A5F41F]/80 backdrop-blur-sm rounded-[16px] shadow-xl px-5 py-4">
+                      <p className="text-[12px] text-black/70">You sent</p>
+                      <p className="text-[36px] font-bold text-black leading-none">$50</p>
+                    </div>
+                  </div>
+
+                  {/* Floating: "+$75 via text" — right */}
+                  <div className="absolute right-[-160px] top-[20%] z-10 float-medium">
+                    <div className="bg-white rounded-[16px] shadow-xl px-5 py-4">
+                      <p className="text-[11px] text-black/50 font-medium uppercase tracking-wider">Incoming <span className="text-[#A5F41F]">&bull;</span></p>
+                      <p className="text-[24px] font-bold text-black leading-tight">+$75 via text</p>
+                      <p className="text-[12px] text-black/40 mt-0.5">from @maya_k</p>
+                    </div>
+                  </div>
+
+                  {/* Floating: "Thanks for dinner!" — bottom right */}
+                  <div className="absolute right-[-140px] bottom-[20%] z-10 float-slow">
+                    <div className="bg-white rounded-[16px] shadow-xl px-5 py-3">
+                      <p className="text-[10px] text-black/40 font-medium uppercase tracking-wider">New Message</p>
+                      <p className="text-[15px] font-medium text-black">&quot;Thanks for dinner! 📬&quot;</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
 
           {/* Arrow toggles — bottom right of hero section */}
