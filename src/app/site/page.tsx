@@ -1,28 +1,16 @@
-import MarqueeBanner from '@/components/MarqueeBanner'
-import Nav from '@/components/Nav'
-import Hero from '@/components/Hero'
-import StickyFeatures from '@/components/StickyFeatures'
-import BentoGrid from '@/components/BentoGrid'
-import FloatingUI from '@/components/FloatingUI'
-import UseCases from '@/components/UseCases'
-import CTASection from '@/components/CTASection'
-import Footer from '@/components/Footer'
-import WaitlistProvider from '@/components/WaitlistContext'
+import { Metadata } from 'next'
+import Site2Content from './Site2Content'
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Tapp'd — Tap. Text. Get Paid.",
+  description: "No apps. No links. Just text your clients and get paid instantly. Zero fees.",
+}
+
+export default function Site2Page() {
   return (
-    <WaitlistProvider>
-      <MarqueeBanner />
-      <Nav />
-      <main>
-        <Hero />
-        <StickyFeatures />
-        <UseCases />
-        <FloatingUI />
-        <BentoGrid />
-        <CTASection />
-      </main>
-      <Footer />
-    </WaitlistProvider>
+    <>
+      <link rel="preload" as="image" href="/site2/hero-bg.jpg" />
+      <Site2Content />
+    </>
   )
 }

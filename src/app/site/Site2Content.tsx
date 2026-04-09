@@ -721,7 +721,8 @@ function Site2Inner() {
           <div className={`absolute inset-0 transition-opacity duration-500 ${heroDesign === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <section className="relative h-full overflow-hidden pt-[112px] pb-0">
               <div className="absolute inset-0 pointer-events-none" aria-hidden>
-                <img src={assets.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover opacity-75" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={assets.heroBackground} alt="" fetchPriority="high" decoding="sync" className="absolute inset-0 w-full h-full object-cover opacity-75" />
                 {/* Dot grid — matches Design B, fades out toward bottom */}
                 <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.08) 1.5px, transparent 1.5px)', backgroundSize: '26px 26px', maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 80%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 80%)' }} />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 65%, white 100%)' }} />
