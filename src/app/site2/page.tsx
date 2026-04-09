@@ -1,11 +1,30 @@
-import { Metadata } from 'next'
-import Site2Content from './Site2Content'
+import MarqueeBanner from '@/components/MarqueeBanner'
+import Nav from '@/components/Nav'
+import Hero from '@/components/Hero'
+import PhonePersist from '@/components/PhonePersist'
+import StickyFeatures from '@/components/StickyFeatures'
+import BentoGrid from '@/components/BentoGrid'
+import FloatingUI from '@/components/FloatingUI'
+import UseCases from '@/components/UseCases'
+import CTASection from '@/components/CTASection'
+import Footer from '@/components/Footer'
+import WaitlistProvider from '@/components/WaitlistContext'
 
-export const metadata: Metadata = {
-  title: "Tapp'd — Tap. Text. Get Paid.",
-  description: "No apps. No links. Just text your clients and get paid instantly. Zero fees.",
-}
-
-export default function Site2Page() {
-  return <Site2Content />
+export default function Home() {
+  return (
+    <WaitlistProvider>
+      <MarqueeBanner />
+      <Nav />
+      <PhonePersist />
+      <main>
+        <Hero />
+        <StickyFeatures />
+        <UseCases />
+        <FloatingUI />
+        <BentoGrid />
+        <CTASection />
+      </main>
+      <Footer />
+    </WaitlistProvider>
+  )
 }
