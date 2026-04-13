@@ -121,7 +121,7 @@ export default function FloatingUI() {
       ([entry]) => {
         if (entry.isIntersecting && !hasStarted) setHasStarted(true)
       },
-      { threshold: 0.3 }
+      { threshold: 0.05 }
     )
     observer.observe(el)
     return () => observer.disconnect()

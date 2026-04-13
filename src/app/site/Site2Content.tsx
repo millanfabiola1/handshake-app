@@ -66,9 +66,9 @@ function CheckItem({ children, dark = false }: { children: React.ReactNode; dark
 
 /* ────────────── Use case data ────────────── */
 const useCases = [
-  { label: 'CREATORS & INDEPENDENTS', title: 'Tips. Locked drops.\nKeep 100%.', desc: 'Every DM is a potential payday. Every follower is a potential revenue source.', stat: '47%', statLabel: 'HIGHER CONVERSION', photo: '/site2/photo-glamour.jpg' },
+  { label: 'CREATORS & INDEPENDENTS', title: 'Tips. Locked files.\nKeep 100%.', desc: 'Every DM is a potential payday. Every follower is a potential revenue source.', stat: '47%', statLabel: 'HIGHER CONVERSION', photo: '/site2/photo-glamour.jpg' },
   { label: 'HOME SERVICES', title: 'Quote, confirm, collect', desc: 'Your clients already text you. Now those texts make you money.', stat: '3x', statLabel: 'FASTER COLLECTIONS', photo: '/site2/photo1.jpg' },
-  { label: 'PSYCHICS & COACHES', title: 'Lock premium readings', desc: 'Charge per message. Lock premium sessions. Schedule paid calls. One app does it all.', stat: '$120', statLabel: 'AVG SESSION REVENUE', photo: '/site2/photo-chill.jpg' },
+  { label: 'PSYCHICS & COACHES', title: 'Lock premium sessions', desc: 'Charge per message. Lock files and readings. Schedule paid calls. One app does it all.', stat: '$120', statLabel: 'AVG SESSION REVENUE', photo: '/site2/photo-chill.jpg' },
   { label: 'SECURITY & SERVICE', title: 'Coordinate and\ninvoice instantly', desc: 'Ditch the invoicing software. Bill clients the second the job is done.', stat: '90%', statLabel: 'FASTER PAYMENTS', photo: '/site2/photo2.jpg' },
 ]
 
@@ -212,8 +212,9 @@ function GlobeOrbitRing() {
         const el = refs.current[i]
         if (!el) return
         const a = baseAngle + (item.offsetDeg * Math.PI) / 180
-        el.style.left = `calc(50% + ${(Math.cos(a) * item.radius).toFixed(2)}px)`
-        el.style.top  = `calc(50% + ${(Math.sin(a) * item.radius).toFixed(2)}px)`
+        const x = (Math.cos(a) * item.radius).toFixed(2)
+        const y = (Math.sin(a) * item.radius).toFixed(2)
+        el.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
       })
       raf = requestAnimationFrame(frame)
     }
@@ -226,42 +227,42 @@ function GlobeOrbitRing() {
   return (
     <>
       {/* CAD */}
-      <div ref={setRef(0)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+      <div ref={setRef(0)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
         <div className="bg-black/65 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5 whitespace-nowrap shadow-md">
           <span className="text-[13px]">🇨🇦</span><span className="text-[12px] font-bold text-white">$130</span><span className="text-[9px] text-gray-400 ml-0.5">CAD</span>
         </div>
       </div>
       {/* JPY */}
-      <div ref={setRef(1)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+      <div ref={setRef(1)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
         <div className="bg-black/65 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5 whitespace-nowrap shadow-md">
           <span className="text-[13px]">🇯🇵</span><span className="text-[12px] font-bold text-white">¥13,500</span><span className="text-[9px] text-gray-400 ml-0.5">JPY</span>
         </div>
       </div>
       {/* UK */}
-      <div ref={setRef(2)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+      <div ref={setRef(2)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
         <div className="bg-white rounded-[14px] shadow-xl px-3 py-2 flex items-center gap-2 whitespace-nowrap">
           <div className="w-[30px] h-[30px] rounded-full overflow-hidden shrink-0"><img src="/site2/avatar3.jpg" alt="" className="w-full h-full object-cover" /></div>
           <div><div className="flex items-center gap-1"><span className="text-[11px]">🇬🇧</span><span className="text-[11px] font-bold">UK</span></div><span className="text-[9px] text-gray-400">Received $$$</span></div>
         </div>
       </div>
       {/* AUD */}
-      <div ref={setRef(3)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+      <div ref={setRef(3)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
         <div className="bg-black/65 backdrop-blur rounded-full px-3 py-2 flex items-center gap-1.5 whitespace-nowrap shadow-md">
           <span className="text-[13px]">🇦🇺</span><span className="text-[12px] font-bold text-white">$145</span><span className="text-[9px] text-gray-400 ml-0.5">AUD</span>
         </div>
       </div>
       {/* 150+ countries */}
-      <div ref={setRef(4)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+      <div ref={setRef(4)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
         <div className="bg-black rounded-full px-4 py-2.5 shadow-lg whitespace-nowrap">
           <span className="text-[13px] font-bold text-[#A5F41F]">150+ countries</span>
         </div>
       </div>
       {/* Globe emoji */}
-      <div ref={setRef(5)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+      <div ref={setRef(5)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
         <span className="text-[36px] drop-shadow-md">🌏</span>
       </div>
       {/* Brazil */}
-      <div ref={setRef(6)} className="absolute z-10" style={{ transform: 'translate(-50%,-50%)' }}>
+      <div ref={setRef(6)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
         <div className="bg-white rounded-[14px] shadow-xl px-3 py-2 flex items-center gap-2 whitespace-nowrap">
           <div className="w-[30px] h-[30px] rounded-full overflow-hidden shrink-0"><img src="/site2/avatar8.jpg" alt="" className="w-full h-full object-cover" /></div>
           <div><div className="flex items-center gap-1"><span className="text-[11px]">🇧🇷</span><span className="text-[11px] font-bold">Brazil</span></div><span className="text-[9px] text-gray-400">Received $$$</span></div>
@@ -315,8 +316,8 @@ function LockedContentSlide() {
             >
               <span className="text-[26px]">{unlocking ? '🔓' : '🔒'}</span>
             </div>
-            <p className="text-[17px] font-bold text-white mt-1" style={{ opacity: unlocked ? 0 : 1, transition: 'opacity 400ms' }}>Exclusive Content</p>
-            <p className="text-[13px] text-white/70" style={{ opacity: unlocked ? 0 : 1, transition: 'opacity 400ms' }}>3 photos &bull; 1 video</p>
+            <p className="text-[17px] font-bold text-white mt-1" style={{ opacity: unlocked ? 0 : 1, transition: 'opacity 400ms' }}>Exclusive Sound Pack</p>
+            <p className="text-[13px] text-white/70" style={{ opacity: unlocked ? 0 : 1, transition: 'opacity 400ms' }}>24 samples &bull; Stems included</p>
             {/* Unlocked badge */}
             <div style={{
               position: 'absolute', bottom: 14, left: '50%',
@@ -326,7 +327,7 @@ function LockedContentSlide() {
               pointerEvents: 'none',
             }}>
               <div className="bg-[#A5F41F] rounded-full px-4 py-1.5 whitespace-nowrap shadow-lg">
-                <span className="text-[13px] font-bold text-black">Unlocked! ✨</span>
+                <span className="text-[13px] font-bold text-black">Unlocked! 🎵</span>
               </div>
             </div>
           </div>
@@ -337,8 +338,8 @@ function LockedContentSlide() {
               <img src="/site2/avatar4.jpg" alt="" className="w-full h-full object-cover" />
             </div>
             <div>
-              <p className="text-[14px] font-bold text-black leading-none">Maya Chen</p>
-              <p className="text-[11px] text-black/40 mt-0.5">@mayachen</p>
+              <p className="text-[14px] font-bold text-black leading-none">Kai Sounds</p>
+              <p className="text-[11px] text-black/40 mt-0.5">@kaisounds</p>
             </div>
           </div>
           <div className="rounded-full py-4 text-center" style={{
@@ -347,7 +348,7 @@ function LockedContentSlide() {
             transition: 'background 600ms, transform 200ms cubic-bezier(0.34,1.56,0.64,1)',
           }}>
             <span className="text-[15px] font-bold" style={{ color: unlocked ? '#A5F41F' : '#000000', transition: 'color 600ms' }}>
-              {unlocked ? 'Content Unlocked ✓' : 'Unlock for $4.99'}
+              {unlocked ? 'Files Unlocked ✓' : 'Unlock for $14.99'}
             </span>
           </div>
         </div>
@@ -377,7 +378,7 @@ function LockedContentSlide() {
         transition: 'opacity 500ms, transform 500ms cubic-bezier(0.34,1.56,0.64,1)',
       }}>
         <div className="bg-white rounded-full shadow-lg px-4 py-2.5">
-          <span className="text-[13px] font-medium text-black">Just unlocked! 🔥</span>
+          <span className="text-[13px] font-medium text-black">Files unlocked! 🔥</span>
         </div>
       </div>
 
@@ -395,7 +396,7 @@ function LockedContentSlide() {
       {/* Worth it */}
       <div className="absolute right-[5px] bottom-[120px] -rotate-[3deg] float-slow z-20">
         <div className="bg-black rounded-[16px] shadow-lg px-4 py-2.5">
-          <span className="text-[13px] font-semibold text-white">Worth it! ❤️</span>
+          <span className="text-[13px] font-semibold text-white">Fire pack! 🔥</span>
         </div>
       </div>
     </>
@@ -406,222 +407,303 @@ function LockedContentSlide() {
 const swapSteps = [
   { title: 'Text-based payments', desc: 'Works with any phone number. No apps required.' },
   { title: 'Send money globally', desc: '150+ countries supported. Instant cross-border payments with zero fees.' },
-  { title: 'Lock your best content', desc: 'Sell exclusive photos, videos, and messages. Set your price, get paid instantly.' },
+  { title: 'Lock your best files', desc: 'Upload sound packs, stems, or any exclusive file. Set your price, get paid instantly.' },
 ]
 
-/* ── Mobile: one step per block, text first then visual flips in ── */
-/* ── Mobile scroll-driven flip: text → visual → text → visual per step ── */
-function MobileScrollSwap({ assets }: { assets: Record<string, string> }) {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  // 6 phases: 0=text0, 1=visual0, 2=text1, 3=visual1, 4=text2, 5=visual2
-  const [displayPhase, setDisplayPhase] = useState(0)
-  const [visible, setVisible] = useState(true)
-  const pendingPhase = useRef(0)
-  const isAnimating = useRef(false)
+/* ── Mobile globe orbit — smaller radius to fit mobile container ── */
+function MobileGlobeOrbit() {
+  const refs = useRef<(HTMLDivElement | null)[]>([])
+  useEffect(() => {
+    let raf: number
+    const DURATION_MS = 52000
+    let startTime: number | null = null
+    const items = [
+      { radius: 118, offsetDeg: 290 },
+      { radius: 120, offsetDeg: 45 },
+      { radius: 116, offsetDeg: 155 },
+      { radius: 118, offsetDeg: 215 },
+    ]
+    function frame(ts: number) {
+      if (!startTime) startTime = ts
+      const baseAngle = ((ts - startTime) / DURATION_MS) * 2 * Math.PI
+      items.forEach((item, i) => {
+        const el = refs.current[i]
+        if (!el) return
+        const a = baseAngle + (item.offsetDeg * Math.PI) / 180
+        const x = (Math.cos(a) * item.radius).toFixed(2)
+        const y = (Math.sin(a) * item.radius).toFixed(2)
+        el.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
+      })
+      raf = requestAnimationFrame(frame)
+    }
+    raf = requestAnimationFrame(frame)
+    return () => cancelAnimationFrame(raf)
+  }, [])
+  const setRef = (i: number) => (el: HTMLDivElement | null) => { refs.current[i] = el }
+  return (
+    <>
+      <div ref={setRef(0)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
+        <div className="bg-black/65 backdrop-blur rounded-full px-2.5 py-1.5 flex items-center gap-1 whitespace-nowrap shadow-md">
+          <span className="text-[11px]">🇨🇦</span><span className="text-[10px] font-bold text-white">$130</span><span className="text-[8px] text-gray-400 ml-0.5">CAD</span>
+        </div>
+      </div>
+      <div ref={setRef(1)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
+        <div className="bg-black/65 backdrop-blur rounded-full px-2.5 py-1.5 flex items-center gap-1 whitespace-nowrap shadow-md">
+          <span className="text-[11px]">🇯🇵</span><span className="text-[10px] font-bold text-white">¥13,500</span><span className="text-[8px] text-gray-400 ml-0.5">JPY</span>
+        </div>
+      </div>
+      <div ref={setRef(2)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
+        <div className="bg-black rounded-full px-3 py-1.5 shadow-lg whitespace-nowrap">
+          <span className="text-[11px] font-bold text-[#A5F41F]">150+ countries</span>
+        </div>
+      </div>
+      <div ref={setRef(3)} className="absolute z-10" style={{ left: '50%', top: '50%', willChange: 'transform' }}>
+        <div className="bg-white rounded-[12px] shadow-xl px-2 py-1.5 flex items-center gap-1.5 whitespace-nowrap">
+          <div className="w-[22px] h-[22px] rounded-full overflow-hidden shrink-0"><img src="/site2/avatar3.jpg" alt="" className="w-full h-full object-cover" /></div>
+          <div>
+            <div className="flex items-center gap-0.5"><span className="text-[9px]">🇬🇧</span><span className="text-[9px] font-bold">UK</span></div>
+            <span className="text-[8px] text-gray-400">Received $$$</span>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
 
-  // Progress thresholds for each phase (0–1)
-  const THRESHOLDS = [0, 0.14, 0.33, 0.47, 0.66, 0.80]
+/* ── Mobile flip-in card: visual flips in via IntersectionObserver ── */
+function MobileStepCard({ index, children }: { index: number; children: React.ReactNode }) {
+  const visualRef = useRef<HTMLDivElement>(null)
+  const hasFlipped = useRef(false)
 
   useEffect(() => {
-    const onScroll = () => {
-      const el = sectionRef.current
-      if (!el || el.offsetParent === null) return
-      const p = Math.max(0, Math.min(1, -el.getBoundingClientRect().top / (el.offsetHeight - window.innerHeight)))
-      let phase = 0
-      for (let i = THRESHOLDS.length - 1; i >= 0; i--) { if (p >= THRESHOLDS[i]) { phase = i; break } }
-      if (phase === pendingPhase.current) return
-      pendingPhase.current = phase
-      if (isAnimating.current) { setDisplayPhase(phase); return }
-      isAnimating.current = true
-      setVisible(false)
-      setTimeout(() => {
-        setDisplayPhase(phase)
-        setVisible(true)
-        setTimeout(() => { isAnimating.current = false }, 350)
-      }, 260)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
+    const el = visualRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasFlipped.current) {
+          hasFlipped.current = true
+          // Phase 1: currently at rotateY(-90deg), flip IN to 0
+          requestAnimationFrame(() => {
+            el.style.transition = 'opacity 240ms ease, transform 280ms cubic-bezier(0, 0.55, 0.45, 1)'
+            el.style.opacity = '1'
+            el.style.transform = 'perspective(900px) rotateY(0deg)'
+          })
+        }
+      },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
   }, [])
 
-  const isText = displayPhase % 2 === 0
-  const step = Math.floor(displayPhase / 2)
-
   return (
-    <div ref={sectionRef} className="relative block lg:hidden" style={{ height: '450vh' }} id="product-mobile">
-      <div className="sticky top-0 h-screen overflow-hidden bg-white flex flex-col items-center justify-center">
+    <div className="bg-white px-6 pt-10 pb-14 border-b border-black/6">
+      {/* Text */}
+      <p className="mono text-[11px] text-[#A5F41F] uppercase tracking-widest mb-2">0{index + 1}</p>
+      <h3 className="font-display text-[28px] font-medium text-black leading-[0.92] tracking-[-0.025em]">
+        {swapSteps[index].title}
+      </h3>
+      <p className="text-[14px] text-black/55 mt-2 leading-[1.5] max-w-[290px]">
+        {swapSteps[index].desc}
+      </p>
 
-        {/* Flip panel */}
-        <div
-          className="w-full flex flex-col items-center justify-center px-6"
-          style={{
-            transition: 'opacity 260ms ease, transform 260ms ease',
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'perspective(900px) rotateY(0deg) scale(1)' : 'perspective(900px) rotateY(55deg) scale(0.95)',
-            maxHeight: 'calc(100vh - 160px)',
-          }}
-        >
-          {isText ? (
-            /* TEXT panel */
-            <div className="text-center">
-              <p className="mono text-[11px] text-[#A5F41F] uppercase tracking-widest mb-4">0{step + 1}</p>
-              <h3 className="font-display text-[36px] font-medium text-black leading-[0.92] tracking-[-0.025em]">
-                {swapSteps[step].title}
-              </h3>
-              <p className="text-[16px] text-black/55 mt-4 leading-[1.55] max-w-[300px] mx-auto">
-                {swapSteps[step].desc}
-              </p>
-            </div>
-          ) : (
-            /* VISUAL panel */
-            <div className="flex items-center justify-center w-full overflow-hidden">
-              {step === 0 && (
-                <div className="relative" style={{ width: 300, height: 380 }}>
-                  <div className="absolute left-[28px] top-0 w-[200px] h-[420px] rounded-[32px] overflow-hidden shadow-2xl rotate-[2deg] z-[5]">
-                    <img src={assets.phoneMockup} alt="Send Money" className="absolute inset-0 w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
-                    <div className="relative z-10 px-4 pt-4 flex items-start justify-between">
-                      <p className="text-[16px] font-bold text-white">Send Money</p>
-                      <div className="w-7 h-7 bg-[#A5F41F] rounded-[8px] flex items-center justify-center"><TappdIcon className="w-3 h-auto text-black" /></div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-3 space-y-2">
-                      <div className="bg-black/50 backdrop-blur-lg rounded-[14px] px-3 py-2.5 flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 shrink-0" />
-                        <div><p className="text-[12px] font-semibold text-white leading-none">Alex Smith</p><p className="text-[9px] text-white/50">@alexsmith</p></div>
-                        <span className="text-[15px] ml-auto">💸</span>
-                      </div>
-                      <div className="bg-[#A5F41F] rounded-full py-3 text-center"><span className="text-[13px] font-bold text-black">Send Now</span></div>
-                    </div>
-                  </div>
-                  <div className="absolute right-0 top-[55px] rotate-[5deg] float-slow z-20">
-                    <div className="bg-white rounded-[16px] shadow-xl px-4 py-3">
-                      <p className="font-display text-[30px] font-bold text-black leading-none">$50</p>
-                      <p className="text-[10px] text-gray-400">Enter amount</p>
-                    </div>
-                  </div>
-                  <div className="absolute right-[10px] top-[195px] float-medium z-20">
-                    <div className="bg-black rounded-full px-4 py-2 flex items-center gap-1.5 shadow-lg">
-                      <span className="text-[11px]">⚡</span><span className="text-[11px] font-bold text-white">Instant</span>
-                    </div>
-                  </div>
-                  <div className="absolute left-0 top-[270px] float-slow z-20">
-                    <div className="bg-[#A5F41F] rounded-[12px] shadow-lg px-3 py-2">
-                      <p className="text-[9px] text-black/60 font-medium">You sent</p>
-                      <p className="text-[20px] font-bold text-black leading-tight">$50</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {step === 1 && (
-                <div className="relative" style={{ width: 300, height: 300 }}>
-                  <div className="absolute inset-[-8px] rounded-full border-2 border-[#A5F41F]/30" />
-                  <div className="absolute inset-[15px] rounded-full border border-[#A5F41F]/20" />
-                  <div className="absolute inset-[50px] rounded-full overflow-hidden">
-                    <img src="/ellipse-2161.png" alt="" className="w-full h-full object-cover spin-slow" />
-                  </div>
-                  <div className="absolute left-[50%] top-[22%] -translate-x-1/2 -translate-y-1/2 z-10 float-slow">
-                    <div className="backdrop-blur-lg bg-white/40 border border-white/50 rounded-[14px] shadow-xl px-3 py-2">
-                      <div className="flex items-center gap-1.5 mb-1"><span className="text-[13px]">🇺🇸</span><span className="text-[10px] font-medium text-white">United States</span></div>
-                      <p className="font-bold text-white text-[22px] leading-none">$100</p>
-                    </div>
-                  </div>
-                  <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-20">
-                    <div className="bg-black/50 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5 flex items-center gap-1.5">
-                      <span className="text-[9px] font-bold text-[#A5F41F]">0% fee</span>
-                      <span className="text-[9px] text-white/50">·</span>
-                      <span className="text-[9px] text-white/75">Instant</span>
-                    </div>
-                  </div>
-                  <div className="absolute left-[50%] bottom-[12%] -translate-x-1/2 z-10 float-medium">
-                    <div className="backdrop-blur-lg bg-[#A5F41F]/40 border border-[#A5F41F]/50 rounded-[14px] shadow-xl px-3 py-2">
-                      <div className="flex items-center gap-1.5 mb-1"><span className="text-[13px]">🇪🇺</span><span className="text-[10px] font-medium text-white/70">Europe</span></div>
-                      <p className="font-bold text-white text-[22px] leading-none">€92</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {step === 2 && (
-                <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
-                  <LockedContentSlide />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Step progress dots */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2.5">
-          {[0, 1, 2].map(i => (
-            <div key={i} className={`rounded-full transition-all duration-400 ${
-              step === i ? 'w-8 h-2.5 bg-[#A5F41F]' : 'w-2.5 h-2.5 bg-black/15'
-            }`} />
-          ))}
-        </div>
-
-        {/* Scroll hint on first text panel */}
-        {displayPhase === 0 && visible && (
-          <div className="absolute bottom-16 left-0 right-0 flex justify-center">
-            <p className="text-[11px] text-black/30 mono uppercase tracking-wider">scroll to explore</p>
-          </div>
-        )}
+      {/* Visual — starts edge-on, flips in when visible */}
+      <div
+        ref={visualRef}
+        className="mt-8 flex justify-center"
+        style={{
+          opacity: 0,
+          transform: 'perspective(900px) rotateY(-90deg)',
+        }}
+      >
+        {children}
       </div>
     </div>
   )
 }
 
+/* ── Mobile: 3 stacked cards, visuals flip in on scroll ── */
+function MobileScrollSwap({ assets }: { assets: Record<string, string> }) {
+  return (
+    <div className="block lg:hidden" id="product-mobile">
+
+      {/* Step 0 — Send Money */}
+      <MobileStepCard index={0}>
+        <div className="relative" style={{ width: 'min(88vw, 330px)', height: 370 }}>
+          <div className="absolute rounded-[30px] overflow-hidden shadow-2xl rotate-[2deg] z-[5]"
+            style={{ left: 8, top: 4, width: 165, height: 356 }}>
+            <img src={assets.phoneMockup} alt="Send Money" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+            <div className="relative z-10 px-4 pt-4 flex items-start justify-between">
+              <p className="text-[17px] font-bold text-white">Send Money</p>
+              <div className="w-8 h-8 bg-[#A5F41F] rounded-[9px] flex items-center justify-center"><TappdIcon className="w-3.5 h-auto text-black" /></div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-3 space-y-2">
+              <div className="bg-black/50 backdrop-blur-lg rounded-[16px] px-3 py-2.5 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 shrink-0" />
+                <div><p className="text-[13px] font-semibold text-white leading-none">Alex Smith</p><p className="text-[10px] text-white/50">@alexsmith</p></div>
+                <span className="text-[16px] ml-auto">💸</span>
+              </div>
+              <div className="bg-[#A5F41F] rounded-full py-3 text-center"><span className="text-[14px] font-bold text-black">Send Now</span></div>
+            </div>
+          </div>
+          <div className="absolute z-20 float-slow" style={{ right: 14, top: 0 }}>
+            <div className="w-[44px] h-[44px] rounded-full overflow-hidden shadow-xl border-[2px] border-white">
+              <img src="/site2/avatar4.jpg" alt="" className="w-full h-full object-cover" />
+            </div>
+          </div>
+          <div className="absolute z-20 float-medium" style={{ left: 0, top: 130 }}>
+            <div className="w-[42px] h-[42px] rounded-full overflow-hidden shadow-xl border-[2px] border-white">
+              <img src="/site2/avatar6.jpg" alt="" className="w-full h-full object-cover" />
+            </div>
+          </div>
+          <div className="absolute rotate-[5deg] float-slow z-20" style={{ right: 10, top: 52 }}>
+            <div className="bg-white rounded-[18px] shadow-xl px-5 py-3">
+              <p className="font-display text-[34px] font-bold text-black leading-none">$50</p>
+              <p className="text-[10px] text-gray-400 mt-0.5">Enter amount</p>
+            </div>
+          </div>
+          <div className="absolute float-medium z-20" style={{ right: 16, top: 162 }}>
+            <div className="bg-black rounded-full px-4 py-2.5 flex items-center gap-2 shadow-lg">
+              <span className="text-[14px]">⚡</span>
+              <span className="text-[13px] font-bold text-white">Instant</span>
+            </div>
+          </div>
+          <div className="absolute -rotate-[2deg] float-slow z-20" style={{ left: 4, top: 244 }}>
+            <div className="bg-[#A5F41F] rounded-[14px] shadow-lg px-4 py-2.5">
+              <p className="text-[9px] text-black/60 font-medium">You sent</p>
+              <p className="text-[22px] font-bold text-black leading-tight">$50</p>
+            </div>
+          </div>
+          <div className="absolute rotate-[1deg] float-medium z-20" style={{ left: 10, bottom: 22 }}>
+            <div className="bg-white rounded-full shadow-lg px-4 py-2 flex items-center gap-1.5">
+              <span className="text-[13px]">🔒</span>
+              <span className="text-[12px] font-semibold text-black">Secure</span>
+            </div>
+          </div>
+          <div className="absolute float-slow z-20" style={{ right: 12, bottom: 88 }}>
+            <span className="text-[38px]">💵</span>
+          </div>
+        </div>
+      </MobileStepCard>
+
+      {/* Step 1 — Globe */}
+      <MobileStepCard index={1}>
+        <div className="relative" style={{ width: 'min(88vw, 310px)', height: 310 }}>
+          <div className="absolute inset-[-10px] rounded-full border-2 border-[#A5F41F]/30" />
+          <div className="absolute inset-[18px] rounded-full border border-[#A5F41F]/20" />
+          <div className="absolute inset-[58px] rounded-full overflow-hidden">
+            <img src="/ellipse-2161.png" alt="" className="w-full h-full object-cover spin-slow" />
+          </div>
+          <div className="absolute left-[50%] top-[22%] -translate-x-1/2 -translate-y-1/2 z-10 float-slow">
+            <div className="backdrop-blur-lg bg-white/40 border border-white/50 rounded-[14px] shadow-xl px-3 py-2">
+              <div className="flex items-center gap-1.5 mb-0.5"><span className="text-[14px]">🇺🇸</span><span className="text-[10px] font-medium text-white">United States</span></div>
+              <p className="font-bold text-white text-[22px] leading-none">$100</p>
+            </div>
+          </div>
+          <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-20">
+            <div className="bg-black/50 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5 flex items-center gap-1.5">
+              <span className="text-[9px] font-bold text-[#A5F41F]">0% fee</span>
+              <span className="text-[9px] text-white/50">·</span>
+              <span className="text-[9px] text-white/75">Instant</span>
+            </div>
+          </div>
+          <div className="absolute left-[50%] bottom-[12%] -translate-x-1/2 z-10 float-medium">
+            <div className="backdrop-blur-lg bg-[#A5F41F]/40 border border-[#A5F41F]/50 rounded-[14px] shadow-xl px-3 py-2">
+              <div className="flex items-center gap-1.5 mb-0.5"><span className="text-[14px]">🇪🇺</span><span className="text-[10px] font-medium text-white/70">Europe</span></div>
+              <p className="font-bold text-white text-[22px] leading-none">€92</p>
+            </div>
+          </div>
+          <MobileGlobeOrbit />
+        </div>
+      </MobileStepCard>
+
+      {/* Step 2 — Locked Content */}
+      <MobileStepCard index={2}>
+        <div style={{ transform: 'scale(0.78)', transformOrigin: 'center top' }}>
+          <LockedContentSlide />
+        </div>
+      </MobileStepCard>
+
+    </div>
+  )
+}
+
 function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
-  const sectionRef = useRef<HTMLDivElement>(null)
   const tiltRef = useRef<HTMLDivElement>(null)
   const [activeStep, setActiveStep] = useState(0)
   const [displayStep, setDisplayStep] = useState(0)
-  const [flipClass, setFlipClass] = useState('')
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
-  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 })
-  const isFlipping = flipClass !== ''
+  const glareRef = useRef<HTMLDivElement>(null)
+  // Inline-style flip — controls the flip layer's transform+opacity directly
+  const [flipStyle, setFlipStyle] = useState<React.CSSProperties>({})
+  const isFlippingRef = useRef(false)
+  const autoAdvanceRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // Scroll → step (desktop only — section is hidden on mobile so offsetParent is null)
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current || sectionRef.current.offsetParent === null) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      const sectionHeight = sectionRef.current.offsetHeight
-      const scrolled = -rect.top
-      const progress = Math.max(0, Math.min(1, scrolled / (sectionHeight - window.innerHeight)))
-      const step = progress < 0.28 ? 0 : progress < 0.6 ? 1 : 2
-      setActiveStep(step)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+  // Auto-advance through steps
+  const goToStep = useCallback((i: number) => {
+    setActiveStep(i)
+    // Reset the timer whenever a step is manually chosen
+    if (autoAdvanceRef.current) clearInterval(autoAdvanceRef.current)
+    autoAdvanceRef.current = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % 3)
+    }, 4000)
   }, [])
 
-  // Flip transition when activeStep changes
+  useEffect(() => {
+    autoAdvanceRef.current = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % 3)
+    }, 4000)
+    return () => { if (autoAdvanceRef.current) clearInterval(autoAdvanceRef.current) }
+  }, [])
+
+  // True 3D card flip when activeStep changes
   useEffect(() => {
     if (activeStep === displayStep) return
-    setFlipClass('visual-flip-out')
-    setTilt({ x: 0, y: 0 })
-    const t1 = setTimeout(() => {
+    if (isFlippingRef.current) { setDisplayStep(activeStep); return }
+    isFlippingRef.current = true
+    if (tiltRef.current) tiltRef.current.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)'
+
+    // Phase 1: flip OUT — card rotates to 90° (edge-on, invisible)
+    setFlipStyle({
+      opacity: 0,
+      transform: 'rotateY(90deg)',
+      transition: 'opacity 240ms ease, transform 280ms cubic-bezier(0.55, 0, 1, 0.45)',
+    })
+
+    setTimeout(() => {
+      // Swap content + jump to -90° (still invisible — no transition)
       setDisplayStep(activeStep)
-      setFlipClass('visual-flip-in')
-      const t2 = setTimeout(() => setFlipClass(''), 300)
-      return () => clearTimeout(t2)
-    }, 300)
-    return () => clearTimeout(t1)
+      setFlipStyle({ opacity: 0, transform: 'rotateY(-90deg)', transition: 'none' })
+
+      // Phase 2: flip IN — card rotates from -90° back to 0°
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        setFlipStyle({
+          opacity: 1,
+          transform: 'rotateY(0deg)',
+          transition: 'opacity 240ms ease, transform 280ms cubic-bezier(0, 0.55, 0.45, 1)',
+        })
+        setTimeout(() => {
+          setFlipStyle({})
+          isFlippingRef.current = false
+        }, 300)
+      }))
+    }, 290)
   }, [activeStep, displayStep])
 
-  // Mouse 3D tilt — responds to mouse anywhere in the section
+  // Mouse 3D tilt — direct DOM updates to avoid re-renders on every mousemove
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (isFlipping) return
+    if (isFlippingRef.current) return
     const x = e.clientX / window.innerWidth
     const y = e.clientY / window.innerHeight
-    setTilt({ x: (y - 0.5) * -14, y: (x - 0.5) * 14 })
-    setGlare({ x: x * 100, y: y * 100, opacity: 0.12 })
-  }, [isFlipping])
+    const rx = (y - 0.5) * -14
+    const ry = (x - 0.5) * 14
+    if (tiltRef.current) tiltRef.current.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`
+    if (glareRef.current) glareRef.current.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.12) 0%, transparent 55%)`
+  }, [])
 
   const handleMouseLeave = useCallback(() => {
-    setTilt({ x: 0, y: 0 })
-    setGlare(g => ({ ...g, opacity: 0 }))
+    if (tiltRef.current) tiltRef.current.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)'
+    if (glareRef.current) glareRef.current.style.background = 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0%, transparent 55%)'
   }, [])
 
   return (
@@ -629,10 +711,10 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
     {/* ── Mobile: scroll-driven flip — text then visual per step ── */}
     <MobileScrollSwap assets={assets} />
 
-    {/* ── Desktop: sticky scroll-swap ── */}
-    <section ref={sectionRef} className="relative hidden lg:block" id="product" style={{ height: '450vh' }}>
+    {/* ── Desktop: auto-advancing step section ── */}
+    <section className="relative hidden lg:block" id="product">
       <div
-        className="sticky top-0 h-screen flex items-center overflow-hidden"
+        className="h-screen flex items-center overflow-hidden"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
@@ -643,22 +725,24 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
             <div
               ref={tiltRef}
               style={{
-                transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-                transition: isFlipping ? 'none' : 'transform 100ms ease-out',
+                transform: 'perspective(900px) rotateX(0deg) rotateY(0deg)',
+                transition: 'transform 100ms ease-out',
                 transformStyle: 'preserve-3d',
+                willChange: 'transform',
               }}
             >
               {/* Flip layer — square on mobile so globe isn't squashed */}
               <div
-                className={`relative w-[min(500px,85vw)] aspect-square lg:aspect-auto lg:h-[min(600px,60vw)] ${flipClass}`}
-                style={{ transformStyle: 'preserve-3d' }}
+                className="relative w-[min(500px,85vw)] aspect-square lg:aspect-auto lg:h-[min(600px,60vw)]"
+                style={{ transformStyle: 'preserve-3d', ...flipStyle }}
               >
                 {/* Glare overlay */}
                 <div
+                  ref={glareRef}
                   className="absolute inset-0 z-30 pointer-events-none rounded-[24px]"
                   style={{
-                    background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,${glare.opacity}) 0%, transparent 55%)`,
-                    transition: isFlipping ? 'none' : 'background 100ms ease-out',
+                    background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0%, transparent 55%)',
+                    transition: 'background 100ms ease-out',
                   }}
                 />
 
@@ -809,12 +893,7 @@ function ScrollSwapSection({ assets }: { assets: Record<string, string> }) {
               {[0, 1, 2].map((i) => (
                 <button
                   key={i}
-                  onClick={() => {
-                    if (!sectionRef.current) return
-                    const thresholds = [0, 0.28, 0.6]
-                    const top = sectionRef.current.offsetTop + thresholds[i] * (sectionRef.current.offsetHeight - window.innerHeight) + 10
-                    window.scrollTo({ top, behavior: 'smooth' })
-                  }}
+                  onClick={() => goToStep(i)}
                   className={`rounded-full transition-all duration-500 cursor-pointer ${activeStep === i ? 'w-10 h-3 bg-[#A5F41F]' : 'w-3 h-3 bg-black/20 hover:bg-black/40'}`}
                   aria-label={`Step ${i + 1}`}
                 />
@@ -914,10 +993,10 @@ function Site2Inner() {
                       See how it works
                     </a>
                   </div>
-                  <div className="relative mt-8 md:mt-10 flex justify-center w-full">
-                    <div className="relative overflow-hidden w-full md:w-[clamp(500px,65vw,900px)] h-[200px] sm:h-[260px] md:h-[clamp(350px,45vw,600px)] md:rounded-[clamp(12px,3vw,22px)]">
+                  <div className="relative mt-8 md:mt-10 flex justify-center w-full px-4 md:px-0">
+                    <div className="relative overflow-hidden w-full md:w-[clamp(500px,65vw,900px)] h-[220px] sm:h-[270px] md:h-[clamp(350px,45vw,600px)] rounded-[16px] md:rounded-[clamp(12px,3vw,22px)]">
                       <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover object-top" />
-                      <div className="absolute bottom-0 left-0 right-0 h-full pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent 20%, white 90%)' }} />
+                      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent 35%, rgba(255,255,255,0.55) 68%, white 100%)' }} />
                     </div>
                     <div className="absolute right-0 md:right-[clamp(-40px,-3vw,0px)] lg:right-[40px] top-[12px] w-[clamp(110px,22vw,280px)] hidden sm:block">
                       <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,10px)] shadow-2xl shadow-black/30">
