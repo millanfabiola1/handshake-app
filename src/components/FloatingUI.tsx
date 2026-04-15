@@ -185,14 +185,17 @@ export default function FloatingUI() {
             </div>
 
             {/* ── Chat window ── */}
-            <div className="w-full max-w-[380px] bg-white rounded-[28px] shadow-2xl overflow-hidden border border-black/5">
+            <div className="w-full max-w-[380px] lg:bg-white lg:rounded-[28px] lg:shadow-2xl lg:border lg:border-black/5 overflow-hidden">
 
               {/* Contact header */}
-              <div className="px-5 py-4 border-b border-black/6 flex items-center gap-3 bg-white">
+              <div className="px-5 py-4 lg:border-b lg:border-black/6 flex items-center gap-3 lg:bg-white">
                 <div className="w-10 h-10 rounded-full bg-[#0A0A0B] flex items-center justify-center text-[#A5F41F] text-[13px] font-bold shrink-0">MR</div>
                 <div>
                   <p className="text-[14px] font-semibold text-[#0A0A0B]">Maria Rodriguez</p>
-                  <p className="text-[11px] text-[#A5F41F]">Online</p>
+                  <span className="inline-flex items-center gap-1 bg-black rounded-full px-2 py-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#A5F41F] inline-block" />
+                    <span className="text-[10px] font-semibold text-[#A5F41F]">Online</span>
+                  </span>
                 </div>
               </div>
 
