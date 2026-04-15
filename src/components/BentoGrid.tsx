@@ -113,7 +113,7 @@ function PointCloudGlobe({ offsetX = 0, offsetY = 0 }: { offsetX?: number; offse
       ref={canvasRef}
       width={240}
       height={240}
-      className="w-full max-h-[200px] object-contain"
+      className="w-full max-h-[170px] object-contain"
       style={{
         transform: `translate(${offsetX}px, ${offsetY}px)`,
         transition: 'transform 350ms cubic-bezier(0.23,1,0.32,1)',
@@ -127,7 +127,7 @@ function GlobeCard() {
   const [offset, setOffset] = useState({ x: 0, y: 0 })
   return (
     <div
-      className="rounded-2xl p-8 h-full flex flex-col justify-between overflow-hidden relative transition-all duration-300 hover:-translate-y-1"
+      className="rounded-2xl px-8 pt-6 pb-8 h-full flex flex-col justify-between overflow-hidden relative transition-all duration-300 hover:-translate-y-1"
       style={{ background: 'linear-gradient(145deg, #050f03 0%, #091a07 50%, #0d2410 100%)' }}
       onMouseMove={(e) => {
         const rect = e.currentTarget.getBoundingClientRect()
@@ -214,7 +214,7 @@ export default function BentoGrid() {
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <p className="text-[17px] text-black/40 leading-[1.55] max-w-[380px]">
-              One platform. Every monetisation tool. Zero fees on tips.
+              One platform. Every monetization tool. Zero fees on tips.
             </p>
           </ScrollReveal>
         </div>

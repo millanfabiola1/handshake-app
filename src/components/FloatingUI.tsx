@@ -1,15 +1,15 @@
 'use client'
 import { useEffect, useState, useRef } from 'react'
 import ScrollReveal from './ScrollReveal'
-import { Lock, Play, CurrencyDollar, Check, PaperPlaneTilt, Megaphone } from '@phosphor-icons/react'
+import { Lock, CurrencyDollar, Check, Megaphone } from '@phosphor-icons/react'
 
 /* ------------------------------------------------------------------ */
-/*  Card sub-components                                                */
+/*  Bubble + card sub-components                                        */
 /* ------------------------------------------------------------------ */
 
 function ReceivedBubble({ text }: { text: string }) {
   return (
-    <div className="bg-[#F4F4F5] rounded-[20px] rounded-bl-[4px] px-4 py-3 max-w-[340px] shadow-md hover:scale-[1.04] hover:-rotate-1 transition-transform duration-300 cursor-default">
+    <div className="bg-[#F4F4F5] rounded-[20px] rounded-bl-[4px] px-4 py-3 max-w-[260px] shadow-sm">
       <p className="text-[14px] text-[#0A0A0B] leading-[1.4]">{text}</p>
     </div>
   )
@@ -17,40 +17,33 @@ function ReceivedBubble({ text }: { text: string }) {
 
 function SentBubble({ text }: { text: string }) {
   return (
-    <div className="bg-[#0A0A0B] rounded-[20px] rounded-br-[4px] px-4 py-3 max-w-[340px] shadow-lg hover:scale-[1.04] hover:rotate-1 transition-transform duration-300 cursor-default">
+    <div className="bg-[#0A0A0B] rounded-[20px] rounded-br-[4px] px-4 py-3 max-w-[260px] shadow-sm">
       <p className="text-[14px] text-white leading-[1.4]">{text}</p>
     </div>
   )
 }
 
-function PaymentSent({ amount, confirmed }: { amount: string; confirmed: boolean }) {
+function PaymentCard({ confirmed }: { confirmed: boolean }) {
   return (
-    <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 p-6 w-[300px]">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-full bg-[#A5F41F] flex items-center justify-center">
-          <CurrencyDollar size={20} weight="bold" className="text-black" />
+    <div className="bg-white rounded-2xl shadow-lg border border-black/6 p-5 w-[240px]">
+      <div className="flex items-center gap-2.5 mb-3">
+        <div className="w-8 h-8 rounded-full bg-[#A5F41F] flex items-center justify-center shrink-0">
+          <CurrencyDollar size={16} weight="bold" className="text-black" />
         </div>
         <div>
-          <p className="text-[14px] font-semibold text-[#0A0A0B]">Payment Sent</p>
-          <p className="text-[11px] text-[#71717A]">Instant transfer</p>
+          <p className="text-[13px] font-semibold text-[#0A0A0B]">Payment Request</p>
+          <p className="text-[11px] text-[#71717A]">0% fee · Instant</p>
         </div>
       </div>
-      <div className="text-center py-4">
-        <p className="text-[40px] font-bold text-[#0A0A0B] tracking-[-0.03em]">{amount}</p>
-        <p className="text-[12px] text-[#71717A] mt-1">0% fee</p>
-      </div>
+      <p className="text-[36px] font-bold text-[#0A0A0B] tracking-[-0.03em] text-center py-2">$50.00</p>
       <div
-        className="mt-3 w-full rounded-xl py-3 text-[14px] font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2"
+        className="mt-2 w-full rounded-xl py-2.5 text-[13px] font-semibold text-center flex items-center justify-center gap-1.5 transition-all duration-500"
         style={{
           backgroundColor: confirmed ? '#A5F41F' : '#0A0A0B',
           color: confirmed ? '#0A0A0B' : '#FFFFFF',
         }}
       >
-        {confirmed ? (
-          <><Check size={16} weight="bold" /> Delivered</>
-        ) : (
-          'Sending...'
-        )}
+        {confirmed ? <><Check size={14} weight="bold" /> Delivered</> : 'Tap to pay'}
       </div>
     </div>
   )
@@ -58,8 +51,10 @@ function PaymentSent({ amount, confirmed }: { amount: string; confirmed: boolean
 
 function LockedContentMini() {
   return (
-    <div className="bg-gradient-to-br from-[#A5F41F]/20 to-[#A5F41F]/10 rounded-xl px-4 py-3 flex items-center gap-3 shadow-md hover:scale-[1.04] transition-transform duration-300 cursor-default">
-      <Lock size={18} weight="bold" className="text-[#0A0A0B]/60" />
+    <div className="bg-white rounded-2xl px-5 py-4 flex items-center gap-3 shadow-xl border border-black/5 w-[210px]">
+      <div className="w-9 h-9 rounded-xl bg-[#A5F41F]/20 flex items-center justify-center shrink-0">
+        <Lock size={18} weight="bold" className="text-[#0A0A0B]/70" />
+      </div>
       <div>
         <p className="text-[13px] font-semibold text-[#0A0A0B]">Exclusive Drop</p>
         <p className="text-[11px] text-[#71717A]">Unlock for $5.00</p>
@@ -70,8 +65,10 @@ function LockedContentMini() {
 
 function MassTextMini() {
   return (
-    <div className="bg-[#0A0A0B] rounded-xl px-4 py-3 flex items-center gap-3 shadow-lg hover:scale-[1.04] transition-transform duration-300 cursor-default">
-      <Megaphone size={18} weight="bold" className="text-[#A5F41F]" />
+    <div className="bg-[#0A0A0B] rounded-2xl px-5 py-4 flex items-center gap-3 shadow-xl w-[210px]">
+      <div className="w-9 h-9 rounded-xl bg-[#A5F41F]/15 flex items-center justify-center shrink-0">
+        <Megaphone size={18} weight="bold" className="text-[#A5F41F]" />
+      </div>
       <div>
         <p className="text-[13px] font-semibold text-white">Blast sent</p>
         <p className="text-[11px] text-white/50">247 clients reached</p>
@@ -81,10 +78,12 @@ function MassTextMini() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Animated element wrapper                                           */
+/*  Animated element wrapper                                            */
 /* ------------------------------------------------------------------ */
 
-function AnimStep({ children, active, pop = false, className = '' }: { children: React.ReactNode; active: boolean; pop?: boolean; className?: string }) {
+function AnimStep({ children, active, pop = false, className = '' }: {
+  children: React.ReactNode; active: boolean; pop?: boolean; className?: string
+}) {
   return (
     <div
       className={`transition-all ease-out ${className}`}
@@ -92,10 +91,8 @@ function AnimStep({ children, active, pop = false, className = '' }: { children:
         opacity: active ? 1 : 0,
         transform: active
           ? 'translateY(0) scale(1)'
-          : pop
-            ? 'translateY(0) scale(0.7)'
-            : 'translateY(16px) scale(0.97)',
-        transitionDuration: pop ? '500ms' : '600ms',
+          : pop ? 'translateY(0) scale(0.75)' : 'translateY(12px) scale(0.97)',
+        transitionDuration: pop ? '480ms' : '550ms',
         transitionTimingFunction: pop ? 'cubic-bezier(0.34, 1.56, 0.64, 1)' : undefined,
         pointerEvents: active ? 'auto' : 'none',
       }}
@@ -106,7 +103,7 @@ function AnimStep({ children, active, pop = false, className = '' }: { children:
 }
 
 /* ------------------------------------------------------------------ */
-/*  Main section                                                       */
+/*  Main section                                                        */
 /* ------------------------------------------------------------------ */
 
 export default function FloatingUI() {
@@ -118,9 +115,7 @@ export default function FloatingUI() {
     const el = sectionRef.current
     if (!el) return
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasStarted) setHasStarted(true)
-      },
+      ([entry]) => { if (entry.isIntersecting && !hasStarted) setHasStarted(true) },
       { threshold: 0.05 }
     )
     observer.observe(el)
@@ -129,45 +124,39 @@ export default function FloatingUI() {
 
   useEffect(() => {
     if (!hasStarted) return
-
     const delays = [
-      300,   // → 1: friend msg
-      600,   // → 2: reply
-      500,   // → 3: payment card (pop)
-      900,   // → 4: confirmed
-      700,   // → 5: thank you
-      600,   // → 6: locked content mini
-      500,   // → 7: mass text mini
+      400,  // → 1: Maria msg
+      700,  // → 2: your reply
+      500,  // → 3: payment card
+      900,  // → 4: confirmed
+      700,  // → 5: Maria thanks
+      600,  // → 6: your reply + locked content
+      500,  // → 7: blast sent
     ]
-
     let current = 0
     let timeout: NodeJS.Timeout
-
     function advance() {
       if (current >= delays.length) return
-      timeout = setTimeout(() => {
-        current++
-        setStep(current)
-        advance()
-      }, delays[current])
+      timeout = setTimeout(() => { current++; setStep(current); advance() }, delays[current])
     }
-
     advance()
     return () => clearTimeout(timeout)
   }, [hasStarted])
 
   return (
     <div className="relative z-[201]">
-      <section className="relative sticky top-0 rounded-t-[24px] overflow-hidden py-[100px] lg:py-[140px]" style={{ background: 'linear-gradient(to bottom, #F7F5ED 0%, #F7F5ED 70%, #F4F4F5 100%)' }}>
-
-        {/* Background gradient blobs */}
+      <section
+        className="relative sticky top-0 rounded-t-[24px] overflow-hidden pt-10 pb-[100px] lg:pb-[140px]"
+        style={{ background: 'linear-gradient(to bottom, #F7F5ED 0%, #F7F5ED 70%, #F4F4F5 100%)' }}
+      >
+        {/* Background blobs */}
         <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-[#A5F41F] opacity-25 blur-[120px] pointer-events-none" />
         <div className="absolute top-[30%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[#A5F41F] opacity-15 blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 px-4 md:px-8 lg:px-10 xl:px-12">
 
           {/* Heading */}
-          <div className="text-center mb-14 lg:mb-20">
+          <div className="text-center mb-8 lg:mb-10">
             <ScrollReveal>
               <p className="mono text-[13px] text-[#71717A] uppercase mb-4">Send Money Instantly</p>
               <h2
@@ -185,78 +174,64 @@ export default function FloatingUI() {
             </ScrollReveal>
           </div>
 
-          {/* Conversation simulation */}
-          <div ref={sectionRef} className="max-w-[1100px] mx-auto">
+          {/* Chat simulation */}
+          <div ref={sectionRef} className="flex items-center justify-center gap-8">
 
-            {/* Mobile: stacked */}
-            <div className="lg:hidden flex flex-col items-center gap-4">
-              <AnimStep active={step >= 0} pop className="self-start">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#0A0A0B] flex items-center justify-center text-[#A5F41F] text-[14px] font-semibold">MR</div>
-                  <div>
-                    <p className="text-[14px] font-semibold text-[#0A0A0B]">Maria Rodriguez</p>
-                    <p className="text-[11px] text-[#A5F41F]">Online</p>
-                  </div>
-                </div>
+            {/* Left feature card — desktop only */}
+            <div className="hidden lg:flex flex-col gap-4 items-end">
+              <AnimStep active={step >= 6}>
+                <LockedContentMini />
               </AnimStep>
-              <AnimStep active={step >= 1} className="self-start"><ReceivedBubble text="Hey can you send me that $50 for dinner last night?" /></AnimStep>
-              <AnimStep active={step >= 2} className="self-end"><SentBubble text="Yeah one sec, sending now" /></AnimStep>
-              <AnimStep active={step >= 3} pop><PaymentSent amount="$50.00" confirmed={step >= 4} /></AnimStep>
-              <AnimStep active={step >= 5} className="self-start"><ReceivedBubble text="Got it instantly! Love this app 🙌" /></AnimStep>
-              <AnimStep active={step >= 6} className="self-start"><LockedContentMini /></AnimStep>
-              <AnimStep active={step >= 7} className="self-end"><MassTextMini /></AnimStep>
             </div>
 
-            {/* Desktop: 3-column */}
-            <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-10 lg:items-center">
+            {/* ── Chat window ── */}
+            <div className="w-full max-w-[380px] bg-white rounded-[28px] shadow-2xl overflow-hidden border border-black/5">
 
-              {/* LEFT — Friend's messages */}
-              <div className="flex flex-col gap-4 items-start justify-center">
-                <AnimStep active={step >= 0} pop>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#0A0A0B] flex items-center justify-center text-[#A5F41F] text-[14px] font-semibold hover:scale-110 transition-transform duration-300">MR</div>
-                    <div>
-                      <p className="text-[14px] font-semibold text-[#0A0A0B]">Maria Rodriguez</p>
-                      <p className="text-[11px] text-[#A5F41F]">Online</p>
-                    </div>
-                  </div>
-                </AnimStep>
-
-                <AnimStep active={step >= 1}>
-                  <ReceivedBubble text="Hey can you send me that $50 for dinner last night?" />
-                </AnimStep>
-
-                <AnimStep active={step >= 5}>
-                  <ReceivedBubble text="Got it instantly! Love this app 🙌" />
-                </AnimStep>
-
-                <AnimStep active={step >= 6}>
-                  <LockedContentMini />
-                </AnimStep>
+              {/* Contact header */}
+              <div className="px-5 py-4 border-b border-black/6 flex items-center gap-3 bg-white">
+                <div className="w-10 h-10 rounded-full bg-[#0A0A0B] flex items-center justify-center text-[#A5F41F] text-[13px] font-bold shrink-0">MR</div>
+                <div>
+                  <p className="text-[14px] font-semibold text-[#0A0A0B]">Maria Rodriguez</p>
+                  <p className="text-[11px] text-[#A5F41F]">Online</p>
+                </div>
               </div>
 
-              {/* CENTER — Payment card */}
-              <div className="flex items-center justify-center">
-                <AnimStep active={step >= 3} pop>
-                  <PaymentSent amount="$50.00" confirmed={step >= 4} />
+              {/* Messages */}
+              <div className="px-4 py-5 flex flex-col gap-3 min-h-[360px]">
+
+                {/* Maria: asks to pay */}
+                <AnimStep active={step >= 1} className="self-start">
+                  <ReceivedBubble text="Hey! Can I pay for Sunday's session? 💅" />
                 </AnimStep>
+
+                {/* You: send request */}
+                <AnimStep active={step >= 2} className="self-end">
+                  <SentBubble text="Yep! Here's the request 👇" />
+                </AnimStep>
+
+                {/* Payment card — inline */}
+                <AnimStep active={step >= 3} pop className="self-end">
+                  <PaymentCard confirmed={step >= 4} />
+                </AnimStep>
+
+                {/* Maria: paid + reaction */}
+                <AnimStep active={step >= 5} className="self-start">
+                  <ReceivedBubble text="Paid! That was instant 🙌" />
+                </AnimStep>
+
+                {/* You: zero fees */}
+                <AnimStep active={step >= 6} className="self-end">
+                  <SentBubble text="Zero fees too — I keep every dollar 😎" />
+                </AnimStep>
+
               </div>
+            </div>
 
-              {/* RIGHT — User's messages */}
-              <div className="flex flex-col gap-4 items-end justify-center">
-                <AnimStep active={step >= 2}>
-                  <SentBubble text="Yeah one sec, sending now" />
-                </AnimStep>
-
-                <AnimStep active={step >= 5}>
-                  <SentBubble text="No fees either 😎" />
-                </AnimStep>
-
-                <AnimStep active={step >= 7}>
-                  <MassTextMini />
-                </AnimStep>
-              </div>
-
+            {/* Right feature card — desktop only */}
+            <div className="hidden lg:flex flex-col gap-4 items-start">
+              <AnimStep active={step >= 7}>
+                <MassTextMini />
+              </AnimStep>
             </div>
 
           </div>

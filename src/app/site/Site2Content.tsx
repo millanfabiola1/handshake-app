@@ -1170,7 +1170,7 @@ function Site2Inner() {
           </div>
 
           <div className="relative z-10 max-w-[1200px] mx-auto px-6">
-            <div className="text-center mb-12 reveal reveal-in">
+            <div className="text-center mb-0 reveal reveal-in">
               <h2 className="font-display text-[clamp(40px,5vw,60px)] font-medium text-black leading-[0.95] tracking-[-0.02em]">
                 Everything in<br />one place
               </h2>
@@ -1184,11 +1184,11 @@ function Site2Inner() {
           <style>{`
             .site2-floating-ui > div { z-index: 50 !important; }
             .site2-floating-ui section { background: transparent !important; }
-            .site2-floating-ui .text-center.mb-14 { display: none !important; }
-            .site2-floating-ui .text-center.lg\\:mb-20 { display: none !important; }
+            .site2-floating-ui .text-center.mb-8 { display: none !important; }
+            .site2-floating-ui .text-center.lg\\:mb-10 { display: none !important; }
             .site2-floating-ui section > .absolute { display: none !important; }
           `}</style>
-          <div className="site2-floating-ui" style={{ marginTop: '-1.5rem' }}>
+          <div className="site2-floating-ui" style={{ marginTop: '-0.5rem' }}>
             <FloatingUI />
           </div>
 
