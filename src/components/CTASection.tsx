@@ -160,7 +160,7 @@ export default function CTASection() {
         {/* CTA */}
         <ScrollReveal>
           <h2 className="font-medium text-white tracking-[-0.045em] leading-[0.95]" style={{ fontSize: 'clamp(48px, 8vw, 100px)' }}>
-            Get Tapp&apos;d.
+            Get tappd.
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={80}>
@@ -171,7 +171,7 @@ export default function CTASection() {
         <ScrollReveal delay={140}>
           <div className="flex items-center justify-center gap-4 mt-12">
             <button onClick={showWaitlist} className="text-[14px] font-medium text-black px-8 py-4 rounded-full bg-[#A5F41F] hover:bg-[#94DC1B] transition-colors inline-flex items-center gap-2 cursor-pointer shadow-[0_0_24px_rgba(165,244,31,0.35)]">
-              Get Tapp&apos;d <span className="text-[16px]">&#x2197;</span>
+              Get tappd <span className="text-[16px]">&#x2197;</span>
             </button>
             <a href="#product" className="text-[14px] font-medium text-white/80 px-8 py-4 rounded-full border border-white/15 hover:border-white/40 hover:text-white transition-all backdrop-blur-sm">
               See the product

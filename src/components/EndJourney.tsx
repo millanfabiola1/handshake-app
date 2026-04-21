@@ -5,7 +5,7 @@ const feeItems = [
   { stat: '3%',    name: 'Venmo charges 3%',       line1: '"Low fees."',                               line2: 'Keep looking.',   isTappd: false },
   { stat: '2.9%',  name: 'PayPal charges 2.9%',    line1: '"Competitive rates."',                      line2: 'Still not zero.', isTappd: false },
   { stat: '2.75%', name: 'Cash App charges 2.75%', line1: '"Industry standard."',                      line2: 'Not even close.', isTappd: false },
-  { stat: '0%',    name: 'Tappd charges 0%',        line1: 'Not "low fees." Not "competitive rates."',  line2: 'Zero. Forever.',  isTappd: true  },
+  { stat: '0%',    name: 'tappd charges 0%',        line1: 'Not "low fees." Not "competitive rates."',  line2: 'Zero. Forever.',  isTappd: true  },
 ]
 
 function lc(a: number, b: number, t: number) {
@@ -24,6 +24,8 @@ function FeeCounter() {
   const toRef    = useRef(3)
   const containerRef = useRef<HTMLDivElement>(null)
   const isVisible = useRef(false)
+  const activeRef = useRef(0)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const animateTo = useCallback((from: number, to: number) => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current)
@@ -39,6 +41,23 @@ function FeeCounter() {
     rafRef.current = requestAnimationFrame(frame)
   }, [])
 
+  const goTo = useCallback((next: number) => {
+    const prev = activeRef.current
+    if (prev === next) return
+    activeRef.current = next
+    animateTo(parseVal(feeItems[prev].stat), parseVal(feeItems[next].stat))
+    setActive(next)
+    setPillKey((k) => k + 1)
+  }, [animateTo])
+
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
+      if (!isVisible.current) return
+      goTo((activeRef.current + 1) % feeItems.length)
+    }, 2800)
+  }, [goTo])
+
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -51,17 +70,12 @@ function FeeCounter() {
   }, [])
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (!isVisible.current) return
-      setActive((prev) => {
-        const next = (prev + 1) % feeItems.length
-        animateTo(parseVal(feeItems[prev].stat), parseVal(feeItems[next].stat))
-        setPillKey((k) => k + 1)
-        return next
-      })
-    }, 2800)
-    return () => { clearInterval(timer); if (rafRef.current) cancelAnimationFrame(rafRef.current) }
-  }, [animateTo])
+    startTimer()
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [startTimer])
 
   const fmt = (v: number) => v.toFixed(2).replace(/\.?0+$/, '')
   const CAP_H = 120
@@ -90,10 +104,7 @@ function FeeCounter() {
         {feeItems.map((f, i) => (
           <button
             key={active === i ? `active-${pillKey}-${i}` : f.name}
-            onClick={() => {
-              animateTo(parseVal(feeItems[active].stat), parseVal(f.stat))
-              setActive(i); setPillKey((k) => k+1)
-            }}
+            onClick={() => { goTo(i); startTimer() }}
             className={`rounded-full px-5 py-2 text-[13px] font-medium cursor-pointer ${
               active === i ? 'bg-[#A5F41F] text-black' : 'border border-white/25 text-white/60 hover:border-white/50 hover:text-white/90 transition-all duration-300'
             }`}
@@ -211,20 +222,30 @@ export default function EndJourney({ zeroFeesBg: _zeroFeesBg }: { zeroFeesBg?: s
             </div>
           </div>
 
+          {/* Top dark scrim — keeps CTA text legible over phone video */}
+          <div
+            className="absolute top-0 left-0 right-0 pointer-events-none"
+            style={{
+              height: 'clamp(220px, 32vh, 340px)',
+              background: 'linear-gradient(to bottom, rgba(6,11,4,0.92) 0%, rgba(6,11,4,0.72) 55%, rgba(6,11,4,0) 100%)',
+              zIndex: 10,
+            }}
+          />
+
           {/* CTA headline — pinned to top */}
           <div
             ref={ctaTextRef}
             className="absolute top-0 left-0 right-0 flex flex-col items-center text-center pointer-events-none"
             style={{ paddingTop: 'clamp(36px, 7vh, 72px)', opacity: 0, transform: 'scale(0.93)', zIndex: 11 }}
           >
-            <p className="mono text-[11px] text-white/35 uppercase tracking-widest mb-4">Available now</p>
+            <p className="mono text-[11px] text-white/50 uppercase tracking-widest mb-4">Available now</p>
             <h2
               className="font-display font-medium text-white tracking-[-0.045em] leading-[0.92] px-4"
-              style={{ fontSize: 'clamp(28px, 4.5vw, 66px)' }}
+              style={{ fontSize: 'clamp(28px, 4.5vw, 66px)', textShadow: '0 2px 24px rgba(0,0,0,0.6)' }}
             >
               Your phone. <span className="text-[#A5F41F]">Your income.</span>
             </h2>
-            <p className="text-[clamp(13px,1.4vw,15px)] text-white/40 mt-3 leading-[1.55] px-6" style={{ maxWidth: 340 }}>
+            <p className="text-[clamp(13px,1.4vw,15px)] text-white/60 mt-3 leading-[1.55] px-6" style={{ maxWidth: 340, textShadow: '0 1px 12px rgba(0,0,0,0.6)' }}>
               Join 47,000+ creators already earning on every message.
             </p>
           </div>

@@ -13,7 +13,7 @@ const cases = [
     label: 'Home Services',
     icon: Wrench,
     title: 'Quote, confirm, collect.',
-    desc: 'Your clients already text you. Now those texts make you money.',
+    desc: 'The people you work with already text you. Now those texts make you money.',
   },
   {
     label: 'Creators & Independents',
@@ -25,7 +25,7 @@ const cases = [
     label: 'Security & Service Companies',
     icon: ShieldCheck,
     title: 'Coordinate and invoice instantly.',
-    desc: 'Ditch the invoicing software. Bill clients the second the job is done.',
+    desc: 'Ditch the invoicing software. Bill people the second the job is done.',
   },
   {
     label: 'Sales & Retail',

@@ -52,9 +52,9 @@ export default function ZeroFeeComparison() {
           </div>
         ))}
 
-        {/* Tapp'd row */}
+        {/* tappd row */}
         <div className="flex items-center gap-4 mt-4">
-          <span className="mono text-[14px] font-bold text-black w-[80px] md:w-[100px] shrink-0 text-right">Tapp&apos;d</span>
+          <span className="mono text-[14px] font-bold text-black w-[80px] md:w-[100px] shrink-0 text-right">tappd</span>
           <div className="flex-1 h-[64px] md:h-[72px] bg-black rounded-lg flex items-center px-6 relative overflow-hidden">
             <span
               className="font-medium text-[#A5F41F] tracking-[-0.04em]"

@@ -19,7 +19,7 @@ const cases = [
     label: 'Home Services',
     icon: Wrench,
     title: 'Quote, confirm, collect',
-    desc: 'Your clients already text you. Now those texts make you money.',
+    desc: 'The people you work with already text you. Now those texts make you money.',
     stat: { value: '3x', label: 'Faster collections' },
     img: '/usecase-homeservices.webp',
   },
@@ -35,7 +35,7 @@ const cases = [
     label: 'Security & Service Companies',
     icon: ShieldCheck,
     title: 'Coordinate and invoice instantly',
-    desc: 'Ditch the invoicing software. Bill clients the second the job is done.',
+    desc: 'Ditch the invoicing software. Bill people the second the job is done.',
     stat: { value: '90%', label: 'Faster invoicing' },
   },
   {
@@ -152,7 +152,7 @@ export default function UseCases() {
             <h3 className="text-[22px] font-normal text-white tracking-[-0.02em] leading-[1.2]">0% fees. 100% yours.</h3>
           </div>
           <button onClick={showWaitlist} className="text-[13px] font-medium px-5 py-2.5 rounded-lg bg-[#A5F41F] text-black hover:bg-[#A5F41F]/80 transition-colors self-start inline-flex items-center gap-1.5 mt-8 cursor-pointer">
-            Get Tapp'd <span className="text-[14px]">&#x2197;</span>
+            Get tappd <span className="text-[14px]">&#x2197;</span>
           </button>
         </div>
       </div>

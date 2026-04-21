@@ -135,7 +135,7 @@ export default function Hero() {
             onClick={showWaitlist}
             className="text-[14px] font-semibold text-white px-8 py-4 rounded-full bg-black hover:bg-black/80 transition-colors inline-flex items-center gap-2 cursor-pointer shadow-[0_2px_20px_rgba(0,0,0,0.2)]"
           >
-            Get Tapp&apos;d
+            Get tappd
           </button>
           <a
             href="#product"

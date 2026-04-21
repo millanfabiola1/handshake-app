@@ -6,7 +6,7 @@ const steps = [
   {
     num: '01',
     title: 'Send a message.',
-    desc: 'Text your client like iMessage. Tips, locked content, and invoices are built right into the conversation.',
+    desc: 'Text people like iMessage. Tips, locked content, and invoices are built right into the conversation.',
     icon: ChatCircle,
     bg: 'bg-[#A5F41F]',
     textColor: 'text-black',
@@ -22,7 +22,7 @@ const steps = [
   {
     num: '03',
     title: 'Keep 100%.',
-    desc: 'Every dollar your clients send goes directly to you. No commissions. No revenue splits. No surprises.',
+    desc: 'Every dollar sent goes directly to you. No commissions. No revenue splits. No surprises.',
     icon: Wallet,
     bg: 'bg-[#1A1A1D]',
     textColor: 'text-white',

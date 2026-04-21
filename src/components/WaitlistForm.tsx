@@ -78,7 +78,7 @@ export default function WaitlistForm() {
       <div className="w-full text-center animate-[fadeUp_0.5s_ease-out]">
         <div className="text-5xl mb-4">&#x1F91D;</div>
         <h2 className="text-2xl font-semibold text-ink mb-2">You&apos;re in. Check your inbox.</h2>
-        <p className="text-ink/70 text-base">Tapp&apos;d. Now go get paid.</p>
+        <p className="text-ink/70 text-base">tappd. Now go get paid.</p>
       </div>
     )
   }

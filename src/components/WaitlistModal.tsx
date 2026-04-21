@@ -65,7 +65,7 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
       >
         {/* Left/Top: Image */}
         <div className="relative h-[200px] lg:h-full lg:min-h-[480px]">
-          <img src="/image.png" alt="Tapp'd" className="absolute inset-0 w-full h-full object-cover" />
+          <img src="/site2/hero-photo.jpg" alt="tappd" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/30" />
           <div className="absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-8 z-10">
             <p className="text-[36px] lg:text-[44px] font-light text-white leading-[1.05] tracking-[-0.03em]">
@@ -109,7 +109,7 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
               </form>
 
               <p className="mono text-[11px] text-black/40 mt-6">
-                47,000+ businesses Tapp&apos;d. No spam, ever.
+                47,000+ businesses tappd. No spam, ever.
               </p>
             </>
           ) : (
@@ -119,7 +119,7 @@ export default function WaitlistModal({ open, onClose }: { open: boolean; onClos
                 You&apos;re in. Check your inbox.
               </h3>
               <p className="text-[15px] font-light text-black/50 leading-[1.6]">
-                Tapp&apos;d. Now go get paid.
+                tappd. Now go get paid.
               </p>
             </div>
           )}

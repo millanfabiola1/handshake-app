@@ -12,7 +12,7 @@ import Footer from '@/components/Footer'
 import WaitlistProvider from '@/components/WaitlistContext'
 
 export const metadata = {
-  title: "Tapp'd — Tap. Text. Get Paid.",
+  title: "tappd — Tap. Text. Get Paid.",
   description: "Messages and payments in one app. 0% fees. Keep everything you earn.",
 }
 

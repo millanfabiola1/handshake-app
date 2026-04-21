@@ -9,7 +9,7 @@ import BentoGrid from '@/components/BentoGrid'
 import EndJourney from '@/components/EndJourney'
 import Footer from '@/components/Footer'
 import Nav from '@/components/Nav'
-import { Check, ArrowLeft, ArrowRight } from '@phosphor-icons/react'
+import { Check } from '@phosphor-icons/react'
 
 /* ────────────── local assets ────────────── */
 const assets = {
@@ -25,10 +25,10 @@ const assets = {
   zeroFeesBg: '/site2/zero-fees-bg.jpg',
 }
 
-/* ────────────── Tappd SVG Logo ────────────── */
+/* ────────────── tappd SVG Logo ────────────── */
 function TappdLogo({ className = '' }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 464 143" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Tapp'd">
+    <svg className={className} viewBox="0 0 464 143" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="tappd">
       <g clipPath="url(#s2-clip)">
         <path d="M90.0219 109.708V36.9541C90.0219 33.3164 86.2629 30.867 82.9405 32.3463L41.5921 50.6803C39.7733 51.4806 38.585 53.2994 38.585 55.288V128.042C38.585 131.679 42.3439 134.129 45.6663 132.65L87.0147 114.316C88.8336 113.515 90.0219 111.696 90.0219 109.708Z" fill="currentColor"/>
         <path d="M30.6546 50.1242V96.9292C30.6546 98.9178 29.4905 100.737 27.6474 101.537L7.08234 110.655C3.75992 112.135 0.000976562 109.685 0.000976562 106.048V33.2939C0.000976562 31.3053 1.16504 29.4864 3.00813 28.6861L44.3565 10.3522C47.6789 8.87288 51.4379 11.3223 51.4379 14.9599V34.3609C51.4379 36.3495 50.2738 38.1684 48.4307 38.9687L33.6375 45.5165C31.8186 46.3168 30.6303 48.1356 30.6303 50.1242H30.6546Z" fill="currentColor"/>
@@ -39,7 +39,7 @@ function TappdLogo({ className = '' }: { className?: string }) {
   )
 }
 
-/* ────────────── Tappd Icon only ────────────── */
+/* ────────────── tappd Icon only ────────────── */
 function TappdIcon({ className = '' }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 91 134" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,9 +67,9 @@ function CheckItem({ children, dark = false }: { children: React.ReactNode; dark
 /* ────────────── Use case data ────────────── */
 const useCases = [
   { label: 'CREATORS & INDEPENDENTS', title: 'Tips. Locked files.\nKeep 100%.', desc: 'Every DM is a potential payday. Every follower is a potential revenue source.', stat: '47%', statLabel: 'HIGHER CONVERSION', photo: '/site2/photo-glamour.jpg' },
-  { label: 'HOME SERVICES', title: 'Quote, confirm, collect', desc: 'Your clients already text you. Now those texts make you money.', stat: '3x', statLabel: 'FASTER COLLECTIONS', photo: '/site2/photo1.jpg' },
+  { label: 'HOME SERVICES', title: 'Quote, confirm, collect', desc: 'The people you work with already text you. Now those texts make you money.', stat: '3x', statLabel: 'FASTER COLLECTIONS', photo: '/site2/photo1.jpg' },
   { label: 'PSYCHICS & COACHES', title: 'Lock premium sessions', desc: 'Charge per message. Lock files and readings. Schedule paid calls. One app does it all.', stat: '$120', statLabel: 'AVG SESSION REVENUE', photo: '/site2/photo-chill.jpg' },
-  { label: 'SECURITY & SERVICE', title: 'Coordinate and\ninvoice instantly', desc: 'Ditch the invoicing software. Bill clients the second the job is done.', stat: '90%', statLabel: 'FASTER PAYMENTS', photo: '/site2/photo2.jpg' },
+  { label: 'SECURITY & SERVICE', title: 'Coordinate and\ninvoice instantly', desc: 'Ditch the invoicing software. Bill people the second the job is done.', stat: '90%', statLabel: 'FASTER PAYMENTS', photo: '/site2/photo2.jpg' },
 ]
 
 /* ────────────── Fee slideshow ────────────── */
@@ -77,18 +77,19 @@ const feeItems = [
   { stat: '3%',    name: 'Venmo charges 3%',       line1: '\u201cLow fees.\u201d',                                              line2: 'Keep looking.',   isTappd: false },
   { stat: '2.9%',  name: 'PayPal charges 2.9%',    line1: '\u201cCompetitive rates.\u201d',                                     line2: 'Still not zero.', isTappd: false },
   { stat: '2.75%', name: 'Cash App charges 2.75%', line1: '\u201cIndustry standard.\u201d',                                     line2: 'Not even close.', isTappd: false },
-  { stat: '0%',    name: 'Tappd charges 0%',        line1: 'Not \u201clow fees.\u201d Not \u201ccompetitive rates.\u201d',       line2: 'Zero. Forever.',  isTappd: true  },
+  { stat: '0%',    name: 'tappd charges 0%',        line1: 'Not \u201clow fees.\u201d Not \u201ccompetitive rates.\u201d',       line2: 'Zero. Forever.',  isTappd: true  },
 ]
 
 function FeeSlideshow() {
   const [active, setActive] = useState(0)
   const [pillKey, setPillKey] = useState(0)
-  // Animated counter value (float, e.g. 2.94 during animation between 3 and 2.9)
   const [displayedVal, setDisplayedVal] = useState(3)
   const rafRef = useRef<number | null>(null)
   const startRef = useRef<number | null>(null)
   const fromRef = useRef(3)
   const toRef = useRef(3)
+  const activeRef = useRef(0)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const parseVal = (stat: string) => parseFloat(stat.replace('%', ''))
 
@@ -102,7 +103,6 @@ function FeeSlideshow() {
     function frame(ts: number) {
       if (!startRef.current) startRef.current = ts
       const t = Math.min((ts - startRef.current) / duration, 1)
-      // ease-in-out cubic
       const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
       setDisplayedVal(fromRef.current + (toRef.current - fromRef.current) * eased)
       if (t < 1) rafRef.current = requestAnimationFrame(frame)
@@ -110,22 +110,30 @@ function FeeSlideshow() {
     rafRef.current = requestAnimationFrame(frame)
   }, [])
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((prev) => {
-        const next = (prev + 1) % feeItems.length
-        animateTo(parseVal(feeItems[prev].stat), parseVal(feeItems[next].stat))
-        setPillKey((k) => k + 1)
-        return next
-      })
-    }, 2800)
-    return () => {
-      clearInterval(timer)
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    }
+  const goTo = useCallback((next: number) => {
+    const prev = activeRef.current
+    if (prev === next) return
+    activeRef.current = next
+    animateTo(parseVal(feeItems[prev].stat), parseVal(feeItems[next].stat))
+    setActive(next)
+    setPillKey((k) => k + 1)
   }, [animateTo])
 
-  // Format: trim trailing zeros — "3.00" → "3", "2.90" → "2.9", "2.75" → "2.75"
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
+      goTo((activeRef.current + 1) % feeItems.length)
+    }, 2800)
+  }, [goTo])
+
+  useEffect(() => {
+    startTimer()
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [startTimer])
+
   const formatVal = (v: number) => v.toFixed(2).replace(/\.?0+$/, '')
 
   const CAP_H = 120
@@ -161,10 +169,8 @@ function FeeSlideshow() {
           <button
             key={active === i ? `active-${pillKey}-${i}` : f.name}
             onClick={() => {
-              const fromVal = parseVal(feeItems[active].stat)
-              animateTo(fromVal, parseVal(f.stat))
-              setActive(i)
-              setPillKey((k) => k + 1)
+              goTo(i)
+              startTimer()
             }}
             className={`rounded-full px-5 py-2 text-[13px] font-medium cursor-pointer ${
               active === i
@@ -950,7 +956,6 @@ function BentoStickySection() {
 /* ────────────── Inner content (needs WaitlistContext) ────────────── */
 function Site2Inner() {
   const showWaitlist = useWaitlist()
-  const [heroDesign, setHeroDesign] = useState(0)
 
   return (
     <div className="bg-white min-h-screen">
@@ -963,8 +968,7 @@ function Site2Inner() {
       <main>
         {/* ═══════ HERO ═══════ */}
         <div className="relative h-screen overflow-hidden">
-          {/* Design A: Figma-based hero with photo + video phone */}
-          <div className={`absolute inset-0 transition-opacity duration-500 ${heroDesign === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div className="absolute inset-0">
             <section className="relative h-full overflow-hidden pt-[112px] pb-0">
               <div className="absolute inset-0 pointer-events-none" aria-hidden>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -980,14 +984,14 @@ function Site2Inner() {
                     Tap. Text. Get Paid.
                   </h1>
                   <p className="text-[clamp(16px,1.6vw,20px)] text-black/60 mt-5 max-w-[672px] text-center leading-[1.4]">
-                    No apps. No links. Just text your clients and get paid instantly. Zero fees.
+                    No apps. No links. Just text the people you work with and get paid instantly. Zero fees.
                   </p>
                   <div className="flex items-center justify-center gap-3 mt-6">
                     <button
                       onClick={showWaitlist}
                       className="text-[14px] font-semibold text-white px-8 py-4 rounded-full bg-black hover:bg-black/80 transition-colors cursor-pointer shadow-[0_2px_20px_rgba(0,0,0,0.2)]"
                     >
-                      Get Tapp&apos;d
+                      Get tappd
                     </button>
                     <a href="#product" className="text-[14px] font-semibold text-black px-8 py-4 rounded-full border-2 border-black/60 hover:bg-black hover:text-white hover:border-black transition-all">
                       See how it works
@@ -995,7 +999,7 @@ function Site2Inner() {
                   </div>
                   <div className="relative mt-8 md:mt-10 flex justify-center w-full px-4 md:px-0">
                     <div className="relative overflow-hidden w-full md:w-[clamp(500px,65vw,900px)] h-[220px] sm:h-[270px] md:h-[clamp(350px,45vw,600px)] rounded-[16px] md:rounded-[clamp(12px,3vw,22px)]">
-                      <img src={assets.heroPhoto} alt="People using Tapp'd" className="w-full h-full object-cover object-top" />
+                      <img src={assets.heroPhoto} alt="People using tappd" className="w-full h-full object-cover object-top" />
                       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent 35%, rgba(255,255,255,0.55) 68%, white 100%)' }} />
                     </div>
                     <div className="absolute right-0 md:right-[clamp(-40px,-3vw,0px)] lg:right-[40px] top-[12px] w-[clamp(110px,22vw,280px)] hidden sm:block">
@@ -1012,107 +1016,8 @@ function Site2Inner() {
             </section>
           </div>
 
-          {/* Design B: Centered headline + dot grid + phone with floating cards */}
-          <div className={`absolute inset-0 transition-opacity duration-500 ${heroDesign === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-            <section
-              className="relative h-full overflow-hidden flex flex-col"
-              style={{ background: 'linear-gradient(145deg, #A5F41F 0%, #c2f55a 12%, #d8f890 24%, #ebfbc8 38%, #f4f6ee 58%, #efefeb 100%)' }}
-            >
-              {/* Dot grid */}
-              <div className="absolute inset-0 pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.10) 1.5px, transparent 1.5px)', backgroundSize: '26px 26px' }} aria-hidden />
-              <div className="noise-texture absolute inset-0 z-[1]" aria-hidden />
-
-              <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 pt-24 pb-8">
-                {/* Centered headline */}
-                <h1
-                  className="font-medium text-black tracking-[-0.04em] text-center leading-[0.85]"
-                  style={{ fontSize: 'clamp(56px, 10vw, 120px)' }}
-                >
-                  Tap. Text. Get Paid.
-                </h1>
-
-                <p className="text-[clamp(14px,1.6vw,18px)] text-black/55 text-center max-w-[480px] mt-6 leading-[1.4]">
-                  Messages and payments in one app. 0% fees. Keep everything you earn.
-                </p>
-
-                <div className="flex items-center justify-center gap-3 mt-6">
-                  <button
-                    onClick={showWaitlist}
-                    className="text-[14px] font-semibold text-white px-8 py-4 rounded-full bg-black hover:bg-black/80 transition-colors cursor-pointer shadow-[0_2px_20px_rgba(0,0,0,0.2)]"
-                  >
-                    Get Tapp&apos;d
-                  </button>
-                  <a
-                    href="#product"
-                    className="text-[14px] font-semibold text-black px-8 py-4 rounded-full border-2 border-black/60 hover:bg-black hover:text-white hover:border-black transition-all backdrop-blur-sm bg-white/10"
-                  >
-                    See the product
-                  </a>
-                </div>
-              </div>
-
-              {/* Phone + floating cards at bottom */}
-              <div className="relative z-10 flex justify-center pb-0 -mb-[60px]">
-                <div className="relative">
-                  {/* Phone */}
-                  <div className="relative w-[clamp(260px,40vw,340px)]">
-                    <div className="bg-black rounded-[clamp(28px,5vw,44px)] p-[clamp(6px,1.2vw,10px)] shadow-2xl shadow-black/30">
-                      <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,14vw,100px)] h-[clamp(18px,2.5vw,24px)] bg-black rounded-full" />
-                      <div className="relative rounded-[clamp(22px,4vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
-                        <video src="/demo.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Floating: "You sent $50" — left */}
-                  <div className="absolute left-[-120px] top-[15%] z-10 float-slow hidden md:block">
-                    <div className="bg-[#A5F41F]/80 backdrop-blur-sm rounded-[16px] shadow-xl px-5 py-4">
-                      <p className="text-[12px] text-black/70">You sent</p>
-                      <p className="text-[36px] font-bold text-black leading-none">$50</p>
-                    </div>
-                  </div>
-
-                  {/* Floating: "+$75 via text" — right */}
-                  <div className="absolute right-[-160px] top-[20%] z-10 float-medium hidden md:block">
-                    <div className="bg-white rounded-[16px] shadow-xl px-5 py-4">
-                      <p className="text-[11px] text-black/50 font-medium uppercase tracking-wider">Incoming <span className="text-[#A5F41F]">&bull;</span></p>
-                      <p className="text-[24px] font-bold text-black leading-tight">+$75 via text</p>
-                      <p className="text-[12px] text-black/40 mt-0.5">from @maya_k</p>
-                    </div>
-                  </div>
-
-                  {/* Floating: "Thanks for dinner!" — bottom right */}
-                  <div className="absolute right-[-140px] bottom-[20%] z-10 float-slow hidden md:block">
-                    <div className="bg-white rounded-[16px] shadow-xl px-5 py-3">
-                      <p className="text-[10px] text-black/40 font-medium uppercase tracking-wider">New Message</p>
-                      <p className="text-[15px] font-medium text-black">&quot;Thanks for dinner! 📬&quot;</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-
-          {/* Bottom fade — ensures seamless transition into next section for both designs */}
+          {/* Bottom fade — seamless transition into next section */}
           <div className="absolute bottom-0 left-0 right-0 h-[80px] pointer-events-none z-[150]" style={{ background: 'linear-gradient(to bottom, transparent, white)' }} />
-
-          {/* Arrow toggles — bottom right of hero only */}
-          <div className="absolute bottom-8 right-8 z-[200] flex items-center gap-2">
-            <button
-              onClick={() => setHeroDesign(heroDesign === 0 ? 1 : 0)}
-              className="w-11 h-11 rounded-full border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer bg-transparent"
-              aria-label="Previous design"
-            >
-              <ArrowLeft size={18} weight="bold" />
-            </button>
-            <button
-              onClick={() => setHeroDesign(heroDesign === 0 ? 1 : 0)}
-              className="w-11 h-11 rounded-full border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer bg-transparent"
-              aria-label="Next design"
-            >
-              <ArrowRight size={18} weight="bold" />
-            </button>
-          </div>
         </div>
 
         {/* ═══════ FEATURES SCROLL-SWAP: Send Money → Globe → PayWall ═══════ */}

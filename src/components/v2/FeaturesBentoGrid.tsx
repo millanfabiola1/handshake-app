@@ -30,7 +30,7 @@ const features = [
   {
     label: 'Mass Messaging',
     title: 'Blast without the spam.',
-    desc: 'Text your entire client book. Personalized. Human. Revenue-driving.',
+    desc: 'Text everyone you know. Personalized. Human. Revenue-driving.',
     Icon: Megaphone,
     bg: 'bg-[#1A1A1D]',
     textColor: 'text-white',

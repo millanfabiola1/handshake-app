@@ -12,8 +12,8 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Tapp'd — Messages and Payments in One App. 0% Fees.",
-  description: "Get Tapp'd. Send messages, get paid, keep 100%. Tips, locked content, paid calls, and mass messaging with zero platform fees.",
+  title: "tappd — Messages and Payments in One App. 0% Fees.",
+  description: "Get tappd. Send messages, get paid, keep 100%. Tips, locked content, paid calls, and mass messaging with zero platform fees.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

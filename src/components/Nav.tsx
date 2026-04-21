@@ -1,33 +1,16 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { CaretDown, List, X, CurrencyDollar, LockSimple, PhoneCall, Megaphone, PaintBrush, Wrench, UserCircle, ArrowRight, XLogo, InstagramLogo, TiktokLogo, LinkedinLogo } from '@phosphor-icons/react'
+import { XLogo, InstagramLogo, TiktokLogo, LinkedinLogo } from '@phosphor-icons/react'
 import { useWaitlist } from './WaitlistContext'
 
 const menuItems = [
-  {
-    label: 'Product',
-    href: '#product',
-    children: [
-      { label: 'Tips', desc: 'One-tap payments in-thread', href: '#product', icon: CurrencyDollar, img: '/image%201.png' },
-      { label: 'Locked Content', desc: 'Gate your best work', href: '#product', icon: LockSimple, img: '/image%202.png' },
-      { label: 'Paid Calls', desc: 'Billed sessions, your rate', href: '#product', icon: PhoneCall, img: '/image%203.png' },
-    ],
-  },
-  {
-    label: 'Use Cases',
-    href: '#use-cases',
-    children: [
-      { label: 'Creators', desc: 'Turn followers into revenue', href: '#use-cases', icon: PaintBrush, img: '/image%201.png' },
-      { label: 'Service Providers', desc: 'Quote, confirm, collect', href: '#use-cases', icon: Wrench, img: '/image%202.png' },
-      { label: 'Coaches', desc: 'Premium sessions, no overhead', href: '#use-cases', icon: UserCircle, img: '/image%203.png' },
-    ],
-  },
-  { label: 'Pricing', href: '#pricing', children: null },
+  { label: 'Product', href: '#product' },
+  { label: 'Use Cases', href: '#use-cases' },
+  { label: 'Pricing', href: '#pricing' },
 ]
 
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [navHidden, setNavHidden] = useState(false)
   const lastScrollY = useRef(0)
@@ -81,7 +64,7 @@ export default function Nav() {
         }}
       >
         <a href="#" className="transition-opacity duration-300 hover:opacity-70">
-          <svg width="90" height="28" viewBox="0 0 464 143" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Tapp'd">
+          <svg width="90" height="28" viewBox="0 0 464 143" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="tappd">
             <g clipPath="url(#nav-clip)">
               <path d="M90.0219 109.708V36.9541C90.0219 33.3164 86.2629 30.867 82.9405 32.3463L41.5921 50.6803C39.7733 51.4806 38.585 53.2994 38.585 55.288V128.042C38.585 131.679 42.3439 134.129 45.6663 132.65L87.0147 114.316C88.8336 113.515 90.0219 111.696 90.0219 109.708Z" fill="currentColor"/>
               <path d="M30.6546 50.1242V96.9292C30.6546 98.9178 29.4905 100.737 27.6474 101.537L7.08234 110.655C3.75992 112.135 0.000976562 109.685 0.000976562 106.048V33.2939C0.000976562 31.3053 1.16504 29.4864 3.00813 28.6861L44.3565 10.3522C47.6789 8.87288 51.4379 11.3223 51.4379 14.9599V34.3609C51.4379 36.3495 50.2738 38.1684 48.4307 38.9687L33.6375 45.5165C31.8186 46.3168 30.6303 48.1356 30.6303 50.1242H30.6546Z" fill="currentColor"/>
@@ -119,48 +102,23 @@ export default function Nav() {
         }`}
         style={{ paddingTop: scrolled ? 72 : 104 }}
       >
-        {/* Desktop: multi-column mega-menu — full height, no scroll */}
-        <div className="hidden lg:flex lg:flex-col lg:h-full px-8 xl:px-12 py-6">
-          <div className="grid grid-cols-3 gap-6 flex-1">
+        {/* Desktop: single-column flat menu */}
+        <div className="hidden lg:flex lg:flex-col lg:h-full px-8 xl:px-12 py-10">
+          <div className="flex flex-col gap-1 flex-1">
             {menuItems.map((item) => (
-              <div key={item.label} className="flex flex-col">
-                <h3 className="text-[13px] font-semibold text-black/40 uppercase tracking-widest mb-4">{item.label}</h3>
-                {item.children ? (
-                  <div className="flex flex-col gap-2 flex-1">
-                    {item.children.map((child) => (
-                      <a
-                        key={child.label}
-                        href={child.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="group flex items-end flex-1 rounded-lg overflow-hidden bg-[#A5F41F] hover:bg-[#94DC1B] transition-colors"
-                      >
-                        <div className="p-4">
-                          <div className="text-[20px] font-medium text-black tracking-[-0.02em] inline-flex items-center gap-2">
-                            {child.label} <span className="text-black/40 group-hover:text-black transition-colors text-[14px]">&#x2197;</span>
-                          </div>
-                          <div className="text-[13px] text-black/50 mt-1">{child.desc}</div>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                ) : (
-                  <a
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="group flex items-end flex-1 rounded-lg overflow-hidden bg-[#A5F41F] hover:bg-[#94DC1B] transition-colors"
-                  >
-                    <div className="p-4">
-                      <div className="text-[20px] font-medium text-black tracking-[-0.02em] inline-flex items-center gap-2">
-                        {item.label} <span className="text-black/40 group-hover:text-black transition-colors text-[14px]">&#x2197;</span>
-                      </div>
-                    </div>
-                  </a>
-                )}
-              </div>
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="group flex items-center justify-between py-5 border-b border-black/5 hover:pl-4 transition-[padding] duration-300"
+              >
+                <span className="text-[44px] lg:text-[56px] font-light text-black tracking-[-0.03em] leading-none">{item.label}</span>
+                <span className="text-black/30 group-hover:text-black transition-colors text-[28px]">&#x2197;</span>
+              </a>
             ))}
           </div>
 
-          <div className="flex items-center justify-between pt-6 border-t border-black/5">
+          <div className="flex items-center justify-between pt-6 border-t border-black/5 mt-8">
             <div className="flex items-center gap-5">
               <a href="#" className="text-black/40 hover:text-black transition-colors"><XLogo size={22} weight="regular" /></a>
               <a href="#" className="text-black/40 hover:text-black transition-colors"><InstagramLogo size={22} weight="regular" /></a>
@@ -170,63 +128,29 @@ export default function Nav() {
             <div className="flex items-center gap-4">
               <a href="#" className="text-[14px] text-black/50 hover:text-black transition-colors">Sign in</a>
               <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#A5F41F] hover:bg-black hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer">
-                Get Tapp'd <span className="text-[16px]">&#x2197;</span>
+                Get tappd <span className="text-[16px]">&#x2197;</span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile: stacked accordion */}
+        {/* Mobile: flat stacked links */}
         <div className="lg:hidden px-6 py-8 flex flex-col gap-2">
             {menuItems.map((item) => (
-              <div key={item.label}>
-                {item.children ? (
-                  <>
-                    <button
-                      onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
-                      className="w-full flex items-center justify-between py-4 border-b border-black/5 cursor-pointer"
-                    >
-                      <span className="text-[24px] font-light text-black tracking-[-0.02em]">{item.label}</span>
-                      <CaretDown
-                        size={20}
-                        weight="bold"
-                        className={`text-black/40 transition-transform duration-300 ${mobileExpanded === item.label ? 'rotate-180' : ''}`}
-                      />
-                    </button>
-                    <div className={`overflow-hidden transition-all duration-300 ${mobileExpanded === item.label ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                      <div className="flex flex-col gap-3 py-3">
-                        {item.children.map((child) => (
-                          <a
-                            key={child.label}
-                            href={child.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="h-[140px] rounded-lg overflow-hidden flex items-end bg-black transition-all duration-300"
-                          >
-                            <div className="p-4">
-                              <div className="text-[20px] font-medium text-white tracking-[-0.02em] transition-colors duration-300 inline-flex items-center gap-2">{child.label} <span className="text-white transition-colors duration-300 text-[14px]">&#x2197;</span></div>
-                              <div className="text-[13px] text-white/50 transition-colors duration-300">{child.desc}</div>
-                            </div>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <a
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-between py-4 border-b border-black/5"
-                  >
-                    <span className="text-[24px] font-light text-black tracking-[-0.02em]">{item.label}</span>
-                    <span className="text-black/40 text-[14px]">&#x2197;</span>
-                  </a>
-                )}
-              </div>
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between py-4 border-b border-black/5"
+              >
+                <span className="text-[24px] font-light text-black tracking-[-0.02em]">{item.label}</span>
+                <span className="text-black/40 text-[14px]">&#x2197;</span>
+              </a>
             ))}
 
             <div className="flex flex-col gap-4 mt-8">
               <button onClick={() => { showWaitlist(); setMobileOpen(false) }} className="text-[14px] font-medium text-black px-7 py-3.5 rounded-lg bg-[#A5F41F] hover:bg-black hover:text-white transition-colors inline-flex items-center justify-center gap-2 cursor-pointer w-full">
-                Get Tapp'd <span className="text-[16px]">&#x2197;</span>
+                Get tappd <span className="text-[16px]">&#x2197;</span>
               </button>
               <a href="#" className="text-[14px] text-black/50 text-center py-3">Sign in</a>
               <div className="flex items-center justify-center gap-5 mt-4">

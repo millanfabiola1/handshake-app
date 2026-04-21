@@ -10,7 +10,7 @@ const testimonials = [
     role: 'Tarot Reader',
   },
   {
-    quote: 'My clients already text me. Now they pay me in the same thread. Why did this not exist sooner?',
+    quote: 'The people I work with already text me. Now they pay me in the same thread. Why did this not exist sooner?',
     name: 'James',
     role: 'Cleaning Business',
   },
@@ -20,7 +20,7 @@ const testimonials = [
     role: 'Life Coach',
   },
   {
-    quote: 'I mass texted 200 clients about a flash sale. $4,800 in revenue from one message blast.',
+    quote: 'I mass texted 200 people about a flash sale. $4,800 in revenue from one message blast.',
     name: 'Devon',
     role: 'Retail',
   },

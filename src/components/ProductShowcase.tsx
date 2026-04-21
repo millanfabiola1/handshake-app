@@ -7,14 +7,14 @@ const steps = [
     step: '01',
     icon: ChatCircle,
     title: 'Start a conversation with anyone',
-    desc: 'Open a thread with a client, customer, or contact. Every conversation is a potential transaction waiting to happen.',
+    desc: 'Open a thread with anyone you work with. Every conversation is a potential transaction waiting to happen.',
     img: 'Conversation view',
   },
   {
     step: '02',
     icon: UserCircle,
     title: 'They engage on their terms',
-    desc: 'Your clients tip, unlock content, or book a call — all without leaving the chat. Zero friction, maximum conversion.',
+    desc: 'People tip, unlock content, or book a call — all without leaving the chat. Zero friction, maximum conversion.',
     img: 'Engagement flow',
   },
   {
@@ -28,7 +28,7 @@ const steps = [
     step: '04',
     icon: PaperPlaneTilt,
     title: 'Blast campaigns that feel personal',
-    desc: 'Reach your entire client book at once with messages that read like one-to-one texts. Scale without losing the human touch.',
+    desc: 'Reach everyone you know at once with messages that read like one-to-one texts. Scale without losing the human touch.',
     img: 'Campaign dashboard',
   },
   {

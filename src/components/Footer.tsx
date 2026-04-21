@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="mb-10 flex justify-center">
           <img
             src="/tappd-logo.svg"
-            alt="Tapp'd"
+            alt="tappd"
             className="h-auto select-none"
             style={{ filter: 'brightness(0)', width: 'clamp(110px, 14vw, 190px)' }}
           />
@@ -28,7 +28,7 @@ export default function Footer() {
             <a href="#" className="mono text-[11px] text-black/45 hover:text-black/80 transition-colors no-underline">Privacy</a>
             <a href="#" className="mono text-[11px] text-black/45 hover:text-black/80 transition-colors no-underline">Terms</a>
           </div>
-          <p className="mono text-[11px] text-black/40">&copy; 2026 Tapp&apos;d &middot; Tap &middot; Text &middot; Get Paid</p>
+          <p className="mono text-[11px] text-black/40">&copy; 2026 tappd &middot; Tap &middot; Text &middot; Get Paid</p>
         </div>
 
       </div>

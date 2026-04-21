@@ -51,13 +51,16 @@ function PaymentCard({ confirmed }: { confirmed: boolean }) {
 
 function LockedContentMini() {
   return (
-    <div className="bg-white rounded-2xl px-5 py-4 flex items-center gap-3 shadow-xl border border-black/5 w-[210px]">
-      <div className="w-9 h-9 rounded-xl bg-[#A5F41F]/20 flex items-center justify-center shrink-0">
-        <Lock size={18} weight="bold" className="text-[#0A0A0B]/70" />
-      </div>
-      <div>
-        <p className="text-[13px] font-semibold text-[#0A0A0B]">Exclusive Drop</p>
-        <p className="text-[11px] text-[#71717A]">Unlock for $5.00</p>
+    <div className="flex flex-col gap-2 w-[210px]">
+      <p className="mono text-[10px] text-[#71717A] uppercase tracking-wider">Locked Content</p>
+      <div className="bg-white rounded-2xl px-5 py-4 flex items-center gap-3 shadow-xl border border-black/5">
+        <div className="w-9 h-9 rounded-xl bg-[#A5F41F]/20 flex items-center justify-center shrink-0">
+          <Lock size={18} weight="bold" className="text-[#0A0A0B]/70" />
+        </div>
+        <div>
+          <p className="text-[13px] font-semibold text-[#0A0A0B]">Exclusive Drop</p>
+          <p className="text-[11px] text-[#71717A]">Unlock for $5.00</p>
+        </div>
       </div>
     </div>
   )
@@ -65,13 +68,16 @@ function LockedContentMini() {
 
 function MassTextMini() {
   return (
-    <div className="bg-[#0A0A0B] rounded-2xl px-5 py-4 flex items-center gap-3 shadow-xl w-[210px]">
-      <div className="w-9 h-9 rounded-xl bg-[#A5F41F]/15 flex items-center justify-center shrink-0">
-        <Megaphone size={18} weight="bold" className="text-[#A5F41F]" />
-      </div>
-      <div>
-        <p className="text-[13px] font-semibold text-white">Blast sent</p>
-        <p className="text-[11px] text-white/50">247 clients reached</p>
+    <div className="flex flex-col gap-2 w-[210px]">
+      <p className="mono text-[10px] text-[#71717A] uppercase tracking-wider">Mass Messaging</p>
+      <div className="bg-[#0A0A0B] rounded-2xl px-5 py-4 flex items-center gap-3 shadow-xl">
+        <div className="w-9 h-9 rounded-xl bg-[#A5F41F]/15 flex items-center justify-center shrink-0">
+          <Megaphone size={18} weight="bold" className="text-[#A5F41F]" />
+        </div>
+        <div>
+          <p className="text-[13px] font-semibold text-white">Blast sent</p>
+          <p className="text-[11px] text-white/50">247 people reached</p>
+        </div>
       </div>
     </div>
   )

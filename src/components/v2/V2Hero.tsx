@@ -57,7 +57,7 @@ export default function V2Hero() {
 
         <div className="flex items-center justify-center gap-4 mt-10" style={{ animation: 'hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.6s both' }}>
           <button onClick={showWaitlist} className="text-[16px] font-semibold text-white px-10 py-5 rounded-full bg-black hover:bg-black/80 transition-colors inline-flex items-center gap-2 cursor-pointer">
-            Get Tapp&apos;d
+            Get tappd
           </button>
           <a href="#features" className="text-[16px] font-semibold text-black px-10 py-5 rounded-full border-2 border-black hover:bg-black hover:text-white transition-all">
             See the product

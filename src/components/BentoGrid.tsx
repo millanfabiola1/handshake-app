@@ -219,7 +219,7 @@ export default function BentoGrid() {
           </ScrollReveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:auto-rows-[280px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:auto-rows-[minmax(280px,auto)]">
 
           {/* 1 — All-in-One: PURE BLACK */}
           <ScrollReveal>
@@ -256,7 +256,7 @@ export default function BentoGrid() {
                 <div className="w-3 h-3 rounded-full bg-black/10" />
               </div>
               <p className="text-[22px] md:text-[24px] font-medium text-black tracking-[-0.03em] leading-[1.2] relative z-10">
-                Tapp&apos;d is the{' '}
+                tappd is the{' '}
                 <span className="bg-black text-[#A5F41F] px-1.5 rounded">messaging app that pays.</span>{' '}
                 Every conversation is a potential transaction.
               </p>
@@ -276,14 +276,16 @@ export default function BentoGrid() {
           {/* 5 — Features: DEEP EMERALD + avoidance tags */}
           <ScrollReveal delay={150}>
             <div
-              className="rounded-2xl p-8 min-h-[240px] h-full flex flex-col justify-between overflow-hidden relative transition-all duration-300 hover:-translate-y-1"
+              className="rounded-2xl p-8 min-h-[280px] h-full flex flex-col justify-between overflow-hidden relative transition-all duration-300 hover:-translate-y-1 gap-6"
               style={{ background: 'linear-gradient(145deg, #041a0c 0%, #072a14 55%, #0a3a1c 100%)' }}
             >
               <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 70% 50% at 30% 80%, rgba(165,244,31,0.07) 0%, transparent 60%)' }} />
-              <AvoidanceTags />
-              <div className="relative z-10">
+              <div className="relative z-10 flex-1 min-h-0">
+                <AvoidanceTags />
+              </div>
+              <div className="relative z-10 shrink-0">
                 <h3 className="text-[22px] font-semibold text-white tracking-[-0.02em] mb-2">Everything You Need</h3>
-                <p className="text-[14px] text-white/35 leading-[1.5]">
+                <p className="text-[14px] text-white/45 leading-[1.5]">
                   One app for messages, monetization, and mass messaging. Zero platform fees.
                 </p>
               </div>

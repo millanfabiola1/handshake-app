@@ -18,7 +18,7 @@ export default function V2CTA() {
       <div className="text-center relative z-10 max-w-[900px]">
         <ScrollReveal>
           <h2 className="font-medium text-white tracking-[-0.05em] leading-[0.85]" style={{ fontSize: 'clamp(56px, 12vw, 160px)' }}>
-            Get<br />Tapp&apos;d.
+            Get<br />tappd.
           </h2>
         </ScrollReveal>
 
@@ -31,7 +31,7 @@ export default function V2CTA() {
         <ScrollReveal delay={200}>
           <div className="flex items-center justify-center gap-4 mt-10 md:mt-14 flex-wrap">
             <button onClick={showWaitlist} className="text-[16px] font-semibold text-black px-10 py-5 rounded-full bg-[#A5F41F] hover:bg-[#b8f74d] transition-colors inline-flex items-center gap-2 cursor-pointer">
-              Get Tapp&apos;d
+              Get tappd
             </button>
             <a href="#features" className="text-[16px] font-semibold text-white/60 px-10 py-5 rounded-full border border-white/20 hover:border-white/60 hover:text-white transition-all">
               See the product
