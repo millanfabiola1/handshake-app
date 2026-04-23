@@ -1003,11 +1003,8 @@ function Site2Inner() {
                       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent 35%, rgba(255,255,255,0.55) 68%, white 100%)' }} />
                     </div>
                     <div className="absolute right-0 md:right-[clamp(-40px,-3vw,0px)] lg:right-[40px] top-[12px] w-[clamp(110px,22vw,280px)] hidden sm:block">
-                      <div className="bg-black rounded-[clamp(28px,4vw,44px)] p-[clamp(6px,1vw,10px)] shadow-2xl shadow-black/30">
-                        <div className="absolute top-[clamp(8px,1.5vw,14px)] left-1/2 -translate-x-1/2 z-20 w-[clamp(60px,12vw,100px)] h-[clamp(18px,2vw,24px)] bg-black rounded-full" />
-                        <div className="relative rounded-[clamp(22px,3.5vw,36px)] overflow-hidden bg-black" style={{ aspectRatio: '9 / 19.5' }}>
-                          <video src="/demo.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
-                        </div>
+                      <div className="relative rounded-[clamp(22px,3.5vw,36px)] overflow-hidden shadow-2xl shadow-black/30" style={{ aspectRatio: '9 / 19.5' }}>
+                        <video src="/demo.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
                       </div>
                     </div>
                   </div>
