@@ -235,7 +235,7 @@ export default function BentoGrid() {
                   All-in-One <span className="bg-[#A5F41F] text-black px-1.5 rounded">Platform</span>
                 </h3>
                 <p className="text-[14px] text-white/40 leading-[1.5]">
-                  Messages, tips, locked content, paid calls, and mass messaging. All in one app.
+                  Five tools. One thread. No tabs.
                 </p>
               </div>
             </div>
@@ -284,9 +284,9 @@ export default function BentoGrid() {
                 <AvoidanceTags />
               </div>
               <div className="relative z-10 shrink-0">
-                <h3 className="text-[22px] font-semibold text-white tracking-[-0.02em] mb-2">Everything You Need</h3>
+                <h3 className="text-[22px] font-semibold text-white tracking-[-0.02em] mb-2">All your tools. One thread.</h3>
                 <p className="text-[14px] text-white/45 leading-[1.5]">
-                  One app for messages, monetization, and mass messaging. Zero platform fees.
+                  No Linktree. No Stripe link. No Calendly. Just text.
                 </p>
               </div>
             </div>

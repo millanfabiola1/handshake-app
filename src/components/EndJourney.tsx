@@ -239,7 +239,7 @@ export default function EndJourney({ zeroFeesBg: _zeroFeesBg }: { zeroFeesBg?: s
               Your phone. <span className="text-[#A5F41F]">Your income.</span>
             </h2>
             <p className="text-[clamp(13px,1.4vw,15px)] text-white/60 mt-3 leading-[1.55] px-6" style={{ maxWidth: 340, textShadow: '0 1px 12px rgba(0,0,0,0.6)' }}>
-              Join 47,000+ creators already earning on every message.
+              47,000+ creators already in. Every text earns.
             </p>
           </div>
 

@@ -175,7 +175,7 @@ export default function FloatingUI() {
             </ScrollReveal>
             <ScrollReveal delay={80}>
               <p className="text-[15px] lg:text-[17px] text-[#71717A] max-w-[440px] mx-auto mt-5 leading-[1.5]">
-                Send money mid-conversation. No links, no apps, no fees. Just tap and it&apos;s there.
+                Send money mid-conversation. No links. No apps. No fees.
               </p>
             </ScrollReveal>
           </div>
