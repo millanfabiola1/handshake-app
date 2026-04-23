@@ -81,7 +81,8 @@ export default function Nav() {
           >
             Join Waitlist
           </button>
-          <button
+          {/* Menu hidden for now — re-enable when destination pages exist */}
+          {/* <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="w-10 h-10 flex flex-col items-center justify-center gap-[6px] cursor-pointer group"
             aria-label="Toggle menu"
@@ -89,7 +90,7 @@ export default function Nav() {
           <span className={`block w-6 h-[2px] bg-black transition-all duration-300 origin-center ${mobileOpen ? 'rotate-45 translate-y-[8px]' : ''}`} />
           <span className={`block w-6 h-[2px] bg-black transition-all duration-300 ${mobileOpen ? 'opacity-0 scale-x-0' : ''}`} />
           <span className={`block w-6 h-[2px] bg-black transition-all duration-300 origin-center ${mobileOpen ? '-rotate-45 -translate-y-[8px]' : ''}`} />
-          </button>
+          </button> */}
         </div>
       </nav>
 
