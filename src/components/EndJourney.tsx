@@ -203,20 +203,13 @@ export default function EndJourney({ zeroFeesBg: _zeroFeesBg }: { zeroFeesBg?: s
             <div className="relative">
               <div style={{
                 width: 'clamp(155px, 38vw, 255px)',
-                background: '#0e0e10',
                 borderRadius: 50,
-                padding: 6,
-                boxShadow: '0 0 0 1px rgba(165,244,31,0.22), 0 50px 120px rgba(0,0,0,0.9), inset 0 0 0 1px rgba(255,255,255,0.04)',
+                overflow: 'hidden',
+                aspectRatio: '9/19.5',
+                position: 'relative',
+                boxShadow: '0 0 0 1px rgba(165,244,31,0.22), 0 50px 120px rgba(0,0,0,0.9)',
               }}>
-                <div className="absolute right-[-3px] top-[22%] w-[3px] h-[52px] rounded-l-full" style={{ background: '#1a1a1c' }} />
-                <div className="absolute right-[-3px] top-[37%] w-[3px] h-[36px] rounded-l-full" style={{ background: '#1a1a1c' }} />
-                <div className="absolute left-[-3px] top-[28%] w-[3px] h-[46px] rounded-r-full" style={{ background: '#1a1a1c' }} />
-                <div style={{ borderRadius: 44, overflow: 'hidden', background: '#000', aspectRatio: '9/19.5', position: 'relative' }}>
-                  <video src="/demo.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
-                  <div className="absolute top-0 left-0 right-0 h-[28px] flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.55)' }}>
-                    <div className="w-[84px] h-[20px] bg-black rounded-full" />
-                  </div>
-                </div>
+                <video src="/demo.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
               </div>
               <div className="absolute pointer-events-none" style={{ bottom:-28, left:'50%', transform:'translateX(-50%)', width:'65%', height:30, background:'radial-gradient(ellipse, rgba(165,244,31,0.28) 0%, transparent 70%)', filter:'blur(10px)' }} />
             </div>
