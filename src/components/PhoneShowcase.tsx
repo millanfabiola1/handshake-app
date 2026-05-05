@@ -184,7 +184,7 @@ export default function PhoneShowcase() {
 
           {/* Sub */}
           <p className="text-[16px] md:text-[18px] text-white/45 max-w-[400px] mb-10 leading-[1.55]">
-            Join 47,000+ creators already earning<br className="hidden md:block" /> on every message.
+            Join 47,000+ people already earning<br className="hidden md:block" /> on every message.
           </p>
 
           {/* Download buttons */}

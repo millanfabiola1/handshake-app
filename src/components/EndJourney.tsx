@@ -112,7 +112,12 @@ function FeeCounter() {
           >{f.name}</button>
         ))}
       </div>
-      <p className="text-[13px] text-white/35 mt-8 tracking-wide">Keep every dollar you earn. No hidden costs. Ever.</p>
+      <p
+        className="font-display font-medium text-white mt-12 tracking-[-0.02em] leading-[1.25] mx-auto"
+        style={{ fontSize: 'clamp(22px, 2.6vw, 32px)', maxWidth: 720 }}
+      >
+        Keep every dollar you earn. <span className="text-[#A5F41F]">No hidden costs.</span> Ever.
+      </p>
     </div>
   )
 }
@@ -134,8 +139,8 @@ export default function EndJourney({ zeroFeesBg: _zeroFeesBg }: { zeroFeesBg?: s
       const total    = el.offsetHeight - window.innerHeight
       const p        = Math.min(1, Math.max(0, scrolled / total))
 
-      /* CTA text + buttons + icons 0.20→0.60 */
-      const ctaIn   = lc(0, 1, (p - 0.20) / 0.40)
+      /* CTA text + buttons + icons 0.05→0.25 (snappy fade-in) */
+      const ctaIn   = lc(0, 1, (p - 0.05) / 0.20)
 
       const phoneShift = lc(0, 44, ctaIn)
       if (phoneRef.current) {
@@ -180,7 +185,7 @@ export default function EndJourney({ zeroFeesBg: _zeroFeesBg }: { zeroFeesBg?: s
       </div>
 
       {/* ── Phone + CTA — sticky scroll ── */}
-      <div ref={phoneWrapRef} style={{ height: '300vh' }} className="relative">
+      <div ref={phoneWrapRef} style={{ height: '180vh' }} className="relative">
         <div className="sticky top-0 h-screen overflow-hidden" style={{ background: '#060b04' }}>
 
           {/* Lime glow */}
@@ -238,9 +243,6 @@ export default function EndJourney({ zeroFeesBg: _zeroFeesBg }: { zeroFeesBg?: s
             >
               Your phone. <span className="text-[#A5F41F]">Your income.</span>
             </h2>
-            <p className="text-[clamp(13px,1.4vw,15px)] text-white/60 mt-3 leading-[1.55] px-6" style={{ maxWidth: 340, textShadow: '0 1px 12px rgba(0,0,0,0.6)' }}>
-              47,000+ creators already in. Every text earns.
-            </p>
           </div>
 
           {/* Download buttons — pinned to bottom */}
@@ -249,6 +251,9 @@ export default function EndJourney({ zeroFeesBg: _zeroFeesBg }: { zeroFeesBg?: s
             className="absolute bottom-0 left-0 right-0 flex flex-col items-center pointer-events-none"
             style={{ paddingBottom: 'clamp(32px, 6vh, 64px)', opacity: 0, transform: 'scale(0.93)', zIndex: 11 }}
           >
+            <p className="text-[clamp(13px,1.4vw,15px)] text-white/60 mb-5 leading-[1.55] px-6 text-center" style={{ textShadow: '0 1px 12px rgba(0,0,0,0.6)' }}>
+              47,000+ people already in. Every text earns.
+            </p>
             <div className="flex items-center gap-3 mb-3">
               <a href="#" className="flex items-center gap-2.5 bg-white rounded-[14px] px-5 py-3 hover:bg-white/90 transition-colors no-underline">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="#000">

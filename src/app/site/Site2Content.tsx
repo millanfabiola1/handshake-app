@@ -66,7 +66,7 @@ function CheckItem({ children, dark = false }: { children: React.ReactNode; dark
 
 /* ────────────── Use case data ────────────── */
 const useCases = [
-  { label: 'CREATORS & INDEPENDENTS', title: 'Tips. Locked files.\nKeep 100%.', desc: 'Every DM is a potential payday. Every follower is a potential revenue source.', stat: '47%', statLabel: 'HIGHER CONVERSION', photo: '/site2/photo-glamour.jpg' },
+  { label: 'INDEPENDENT PROS', title: 'Tips. Locked files.\nKeep 100%.', desc: 'Every DM is a potential payday. Every follower is a potential revenue source.', stat: '47%', statLabel: 'HIGHER CONVERSION', photo: '/site2/photo-glamour.jpg' },
   { label: 'HOME SERVICES', title: 'Quote, confirm, collect', desc: 'They already text you. Now those texts pay.', stat: '3x', statLabel: 'FASTER COLLECTIONS', photo: '/site2/photo1.jpg' },
   { label: 'PSYCHICS & COACHES', title: 'Lock premium sessions', desc: 'Charge per message. Lock the readings. Bill the calls.', stat: '$120', statLabel: 'AVG SESSION REVENUE', photo: '/site2/photo-chill.jpg' },
   { label: 'SECURITY & SERVICE', title: 'Coordinate and\ninvoice instantly', desc: 'Ditch the invoicing software. Bill the second the job is done.', stat: '90%', statLabel: 'FASTER PAYMENTS', photo: '/site2/photo2.jpg' },
@@ -184,8 +184,11 @@ function FeeSlideshow() {
         ))}
       </div>
 
-      <p className="text-[13px] text-white/35 mt-8 tracking-wide">
-        Keep every dollar you earn. No hidden costs. Ever.
+      <p
+        className="font-display font-medium text-white mt-12 tracking-[-0.02em] leading-[1.25] mx-auto"
+        style={{ fontSize: 'clamp(22px, 2.6vw, 32px)', maxWidth: 720 }}
+      >
+        Keep every dollar you earn. <span className="text-[#A5F41F]">No hidden costs.</span> Ever.
       </p>
     </div>
   )
@@ -981,7 +984,7 @@ function Site2Inner() {
               <div className="relative z-10 max-w-[1200px] mx-auto px-6 pt-8 flex flex-col items-center">
                 <div className="relative w-full flex flex-col items-center">
                   <h1 className="font-display text-[clamp(56px,8vw,96px)] font-medium leading-[0.85] text-black tracking-[-0.04em] text-center">
-                    Tap. Text. Get Paid.
+                    Get tappd. Get paid.
                   </h1>
                   <p className="text-[clamp(16px,1.6vw,20px)] text-black/60 mt-5 max-w-[672px] text-center leading-[1.4]">
                     No apps. No links. Text the people you already text. Get paid in the thread. Zero fees.
@@ -991,7 +994,7 @@ function Site2Inner() {
                       onClick={showWaitlist}
                       className="text-[14px] font-semibold text-white px-8 py-4 rounded-full bg-black hover:bg-black/80 transition-colors cursor-pointer shadow-[0_2px_20px_rgba(0,0,0,0.2)]"
                     >
-                      Get tappd
+                      get tappd in
                     </button>
                     <a href="#product" className="text-[14px] font-semibold text-black px-8 py-4 rounded-full border-2 border-black/60 hover:bg-black hover:text-white hover:border-black transition-all">
                       See how it works

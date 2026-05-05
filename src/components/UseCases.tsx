@@ -24,7 +24,7 @@ const cases = [
     img: '/usecase-homeservices.webp',
   },
   {
-    label: 'Creators & Independents',
+    label: 'Independent Pros',
     icon: PaintBrush,
     title: 'Tips. Locked drops. Keep 100%.',
     desc: 'Every DM is a potential payday. Every follower is a potential revenue source.',

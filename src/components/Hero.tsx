@@ -109,10 +109,10 @@ export default function Hero() {
           className="font-medium text-black leading-[0.9] tracking-[-0.04em] text-center overflow-hidden pb-2"
           style={{ fontSize: 'clamp(56px, 8vw, 120px)' }}
         >
-          <span className="hero-word" style={{ animationDelay: '0.15s' }}>Tap.</span>{' '}
-          <span className="hero-word" style={{ animationDelay: '0.3s' }}>Text.</span>{' '}
+          <span className="hero-word" style={{ animationDelay: '0.15s' }}>Get</span>{' '}
+          <span className="hero-word" style={{ animationDelay: '0.3s' }}>tappd.</span>{' '}
           <span className="hero-word" style={{ animationDelay: '0.45s' }}>Get</span>{' '}
-          <span className="hero-word" style={{ animationDelay: '0.57s' }}>Paid.</span>
+          <span className="hero-word" style={{ animationDelay: '0.57s' }}>paid.</span>
         </h1>
 
         {/* Subcopy */}
@@ -135,7 +135,7 @@ export default function Hero() {
             onClick={showWaitlist}
             className="text-[14px] font-semibold text-white px-8 py-4 rounded-full bg-black hover:bg-black/80 transition-colors inline-flex items-center gap-2 cursor-pointer shadow-[0_2px_20px_rgba(0,0,0,0.2)]"
           >
-            Get tappd
+            get tappd in
           </button>
           <a
             href="#product"

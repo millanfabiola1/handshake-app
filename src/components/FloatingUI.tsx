@@ -131,11 +131,11 @@ export default function FloatingUI() {
   useEffect(() => {
     if (!hasStarted) return
     const delays = [
-      400,  // → 1: Maria msg
+      400,  // → 1: Emma msg
       700,  // → 2: your reply
       500,  // → 3: payment card
       900,  // → 4: confirmed
-      700,  // → 5: Maria thanks
+      700,  // → 5: Emma thanks
       600,  // → 6: your reply + locked content
       500,  // → 7: blast sent
     ]
@@ -195,9 +195,9 @@ export default function FloatingUI() {
 
               {/* Contact header */}
               <div className="px-5 py-4 lg:border-b lg:border-black/6 flex items-center gap-3 lg:bg-white">
-                <div className="w-10 h-10 rounded-full bg-[#0A0A0B] flex items-center justify-center text-[#A5F41F] text-[13px] font-bold shrink-0">MR</div>
+                <div className="w-10 h-10 rounded-full bg-[#0A0A0B] flex items-center justify-center text-[#A5F41F] text-[13px] font-bold shrink-0">E</div>
                 <div>
-                  <p className="text-[14px] font-semibold text-[#0A0A0B]">Maria Rodriguez</p>
+                  <p className="text-[14px] font-semibold text-[#0A0A0B]">Emma</p>
                   <span className="inline-flex items-center gap-1 bg-black rounded-full px-2 py-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#A5F41F] inline-block" />
                     <span className="text-[10px] font-semibold text-[#A5F41F]">Online</span>
@@ -208,14 +208,14 @@ export default function FloatingUI() {
               {/* Messages */}
               <div className="px-4 py-5 flex flex-col gap-3 min-h-[360px]">
 
-                {/* Maria: asks to pay */}
+                {/* Emma: asks the price */}
                 <AnimStep active={step >= 1} className="self-start">
-                  <ReceivedBubble text="Hey! Can I pay for Sunday's session? 💅" />
+                  <ReceivedBubble text="Hey! How much for Sunday's session? 💅" />
                 </AnimStep>
 
-                {/* You: send request */}
+                {/* You: reply with the request */}
                 <AnimStep active={step >= 2} className="self-end">
-                  <SentBubble text="Yep! Here's the request 👇" />
+                  <SentBubble text="$50 — sending the request now 👇" />
                 </AnimStep>
 
                 {/* Payment card — inline */}
@@ -223,7 +223,7 @@ export default function FloatingUI() {
                   <PaymentCard confirmed={step >= 4} />
                 </AnimStep>
 
-                {/* Maria: paid + reaction */}
+                {/* Emma: confirms payment */}
                 <AnimStep active={step >= 5} className="self-start">
                   <ReceivedBubble text="Paid! That was instant 🙌" />
                 </AnimStep>

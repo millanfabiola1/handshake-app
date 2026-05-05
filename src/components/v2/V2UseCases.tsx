@@ -16,7 +16,7 @@ const cases = [
     desc: 'The people you work with already text you. Now those texts make you money.',
   },
   {
-    label: 'Creators & Independents',
+    label: 'Independent Pros',
     icon: PaintBrush,
     title: 'Tips. Locked drops. Keep 100%.',
     desc: 'Every DM is a potential payday. Every follower is a potential revenue source.',

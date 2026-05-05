@@ -315,7 +315,7 @@ export default function BentoGrid() {
               </div>
               <div className="relative z-10">
                 <h3 className="text-[18px] font-semibold text-black tracking-[-0.02em] mb-2">
-                  Trusted by <span className="bg-black text-[#A5F41F] px-1.5 rounded">47,000+</span> businesses &amp; creators.
+                  Trusted by <span className="bg-black text-[#A5F41F] px-1.5 rounded">47,000+</span> businesses &amp; pros.
                 </h3>
                 <div className="flex -space-x-2 mt-2">
                   {[1,2,3,4,5].map((n) => (
