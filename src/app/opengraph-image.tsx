@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = "tappd — Tap. Text. Get Paid."
+export const alt = "tappd — Get tappd. Get paid."
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -37,7 +37,7 @@ export default async function Image() {
             fontWeight: 400,
           }}
         >
-          Tap. Text. Get Paid.
+          Get tappd. Get paid.
         </p>
       </div>
     ),

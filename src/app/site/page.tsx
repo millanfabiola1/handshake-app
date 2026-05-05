@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import Site2Content from './Site2Content'
 
 export const metadata: Metadata = {
-  title: "tappd — Tap. Text. Get Paid.",
+  title: "tappd — Get tappd. Get paid.",
   description: "No apps. No links. Just text the people you work with and get paid instantly. Zero fees.",
 }
 
